@@ -9,8 +9,8 @@ const Header = () => {
 
     return (
         <SHeader>
-            {PATH.map(({link, title}) => (
-                <SHeaderItem onClick={() => navigate(link)}>
+            {PATH.map(({link, title}, i) => (
+                <SHeaderItem key={i} onClick={() => navigate(link)}>
                     {title}
                 </SHeaderItem>
             ))}

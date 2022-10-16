@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 
-export const SPageWrapper = styled.div(() => ({
-    //
+export const SPageWrapper = styled.div((props) => ({
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
 }))
 
 export const SPageContent = styled.div(() => ({
