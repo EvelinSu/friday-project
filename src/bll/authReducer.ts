@@ -5,10 +5,10 @@ const initialState: TAuth = {
 
 }
 
-export const authReducer = (state: TAuth = initialState, action: TActions): TAuth => {
+export const authReducer = (state: TAuth = initialState, action: TAuthActions): TAuth => {
     return state
 }
 
-type TActions = {}
+export type TAuthActions = {}
 
 
