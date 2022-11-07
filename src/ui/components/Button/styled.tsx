@@ -1,5 +1,4 @@
 import styled, {css, keyframes} from "styled-components";
-import {baseTheme} from "../../styles/constants";
 
 const buttonLoad = keyframes`
   0% {
@@ -25,7 +24,7 @@ export const SButton = styled.button<TSButton>`
     white-space: nowrap;
     padding: 7px 15px;
     border-radius: 20px;
-    background-color: ${props => props.backgroundColor || baseTheme.colors.button.success};
+    background-color: ${props => props.backgroundColor || props.theme.colors.button.success};
     color: #fff;
     cursor: pointer;
     transition: 0.2s;
