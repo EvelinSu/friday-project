@@ -1,5 +1,7 @@
-import React, {FC} from 'react';
-import {DefaultHTMLButtonType, SButton, SLoadingButton} from "./styled";
+import React, {DetailedHTMLProps, FC} from 'react';
+import { SButton, SLoadingButton} from "./styled";
+
+export type DefaultHTMLButtonType = DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 type TButtonProps = DefaultHTMLButtonType & {
     label: string,

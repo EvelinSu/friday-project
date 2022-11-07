@@ -1,21 +1,21 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {Property} from "csstype";
 
-type TSTextProps = {
+interface TSTextProps {
     isEllipsis?: boolean,
-    opacity?: string | number,
+    opacity?: string,
     fontWeight?: Property.FontWeight,
     fontSize?: Property.FontSize,
     margin?: string
 }
-export const SText = styled.span<TSTextProps>((props) => ({
-    opacity: props.opacity,
-    fontWeight: props.fontWeight,
-    margin: props.margin,
-    fontSize: props.fontSize,
-    ...props.isEllipsis && {
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-    }
-}))
+export const SText = styled.span<TSTextProps>`
+    opacity: ${props => props.opacity};
+    font-weight: ${props => props.fontWeight};
+    margin: ${props => props.margin};
+    font-size: ${props => props.fontSize};
+    ${props => props.isEllipsis && css`
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    `}
+`

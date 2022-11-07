@@ -1,7 +1,6 @@
-export const theme = {
+export const baseTheme = {
     colors: {
-        primaryDarkAlpha: "rgba(34,39,68,0.84)",
-        primaryDark: "#272c4a",
+
         primary: "#293254",
         primaryLight: "#3f4e6e",
         primaryLighter: "#6d86a2",
@@ -13,11 +12,7 @@ export const theme = {
         text: "#eaeaea",
 
         status: {
-          error: "#dc6666",
-        },
-        message: {
-            default: "#293657",
-            mine: "#4a66a1"
+            error: "#dc6666",
         },
         button: {
             success: "#5e81b4",
@@ -29,8 +24,17 @@ export const theme = {
         }
     },
     blockSettings: {
-        borderRadius: 15,
+        borderRadius: '15px',
     },
+
+    media: {
+        extraLarge: 1140,
+        large: 960,
+        medium: 720,
+        small: 540,
+    },
+
+    //z-index
     orders: {
         inputErrors: 2
     }

@@ -2,12 +2,12 @@ import styled from "styled-components";
 import {SText} from "./SText";
 
 
-type TSTitleProps = {
+interface TSTitleProps {
     color?: string
-    fontSize?: string | number
+    fontSize?: string
 }
-export const STitle = styled(SText)<TSTitleProps>((props) => ({
-    fontWeight: "bold",
-    fontSize: props.fontSize || 18,
-    color: props.color
-}))
+export const STitle = styled(SText)<TSTitleProps>`
+    font-weight: bold;
+    font-size: ${props => props.fontSize || '18px'};
+    color: ${props => props.color};
+`

@@ -4,7 +4,7 @@ import {Box} from "../Box/Box";
 
 export type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 export type TInputProps = DefaultInputPropsType & {
-    icon?: any
+    icon?: React.ReactNode
     error?: string
 }
 
@@ -34,8 +34,7 @@ const Input: React.FC<TInputProps> = ({...props}) => {
                 name={props.name}
                 value={props.value}
                 onBlur={onBlur}
-                onError={() => alert('awfpj')}
-
+                onError={props.onError}
             />
         </SInputWrapper>
     );
