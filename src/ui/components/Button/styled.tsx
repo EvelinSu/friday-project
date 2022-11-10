@@ -52,10 +52,10 @@ export const SButton = styled.button<TSButton>`
 `
 
 export const SLoadingButton = styled(SButton)`
-  pointer-events: none;
-  animation: 1s ${buttonLoad} ease-out infinite;
-  background-color: ${({theme}) => theme.colors.button.cancel};
-  opacity: 1;
-  transition: 0.2s;
+    pointer-events: none;
+    animation: 1s ${buttonLoad} ease-out infinite;
+    background-color: ${({theme}) => theme.colors.button.cancel};
+    opacity: 1;
+    transition: 0.2s;
 `
 
