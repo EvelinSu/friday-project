@@ -5,26 +5,27 @@ import SignUp from "./SignUp/SignUp";
 import Profile from "./Profile/Profile";
 import RecoverPassword from "./RecoverPassword/RecoverPassword";
 import ChangePassword from "./ChangePassword/ChangePassword";
-import Test from "./Test/Test";
 import PageNotFound from "./PageNotFound/NotFound";
 
-export const PATH = [
-    {link: '/signUp', title: 'Sign up', element: <SignUp />},
-    {link: '/signIn', title: 'Sign in', element: <SignIn />},
-    {link: '/profile', title: 'Profile', element: <Profile />},
-    {link: '/recoverPassword', title: 'Recover password', element: <RecoverPassword />},
-    {link: '/changePassword', title: 'Change password', element: <ChangePassword />},
-    {link: '/test', title: 'Test', element: <Test />},
-    {link: '*', title: '404', element: <PageNotFound />},
-]
+export const PATH = {
+    profile:'/profile',
+    signIn: '/signIn',
+    signUp: '/signUp',
+    recoverPassword: '/recoverPassword',
+    changePassword: '/changePassword',
+}
 
 const Pages = () => {
+
     return (
         <Routes>
-            <Route path={'/'} element={<Navigate to={'/profile'} />} />
-            {PATH.map(({link, element}, i) => (
-                <Route key={i} path={link} element={element} />
-            ))}
+            <Route path={'/'} element={<Navigate to={PATH.profile} />} />
+            <Route path={PATH.profile} element={<Profile />} />
+            <Route path={PATH.signIn} element={<SignIn/>} />
+            <Route path={PATH.signUp} element={<SignUp/>} />
+            <Route path={PATH.recoverPassword} element={<RecoverPassword/>} />
+            <Route path={PATH.changePassword} element={<ChangePassword/>} />
+            <Route path={'*'} element={<PageNotFound/>} />
         </Routes>
     );
 };

@@ -17,6 +17,8 @@ type TBoxProps = {
     overflow?: Property.OverflowY | Property.OverflowX,
     flexWrap?: Property.FlexWrap,
     flexGrow?: Property.FlexGrow,
+    cursor?: Property.Cursor
+    disabled?: boolean
 }
 
 export const Box = styled.div<TBoxProps>((props)=> ({
@@ -24,7 +26,7 @@ export const Box = styled.div<TBoxProps>((props)=> ({
     flexDirection: props.flexDirection,
     alignItems: props.alignItems,
     justifyContent: props.justifyContent,
-    columnGap: props.gap || 30,
+    columnGap: props.gap || 20,
     rowGap: props.gap || 10,
     margin: props.margin,
     padding: props.padding,
@@ -37,4 +39,10 @@ export const Box = styled.div<TBoxProps>((props)=> ({
     overflow: props.overflow,
     flexWrap: props.flexWrap,
     flexGrow: props.flexGrow,
+    cursor: props.cursor,
+    ...props.cursor === "pointer" && {
+        "&:hover": {
+            opacity: 0.8
+        }
+    },
 }))

@@ -27,9 +27,12 @@ export const SButton = styled.button<TSButton>`
     background-color: ${props => props.backgroundColor || props.theme.colors.button.success};
     color: #fff;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.1s;
     &:hover {
-        opacity: 0.8
+        box-shadow: inset 0 0 30px 30px rgba(255, 255, 255, 0.2);
+    }
+    &:active {
+        box-shadow: inset 0 0 30px 30px rgba(255, 255, 255, 0.1);
     }
     ${props => props.disabled && css`
         opacity: 0.4;
