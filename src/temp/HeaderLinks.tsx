@@ -18,7 +18,7 @@ const HeaderLinks = () => {
 
         }}>
             {Object.values(PATH).map(el => (
-                <div style={{padding: 10, cursor: "pointer"}} key={el} onClick={() => navigate(el)}>
+                <div style={{padding: 10, cursor: "pointer", userSelect: "none"}} key={el} onClick={() => navigate(el)}>
                     {el}
                 </div>
             ))}
