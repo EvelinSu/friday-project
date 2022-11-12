@@ -4,13 +4,14 @@ import {AxiosError} from "axios";
 import {TAppDispatch} from "./store/store";
 import {setIsLoggedInAC} from "./authReducer";
 
-export type TAuth = {
+export type TApp = {
     isInitialized: boolean
+    errors: string[]
 }
-const initialState: TAuth = {
-    isInitialized: false
+const initialState: TApp = {
+    isInitialized: false,
+    errors: ['Some errorSome errorSome errorSome errorSome errorSome errorSome error', 'Some error']
 }
-
 
 const slice = createSlice({
     name: 'app',
@@ -18,23 +19,25 @@ const slice = createSlice({
     reducers: {
         setIsInitialized(state, action: PayloadAction<{ value: boolean }>) {
             state.isInitialized = action.payload.value
-        }
+        },
+        setAppError(state, action: PayloadAction<string | string[]>) {
+            if(typeof action.payload === "string") state.errors.push(action.payload)
+            else state.errors = action.payload
+        },
     },
 
 })
 
 export const appReducer = slice.reducer
-export const  {setIsInitialized} = slice.actions
-
-
+export const {setIsInitialized, setAppError} = slice.actions
 
 export const authMeTC = () => (dispatch: TAppDispatch) => {
     authAPI.authMe()
-        .then(() => {
-            dispatch(setIsLoggedInAC({value: true}))
-            dispatch(setIsInitialized({value: true}))
-        })
-        .catch( (e:AxiosError) => {
-            console.log(e)
-        })
+           .then(() => {
+               dispatch(setIsLoggedInAC({value: true}))
+               dispatch(setIsInitialized({value: true}))
+           })
+           .catch((e: AxiosError) => {
+               console.log(e)
+           })
 }

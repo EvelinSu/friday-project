@@ -8,6 +8,7 @@ import {baseTheme} from "./ui/styles/constants";
 import HeaderLinks from "./temp/HeaderLinks";
 import {useAppDispatch} from "./hooks/hooks";
 import {authMeTC} from "./bll/appReducer";
+import Notification from "./ui/components/Notification/Notification";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -21,6 +22,7 @@ function App() {
                 <SSiteWrapper>
                     <Header />
                     <Pages />
+                    <Notification/>
                     <HeaderLinks/>
                 </SSiteWrapper>
             </HashRouter>

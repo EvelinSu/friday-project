@@ -23,7 +23,7 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
             position: absolute;
             color: #fff;
             left: calc(100% + 10px);
-            background-color: ${props.theme.colors.status.error};
+            background-color: ${props.theme.colors.severity.error};
             padding: 3px 10px;
             font-size: 12px;
             max-width: 160px;
@@ -79,9 +79,9 @@ export const SInput = styled.input<TSInputProps>`
         opacity: 1;
     }
     ${props => props.isError && css`
-     outline: ${({theme}) => `1px solid ${theme.colors.status.error}`};
+     outline: ${({theme}) => `1px solid ${theme.colors.severity.error}`};
         &:focus {
-            outline:${({theme}) => `1px solid ${theme.colors.status.error}`};
+            outline:${({theme}) => `1px solid ${theme.colors.severity.error}`};
         }
     `}
 `

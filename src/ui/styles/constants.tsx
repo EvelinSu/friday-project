@@ -8,8 +8,8 @@ export const baseTheme = {
 
         text: "#eaeaea",
 
-        status: {
-            error: "#b95252"
+        severity: {
+            error: "#ce5252"
         },
         input: {
             default: "rgba(0, 0, 0, 0.08)",
@@ -30,6 +30,7 @@ export const baseTheme = {
     //z-index
     orders: {
         inputErrors: 2,
-        modal: 10
+        modal: 10,
+        notifications: 15
     }
 }
