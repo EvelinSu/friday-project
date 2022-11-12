@@ -9,8 +9,8 @@ import {useNavigate} from "react-router-dom";
 import {PATH} from "../../pages/Pages";
 
 type THeaderPanelProps = {
-    avatar: string,
-    name: string,
+    avatar: string | null | undefined,
+    name: string | null,
 }
 
 const HeaderPanel: FC<THeaderPanelProps> = (props) => {
@@ -29,7 +29,7 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
                 <SText isEllipsis>
                     {props.name}
                 </SText>
-                <Avatar size={'sm'} img={props.avatar} />
+                <Avatar size={'sm'} img={props.avatar ? props.avatar: ''} />
             </Box>
         </Box>
     );

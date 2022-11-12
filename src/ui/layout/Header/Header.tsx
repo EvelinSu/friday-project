@@ -7,31 +7,24 @@ import SignInIcon from "../../assets/icons/SignInIcon";
 import {SText} from '../../components/Text/SText';
 import HeaderPanel from "./HeaderPanel";
 import {PATH} from "../../pages/Pages";
+import {useAppSelector} from "../../../hooks/hooks";
 
 const Header = () => {
 
     const navigate = useNavigate()
     const location = useLocation()
 
-    // временное
-    const auth = {
-        isAuth: false,
-        account: {
-            avatar: 'https://i.imgur.com/WuVqEnk.png',
-            name: "Pushok"
-        }
-    }
-    //
+    const {isLoggedIn, userData} = useAppSelector(state => state.auth)
 
     return (
         <SHeader>
             <SHeaderLogo onClick={() => navigate("/")}>
                 <Logo />
             </SHeaderLogo>
-            {auth.isAuth
+            {isLoggedIn
                 ? <HeaderPanel
-                    name={auth.account.name}
-                    avatar={auth.account.avatar}
+                    name={userData.name}
+                    avatar={userData.avatar}
                 />
                 : <SHeaderButton
                     disabled={location.pathname.includes(PATH.signIn)}
