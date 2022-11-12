@@ -13,6 +13,7 @@ import {changeUserProfileTC, logOutTC} from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
 import {setAppError} from "../../../bll/appReducer";
+import {SProfileContent} from "./styled";
 
 const Profile = () => {
 
@@ -64,7 +65,7 @@ const ProfileModalBody = () => {
 
     return (
         <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
-            <Box gap={30} alignItems={"center"}>
+            <SProfileContent>
                 <Avatar
                     size={"lg"}
                     img={avatar || defaultPhoto}
@@ -87,7 +88,7 @@ const ProfileModalBody = () => {
                         {email}
                     </SText>
                 </Box>
-            </Box>
+            </SProfileContent>
             <Box justifyContent={"center"}>
                 <Button
                     label={'Log out'}
