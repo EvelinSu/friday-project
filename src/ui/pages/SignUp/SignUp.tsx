@@ -17,7 +17,7 @@ import {registerTC} from "../../../bll/registerReducer";
 const SignUp = () => {
     return (
         <SPageWrapper>
-            <Modal title={"Sign Up"} body={<SignUpForm/>}/>
+            <Modal title={"Sign Up"} body={<SignUpForm />} />
         </SPageWrapper>
     );
 };
@@ -27,7 +27,6 @@ const SignUpForm = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const isRegistered = useAppSelector(state => state.registration.isRegistered)
-
 
     const {
         handleBlur,
@@ -44,12 +43,15 @@ const SignUpForm = () => {
             confirmPassword: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string().email('Invalid email address').required('Required'),
-            password: Yup.string().required('Required'),
-            confirmPassword: Yup
-                .string()
-                .oneOf([Yup.ref('password'), null], 'Passwords must match')
-                .required('Required')
+            email: Yup.string()
+                      .email('Invalid email address')
+                      .required('Required'),
+            password: Yup.string()
+                         .required('Required')
+                         .min(6, ('Must be more than 6')),
+            confirmPassword: Yup.string()
+                                .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                                .required('Required')
         }),
         onSubmit: (values: RegisterDataType) => {
             dispatch(registerTC(values))
@@ -60,7 +62,7 @@ const SignUpForm = () => {
             navigate(PATH.signIn)
 
         }
-    }, [isRegistered])
+    }, [isRegistered, navigate])
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -99,7 +101,6 @@ const SignUpForm = () => {
                     required
                 />
             </Box>
-
             <Box flexDirection={"column"} alignItems={"center"}>
                 <Button
                     type="submit"

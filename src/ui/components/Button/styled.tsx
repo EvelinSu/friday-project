@@ -51,6 +51,7 @@ export const SButton = styled.button<TSButton>`
     `}
     ${props => props.hasIcon && css`
         gap: 10px;
+        padding: 10px 20px;
         svg {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;

@@ -8,6 +8,8 @@ import {SText} from '../../components/Text/SText';
 import HeaderPanel from "./HeaderPanel";
 import {PATH} from "../../pages/Pages";
 import {useAppSelector} from "../../../hooks/hooks";
+import defaultPhoto from "../../assets/img/default-photo.png"
+
 
 const Header = () => {
 
@@ -24,7 +26,7 @@ const Header = () => {
             {isLoggedIn
                 ? <HeaderPanel
                     name={userData.name || userData.email}
-                    avatar={userData.avatar}
+                    avatar={userData.avatar || defaultPhoto}
                 />
                 : <SHeaderButton
                     disabled={location.pathname.includes(PATH.signIn)}
