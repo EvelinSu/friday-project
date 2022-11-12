@@ -1,12 +1,13 @@
 import thunkMiddleware from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
-import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {authReducer} from "../authReducer";
+import {appReducer} from "../appReducer";
 
 
 export const store = configureStore({
     reducer: {
-        auth : authReducer
+        auth : authReducer,
+        app : appReducer
     },
     middleware : (getDefaultMiddleware) =>
         getDefaultMiddleware().prepend(thunkMiddleware)

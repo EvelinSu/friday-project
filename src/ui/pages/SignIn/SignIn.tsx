@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SPageWrapper} from '../styled';
 import Modal from "../../components/Modal/Modal";
 import Input from "../../components/Form/Input";
@@ -11,9 +11,7 @@ import {PATH} from "../Pages";
 import {SForm} from "../../components/Form/styled";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
-import {useSelector, useDispatch} from "react-redux";
 import {loginTC} from "../../../bll/authReducer";
-import {TAppDispatch, TRootState} from "../../../bll/store/store";
 import {LoginDataType} from "../../../dal/api";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 
@@ -56,8 +54,12 @@ const SignInForm = () => {
         }
     });
 
-    if (isLoggedIn) {
-        navigate(PATH.profile)}
+    //? проверить на правильность
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate(PATH.profile)}
+    },[isLoggedIn])
+
 
     return (
         <SForm onSubmit={handleSubmit}>
