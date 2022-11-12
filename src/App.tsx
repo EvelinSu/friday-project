@@ -11,7 +11,6 @@ import {authMeTC} from "./bll/appReducer";
 
 function App() {
     const dispatch = useAppDispatch()
-
     useEffect(() => {
         dispatch(authMeTC())
     },[])

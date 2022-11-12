@@ -20,7 +20,7 @@ export const authAPI = {
     }
 }
 
-
+// Данные, отправляемые на сервер  при логинезации
 export type LoginDataType = {
     email: string
     password: string
@@ -28,14 +28,17 @@ export type LoginDataType = {
     captcha?: string
 }
 
-
+// ответ при не верном введении логина или пароля
 export type ResponseType = {
     email: string
     error: string
     in: string
 }
 
-export type ResponseTypeLuk = {
+// ответ сервера при верном log/pass,
+// Ниже закоментированные не нужные данные, о которых нам вчера говорил Валера
+
+export type ResponseTypeLogin = {
     _id: string
     email: string
     rememberMe: boolean
@@ -51,23 +54,9 @@ export type ResponseTypeLuk = {
 }
 
 
-
-
-// "_id": "636f48b50bef0f1d4ed6cc56",
-//     "email": "laif17860@mail.ru",
-//     "rememberMe": false,
-//     "isAdmin": false,
-//     "name": "laif17860@mail.ru",
-//     "verified": false,
-//     "publicCardPacksCount": 0,
-//     "created": "2022-11-12T07:18:13.818Z",
-//     "updated": "2022-11-12T09:49:14.372Z",
-//     "__v": 0,
-//     "token": "44374c40-626f-11ed-8731-91861a92951a",
-//     "tokenDeathTime": 1668257354372
-
-
-// {
-//     "error": "you are not authorized /ᐠ-ꞈ-ᐟ\\",
-//     "in": "getMe/findUserByToken/User.findOne"
-// }
+// ответ с сервера при отсутсвии авториз. куки у юзера
+export type ResponseNotAuth =
+{
+    "error": string,
+    "in": string
+}
