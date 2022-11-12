@@ -1,5 +1,5 @@
 import React, {DetailedHTMLProps, FC} from 'react';
-import { SButton, SLoadingButton} from "./styled";
+import {SButton} from "./styled";
 
 export type DefaultHTMLButtonType = DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
@@ -19,23 +19,19 @@ const Button: FC<TButtonProps> = ({isDisabled, ...props}) => {
         props.onClick && props.onClick(e);
     };
     return (
-        !props.isLoading
-            ? (<SButton
-                type={props.type}
-                hasIcon={!!props.icon}
-                disabled={isDisabled}
-                onClick={(e) => onClickHandler(e)}
-                backgroundColor={props.backgroundColor}
-                size={props.size}
-                shadow={props.shadow}
-            >
-                {props.icon}
-                {props.label}
-            </SButton>)
-            : (<SLoadingButton>
-                {props.label}
-            </SLoadingButton>)
-
+        <SButton
+            type={props.type}
+            hasIcon={!!props.icon}
+            disabled={isDisabled}
+            onClick={(e) => onClickHandler(e)}
+            backgroundColor={props.backgroundColor}
+            size={props.size}
+            isLoading={props.isLoading}
+            shadow={props.shadow}
+        >
+            {props.icon}
+            {props.label}
+        </SButton>
     );
 };
 

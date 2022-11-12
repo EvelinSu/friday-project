@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {SPageWrapper} from '../styled';
 import Modal from "../../components/Modal/Modal";
 import Input from "../../components/Form/Input";
@@ -6,7 +6,7 @@ import {Box} from "../../components/Box/Box";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import {SText} from '../../components/Text/SText';
 import Button from "../../components/Button/Button";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {PATH} from "../Pages";
 import {SForm} from "../../components/Form/styled";
 import {useFormik} from "formik";
@@ -27,7 +27,7 @@ const SignInForm = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const {isFetching} = useAppSelector(state => state.auth)
 
     const {
         handleBlur,
@@ -48,18 +48,11 @@ const SignInForm = () => {
             email: Yup.string().email('Invalid email address').required('Required'),
             password: Yup.string().required('Required'),
         }),
-        onSubmit: (values : LoginDataType) => {
-            // alert(JSON.stringify(values))
+        onSubmit: (values: LoginDataType) => {
             dispatch(loginTC(values))
+                .then(() => navigate(PATH.profile))
         }
     });
-
-    //? проверить на правильность
-    useEffect(() => {
-        if (isLoggedIn) {
-            navigate(PATH.profile)}
-    },[isLoggedIn])
-
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -106,6 +99,7 @@ const SignInForm = () => {
                     type="submit"
                     label={"Sign In"}
                     isDisabled={!isValid}
+                    isLoading={isFetching}
                     shadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>

@@ -41,6 +41,7 @@ const ProfileModalBody = () => {
 
     const auth = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
+    const {isFetching} = useAppSelector(state => state.auth)
     const {name, email, avatar} = auth.userData
 
     const [value, setValue] = useState(name)
@@ -94,6 +95,7 @@ const ProfileModalBody = () => {
                     label={'Log out'}
                     onClick={onLogoutHandler}
                     icon={<SignOutIcon />}
+                    isLoading={isFetching}
                     shadow
                 />
             </Box>

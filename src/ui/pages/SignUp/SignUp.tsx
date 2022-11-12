@@ -26,6 +26,7 @@ const SignUpForm = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const {isFetching} = useAppSelector(state => state.auth)
     const isRegistered = useAppSelector(state => state.registration.isRegistered)
 
     const {
@@ -105,6 +106,7 @@ const SignUpForm = () => {
                 <Button
                     type="submit"
                     label={"Sign Up"}
+                    isLoading={isFetching}
                     isDisabled={!isValid}
                     shadow
                 />

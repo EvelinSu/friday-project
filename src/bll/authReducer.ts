@@ -12,6 +12,7 @@ export type TAuth = {
         avatar?: string | null
     }
     isLoggedIn: boolean
+    isFetching: boolean
 }
 const initialState: TAuth = {
     userData: {
@@ -20,7 +21,8 @@ const initialState: TAuth = {
         email: null,
         avatar: null
     },
-    isLoggedIn: false
+    isLoggedIn: false,
+    isFetching: false
 }
 
 const slice = createSlice({
@@ -36,13 +38,16 @@ const slice = createSlice({
         setUserProfile(state, action: PayloadAction<ProfileDataType>) {
             state.userData.avatar = action.payload.avatar
             if (action.payload.name) state.userData.name = action.payload.name
-        }
+        },
+        setIsFetching(state, action: PayloadAction<boolean>) {
+            state.isFetching = action.payload
+        },
     }
 })
 
 export const authReducer = slice.reducer
 
-export const {setIsLoggedIn, setUserData, setUserProfile} = slice.actions
+export const {setIsLoggedIn, setUserData, setUserProfile, setIsFetching} = slice.actions
 
 export const authMeTC = () => async (dispatch: TAppDispatch) => {
     dispatch(setAppStatus('loading'))
@@ -51,42 +56,36 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
                const {id, name, email, avatar} = res.data
                dispatch(setUserData({id, name, email, avatar}))
                dispatch(setIsLoggedIn({value: true}))
-               dispatch(setIsInitialized({value: true}))
            })
            .catch((e: AxiosError) => {
                dispatch(setIsLoggedIn({value: false}))
                dispatch(setAppError(e.message))
            })
+           .finally(() => dispatch(setIsInitialized({value: true})))
 }
 
-export const loginTC = (data: LoginDataType) => (dispatch: TAppDispatch) => {
+export const loginTC = (data: LoginDataType) => async (dispatch: TAppDispatch) => {
+    dispatch(setIsFetching(true))
     authAPI.login(data)
            .then((res) => {
                const {id, name, email, avatar} = res.data
                dispatch(setUserData({id, name, email, avatar}))
                dispatch(setIsLoggedIn({value: true}))
            })
-           .catch((e: AxiosError) => {
-               dispatch(setAppError(e.message))
-           })
+           .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+           .finally(() => dispatch(setIsFetching(false)))
 }
 
 export const logOutTC = () => (dispatch: TAppDispatch) => {
+    dispatch(setIsFetching(true))
     authAPI.logOut()
-           .then(() => {
-               dispatch(setIsLoggedIn({value: false}))
-           })
-           .catch((e: AxiosError) => {
-               dispatch(setAppError(e.message))
-           })
+           .then(() => dispatch(setIsLoggedIn({value: false})))
+           .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+           .finally(() => dispatch(setIsFetching(false)))
 }
 
 export const changeUserProfileTC = (data: ProfileDataType) => (dispatch: TAppDispatch) => {
     authAPI.changeUserProfile(data)
-           .then(() => {
-               dispatch(setUserProfile(data))
-           })
-           .catch((e: AxiosError) => {
-               dispatch(setAppError(e.message))
-           })
+           .then(() => dispatch(setUserProfile(data)))
+           .catch((e: AxiosError) => dispatch(setAppError(e.message)))
 }

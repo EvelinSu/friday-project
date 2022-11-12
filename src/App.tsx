@@ -7,12 +7,16 @@ import {ThemeProvider} from "styled-components";
 import {baseTheme} from "./ui/styles/constants";
 import Notification from "./ui/components/Notification/Notification";
 import HeaderLinks from "./temp/HeaderLinks";
+import {useAppSelector} from "./hooks/hooks";
+import GlobalLoader from "./ui/components/Loaders/GlobalLoader";
 
 function App() {
+    const {isInitialized} = useAppSelector(state => state.app)
 
     return (
         <ThemeProvider theme={baseTheme}>
             <HashRouter>
+                {!isInitialized && <GlobalLoader/>}
                 <SSiteWrapper>
                     <Header />
                     <Pages />

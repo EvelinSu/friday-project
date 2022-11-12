@@ -8,6 +8,7 @@ import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../Pages";
+import {useAppSelector} from "../../../hooks/hooks";
 
 const ChangePassword = () => {
     return (
@@ -24,6 +25,7 @@ const ChangePassword = () => {
 const ChangePasswordForm = () => {
 
     const navigate = useNavigate()
+    const {isFetching} = useAppSelector(state => state.auth)
 
     return (
         <SForm>
@@ -41,6 +43,7 @@ const ChangePasswordForm = () => {
                 <Button
                     type="submit"
                     label={"Send"}
+                    isLoading={isFetching}
                     shadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>

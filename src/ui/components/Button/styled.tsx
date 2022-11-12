@@ -2,13 +2,13 @@ import styled, {css, keyframes} from "styled-components";
 
 const buttonLoad = keyframes`
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    opacity: 0.7;
   }
   50% {
-    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.3);
+    opacity: 0.4;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    opacity: 0.7;
   }
 `
 interface TSButton {
@@ -16,6 +16,7 @@ interface TSButton {
     size?: 'lg' | 'sm',
     hasIcon?: boolean,
     shadow?: boolean,
+    isLoading?: boolean
 }
 
 export const SButton = styled.button<TSButton>`
@@ -28,7 +29,7 @@ export const SButton = styled.button<TSButton>`
     background-color: ${props => props.backgroundColor || props.theme.colors.button.success};
     color: #fff;
     cursor: pointer;
-    transition: 0.1s;
+    transition: 0.2s;
     &:hover {
         box-shadow: inset 0 0 30px 30px rgba(255, 255, 255, 0.1);
     }
@@ -59,13 +60,11 @@ export const SButton = styled.button<TSButton>`
             height: 20px;
         }
     `}
+    ${props => props.isLoading && css`
+        animation: 2s ${buttonLoad} ease-out infinite;
+        pointer-events: none;
+        opacity: 1;
+    `}
 `
 
-export const SLoadingButton = styled(SButton)`
-    pointer-events: none;
-    animation: 1s ${buttonLoad} ease-out infinite;
-    background-color: ${({theme}) => theme.colors.primary};
-    opacity: 1;
-    transition: 0.2s;
-`
 

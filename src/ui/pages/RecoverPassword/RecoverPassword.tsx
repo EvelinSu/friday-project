@@ -6,6 +6,7 @@ import {Box} from "../../components/Box/Box";
 import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input";
+import {useAppSelector} from "../../../hooks/hooks";
 
 const RecoverPassword = () => {
     return (
@@ -20,6 +21,8 @@ const RecoverPassword = () => {
 };
 
 const RecoverPasswordForm = () => {
+
+    const {isFetching} = useAppSelector(state => state.auth)
 
     return (
         <SForm>
@@ -37,6 +40,7 @@ const RecoverPasswordForm = () => {
                 <Button
                     type="submit"
                     label={"Accept"}
+                    isLoading={isFetching}
                     shadow
                 />
             </Box>

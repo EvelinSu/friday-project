@@ -29,9 +29,7 @@ const Pages = () => {
     useLayoutEffect(() => {
         if (location.pathname.includes('login') && isLoggedIn) navigate(PATH.profile)
         if (!location.pathname.includes('login') && !isLoggedIn) navigate(PATH.signIn)
-    }, [location, navigate])
-
-    console.log('awpdjpo')
+    }, [location, navigate, isLoggedIn])
 
     useEffect(() => {
         dispatch(authMeTC())
