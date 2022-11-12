@@ -13,11 +13,11 @@ export const store = configureStore({
 })
 
 
-export type AppRootStateType = ReturnType<typeof store.getState>
+export type TRootStateType = ReturnType<typeof store.getState>
 
 // hook
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
-export const AppDispatch = typeof store.dispatch
+// export const useAppSelector: TypedUseSelectorHook<TRootStateType> = useSelector
+export type TAppDispatch = typeof store.dispatch
 
 // @ts-ignore
 window.store = store;
