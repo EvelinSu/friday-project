@@ -18,7 +18,15 @@ export const authAPI = {
         return instance.delete('auth/me')
     }
 }
-
+export const registrationAPI = {
+    register(data: RegisterDataType) {
+        return instance.post('auth/register', data)
+    }
+}
+export type RegisterDataType = {
+    email: string
+    password: string
+}
 // Данные, отправляемые на сервер  при логинезации
 export type LoginDataType = {
     email: string
