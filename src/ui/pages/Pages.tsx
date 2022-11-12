@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
@@ -7,6 +7,8 @@ import PageNotFound from "./PageNotFound/NotFound";
 import CheckEmail from "./CheckEmail/CheckEmail";
 import ChangePassword from "./ChangePassword/ChangePassword";
 import RecoverPassword from "./RecoverPassword/RecoverPassword";
+import {useAppDispatch} from "../../hooks/hooks";
+import {authMeTC} from "../../bll/appReducer";
 
 export const PATH = {
     profile:'/profile',
@@ -18,6 +20,12 @@ export const PATH = {
 }
 
 const Pages = () => {
+
+    const dispatch = useAppDispatch()
+
+    useLayoutEffect(() => {
+        dispatch(authMeTC())
+    },[dispatch])
 
     return (
         <Routes>

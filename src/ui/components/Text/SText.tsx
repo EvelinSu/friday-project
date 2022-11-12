@@ -10,6 +10,7 @@ interface TSTextProps {
     isLink?: boolean
     textAlign?: Property.TextAlign
     lineHeight?: Property.LineHeight
+    lineClamp?: number
 }
 
 export const SText = styled.span<TSTextProps>`
@@ -19,6 +20,12 @@ export const SText = styled.span<TSTextProps>`
     font-size: ${props => props.fontSize};
     line-height: ${props => props.lineHeight};
     text-align: ${props => props.textAlign};
+    ${props => props.lineClamp && css`
+        display: -webkit-box;
+        -webkit-line-clamp: ${props.lineClamp};
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    `}
     ${props => props.isEllipsis && css`
         white-space: nowrap;
         overflow: hidden;

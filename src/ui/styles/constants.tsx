@@ -2,14 +2,14 @@ export const baseTheme = {
     colors: {
         primary: "#7398CE",
         primaryDark: "#4F659E",
+        textOnPrimary: "#eaeaea",
 
         secondary: "#ECECEC",
         secondaryLight: "#FFFFFF",
-
-        text: "#eaeaea",
+        textOnSecondary: "#000",
 
         severity: {
-            error: "#ce5252"
+            error: "#ce5252",
         },
         input: {
             default: "rgba(0, 0, 0, 0.08)",
@@ -19,7 +19,7 @@ export const baseTheme = {
         }
     },
     sizes: {
-      headerHeight: 68,
+        headerHeight: 68,
     },
     media: {
         extraLarge: 1140,

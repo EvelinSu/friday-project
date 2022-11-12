@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useLayoutEffect} from 'react';
 import {SMainTitle, SPageWrapper} from "../styled";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
@@ -10,18 +10,18 @@ const Profile = () => {
 
     const dispatch = useAppDispatch()
     const auth = useAppSelector(state => state.auth)
-     const navigate = useNavigate()
+    const navigate = useNavigate()
     const {name, email} = auth.userData
 
-    const onclickHandler = () => {
+    const onClickHandler = () => {
         dispatch(logOutTC())
     }
 
-    useEffect(() => {
-        if(!auth.isLoggedIn) {
+    useLayoutEffect(() => {
+        if (!auth.isLoggedIn) {
             navigate(PATH.signIn)
         }
-    },[auth.isLoggedIn])
+    }, [auth.isLoggedIn, navigate])
 
     return (
         <SPageWrapper>
@@ -29,7 +29,7 @@ const Profile = () => {
                 Profile
                 <div>name : {name}</div>
                 <div>email : {email}</div>
-                <Button label={'Log out'} onClick={()=> onclickHandler()}/>
+                <Button label={'Log out'} onClick={onClickHandler} />
             </SMainTitle>
         </SPageWrapper>
     );

@@ -28,7 +28,7 @@ const ChangePasswordForm = () => {
     return (
         <SForm>
             <Box padding={"0 20px"} flexDirection={"column"}>
-                <SText opacity={0.5} textAlign={"center"}>
+                <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
                     Enter your email address and we will send you further instructions
                 </SText>
                 <Input

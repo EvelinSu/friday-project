@@ -24,7 +24,7 @@ const RecoverPasswordForm = () => {
     return (
         <SForm>
             <Box padding={"0 20px"} flexDirection={"column"}>
-                <SText lineHeight={24} opacity={0.5} textAlign={"center"}>
+                <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
                     Create new password and we will send you further instructions to email
                 </SText>
                 <Input

@@ -12,7 +12,7 @@ export const STextarea = styled.textarea<TSTextarea>`
     width: 100%;
     border: 1px solid transparent;
     ::placeholder {
-        color: ${({theme}) => theme.colors.text};
+        color: ${({theme}) => theme.colors.textOnPrimary};
         opacity: 0.3;
     }
     &:hover {

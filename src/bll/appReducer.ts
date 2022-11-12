@@ -2,15 +2,20 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../dal/api";
 import {AxiosError} from "axios";
 import {TAppDispatch} from "./store/store";
-import {setIsLoggedInAC} from "./authReducer";
+import {setIsLoggedIn} from "./authReducer";
+
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+
 
 export type TApp = {
     isInitialized: boolean
+    status: RequestStatusType,
     errors: string[]
 }
 const initialState: TApp = {
     isInitialized: false,
-    errors: ['Some errorSome errorSome errorSome errorSome errorSome errorSome error', 'Some error']
+    status: 'idle',
+    errors: []
 }
 
 const slice = createSlice({
@@ -24,20 +29,28 @@ const slice = createSlice({
             if(typeof action.payload === "string") state.errors.push(action.payload)
             else state.errors = action.payload
         },
+        setAppLastError(state) {
+            state.errors = state.errors.splice(0, state.errors.length - 1)
+        },
+        setAppStatus(state, action: PayloadAction<RequestStatusType>) {
+            state.status = action.payload
+        },
     },
 
 })
 
 export const appReducer = slice.reducer
-export const {setIsInitialized, setAppError} = slice.actions
+export const {setIsInitialized, setAppError, setAppLastError, setAppStatus} = slice.actions
 
 export const authMeTC = () => (dispatch: TAppDispatch) => {
+    dispatch(setAppStatus('loading'))
     authAPI.authMe()
            .then(() => {
-               dispatch(setIsLoggedInAC({value: true}))
+               dispatch(setIsLoggedIn({value: true}))
                dispatch(setIsInitialized({value: true}))
            })
            .catch((e: AxiosError) => {
-               console.log(e)
+               dispatch(setIsLoggedIn({value: true}))
+               dispatch(setAppError(e.message))
            })
 }

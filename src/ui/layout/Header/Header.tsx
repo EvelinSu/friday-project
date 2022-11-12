@@ -23,7 +23,7 @@ const Header = () => {
             </SHeaderLogo>
             {isLoggedIn
                 ? <HeaderPanel
-                    name={userData.name}
+                    name={userData.name || userData.email}
                     avatar={userData.avatar}
                 />
                 : <SHeaderButton

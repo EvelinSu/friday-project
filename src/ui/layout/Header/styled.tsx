@@ -4,7 +4,7 @@ export const SHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: ${({theme}) => theme.colors.text};
+    color: ${({theme}) => theme.colors.textOnPrimary};
     background-color: ${({theme}) => theme.colors.primaryDark};
     padding: 0 30px;
     max-height: ${({theme}) => theme.sizes.headerHeight + 'px'};
