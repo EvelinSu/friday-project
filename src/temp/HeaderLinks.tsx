@@ -13,6 +13,9 @@ const HeaderLinks = () => {
             position: "fixed",
             bottom: 10,
             left: 0,
+            maxWidth: "100%",
+            overflow: "auto"
+
         }}>
             {Object.values(PATH).map(el => (
                 <div style={{padding: 10, cursor: "pointer"}} key={el} onClick={() => navigate(el)}>

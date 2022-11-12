@@ -41,6 +41,7 @@ export const SModalHeader = styled.div`
     padding-bottom: 20px;
     font-size: 26px;
     font-weight: 600;
+    text-align: center;
     color: ${({theme}) => theme.colors.primaryDark}
 `
 

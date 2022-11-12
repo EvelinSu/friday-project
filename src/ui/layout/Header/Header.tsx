@@ -37,7 +37,7 @@ const Header = () => {
                     disabled={location.pathname.includes(PATH.signIn)}
                     onClick={() => navigate(PATH.signIn)}
                 >
-                    <SText>
+                    <SText isEllipsis>
                         Sign In
                     </SText>
                     <IconButton icon={<SignInIcon />} />

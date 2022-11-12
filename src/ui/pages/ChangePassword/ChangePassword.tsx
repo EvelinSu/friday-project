@@ -46,7 +46,7 @@ const ChangePasswordForm = () => {
                     shadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>
-                    <SText>
+                    <SText textAlign={"center"}>
                         Did you remember your password?
                     </SText>
                     <SText onClick={() => navigate(PATH.signIn)} isLink>

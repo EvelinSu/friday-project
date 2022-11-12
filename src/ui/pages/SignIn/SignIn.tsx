@@ -74,7 +74,7 @@ const SignInForm = () => {
                     required
                 />
             </Box>
-            <Box justifyContent={"space-between"} alignItems={"center"}>
+            <Box flexWrap={"wrap"} alignItems={"center"}>
                 <Checkbox
                     label={"Remember me"}
                     type="checkbox"
@@ -82,9 +82,11 @@ const SignInForm = () => {
                     checked={values.rememberMe}
                     onChange={(event) => setFieldValue("rememberMe", event.target.checked)}
                 />
-                <SText isLink onClick={() => navigate(PATH.recoverPassword)}>
-                    Forgot password?
-                </SText>
+                <Box margin={"0 0 0 auto"}>
+                    <SText isLink onClick={() => navigate(PATH.recoverPassword)}>
+                        Forgot password?
+                    </SText>
+                </Box>
             </Box>
             <Box flexDirection={"column"} alignItems={"center"}>
                 <Button
@@ -94,7 +96,7 @@ const SignInForm = () => {
                     shadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>
-                    <SText>
+                    <SText textAlign={"center"}>
                         Don't you have an account?
                     </SText>
                     <SText onClick={() => navigate(PATH.signUp)} isLink>
