@@ -26,14 +26,25 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
             background-color: ${props.theme.colors.status.error};
             padding: 3px 10px;
             font-size: 12px;
+            max-width: 160px;
+            width: max-content;
             z-index: ${props.theme.orders.inputErrors};
             border-radius: 5px;
             opacity: 0;
+            visibility: hidden;
             transition: 0.2s;
+            @media all and (max-width: 800px) {
+                left: initial;
+                right: 10px;
+                margin: 0 auto;
+                bottom: 8px;
+            }
         }
         &:hover {
             &:after {
-                opacity: 1
+                opacity: 1;
+                visibility: visible;
+
             }
         }
     `}
