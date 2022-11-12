@@ -7,10 +7,9 @@ export const SHeader = styled.div`
     color: ${({theme}) => theme.colors.text};
     background-color: ${({theme}) => theme.colors.primaryDark};
     padding: 0 30px;
-    max-height: 68px;
+    max-height: ${({theme}) => theme.sizes.headerHeight + 'px'};
+    min-height: ${({theme}) => theme.sizes.headerHeight + 'px'};
     gap: 20px;
-    min-height: 68px;
-    margin: 10px;
     border-radius: 20px;
     overflow: auto;
 `

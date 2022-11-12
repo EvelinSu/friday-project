@@ -11,6 +11,7 @@ type TButtonProps = DefaultHTMLButtonType & {
     isLoading?: boolean
     icon?: React.ReactElement
     needAuth?: boolean
+    shadow?: boolean
 }
 
 const Button: FC<TButtonProps> = ({isDisabled, ...props}) => {
@@ -26,6 +27,7 @@ const Button: FC<TButtonProps> = ({isDisabled, ...props}) => {
                 onClick={(e) => onClickHandler(e)}
                 backgroundColor={props.backgroundColor}
                 size={props.size}
+                shadow={props.shadow}
             >
                 {props.icon}
                 {props.label}

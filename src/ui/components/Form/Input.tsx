@@ -6,6 +6,7 @@ export type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLIn
 export type TInputProps = DefaultInputPropsType & {
     icon?: React.ReactNode
     error?: string
+    title?: string
 }
 
 const Input: React.FC<TInputProps> = ({...props}) => {
@@ -16,15 +17,17 @@ const Input: React.FC<TInputProps> = ({...props}) => {
     const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         props.onBlur && props.onBlur(e)
     }
-    const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement> ) => {
+    const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
         props.onKeyUp && props.onKeyUp(e)
     }
 
     return (
-        <SInputWrapper error={props.error}>
-            <Box opacity={0.5}>
-                {props.icon}
-            </Box>
+        <SInputWrapper error={props.error} title={props.title}>
+            {props.icon && (
+                <Box opacity={0.5}>
+                    {props.icon}
+                </Box>
+            )}
             <SInput
                 placeholder={props.placeholder || 'Введите текст...'}
                 type={props.type}

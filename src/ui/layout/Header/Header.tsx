@@ -15,7 +15,7 @@ const Header = () => {
 
     // временное
     const auth = {
-        isAuth: true,
+        isAuth: false,
         account: {
             avatar: 'https://i.imgur.com/WuVqEnk.png',
             name: "Pushok"

@@ -23,7 +23,7 @@ export const SCheckbox = styled.input`
         width: 0;
         &:after {
             content: '';
-            background-color: ${({theme}) => theme.colors.primaryLightest};
+            background-color: ${({theme}) => theme.colors.primary};
             position: absolute;
             top: 6px;
             bottom: 6px;

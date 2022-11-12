@@ -27,7 +27,7 @@ export const Box = styled.div<TBoxProps>((props)=> ({
     alignItems: props.alignItems,
     justifyContent: props.justifyContent,
     columnGap: props.gap || 20,
-    rowGap: props.gap || 10,
+    rowGap: props.gap || 20,
     margin: props.margin,
     padding: props.padding,
     backgroundColor: props.backgroundColor,
