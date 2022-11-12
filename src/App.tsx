@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {HashRouter} from "react-router-dom";
 import {SSiteWrapper} from "./ui/layout/styled";
 import Header from "./ui/layout/Header/Header";
@@ -7,8 +7,16 @@ import {ThemeProvider} from "styled-components";
 import {baseTheme} from "./ui/styles/constants";
 import HeaderLinks from "./temp/HeaderLinks";
 import Notification from "./ui/components/Notification/Notification";
+import {useAppDispatch} from "./hooks/hooks";
+import {authMeTC} from "./bll/authReducer";
 
 function App() {
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(authMeTC())
+    }, [dispatch])
 
     return (
         <ThemeProvider theme={baseTheme}>
@@ -16,8 +24,8 @@ function App() {
                 <SSiteWrapper>
                     <Header />
                     <Pages />
-                    <Notification/>
-                    <HeaderLinks/>
+                    <Notification />
+                    <HeaderLinks />
                 </SSiteWrapper>
             </HashRouter>
         </ThemeProvider>
