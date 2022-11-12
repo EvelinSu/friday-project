@@ -3,9 +3,10 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
 import Profile from "./Profile/Profile";
-import RecoverPassword from "./RecoverPassword/RecoverPassword";
-import ChangePassword from "./ChangePassword/ChangePassword";
 import PageNotFound from "./PageNotFound/NotFound";
+import CheckEmail from "./CheckEmail/CheckEmail";
+import ChangePassword from "./ChangePassword/ChangePassword";
+import RecoverPassword from "./RecoverPassword/RecoverPassword";
 
 export const PATH = {
     profile:'/profile',
@@ -13,6 +14,7 @@ export const PATH = {
     signUp: '/signUp',
     recoverPassword: '/recoverPassword',
     changePassword: '/changePassword',
+    checkEmail: '/checkEmail',
 }
 
 const Pages = () => {
@@ -25,6 +27,7 @@ const Pages = () => {
             <Route path={PATH.signUp} element={<SignUp/>} />
             <Route path={PATH.recoverPassword} element={<RecoverPassword/>} />
             <Route path={PATH.changePassword} element={<ChangePassword/>} />
+            <Route path={PATH.checkEmail} element={<CheckEmail/>} />
             <Route path={'*'} element={<PageNotFound/>} />
         </Routes>
     );

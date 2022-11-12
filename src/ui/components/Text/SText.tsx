@@ -9,6 +9,7 @@ interface TSTextProps {
     margin?: string
     isLink?: boolean
     textAlign?: Property.TextAlign
+    lineHeight?: Property.LineHeight
 }
 
 export const SText = styled.span<TSTextProps>`
@@ -16,6 +17,7 @@ export const SText = styled.span<TSTextProps>`
     font-weight: ${props => props.fontWeight};
     margin: ${props => props.margin};
     font-size: ${props => props.fontSize};
+    line-height: ${props => props.lineHeight};
     text-align: ${props => props.textAlign};
     ${props => props.isEllipsis && css`
         white-space: nowrap;
