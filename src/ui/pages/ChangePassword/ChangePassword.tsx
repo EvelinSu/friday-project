@@ -3,11 +3,11 @@ import {SPageWrapper} from "../styled";
 import Modal from "../../components/Modal/Modal";
 import {SForm} from "../../components/Form/styled";
 import {Box} from "../../components/Box/Box";
+import Input from "../../components/Form/Input";
 import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
-import Input from "../../components/Form/Input";
-import {PATH} from "../Pages";
 import {useNavigate} from "react-router-dom";
+import {PATH} from "../Pages";
 
 const ChangePassword = () => {
     return (
@@ -20,8 +20,6 @@ const ChangePassword = () => {
         </SPageWrapper>
     );
 };
-
-
 
 const ChangePasswordForm = () => {
 
@@ -57,5 +55,6 @@ const ChangePasswordForm = () => {
         </SForm>
     )
 }
+
 
 export default ChangePassword;

@@ -3,9 +3,9 @@ import {SPageWrapper} from "../styled";
 import Modal from "../../components/Modal/Modal";
 import {SForm} from "../../components/Form/styled";
 import {Box} from "../../components/Box/Box";
-import Input from "../../components/Form/Input";
 import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
+import Input from "../../components/Form/Input";
 
 const RecoverPassword = () => {
     return (
@@ -24,7 +24,7 @@ const RecoverPasswordForm = () => {
     return (
         <SForm>
             <Box padding={"0 20px"} flexDirection={"column"}>
-                <SText opacity={0.5} textAlign={"center"}>
+                <SText lineHeight={24} opacity={0.5} textAlign={"center"}>
                     Create new password and we will send you further instructions to email
                 </SText>
                 <Input
@@ -43,5 +43,6 @@ const RecoverPasswordForm = () => {
         </SForm>
     )
 }
+
 
 export default RecoverPassword;
