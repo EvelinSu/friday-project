@@ -1,14 +1,19 @@
-export type TAuth = {
+import {createSlice} from "@reduxjs/toolkit";
 
-}
-const initialState: TAuth = {
+export type TAuth = {}
+const initialState: TAuth = {}
 
-}
 
-export const authReducer = (state: TAuth = initialState, action: TAuthActions): TAuth => {
-    return state
-}
+const slice = createSlice({
+    name: 'auth',
+    initialState: initialState,
+    reducers: {}
+})
 
-export type TAuthActions = {}
+export const authReducer = slice.reducer
+
+
+
+// export type TAuthActions = {}
 
 

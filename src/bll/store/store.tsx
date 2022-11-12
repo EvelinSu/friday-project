@@ -1,17 +1,23 @@
-import {applyMiddleware, AnyAction, combineReducers, legacy_createStore} from "redux";
-import {authReducer, TAuthActions} from "../authReducer";
-import thunkMiddleware, {ThunkDispatch} from "redux-thunk"
+import thunkMiddleware from "redux-thunk";
+import {configureStore} from "@reduxjs/toolkit";
+import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {authReducer} from "../authReducer";
 
-const rootReducer = combineReducers({
-    auth: authReducer
+
+export const store = configureStore({
+    reducer: {
+        auth : authReducer
+    },
+    middleware : (getDefaultMiddleware) =>
+        getDefaultMiddleware().prepend(thunkMiddleware)
 })
 
 
-const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
+export type AppRootStateType = ReturnType<typeof store.getState>
 
-export type TAppDispatch = ThunkDispatch<TRootState, undefined, AnyAction>;
+// hook
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+export const AppDispatch = typeof store.dispatch
 
-export type TRootState = ReturnType<typeof store.getState>
-export type TAppActions = TAuthActions
-
-export default store
+// @ts-ignore
+window.store = store;
