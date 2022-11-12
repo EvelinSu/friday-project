@@ -1,8 +1,4 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {authAPI} from "../dal/api";
-import {AxiosError} from "axios";
-import {TAppDispatch} from "./store/store";
-import {setIsLoggedIn} from "./authReducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -42,15 +38,3 @@ const slice = createSlice({
 export const appReducer = slice.reducer
 export const {setIsInitialized, setAppError, setAppLastError, setAppStatus} = slice.actions
 
-export const authMeTC = () => (dispatch: TAppDispatch) => {
-    dispatch(setAppStatus('loading'))
-    authAPI.authMe()
-           .then(() => {
-               dispatch(setIsLoggedIn({value: true}))
-               dispatch(setIsInitialized({value: true}))
-           })
-           .catch((e: AxiosError) => {
-               dispatch(setIsLoggedIn({value: false}))
-               dispatch(setAppError(e.message))
-           })
-}

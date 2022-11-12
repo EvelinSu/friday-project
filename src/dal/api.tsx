@@ -16,23 +16,34 @@ export const authAPI = {
     },
     logOut() {
         return instance.delete('auth/me')
+    },
+    changeUserProfile(data: ProfileDataType) {
+        return instance.put('auth/me', data)
     }
 }
+
 export const registrationAPI = {
     register(data: RegisterDataType) {
         return instance.post('auth/register', data)
     }
 }
+
 export type RegisterDataType = {
     email: string
     password: string
 }
-// Данные, отправляемые на сервер  при логинезации
+// Данные, отправляемые на сервер при логинизации
 export type LoginDataType = {
     email: string
     password: string
     rememberMe: boolean
     captcha?: string
+}
+
+// Смена имени и аватара
+export type ProfileDataType = {
+    avatar?: string,
+    name?: string
 }
 
 // ответ при не верном введении логина или пароля
@@ -43,7 +54,7 @@ export type ResponseType = {
 }
 
 // ответ сервера при верном log/pass,
-// Ниже закоментированные не нужные данные, о которых нам вчера говорил Валера
+// Ниже закомментированные не нужные данные, о которых нам вчера говорил Валера
 
 export type ResponseTypeLogin = {
     _id: string
@@ -61,7 +72,7 @@ export type ResponseTypeLogin = {
 }
 
 
-// ответ с сервера при отсутсвии авториз. куки у юзера
+// ответ с сервера при отсутствии авториз. куки у юзера
 export type ResponseNotAuth =
 {
     "error": string,
