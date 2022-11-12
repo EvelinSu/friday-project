@@ -12,6 +12,12 @@ export const SHeader = styled.div`
     gap: 20px;
     border-radius: 20px;
     overflow: auto;
+    ${({theme}) => css`
+        @media all and (max-width: ${theme.media.small + 'px'}) {
+            border-radius: 0;
+            padding: 0 20px;
+        }
+    `}
 `
 
 export const SHeaderLogo = styled.div`
@@ -20,6 +26,12 @@ export const SHeaderLogo = styled.div`
     margin-left: 10%;
     cursor: pointer;
     transition: 0.2s;
+    ${({theme}) => css`
+        @media all and (max-width: ${theme.media.small + 'px'}) {
+            margin-left: 0;
+            width: 130px;
+        }
+    `}
     &:hover {
         opacity: 0.8;
     }
