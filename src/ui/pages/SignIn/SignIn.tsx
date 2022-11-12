@@ -6,11 +6,16 @@ import {Box} from "../../components/Box/Box";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import {SText} from '../../components/Text/SText';
 import Button from "../../components/Button/Button";
-import {useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {PATH} from "../Pages";
 import {SForm} from "../../components/Form/styled";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
+import {useSelector, useDispatch} from "react-redux";
+import {loginTC} from "../../../bll/authReducer";
+import {TAppDispatch, TRootState} from "../../../bll/store/store";
+import {LoginDataType} from "../../../dal/api";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 
 const SignIn = () => {
     return (
@@ -23,6 +28,8 @@ const SignIn = () => {
 const SignInForm = () => {
 
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     const {
         handleBlur,
@@ -43,10 +50,14 @@ const SignInForm = () => {
             email: Yup.string().email('Invalid email address').required('Required'),
             password: Yup.string().required('Required'),
         }),
-        onSubmit: (values) => {
-            alert(JSON.stringify(values))
+        onSubmit: (values : LoginDataType) => {
+            // alert(JSON.stringify(values))
+            dispatch(loginTC(values))
         }
     });
+
+    if (isLoggedIn) {
+        navigate(PATH.profile)}
 
     return (
         <SForm onSubmit={handleSubmit}>
