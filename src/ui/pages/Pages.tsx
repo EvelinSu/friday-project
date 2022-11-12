@@ -19,7 +19,7 @@ const Pages = () => {
 
     return (
         <Routes>
-            <Route path={'/'} element={<Navigate to={PATH.profile} />} />
+            <Route path={'/'} element={<Navigate to={PATH.signIn} />} />
             <Route path={PATH.profile} element={<Profile />} />
             <Route path={PATH.signIn} element={<SignIn/>} />
             <Route path={PATH.signUp} element={<SignUp/>} />
