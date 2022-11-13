@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SPageWrapper} from "../styled";
 import Modal from "../../components/Modal/Modal";
 import {SForm} from "../../components/Form/styled";
@@ -7,6 +7,7 @@ import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input";
 import {useAppSelector} from "../../../hooks/hooks";
+import {useParams} from "react-router-dom";
 
 const RecoverPassword = () => {
     return (
@@ -23,6 +24,10 @@ const RecoverPassword = () => {
 const RecoverPasswordForm = () => {
 
     const {isFetching} = useAppSelector(state => state.auth)
+    const token = useParams()
+    useEffect(() => {
+        console.log(token)
+    },[])
 
     return (
         <SForm>
