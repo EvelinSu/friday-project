@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SPageWrapper} from "../styled";
 import Modal from "../../components/Modal/Modal";
 import {SForm} from "../../components/Form/styled";
@@ -18,7 +18,7 @@ const ChangePassword = () => {
         <SPageWrapper>
             <Modal
                 title={"Forgot your password?"}
-                body={<ChangePasswordForm />}
+                body={<ChangePasswordForm/>}
                 width={"390px"}
             />
         </SPageWrapper>
@@ -29,7 +29,7 @@ const ChangePasswordForm = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const isSending = useAppSelector(state => state.forgotPass.isSending)
+    const isSendLetter = useAppSelector(state => state.forgotPass.isSendLetter)
     const {isFetching} = useAppSelector(state => state.auth)
 
 
@@ -55,11 +55,11 @@ const ChangePasswordForm = () => {
     });
 
 
-
-
-    if (isSending) {
-    navigate(PATH.checkEmail)
-    }
+    useEffect(() => {
+        if (isSendLetter) {
+            navigate(PATH.checkEmail)
+        }
+    }, [isSendLetter])
 
 
     return (

@@ -7,28 +7,25 @@ import {setIsFetching} from "./authReducer";
 
 
 export type TForgotPass = {
-    isSending : boolean
-    token: string | null
+    isSendLetter : boolean
+    token: string
 }
 const initialState: TForgotPass = {
-    isSending : false,
-    token: null
+    isSendLetter : false,
+    token: 'waitToken'
 }
 
 const slice = createSlice({
     name: 'password',
     initialState: initialState,
     reducers: {
-        setStatusSendAC(state, action: PayloadAction<{ send: boolean}>) {
-            state.isSending = action.payload.send
+        setStatusSendAC(state, action: PayloadAction<{ isSendLetter: boolean}>) {
+            state.isSendLetter = action.payload.isSendLetter
         },
         setTokenAC(state, action:PayloadAction<{token: string}>) {
-            console.log(action.payload.token)
+            debugger
             state.token = action.payload.token
         }
-        // setIsRegisteredAC(state, action: PayloadAction<{ isRegistered: boolean }>) {
-        //     state.isRegistered = action.payload.isRegistered
-        // }
     }
 })
 
@@ -38,12 +35,24 @@ export const {setStatusSendAC,setTokenAC} = slice.actions
 
 
 export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
-    dispatch(setIsFetching(false))
+    dispatch(setIsFetching(true))
     forgotPassAPI.sendEmail(email)
         .then(() => {
-            // dispatch(setRegisterUserAC(data));
-            dispatch(setStatusSendAC({send : true}))
+            dispatch(setStatusSendAC({isSendLetter : true}))
         })
        .catch((e: AxiosError) => dispatch(setAppError(e.message)))
        .finally(() => dispatch(setIsFetching(false)))
+}
+
+
+export const sendNewPassTC = (password: string,token:string) => (dispatch: TAppDispatch) => {
+    dispatch(setIsFetching(true))
+
+        forgotPassAPI.sendNewPass(password,token)
+            .then((res) => {
+                console.log(res)
+                dispatch(setTokenAC({token : ''}))
+            })
+            .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+            .finally(() => dispatch(setIsFetching(false)))
 }

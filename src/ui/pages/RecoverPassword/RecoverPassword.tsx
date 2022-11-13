@@ -7,10 +7,11 @@ import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {useParams} from "react-router-dom";
-import {setTokenAC} from "../../../bll/forgotPassReducer";
+import {useNavigate, useParams} from "react-router-dom";
+import {sendNewPassTC, setTokenAC} from "../../../bll/forgotPassReducer";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {PATH} from "../Pages";
 
 const RecoverPassword = () => {
     return (
@@ -25,24 +26,19 @@ const RecoverPassword = () => {
 };
 
 const RecoverPasswordForm = () => {
+    const navigate = useNavigate()
 
     const {isFetching} = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
+    const isTokenFromState = useAppSelector(state => state.forgotPass.token)
     const {token} = useParams()
-    useEffect(() => {
-        if (token) {
-            dispatch(setTokenAC({token}))
-        }
-    },[])
-
-
-
-
+    // console.log('token', token)
 
     const {
         handleBlur,
         touched,
         handleChange,
+        handleSubmit,
         isValid,
         values,
         errors,
@@ -54,21 +50,29 @@ const RecoverPasswordForm = () => {
             password: Yup.string().required('Required'),
         }),
         onSubmit: (values: {password : string}) => {
+                token && dispatch(sendNewPassTC(values.password,token))
 
-            // dispatch(loginTC(values.password))
-                // .then(() => navigate(PATH.profile))
         }
     });
 
 
+    useEffect(() => {
+        if (!token || !isTokenFromState) {
+        // console.log('token', token)
+        navigate(PATH.profile)
+        } else if (token) {
+            token && dispatch(setTokenAC({token}))
+        }
+    },[isTokenFromState])
+
+
     return (
-        <SForm>
+        <SForm onSubmit={handleSubmit}>
             <Box padding={"0 20px"} flexDirection={"column"}>
                 <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
                     Create new password and we will send you further instructions to email
                 </SText>
                 <Input
-                    title={"Password"}
                     placeholder="Password"
                     onBlur={handleBlur}
                     onChange={handleChange}

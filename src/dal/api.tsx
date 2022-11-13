@@ -30,7 +30,7 @@ export const registrationAPI = {
 }
 
 export const forgotPassAPI = {
-    sendEmail(email:string) {
+    sendEmail(email: string) {
         return instance.post('auth/forgot', {
                 email: email,
                 from: "app Cards",
@@ -41,11 +41,11 @@ export const forgotPassAPI = {
             }
         )
     },
-    sendNewPass (pass : string, token : string) {
-        return instance.post('auth/set-new-password' ,  {
+    sendNewPass(pass: string, token: string) {
+        return instance.post('auth/set-new-password', {
             password: pass,
             resetPasswordToken: token
-        } )
+        })
     }
 }
 
