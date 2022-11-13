@@ -22,6 +22,10 @@ const slice = createSlice({
         setStatusSendAC(state, action: PayloadAction<{ send: boolean}>) {
             state.isSending = action.payload.send
         },
+        setTokenAC(state, action:PayloadAction<{token: string}>) {
+            console.log(action.payload.token)
+            state.token = action.payload.token
+        }
         // setIsRegisteredAC(state, action: PayloadAction<{ isRegistered: boolean }>) {
         //     state.isRegistered = action.payload.isRegistered
         // }
@@ -30,7 +34,7 @@ const slice = createSlice({
 
 export const forgotPassReducer = slice.reducer
 
-export const {setStatusSendAC} = slice.actions
+export const {setStatusSendAC,setTokenAC} = slice.actions
 
 
 export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {

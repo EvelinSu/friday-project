@@ -8,7 +8,10 @@ import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../Pages";
-import {useAppSelector} from "../../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {sendEmailTC} from "../../../bll/forgotPassReducer";
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 const ChangePassword = () => {
     return (
@@ -25,17 +28,55 @@ const ChangePassword = () => {
 const ChangePasswordForm = () => {
 
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const isSending = useAppSelector(state => state.forgotPass.isSending)
     const {isFetching} = useAppSelector(state => state.auth)
 
+
+    const {
+        handleBlur,
+        handleSubmit,
+        touched,
+        handleChange,
+        isValid,
+        values,
+        errors,
+    } = useFormik({
+        initialValues: {
+            email: "",
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().email('Invalid email address').required('Required'),
+        }),
+        onSubmit: ({email}) => {
+            console.log(email)
+            dispatch(sendEmailTC(email))
+        }
+    });
+
+
+
+
+    if (isSending) {
+    navigate(PATH.checkEmail)
+    }
+
+
     return (
-        <SForm>
+        <SForm onSubmit={handleSubmit}>
             <Box padding={"0 20px"} flexDirection={"column"}>
                 <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
                     Enter your email address and we will send you further instructions
                 </SText>
                 <Input
+                    title={"Email"}
                     placeholder={"Email"}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
                     type={"email"}
+                    value={values.email}
+                    name="email"
+                    error={touched.email ? errors.email : ""}
                     required
                 />
             </Box>
@@ -43,6 +84,7 @@ const ChangePasswordForm = () => {
                 <Button
                     type="submit"
                     label={"Send"}
+                    isDisabled={!isValid}
                     isLoading={isFetching}
                     shadow
                 />

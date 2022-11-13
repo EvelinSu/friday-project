@@ -6,8 +6,9 @@ import {Box} from "../../components/Box/Box";
 import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input";
-import {useAppSelector} from "../../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useParams} from "react-router-dom";
+import {setTokenAC} from "../../../bll/forgotPassReducer";
 
 const RecoverPassword = () => {
     return (
@@ -24,9 +25,12 @@ const RecoverPassword = () => {
 const RecoverPasswordForm = () => {
 
     const {isFetching} = useAppSelector(state => state.auth)
-    const token = useParams()
+    const dispatch = useAppDispatch()
+    const {token} = useParams()
     useEffect(() => {
-        console.log(token)
+        if (token) {
+            dispatch(setTokenAC({token}))
+        }
     },[])
 
     return (
