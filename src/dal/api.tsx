@@ -36,7 +36,7 @@ export const forgotPassAPI = {
                 from: "app Cards",
                 message: `<div style="background-color: #3b3b49; color: white; padding: 15px">
                 password recovery link: 
-                <a  href="https://evelinsu.github.io/friday-project/#/login/set-new-password/$token$"  style=" color: deepskyblue">
+                <a  href="https://evelinsu.github.io/friday-project/#/login/changePassword/$token$"  style=" color: deepskyblue">
                 link</a></div>`
             }
         )

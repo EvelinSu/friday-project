@@ -16,7 +16,7 @@ export const PATH = {
     profile: '/profile',
     signIn: '/login/signIn',
     signUp: '/login/signUp',
-    changePassword: '/login/changePassword/',
+    changePassword: '/login/changePassword',
     recoverPassword: '/login/recoverPassword',
     checkEmail: '/login/checkEmail',
 }
@@ -43,10 +43,10 @@ const Pages = () => {
             <Route path={PATH.profile} element={<Profile />} />
             <Route path={PATH.signIn} element={<SignIn />} />
             <Route path={PATH.signUp} element={<SignUp />} />
-            <Route path={PATH.recoverPassword} element={<RecoverPassword />}>
-                <Route path=":token" element={<RecoverPassword />} />
+            <Route path={PATH.changePassword} element={<ChangePassword />}>
+                <Route path=":token" element={<ChangePassword />} />
             </Route>
-            <Route path={PATH.changePassword} element={<ChangePassword />} />
+            <Route path={PATH.recoverPassword} element={<RecoverPassword />} />
             <Route path={PATH.checkEmail} element={<CheckEmail />} />
             <Route path={'*'} element={<PageNotFound />} />
         </Routes>
