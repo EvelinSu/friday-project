@@ -59,7 +59,7 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
            })
            .catch((e: AxiosError) => {
                dispatch(setIsLoggedIn({value: false}))
-               dispatch(setAppError(e.message))
+               // dispatch(setAppError(e.message))
            })
            .finally(() => dispatch(setIsInitialized({value: true})))
 }
