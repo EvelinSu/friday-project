@@ -40,6 +40,12 @@ export const forgotPassAPI = {
                 link</a></div>`
             }
         )
+    },
+    sendNewPass (pass : string, token : string) {
+        return instance.post('auth/set-new-password' ,  {
+            password: pass,
+            resetPasswordToken: token
+        } )
     }
 }
 

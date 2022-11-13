@@ -9,6 +9,8 @@ import Input from "../../components/Form/Input";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useParams} from "react-router-dom";
 import {setTokenAC} from "../../../bll/forgotPassReducer";
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 const RecoverPassword = () => {
     return (
@@ -33,6 +35,32 @@ const RecoverPasswordForm = () => {
         }
     },[])
 
+
+
+
+
+    const {
+        handleBlur,
+        touched,
+        handleChange,
+        isValid,
+        values,
+        errors,
+    } = useFormik({
+        initialValues: {
+            password: "",
+        },
+        validationSchema: Yup.object({
+            password: Yup.string().required('Required'),
+        }),
+        onSubmit: (values: {password : string}) => {
+
+            // dispatch(loginTC(values.password))
+                // .then(() => navigate(PATH.profile))
+        }
+    });
+
+
     return (
         <SForm>
             <Box padding={"0 20px"} flexDirection={"column"}>
@@ -40,8 +68,14 @@ const RecoverPasswordForm = () => {
                     Create new password and we will send you further instructions to email
                 </SText>
                 <Input
-                    placeholder={"Password"}
-                    type={"password"}
+                    title={"Password"}
+                    placeholder="Password"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="password"
+                    value={values.password}
+                    name="password"
+                    error={touched.password ? errors.password : ""}
                     required
                 />
             </Box>
@@ -49,6 +83,7 @@ const RecoverPasswordForm = () => {
                 <Button
                     type="submit"
                     label={"Accept"}
+                    isDisabled={!isValid}
                     isLoading={isFetching}
                     shadow
                 />
