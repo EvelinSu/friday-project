@@ -17,7 +17,7 @@ import {registerTC} from "../../../bll/registerReducer";
 const SignUp = () => {
     return (
         <SPageWrapper>
-            <Modal title={"Sign Up"} body={<SignUpForm/>}/>
+            <Modal title={"Sign Up"} body={<SignUpForm />} />
         </SPageWrapper>
     );
 };
@@ -28,9 +28,6 @@ const SignUpForm = () => {
     const dispatch = useAppDispatch()
     const {isFetching} = useAppSelector(state => state.auth)
     const isRegistered = useAppSelector(state => state.registration.isRegistered)
-    const [errorMessage] = useAppSelector(state => state.app.errors)
-
-
 
     const {
         handleBlur,
@@ -48,14 +45,14 @@ const SignUpForm = () => {
         },
         validationSchema: Yup.object({
             email: Yup.string()
-                .email(errorMessage ? errorMessage :'Invalid email address')
-                .required(errorMessage),
+                      .email('Invalid email address')
+                      .required('Required'),
             password: Yup.string()
-                .required(errorMessage)
-                .min(6, ('Must be more than 6')),
+                         .required('Required')
+                         .min(8, ('Must be more than 7')),
             confirmPassword: Yup.string()
-                .oneOf([Yup.ref('password'), null], 'Passwords must match')
-                .required(errorMessage)
+                                .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                                .required('Required')
         }),
         onSubmit: (values: RegisterDataType) => {
             dispatch(registerTC(values))

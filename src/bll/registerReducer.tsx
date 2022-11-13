@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RegisterDataType, registrationAPI} from "../dal/api";
-import axios, {AxiosError} from "axios";
 import {TAppDispatch} from "./store/store";
 import {setAppError} from "./appReducer";
 import {setIsFetching} from "./authReducer";
@@ -39,13 +38,12 @@ export const registerTC = (data: RegisterDataType) => (dispatch: TAppDispatch) =
         .then(() => {
             dispatch(setRegisterUserAC(data));
             dispatch(setIsRegisteredAC({isRegistered: true}))
-
         })
        .catch((e) => {
-           const err = e as Error | AxiosError
-           if (axios.isAxiosError(err)) {
-               dispatch(setAppError(err.response?.data.error))
-           }
+           const err = e.response
+               ? e.response.data.error
+               : e.message + ', more details in the console'
+           dispatch(setAppError(err))
        })
        .finally(() => dispatch(setIsFetching(false)))
 }

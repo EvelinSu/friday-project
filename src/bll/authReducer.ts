@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI, LoginDataType, ProfileDataType} from "../dal/api";
-import {AxiosError} from "axios";
 import {TAppDispatch} from "./store/store";
 import {setAppError, setAppStatus, setIsInitialized} from "./appReducer";
 
@@ -57,7 +56,7 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
                dispatch(setUserData({id, name, email, avatar}))
                dispatch(setIsLoggedIn({value: true}))
            })
-           .catch((e: AxiosError) => {
+           .catch(() => {
                dispatch(setIsLoggedIn({value: false}))
            })
            .finally(() => dispatch(setIsInitialized({value: true})))
@@ -71,7 +70,12 @@ export const loginTC = (data: LoginDataType) => async (dispatch: TAppDispatch) =
                dispatch(setUserData({id, name, email, avatar}))
                dispatch(setIsLoggedIn({value: true}))
            })
-           .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+           .catch((e) => {
+               const err = e.response
+                   ? e.response.data.error
+                   : e.message + ', more details in the console'
+               dispatch(setAppError(err))
+           })
            .finally(() => dispatch(setIsFetching(false)))
 }
 
@@ -79,12 +83,22 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true))
     authAPI.logOut()
            .then(() => dispatch(setIsLoggedIn({value: false})))
-           .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+           .catch((e) => {
+               const err = e.response
+                   ? e.response.data.error
+                   : e.message + ', more details in the console'
+               dispatch(setAppError(err))
+           })
            .finally(() => dispatch(setIsFetching(false)))
 }
 
 export const changeUserProfileTC = (data: ProfileDataType) => (dispatch: TAppDispatch) => {
     authAPI.changeUserProfile(data)
            .then(() => dispatch(setUserProfile(data)))
-           .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+           .catch((e) => {
+               const err = e.response
+                   ? e.response.data.error
+                   : e.message + ', more details in the console'
+               dispatch(setAppError(err))
+           })
 }

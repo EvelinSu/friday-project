@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {forgotPassAPI} from "../dal/api";
-import {AxiosError} from "axios";
 import {TAppDispatch} from "./store/store";
 import {setAppError} from "./appReducer";
 import {setIsFetching} from "./authReducer";
@@ -40,7 +39,12 @@ export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
         .then(() => {
             dispatch(setStatusSendAC({isSendLetter : true}))
         })
-       .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+       .catch((e) => {
+           const err = e.response
+               ? e.response.data.error
+               : e.message + ', more details in the console'
+           dispatch(setAppError(err))
+       })
        .finally(() => dispatch(setIsFetching(false)))
 }
 
@@ -53,6 +57,11 @@ export const sendNewPassTC = (password: string,token:string) => (dispatch: TAppD
                 console.log(res)
                 dispatch(setTokenAC({token : ''}))
             })
-            .catch((e: AxiosError) => dispatch(setAppError(e.message)))
+            .catch((e) => {
+                const err = e.response
+                    ? e.response.data.error
+                    : e.message + ', more details in the console'
+                dispatch(setAppError(err))
+            })
             .finally(() => dispatch(setIsFetching(false)))
 }
