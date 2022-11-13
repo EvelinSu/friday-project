@@ -26,7 +26,7 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
                 gap={10}
                 onClick={() => navigate(PATH.profile)}
             >
-                <SText isEllipsis>
+                <SText maxWidth={"150px"} isEllipsis>
                     {props.name}
                 </SText>
                 <Avatar size={'sm'} img={props.avatar ? props.avatar: ''} />

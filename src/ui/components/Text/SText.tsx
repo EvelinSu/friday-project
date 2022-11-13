@@ -11,12 +11,14 @@ interface TSTextProps {
     textAlign?: Property.TextAlign
     lineHeight?: Property.LineHeight
     lineClamp?: number
+    maxWidth?: Property.MaxWidth
 }
 
 export const SText = styled.span<TSTextProps>`
     opacity: ${props => props.opacity};
     font-weight: ${props => props.fontWeight};
     margin: ${props => props.margin};
+    max-width: ${props => props.maxWidth};
     font-size: ${props => props.fontSize};
     line-height: ${props => props.lineHeight};
     text-align: ${props => props.textAlign};
