@@ -19,6 +19,12 @@ export const SModalWrapper = styled.div<TSModalWrapperProps>`
         top: 0;
         z-index: ${theme.orders.modal};
     `}
+    ${(props) =>  css`
+        @media all and (max-width: ${props.theme.media.small}px) {
+            top: ${({theme}) => theme.sizes.headerHeight}px;
+            padding: 20px;
+        }
+   `}
 `
 
 type TSModalContainerProps = {

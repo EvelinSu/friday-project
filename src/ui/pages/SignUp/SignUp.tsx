@@ -70,7 +70,6 @@ const SignUpForm = () => {
             <Box margin={"30px 0 0 0"} flexDirection={"column"} gap={40}>
                 <Input
                     title={"Email"}
-                    placeholder={"Email"}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     type={"email"}
@@ -81,7 +80,6 @@ const SignUpForm = () => {
                 />
                 <Input
                     title={"Password"}
-                    placeholder="Password"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     type="password"
@@ -92,7 +90,6 @@ const SignUpForm = () => {
                 />
                 <Input
                     title={"Confirm password"}
-                    placeholder="Confirm password"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     type="password"

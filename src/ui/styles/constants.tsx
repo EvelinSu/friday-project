@@ -12,7 +12,7 @@ export const baseTheme = {
             error: "#ce5252",
         },
         input: {
-            default: "rgba(0, 0, 0, 0.08)",
+            default: "rgba(76,85,154,0.09)",
         },
         button: {
             success: "#7398CE"

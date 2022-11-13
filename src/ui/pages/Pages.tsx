@@ -16,8 +16,8 @@ export const PATH = {
     profile: '/profile',
     signIn: '/login/signIn',
     signUp: '/login/signUp',
-    recoverPassword: '/login/recoverPassword/',
-    changePassword: '/login/changePassword',
+    changePassword: '/login/changePassword/',
+    recoverPassword: '/login/recoverPassword',
     checkEmail: '/login/checkEmail',
 }
 

@@ -29,7 +29,7 @@ const Input: React.FC<TInputProps> = ({...props}) => {
                 </Box>
             )}
             <SInput
-                placeholder={props.placeholder || 'Введите текст...'}
+                placeholder={props.placeholder || ''}
                 type={props.type}
                 isError={!!props.error}
                 onChange={onChange}

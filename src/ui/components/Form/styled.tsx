@@ -44,7 +44,6 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
             &:after {
                 opacity: 1;
                 visibility: visible;
-
             }
         }
     `}
@@ -52,7 +51,7 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
         &:before {
             content: '${props.title}';
             position: absolute;
-            top: -30px;
+            top: -25px;
             left: 8px;
             padding: 3px 10px;
             font-size: 13px;
@@ -84,4 +83,7 @@ export const SInput = styled.input<TSInputProps>`
             outline:${({theme}) => `1px solid ${theme.colors.severity.error}`};
         }
     `}
+    &::placeholder{
+        opacity: 0.4;
+    }
 `

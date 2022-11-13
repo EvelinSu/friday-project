@@ -3,22 +3,22 @@ import {SPageWrapper} from "../styled";
 import Modal from "../../components/Modal/Modal";
 import {SForm} from "../../components/Form/styled";
 import {Box} from "../../components/Box/Box";
-import Input from "../../components/Form/Input";
 import {SText} from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../Pages";
+import Input from "../../components/Form/Input";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {sendEmailTC} from "../../../bll/forgotPassReducer";
+import {useNavigate, useParams} from "react-router-dom";
+import {sendNewPassTC, setTokenAC} from "../../../bll/forgotPassReducer";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import {PATH} from "../Pages";
 
 const ChangePassword = () => {
     return (
         <SPageWrapper>
             <Modal
-                title={"Forgot your password?"}
-                body={<ChangePasswordForm/>}
+                title={"Create new password"}
+                body={<ChangePasswordForm />}
                 width={"390px"}
             />
         </SPageWrapper>
@@ -26,76 +26,71 @@ const ChangePassword = () => {
 };
 
 const ChangePasswordForm = () => {
-
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const isSendLetter = useAppSelector(state => state.forgotPass.isSendLetter)
-    const {isFetching} = useAppSelector(state => state.auth)
 
+    const {isFetching} = useAppSelector(state => state.auth)
+    const dispatch = useAppDispatch()
+    const isTokenFromState = useAppSelector(state => state.forgotPass.token)
+    const {token} = useParams()
+    // console.log('token', token)
 
     const {
         handleBlur,
-        handleSubmit,
         touched,
         handleChange,
+        handleSubmit,
         isValid,
         values,
         errors,
     } = useFormik({
         initialValues: {
-            email: "",
+            password: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string().email('Invalid email address').required('Required'),
+            password: Yup.string().required('Required'),
         }),
-        onSubmit: ({email}) => {
-            console.log(email)
-            dispatch(sendEmailTC(email))
+        onSubmit: (values: {password : string}) => {
+                token && dispatch(sendNewPassTC(values.password,token))
+
         }
     });
 
 
     useEffect(() => {
-        if (isSendLetter) {
-            navigate(PATH.checkEmail)
+        if (!token || !isTokenFromState) {
+        // console.log('token', token)
+        navigate(PATH.profile)
+        } else if (token) {
+            token && dispatch(setTokenAC({token}))
         }
-    }, [isSendLetter])
+    },[isTokenFromState])
 
 
     return (
         <SForm onSubmit={handleSubmit}>
             <Box padding={"0 20px"} flexDirection={"column"}>
                 <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
-                    Enter your email address and we will send you further instructions
+                    Create new password and we will send you further instructions to email
                 </SText>
                 <Input
-                    title={"Email"}
-                    placeholder={"Email"}
+                    placeholder="Password"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    type={"email"}
-                    value={values.email}
-                    name="email"
-                    error={touched.email ? errors.email : ""}
+                    type="password"
+                    value={values.password}
+                    name="password"
+                    error={touched.password ? errors.password : ""}
                     required
                 />
             </Box>
-            <Box margin={"10px 0 0 0"} alignItems={"center"} flexDirection={"column"}>
+            <Box margin={"10px 0 0 0"} justifyContent={"center"}>
                 <Button
                     type="submit"
-                    label={"Send"}
+                    label={"Accept"}
                     isDisabled={!isValid}
                     isLoading={isFetching}
                     shadow
                 />
-                <Box gap={10} flexDirection={"column"} alignItems={"center"}>
-                    <SText textAlign={"center"}>
-                        Did you remember your password?
-                    </SText>
-                    <SText onClick={() => navigate(PATH.signIn)} isLink>
-                        Sign In
-                    </SText>
-                </Box>
             </Box>
         </SForm>
     )
