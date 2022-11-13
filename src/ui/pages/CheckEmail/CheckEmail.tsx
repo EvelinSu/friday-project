@@ -22,6 +22,7 @@ const CheckEmail = () => {
 
 
 const CheckEmailModal = () => {
+
     const navigate = useNavigate()
 
     return (

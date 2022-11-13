@@ -10,11 +10,13 @@ import RecoverPassword from "./RecoverPassword/RecoverPassword";
 import {authMeTC} from "../../bll/authReducer";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 
+
+
 export const PATH = {
     profile: '/profile',
     signIn: '/login/signIn',
     signUp: '/login/signUp',
-    recoverPassword: '/login/recoverPassword',
+    recoverPassword: '/login/recoverPassword/',
     changePassword: '/login/changePassword',
     checkEmail: '/login/checkEmail',
 }
@@ -41,7 +43,9 @@ const Pages = () => {
             <Route path={PATH.profile} element={<Profile />} />
             <Route path={PATH.signIn} element={<SignIn />} />
             <Route path={PATH.signUp} element={<SignUp />} />
-            <Route path={PATH.recoverPassword} element={<RecoverPassword />} />
+            <Route path={PATH.recoverPassword} element={<RecoverPassword />}>
+                <Route path=":token" element={<RecoverPassword />} />
+            </Route>
             <Route path={PATH.changePassword} element={<ChangePassword />} />
             <Route path={PATH.checkEmail} element={<CheckEmail />} />
             <Route path={'*'} element={<PageNotFound />} />

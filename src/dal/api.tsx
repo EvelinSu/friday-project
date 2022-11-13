@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
+    // 'http://localhost:7542/2.0/',
     // process.env.REACT_APP_BACK_URL ||
     // baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
@@ -27,6 +28,27 @@ export const registrationAPI = {
         return instance.post('auth/register', data)
     }
 }
+
+export const forgotPassAPI = {
+    sendEmail(email: string) {
+        return instance.post('auth/forgot', {
+                email: email,
+                from: "app Cards",
+                message: `<div style="background-color: #3b3b49; color: white; padding: 15px">
+                password recovery link: 
+                <a  href="http://localhost:3000/friday-project#/login/recoverPassword/$token$"  style=" color: deepskyblue">
+                link</a></div>`
+            }
+        )
+    },
+    sendNewPass(pass: string, token: string) {
+        return instance.post('auth/set-new-password', {
+            password: pass,
+            resetPasswordToken: token
+        })
+    }
+}
+
 
 export type RegisterDataType = {
     email: string
@@ -74,7 +96,7 @@ export type ResponseTypeLogin = {
 
 // ответ с сервера при отсутствии авториз. куки у юзера
 export type ResponseNotAuth =
-{
-    "error": string,
-    "in": string
-}
+    {
+        "error": string,
+        "in": string
+    }
