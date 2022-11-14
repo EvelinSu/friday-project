@@ -15,7 +15,7 @@ export const SNotificationWrapper = styled.div<TSNotificationWrapper>`
     color: #fff;
     z-index: ${({ theme }) => theme.orders.notifications};
     ${(props) =>
-        props.notificationsCount &&
+        props.notificationsCount > 1 &&
         css`
             &:after {
                 content: "${props.notificationsCount}";
@@ -57,6 +57,7 @@ export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     background-color: ${(props) =>
         props.severity === "error" && props.theme.colors.severity.error};
     z-index: ${({ theme }) => theme.orders.notifications};
+
     &:last-of-type {
         box-shadow: 0 0 5px 0 rgb(0, 0, 0, 0.3);
     }
@@ -71,6 +72,7 @@ export const SNotificationIcon = styled.div`
     height: 30px;
     border-radius: 50%;
     cursor: pointer;
+
     svg {
         width: 18px;
         height: 18px;
