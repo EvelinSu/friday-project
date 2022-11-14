@@ -1,28 +1,28 @@
-import React, {useEffect, useState} from "react";
-import {SMainTitle, SPagePanel, SPageWrapper} from "../styled";
-import {Box} from "../../components/Box/Box";
+import React, { useEffect, useState } from "react";
+import { SMainTitle, SPagePanel, SPageWrapper } from "../styled";
+import { Box } from "../../components/Box/Box";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input";
 import SearchIcon from "../../assets/icons/SearchIcon";
 import IconButton from "../../components/IconButton/IconButton";
 import FilterIcon from "../../assets/icons/FilterIcon";
-import {GridBox} from "../../components/GridBox/GridBox";
+import { GridBox } from "../../components/GridBox/GridBox";
 import PackCard from "./PackCard/PackCard";
-import {getPacks} from "../../../bll/packsReducer";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import { getPacks } from "../../../bll/packsReducer";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Filter from "./Filter/Filter";
-import {FilterWrapper} from "./Filter/styled";
+import { FilterWrapper } from "./Filter/styled";
+import Pagination from "../../components/Pagination/Pagination";
 
 const PacksList = () => {
-
-    const dispatch = useAppDispatch()
-    const {packs, totalCount} = useAppSelector(state => state.packs)
+    const dispatch = useAppDispatch();
+    const { packs, totalCount } = useAppSelector((state) => state.packs);
 
     useEffect(() => {
-        dispatch(getPacks(1, 15))
-    }, [])
+        dispatch(getPacks(1, 20));
+    }, []);
 
-    const [isFilterOpen, setIsFilterOpen] = useState(true)
+    const [isFilterOpen, setIsFilterOpen] = useState(true);
 
     return (
         <SPageWrapper>
@@ -46,15 +46,15 @@ const PacksList = () => {
                     </FilterWrapper>
                 </Box>
             </SPagePanel>
-            <GridBox columns={"repeat(auto-fill, minmax(220px, 1fr))"} padding={"40px 0 0 0"}>
+            <GridBox
+                columns={"repeat(auto-fill, minmax(220px, 1fr))"}
+                padding={"40px 0 0 0"}
+            >
                 {packs.map((pack) => (
-                    <PackCard
-                        key={pack._id}
-                        pack={pack}
-                    />
+                    <PackCard key={pack._id} pack={pack} />
                 ))}
             </GridBox>
-            {/*<Pagination totalPagesCount={13} />*/}
+            <Pagination totalPagesCount={13} />
         </SPageWrapper>
     );
 };

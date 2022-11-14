@@ -50,8 +50,8 @@ export const forgotPassAPI = {
 export const packsAPI = {
     getPacks(page: number, pageCount: number, userId?: string) {
         return instance.get<ResponsePackType>(
-            `cards/pack?page=${page}?pageCount=${pageCount}${
-                userId ? "?=user_id" + userId : ""
+            `cards/pack?page=${page}&pageCount=${pageCount}${
+                userId ? "&user_id=" + userId : ""
             }`
         );
     },
