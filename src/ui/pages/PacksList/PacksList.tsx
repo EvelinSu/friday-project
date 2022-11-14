@@ -13,7 +13,7 @@ const PacksList = () => {
     return (
         <SPageWrapper>
             <SPagePanel>
-                <Box justifyContent={"space-between"}>
+                <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
                     <SMainTitle>
                         Packs list
                     </SMainTitle>

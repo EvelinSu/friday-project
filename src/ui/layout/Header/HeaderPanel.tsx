@@ -16,6 +16,8 @@ type THeaderPanelProps = {
 const HeaderPanel: FC<THeaderPanelProps> = (props) => {
     const navigate = useNavigate()
 
+    const windowWidth = window.innerWidth
+
     return (
         <Box alignItems={"center"}>
             <IconButton icon={<MoonIcon />} />
@@ -26,9 +28,12 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
                 gap={10}
                 onClick={() => navigate(PATH.profile)}
             >
-                <SText maxWidth={"150px"} isEllipsis>
-                    {props.name}
-                </SText>
+                {windowWidth > 400 && (
+                    <SText maxWidth={"150px"} isEllipsis>
+                        {props.name}
+                    </SText>
+                )}
+
                 <Avatar size={'sm'} img={props.avatar ? props.avatar: ''} />
             </Box>
         </Box>

@@ -28,14 +28,19 @@ const Pages = () => {
     const location = useLocation()
     const {isLoggedIn} = useAppSelector(state => state.auth)
 
-    useLayoutEffect(() => {
+    const pathGuard = () => {
         if (location.pathname.includes('login') && isLoggedIn) navigate(PATH.profile)
         if (!location.pathname.includes('login') && !isLoggedIn) navigate(PATH.signIn)
+    }
+    useLayoutEffect(() => {
+        pathGuard()
     }, [location, navigate, isLoggedIn])
-
+    useEffect(() => {
+        pathGuard()
+    }, [location])
     useEffect(() => {
         dispatch(authMeTC())
-    }, [])
+    },[])
 
     return (
         <Routes>
