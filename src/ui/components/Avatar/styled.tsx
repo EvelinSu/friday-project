@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-type TSizes = "sm" | "lg" | "md";
+type TSizes = "smallest" | "small" | "large" | "middle";
 type TSAvatarProps = {
     size?: TSizes;
     img?: string;
@@ -8,7 +8,13 @@ type TSAvatarProps = {
 };
 
 const imgSizes = (size: TSizes) => {
-    const sizePx = size === "sm" ? 40 : size === "lg" ? 125 : 60;
+    const sizePx = size === "small"
+        ? 40
+        : size === "large"
+            ? 125
+            : size === "smallest"
+                ? 25
+                : 60;
     return {
         minWidth: sizePx,
         maxWidth: sizePx,
@@ -32,7 +38,7 @@ export const SAvatar = styled.div<TSAvatarProps>((props) => ({
         minWidth: "100%",
         minHeight: "100%",
     },
-    ...imgSizes(props.size || "md"),
+    ...imgSizes(props.size || "middle"),
 }));
 
 export const SAvatarShadow = styled.div((props) => ({

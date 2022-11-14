@@ -51,6 +51,34 @@ export const forgotPassAPI = {
     },
 };
 
+export const packsAPI = {
+    getPacks(page: number, pageCount: number, userId?: string) {
+        return instance.get<ResponsePackType>(
+            `cards/pack?page=${page}?pageCount=${pageCount}${userId ? "?=user_id" + userId : ""}`)
+    }
+}
+
+export type TPack = {
+    _id: string
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    path: string
+    name: string
+    private: boolean
+    rating: number
+    shots: number
+    updated: string
+    user_id: string
+    user_name: string
+}
+
+type ResponsePackType = {
+    cardPacks: TPack[],
+    cardPacksTotalCount: number
+}
+
 export type RegisterDataType = {
     email: string;
     password: string;

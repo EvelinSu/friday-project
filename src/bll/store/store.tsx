@@ -1,14 +1,16 @@
 import thunkMiddleware from "redux-thunk";
-import { configureStore } from "@reduxjs/toolkit";
-import { authReducer } from "../authReducer";
-import { appReducer } from "../appReducer";
-import { registerReducer } from "../registerReducer";
-import { forgotPassReducer } from "../forgotPassReducer";
+import {configureStore} from "@reduxjs/toolkit";
+import {authReducer} from "../authReducer";
+import {appReducer} from "../appReducer";
+import {registerReducer} from "../registerReducer";
+import {forgotPassReducer} from "../forgotPassReducer";
+import {packsReducer} from "../packsReducer";
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
         app: appReducer,
+        packs: packsReducer,
         registration: registerReducer,
         forgotPass: forgotPassReducer,
     },

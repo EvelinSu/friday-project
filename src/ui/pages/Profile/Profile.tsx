@@ -1,19 +1,19 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { SPagePanel, SPageWrapper } from "../styled";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import React, {ChangeEvent, useEffect, useState} from "react";
+import {SPagePanel, SPageWrapper} from "../styled";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
-import { Modal } from "../../components/Modal/Modal";
-import { Box } from "../../components/Box/Box";
+import {useNavigate} from "react-router-dom";
+import {Modal} from "../../components/Modal/Modal";
+import {Box} from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import { SText } from "../../components/Text/SText";
-import { PATH } from "../Pages";
-import { changeUserProfileTC, logOutTC } from "../../../bll/authReducer";
+import {SText} from "../../components/Text/SText";
+import {PATH} from "../Pages";
+import {changeUserProfileTC, logOutTC} from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
-import { setAppError } from "../../../bll/appReducer";
-import { SProfileContent } from "./styled";
+import {setAppError} from "../../../bll/appReducer";
+import {SProfileContent} from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 
 const Profile = () => {
@@ -45,8 +45,8 @@ const Profile = () => {
 const ProfileModalBody = () => {
     const auth = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
-    const { isFetching } = useAppSelector((state) => state.auth);
-    const { name, email, avatar } = auth.userData;
+    const {isFetching} = useAppSelector((state) => state.auth);
+    const {name, email, avatar} = auth.userData;
 
     const [value, setValue] = useState(name);
 
@@ -62,7 +62,7 @@ const ProfileModalBody = () => {
             newName.length > 3 &&
             newName !== name
         ) {
-            dispatch(changeUserProfileTC({ name: newName }));
+            dispatch(changeUserProfileTC({name: newName}));
         } else {
             dispatch(setAppError("Nickname has not been changed"));
             setValue(name);
@@ -76,7 +76,7 @@ const ProfileModalBody = () => {
     return (
         <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
             <SProfileContent>
-                <Avatar size={"lg"} img={avatar || defaultPhoto} isEditable />
+                <Avatar size={"large"} img={avatar || defaultPhoto} isEditable />
                 <Box
                     width={"100%"}
                     flexDirection={"column"}

@@ -1,15 +1,15 @@
-import React, { FC } from "react";
-import { SAvatar, SAvatarShadow } from "./styled";
+import React, {FC} from "react";
+import {SAvatar, SAvatarShadow} from "./styled";
 import PhotoIcon from "../../assets/icons/PhotoIcon";
 
 type TAvatarProps = {
     img: string;
-    size?: "lg" | "sm";
+    size?: "large" | "small" | "smallest";
     isEditable?: boolean;
     onClick?: () => void;
 };
 
-const Avatar: FC<TAvatarProps> = ({ size, img, isEditable, onClick }) => {
+const Avatar: FC<TAvatarProps> = ({size, img, isEditable, onClick}) => {
     const onClickHandler = () => {
         onClick && onClick();
     };

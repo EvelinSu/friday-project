@@ -1,9 +1,13 @@
 import styled from "styled-components";
-import { Property } from "csstype";
+import {Property} from "csstype";
 
 type TGridBoxProps = {
-    padding: Property.Padding;
+    columns?: Property.GridTemplateColumns
+    padding?: Property.Padding;
 };
 export const GridBox = styled.div<TGridBoxProps>((props) => ({
+    display: "grid",
     padding: props.padding,
+    gridTemplateColumns: `${props.columns}`,
+    gap: 20
 }));

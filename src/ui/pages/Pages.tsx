@@ -1,11 +1,5 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import {
-    Navigate,
-    Route,
-    Routes,
-    useLocation,
-    useNavigate,
-} from "react-router-dom";
+import React, {useEffect, useLayoutEffect} from "react";
+import {Navigate, Route, Routes, useLocation, useNavigate,} from "react-router-dom";
 import SignIn from "./Login/SignIn/SignIn";
 import SignUp from "./Login/SignUp/SignUp";
 import Profile from "./Profile/Profile";
@@ -13,8 +7,8 @@ import PageNotFound from "./PageNotFound/NotFound";
 import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
-import { authMeTC } from "../../bll/authReducer";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import {authMeTC} from "../../bll/authReducer";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import PacksList from "./PacksList/PacksList";
 
 export const PATH = {
@@ -31,20 +25,16 @@ const Pages = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const { isLoggedIn } = useAppSelector((state) => state.auth);
+    const {isLoggedIn} = useAppSelector((state) => state.auth);
 
-    const pathGuard = () => {
-        if (location.pathname.includes("login") && isLoggedIn)
-            navigate(PATH.profile);
-        if (!location.pathname.includes("login") && !isLoggedIn)
-            navigate(PATH.signIn);
-    };
     useLayoutEffect(() => {
-        pathGuard();
-    }, [location, navigate, isLoggedIn]);
-    useEffect(() => {
-        pathGuard();
-    }, [location]);
+        if (location.pathname.includes("login") && isLoggedIn) {
+            navigate(PATH.profile);
+        }
+        if (!location.pathname.includes("login") && !isLoggedIn) {
+            navigate(PATH.signIn);
+        }
+    }, [location, isLoggedIn]);
     useEffect(() => {
         dispatch(authMeTC());
     }, []);

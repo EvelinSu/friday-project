@@ -17,6 +17,10 @@ export const baseTheme = {
         button: {
             success: "#7398CE",
         },
+        cards: {
+            default: ["#3879B5", "rgba(56,121,181,0.53)"],
+            text: "#fff",
+        }
     },
     sizes: {
         headerHeight: 68,
