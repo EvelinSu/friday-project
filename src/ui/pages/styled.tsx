@@ -6,6 +6,8 @@ export const SPageWrapper = styled.div`
     max-width: 1000px;
     width: 100%;
     padding: 20px 20px 0 20px;
+    overflow: hidden;
+    flex-grow: 1;
 `;
 
 export const SPagePanel = styled.div`
@@ -14,7 +16,7 @@ export const SPagePanel = styled.div`
 `;
 
 export const SPageContent = styled.div`
-    //
+    background-color: black;
 `;
 
 export const SMainTitle = styled.div`

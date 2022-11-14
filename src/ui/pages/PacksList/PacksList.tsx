@@ -20,7 +20,7 @@ const PacksList = () => {
     const { packs, totalCount } = useAppSelector((state) => state.packs);
 
     useEffect(() => {
-        dispatch(getPacks(1, 20));
+        dispatch(getPacks(1, 16));
     }, []);
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -40,7 +40,11 @@ const PacksList = () => {
                         shadow
                     />
                 </Box>
-                <Box alignItems={"end"} justifyContent={"space-between"}>
+                <Box
+                    margin={"0 0 20px 0"}
+                    alignItems={"end"}
+                    justifyContent={"space-between"}
+                >
                     <SSearchInput>
                         <Input
                             title={"Search"}
@@ -53,14 +57,15 @@ const PacksList = () => {
                             onClick={() => setIsFilterOpen(!isFilterOpen)}
                             icon={<FilterIcon />}
                             title={"Filter"}
+                            isLightest
                         />
                         {isFilterOpen && <Filter setIsOpen={setIsFilterOpen} />}
                     </FilterWrapper>
                 </Box>
             </SPagePanel>
             <GridBox
+                padding={"20px 0 0 0"}
                 columns={"repeat(auto-fill, minmax(220px, 1fr))"}
-                padding={"40px 0 0 0"}
             >
                 {packs.map((pack) => (
                     <PackCard key={pack._id} pack={pack} />

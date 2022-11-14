@@ -7,7 +7,7 @@ import {
     SSuperSelectInputWrapper,
     SSuperSelectWrapper,
 } from "./styled";
-import ExpandMoreIcon from "../../assets/icons/ExpandMoreIcon";
+import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 import { SText } from "../Text/SText";
 
 type TAlternativeSuperSelect = {
@@ -81,7 +81,7 @@ function Select(props: TAlternativeSuperSelect) {
                     )}
                 </SSuperSelectInput>
                 <SSuperSelectInputIcon isOpen={opened}>
-                    <ExpandMoreIcon />
+                    <SmallArrowIcon />
                 </SSuperSelectInputIcon>
             </SSuperSelectInputWrapper>
             {opened && (

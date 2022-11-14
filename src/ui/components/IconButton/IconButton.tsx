@@ -4,6 +4,7 @@ import { SIconButton } from "./styles";
 type TIconButtonProps = {
     icon: React.ReactNode;
     isDark?: boolean;
+    isLightest?: boolean;
     color?: string;
     size?: "sm";
     onClick?: () => void;
@@ -21,6 +22,7 @@ const IconButton: FC<TIconButtonProps> = (props) => {
             size={props.size}
             color={props.color}
             isDark={props.isDark}
+            isLightest={props.isLightest}
         >
             {props.icon}
         </SIconButton>

@@ -1,6 +1,6 @@
 import React from "react";
-import {SPagination, SPaginationItem} from "./styled";
-import ArrowIcon from "../../assets/icons/ArrowIcon";
+import { SPagination, SPaginationArrow, SPaginationItem } from "./styled";
+import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 
 type TPaginationProps = {
     totalPagesCount?: number;
@@ -11,15 +11,23 @@ type TPaginationProps = {
 };
 
 const Pagination: React.FC<TPaginationProps> = React.memo((props) => {
-    const pages = [1, 2, 3, 4, 5, "...", 13];
+    const pages = [1, 2, 3, "...", 13];
 
     return (
         <SPagination>
-            <ArrowIcon />
+            <SPaginationArrow isDisabled>
+                <SmallArrowIcon rotate={"90deg"} />
+            </SPaginationArrow>
             {pages.map((el) => {
-                return <SPaginationItem key={el}>{el}</SPaginationItem>;
+                return (
+                    <SPaginationItem isActive={el === 1} key={el}>
+                        {el}
+                    </SPaginationItem>
+                );
             })}
-            <ArrowIcon rotate={"180deg"} />
+            <SPaginationArrow>
+                <SmallArrowIcon rotate={"270deg"} />
+            </SPaginationArrow>
         </SPagination>
     );
 });

@@ -1,9 +1,10 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 type TSIconButtonProps = {
     isDark?: boolean;
-    color?: string
-    size?: "sm"
+    isLightest?: boolean;
+    color?: string;
+    size?: "sm";
 };
 
 export const SIconButton = styled.div<TSIconButtonProps>`
@@ -16,9 +17,11 @@ export const SIconButton = styled.div<TSIconButtonProps>`
     border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: ${(props) =>
-            props.isDark
-                    ? "rgba(79, 101, 158, 0.35)"
-                    : "rgba(255, 255, 255, 0.15)"};
+        props.isDark
+            ? "rgba(79, 101, 158, 0.35)"
+            : props.isLightest
+            ? "rgba(255,255,255,0.8)"
+            : "rgba(255, 255, 255, 0.15)"};
     cursor: pointer;
     transition: 0.2s;
 
@@ -28,21 +31,23 @@ export const SIconButton = styled.div<TSIconButtonProps>`
 
     &:active {
         opacity: 1;
-        border: ${({theme}) => "1px solid " + theme.colors.primary};
+        border: ${({ theme }) => "1px solid " + theme.colors.primary};
     }
 
     svg path {
-        fill: ${props => props.color}
+        fill: ${(props) => props.color};
     }
 
-    ${props => props.size === "sm" && css`
-        height: 24px;
-        min-width: 24px;
-        max-width: 24px;
+    ${(props) =>
+        props.size === "sm" &&
+        css`
+            height: 24px;
+            min-width: 24px;
+            max-width: 24px;
 
-        svg {
-            width: 16px;
-            height: 16px;
-        }
-    `}
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        `}
 `;

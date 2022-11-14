@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import IconButton from "../IconButton/IconButton";
-import ArrowIcon from "../../assets/icons/ArrowIcon";
+import LongArrowIcon from "../../assets/icons/LongArrowIcon";
 import { SText } from "../Text/SText";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const BackPageButton: FC<TBackPageButtonProps> = (props) => {
 
     return (
         <SBackPageButton onClick={onClickHandler}>
-            <IconButton icon={<ArrowIcon />} isDark />
+            <IconButton icon={<LongArrowIcon />} isDark />
             <SText opacity={0.5}>Back to Packs List</SText>
         </SBackPageButton>
     );
@@ -28,6 +28,7 @@ const SBackPageButton = styled.div`
     align-items: center;
     transition: 0.2s;
     cursor: pointer;
+
     &:hover {
         transform: translateX(-5px);
         opacity: 0.7;
