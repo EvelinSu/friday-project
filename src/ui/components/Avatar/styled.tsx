@@ -1,21 +1,21 @@
 import styled from "styled-components";
 
-type TSizes = "sm" | "lg" | "md"
+type TSizes = "sm" | "lg" | "md";
 type TSAvatarProps = {
-    size?: TSizes
-    img?: string
-    isEditable?: boolean
-}
+    size?: TSizes;
+    img?: string;
+    isEditable?: boolean;
+};
 
 const imgSizes = (size: TSizes) => {
-    const sizePx = size === "sm" ? 40 : size === "lg" ? 125 : 60
+    const sizePx = size === "sm" ? 40 : size === "lg" ? 125 : 60;
     return {
         minWidth: sizePx,
         maxWidth: sizePx,
         maxHeight: sizePx,
-        minHeight: sizePx
-    }
-}
+        minHeight: sizePx,
+    };
+};
 
 export const SAvatar = styled.div<TSAvatarProps>((props) => ({
     borderRadius: "50%",
@@ -26,15 +26,14 @@ export const SAvatar = styled.div<TSAvatarProps>((props) => ({
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    "img": {
+    img: {
         objectFit: "cover",
         objectPosition: "center",
         minWidth: "100%",
         minHeight: "100%",
     },
-    ...imgSizes(props.size || 'md'),
-
-}))
+    ...imgSizes(props.size || "md"),
+}));
 
 export const SAvatarShadow = styled.div((props) => ({
     display: "flex",
@@ -53,6 +52,6 @@ export const SAvatarShadow = styled.div((props) => ({
     cursor: "pointer",
     transition: "0.2s",
     "&:hover": {
-        opacity: 1
-    }
-}))
+        opacity: 1,
+    },
+}));

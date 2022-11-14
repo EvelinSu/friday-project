@@ -8,4 +8,4 @@ export const SProfileContent = styled.div`
     @media all and (max-width: 470px) {
         flex-direction: column;
     }
-`
+`;

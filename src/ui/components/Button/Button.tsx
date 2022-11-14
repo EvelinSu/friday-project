@@ -1,20 +1,23 @@
-import React, {DetailedHTMLProps, FC} from 'react';
-import {SButton} from "./styled";
+import React, { DetailedHTMLProps, FC } from "react";
+import { SButton } from "./styled";
 
-export type DefaultHTMLButtonType = DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+export type DefaultHTMLButtonType = DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+>;
 
 type TButtonProps = DefaultHTMLButtonType & {
-    label: string,
-    isDisabled?: boolean
-    backgroundColor?: string
-    size?: 'lg' | 'sm'
-    isLoading?: boolean
-    icon?: React.ReactElement
-    needAuth?: boolean
-    shadow?: boolean
-}
+    label: string;
+    isDisabled?: boolean;
+    backgroundColor?: string;
+    size?: "lg" | "sm";
+    isLoading?: boolean;
+    icon?: React.ReactElement;
+    needAuth?: boolean;
+    shadow?: boolean;
+};
 
-const Button: FC<TButtonProps> = ({isDisabled, ...props}) => {
+const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
     const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         props.onClick && props.onClick(e);
     };

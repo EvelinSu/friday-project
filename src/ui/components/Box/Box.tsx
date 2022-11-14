@@ -1,25 +1,25 @@
 import styled from "styled-components";
-import {Property} from "csstype";
+import { Property } from "csstype";
 
 type TBoxProps = {
-    flexDirection?: Property.FlexDirection,
-    alignItems?: Property.AlignItems,
-    justifyContent?: Property.JustifyContent,
-    gap?: string | number,
-    margin?: Property.Margin,
-    padding?: Property.Padding,
-    backgroundColor?: Property.BackgroundColor,
-    maxWidth?: Property.MaxWidth,
-    width?: string | number,
-    color?: Property.Color,
-    height?: Property.Height,
-    opacity?: Property.Opacity,
-    overflow?: Property.OverflowY | Property.OverflowX,
-    flexWrap?: Property.FlexWrap,
-    flexGrow?: Property.FlexGrow,
-    cursor?: Property.Cursor
-    disabled?: boolean
-}
+    flexDirection?: Property.FlexDirection;
+    alignItems?: Property.AlignItems;
+    justifyContent?: Property.JustifyContent;
+    gap?: string | number;
+    margin?: Property.Margin;
+    padding?: Property.Padding;
+    backgroundColor?: Property.BackgroundColor;
+    maxWidth?: Property.MaxWidth;
+    width?: string | number;
+    color?: Property.Color;
+    height?: Property.Height;
+    opacity?: Property.Opacity;
+    overflow?: Property.OverflowY | Property.OverflowX;
+    flexWrap?: Property.FlexWrap;
+    flexGrow?: Property.FlexGrow;
+    cursor?: Property.Cursor;
+    disabled?: boolean;
+};
 
 export const Box = styled.div<TBoxProps>((props) => ({
     display: "flex",
@@ -40,9 +40,9 @@ export const Box = styled.div<TBoxProps>((props) => ({
     flexWrap: props.flexWrap,
     flexGrow: props.flexGrow,
     cursor: props.cursor,
-    ...props.cursor === "pointer" && {
+    ...(props.cursor === "pointer" && {
         "&:hover": {
-            opacity: 0.8
-        }
-    },
-}))
+            opacity: 0.8,
+        },
+    }),
+}));

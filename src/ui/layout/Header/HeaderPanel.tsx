@@ -1,22 +1,22 @@
-import React, {FC} from 'react';
-import {Box} from "../../components/Box/Box";
+import React, { FC } from "react";
+import { Box } from "../../components/Box/Box";
 import IconButton from "../../components/IconButton/IconButton";
 import MoonIcon from "../../assets/icons/MoonIcon";
 import SettingsIcon from "../../assets/icons/SettingsIcon";
-import {SText} from '../../components/Text/SText';
+import { SText } from "../../components/Text/SText";
 import Avatar from "../../components/Avatar/Avatar";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../pages/Pages";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../pages/Pages";
 
 type THeaderPanelProps = {
-    avatar: string | null | undefined,
-    name: string | null,
-}
+    avatar: string | null | undefined;
+    name: string | null;
+};
 
 const HeaderPanel: FC<THeaderPanelProps> = (props) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const windowWidth = window.innerWidth
+    const windowWidth = window.innerWidth;
 
     return (
         <Box alignItems={"center"}>
@@ -34,7 +34,7 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
                     </SText>
                 )}
 
-                <Avatar size={'sm'} img={props.avatar ? props.avatar: ''} />
+                <Avatar size={"sm"} img={props.avatar ? props.avatar : ""} />
             </Box>
         </Box>
     );

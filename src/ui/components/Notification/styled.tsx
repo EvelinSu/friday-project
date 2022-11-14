@@ -1,8 +1,8 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 type TSNotificationWrapper = {
-    notificationsCount: string | number
-}
+    notificationsCount: string | number;
+};
 export const SNotificationWrapper = styled.div<TSNotificationWrapper>`
     position: fixed;
     display: flex;
@@ -13,31 +13,34 @@ export const SNotificationWrapper = styled.div<TSNotificationWrapper>`
     left: 50%;
     right: 50%;
     color: #fff;
-    z-index: ${({theme}) => theme.orders.notifications};
-    ${props => props.notificationsCount && css`
-        &:after {
-            content: '${props.notificationsCount}';
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: ${props.theme.colors.secondary};
-            color: ${props.theme.colors.textOnSecondary};
-            box-shadow: 1px 1px 2px rgb(0, 0, 0, 0.1), -1px -1px 2px rgb(0, 0, 0, 0.1);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            font-size: 12px;
-            position: absolute;
-            right: -170px;
-            top: -70px;
-            z-index: ${props.theme.orders.notifications};
-        }
-    `}
-`
+    z-index: ${({ theme }) => theme.orders.notifications};
+    ${(props) =>
+        props.notificationsCount &&
+        css`
+            &:after {
+                content: "${props.notificationsCount}";
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: ${props.theme.colors.secondary};
+                color: ${props.theme.colors.textOnSecondary};
+                box-shadow: 1px 1px 2px rgb(0, 0, 0, 0.1),
+                    -1px -1px 2px rgb(0, 0, 0, 0.1);
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                font-size: 12px;
+                position: absolute;
+                right: -170px;
+                top: -70px;
+                z-index: ${props.theme.orders.notifications};
+            }
+        `}
+`;
 
 type TSNotificationContainerProps = {
-    severity?: "error",
-}
+    severity?: "error";
+};
 export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     display: flex;
     position: absolute;
@@ -51,12 +54,13 @@ export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     width: 330px;
     height: 60px;
     padding: 10px 20px;
-    background-color: ${props => (props.severity === "error" && props.theme.colors.severity.error)};
-    z-index: ${({theme}) => theme.orders.notifications};
-    &:last-of-type{
+    background-color: ${(props) =>
+        props.severity === "error" && props.theme.colors.severity.error};
+    z-index: ${({ theme }) => theme.orders.notifications};
+    &:last-of-type {
         box-shadow: 0 0 5px 0 rgb(0, 0, 0, 0.3);
     }
-`
+`;
 
 export const SNotificationIcon = styled.div`
     display: flex;
@@ -75,4 +79,4 @@ export const SNotificationIcon = styled.div`
     &:hover {
         background-color: rgba(255, 255, 255, 0.1);
     }
-`
+`;

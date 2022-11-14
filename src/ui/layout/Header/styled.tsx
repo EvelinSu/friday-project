@@ -1,25 +1,25 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: ${({theme}) => theme.colors.textOnPrimary};
-    background-color: ${({theme}) => theme.colors.primaryDark};
+    color: ${({ theme }) => theme.colors.textOnPrimary};
+    background-color: ${({ theme }) => theme.colors.primaryDark};
     padding: 0 30px;
-    max-height: ${({theme}) => theme.sizes.headerHeight + 'px'};
-    min-height: ${({theme}) => theme.sizes.headerHeight + 'px'};
+    max-height: ${({ theme }) => theme.sizes.headerHeight + "px"};
+    min-height: ${({ theme }) => theme.sizes.headerHeight + "px"};
     gap: 20px;
     border-radius: 20px;
     overflow: auto;
     width: 100%;
-    ${({theme}) => css`
-        @media all and (max-width: ${theme.media.small + 'px'}) {
+    ${({ theme }) => css`
+        @media all and (max-width: ${theme.media.small + "px"}) {
             border-radius: 0;
             padding: 0 20px;
         }
     `}
-`
+`;
 
 export const SHeaderLogo = styled.div`
     display: flex;
@@ -27,8 +27,8 @@ export const SHeaderLogo = styled.div`
     margin-left: 10%;
     cursor: pointer;
     transition: 0.2s;
-    ${({theme}) => css`
-        @media all and (max-width: ${theme.media.small + 'px'}) {
+    ${({ theme }) => css`
+        @media all and (max-width: ${theme.media.small + "px"}) {
             margin-left: 0;
             width: 130px;
         }
@@ -39,11 +39,11 @@ export const SHeaderLogo = styled.div`
     &:active {
         transform: scale(1.03);
     }
-`
+`;
 
 type TSHeaderButtonProps = {
-    disabled: boolean
-}
+    disabled: boolean;
+};
 export const SHeaderButton = styled.button<TSHeaderButtonProps>`
     display: flex;
     gap: 15px;
@@ -54,8 +54,10 @@ export const SHeaderButton = styled.button<TSHeaderButtonProps>`
     &:hover {
         transform: translateX(3px);
     }
-    ${props => props.disabled && css`
-        pointer-events: none;
-        opacity: 0.7;
-    `}
-`
+    ${(props) =>
+        props.disabled &&
+        css`
+            pointer-events: none;
+            opacity: 0.7;
+        `}
+`;

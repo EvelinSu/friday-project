@@ -15,8 +15,8 @@ export const baseTheme = {
             default: "rgba(76,85,154,0.09)",
         },
         button: {
-            success: "#7398CE"
-        }
+            success: "#7398CE",
+        },
     },
     sizes: {
         headerHeight: 68,
@@ -31,6 +31,6 @@ export const baseTheme = {
     orders: {
         inputErrors: 2,
         modal: 10,
-        notifications: 15
-    }
-}
+        notifications: 15,
+    },
+};

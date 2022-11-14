@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const SLabel = styled.label(() => ({
     display: "flex",
     alignItems: "center",
-    justifyContent: "inherit"
-}))
+    justifyContent: "inherit",
+}));
 
 export const SCheckbox = styled.input`
     appearance: none;
@@ -12,7 +12,7 @@ export const SCheckbox = styled.input`
     width: 20px;
     height: 20px;
     align-self: center;
-    background-color: ${({theme}) => theme.colors.input.default};
+    background-color: ${({ theme }) => theme.colors.input.default};
     border-radius: 50%;
     margin-right: 10px;
     position: relative;
@@ -22,8 +22,8 @@ export const SCheckbox = styled.input`
         height: 0;
         width: 0;
         &:after {
-            content: '';
-            background-color: ${({theme}) => theme.colors.primary};
+            content: "";
+            background-color: ${({ theme }) => theme.colors.primary};
             position: absolute;
             top: 6px;
             bottom: 6px;
@@ -32,4 +32,4 @@ export const SCheckbox = styled.input`
             border-radius: 50%;
         }
     }
-`
+`;

@@ -1,31 +1,30 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import {SPagePanel, SPageWrapper} from "../styled";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { SPagePanel, SPageWrapper } from "../styled";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import {useNavigate} from "react-router-dom";
-import {Modal} from "../../components/Modal/Modal";
-import {Box} from '../../components/Box/Box';
+import { useNavigate } from "react-router-dom";
+import { Modal } from "../../components/Modal/Modal";
+import { Box } from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
-import defaultPhoto from "../../assets/img/default-photo.png"
-import {SText} from "../../components/Text/SText";
-import {PATH} from "../Pages";
-import {changeUserProfileTC, logOutTC} from "../../../bll/authReducer";
+import defaultPhoto from "../../assets/img/default-photo.png";
+import { SText } from "../../components/Text/SText";
+import { PATH } from "../Pages";
+import { changeUserProfileTC, logOutTC } from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
-import {setAppError} from "../../../bll/appReducer";
-import {SProfileContent} from "./styled";
+import { setAppError } from "../../../bll/appReducer";
+import { SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 
 const Profile = () => {
-
-    const auth = useAppSelector(state => state.auth)
-    const navigate = useNavigate()
+    const auth = useAppSelector((state) => state.auth);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!auth.isLoggedIn) {
-            navigate(PATH.signIn)
+            navigate(PATH.signIn);
         }
-    }, [auth.isLoggedIn, navigate])
+    }, [auth.isLoggedIn, navigate]);
 
     return (
         <SPageWrapper>
@@ -44,50 +43,54 @@ const Profile = () => {
 };
 
 const ProfileModalBody = () => {
+    const auth = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
+    const { isFetching } = useAppSelector((state) => state.auth);
+    const { name, email, avatar } = auth.userData;
 
-    const auth = useAppSelector(state => state.auth)
-    const dispatch = useAppDispatch()
-    const {isFetching} = useAppSelector(state => state.auth)
-    const {name, email, avatar} = auth.userData
-
-    const [value, setValue] = useState(name)
+    const [value, setValue] = useState(name);
 
     const onLogoutHandler = () => {
-        dispatch(logOutTC())
-    }
+        dispatch(logOutTC());
+    };
 
     const onSaveNameHandler = () => {
-        const newName = value?.trim()
-        if (newName && newName.length && (newName.length > 3) && (newName !== name)) {
-            dispatch(changeUserProfileTC({name: newName}))
+        const newName = value?.trim();
+        if (
+            newName &&
+            newName.length &&
+            newName.length > 3 &&
+            newName !== name
+        ) {
+            dispatch(changeUserProfileTC({ name: newName }));
         } else {
-            dispatch(setAppError('Nickname has not been changed'))
-            setValue(name)
+            dispatch(setAppError("Nickname has not been changed"));
+            setValue(name);
         }
-    }
+    };
 
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
-    }
+        setValue(e.currentTarget.value);
+    };
 
     return (
         <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
             <SProfileContent>
-                <Avatar
-                    size={"lg"}
-                    img={avatar || defaultPhoto}
-                    isEditable
-                />
-                <Box width={"100%"} flexDirection={"column"} overflow={"hidden"}>
+                <Avatar size={"lg"} img={avatar || defaultPhoto} isEditable />
+                <Box
+                    width={"100%"}
+                    flexDirection={"column"}
+                    overflow={"hidden"}
+                >
                     <EditableSpan
-                        value={value || ''}
+                        value={value || ""}
                         fontSize={"20px"}
                         onChange={onChangeNameHandler}
                         onSave={onSaveNameHandler}
-                        placeholder={'Nickname'}
+                        placeholder={"Nickname"}
                     />
                     <SText
-                        title={email ? email : ''}
+                        title={email ? email : ""}
                         isEllipsis
                         fontSize={"14px"}
                         fontWeight={300}
@@ -98,7 +101,7 @@ const ProfileModalBody = () => {
             </SProfileContent>
             <Box justifyContent={"center"}>
                 <Button
-                    label={'Log out'}
+                    label={"Log out"}
                     onClick={onLogoutHandler}
                     icon={<SignOutIcon />}
                     isLoading={isFetching}
@@ -106,8 +109,7 @@ const ProfileModalBody = () => {
                 />
             </Box>
         </Box>
-
-    )
-}
+    );
+};
 
 export default Profile;

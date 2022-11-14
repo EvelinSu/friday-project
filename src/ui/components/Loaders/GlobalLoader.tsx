@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import LoaderIcon from "../../assets/loaders/loader";
 import styled from "styled-components";
 
 const GlobalLoader = () => {
     return (
-       <SGlobalLoader>
-           <LoaderIcon/>
-       </SGlobalLoader>
+        <SGlobalLoader>
+            <LoaderIcon />
+        </SGlobalLoader>
     );
 };
 
@@ -16,8 +16,8 @@ const SGlobalLoader = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: ${props => props.theme.colors.secondary};
+    background-color: ${(props) => props.theme.colors.secondary};
     z-index: 100;
-`
+`;
 
 export default GlobalLoader;

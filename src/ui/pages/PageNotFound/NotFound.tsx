@@ -1,17 +1,17 @@
-import React from 'react';
-import PageNotFoundImage  from '../../assets/img/PageNotFoundImage.gif';
-import {SPageNotFound, SPageNotFoundImage, SPageNotFoundTitle} from "./styled";
+import React from "react";
+import PageNotFoundImage from "../../assets/img/PageNotFoundImage.gif";
+import {
+    SPageNotFound,
+    SPageNotFoundImage,
+    SPageNotFoundTitle,
+} from "./styled";
 
 const PageNotFound = () => {
     return (
         <SPageNotFound>
-            <SPageNotFoundTitle>
-                404
-            </SPageNotFoundTitle>
-            <SPageNotFoundTitle>
-                Not Found
-            </SPageNotFoundTitle>
-            <SPageNotFoundImage src={PageNotFoundImage}/>
+            <SPageNotFoundTitle>404</SPageNotFoundTitle>
+            <SPageNotFoundTitle>Not Found</SPageNotFoundTitle>
+            <SPageNotFoundImage src={PageNotFoundImage} />
         </SPageNotFound>
     );
 };

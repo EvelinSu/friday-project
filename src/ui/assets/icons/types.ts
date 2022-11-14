@@ -1,3 +1,1 @@
-export type TIconProps = {
-
-}
+export type TIconProps = {};

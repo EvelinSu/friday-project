@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react';
-import {SPageWrapper} from '../../styled';
-import {Modal} from "../../../components/Modal/Modal";
-import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
-import {useFormik} from "formik";
+import React, { useEffect } from "react";
+import { SPageWrapper } from "../../styled";
+import { Modal } from "../../../components/Modal/Modal";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import {RegisterDataType} from "../../../../dal/api";
-import {PATH} from "../../Pages";
-import {SForm} from "../../../components/Form/styled";
-import {Box} from "../../../components/Box/Box";
+import { RegisterDataType } from "../../../../dal/api";
+import { PATH } from "../../Pages";
+import { SForm } from "../../../components/Form/styled";
+import { Box } from "../../../components/Box/Box";
 import Input from "../../../components/Form/Input";
-import {SText} from "../../../components/Text/SText";
+import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import {registerTC} from "../../../../bll/registerReducer";
+import { registerTC } from "../../../../bll/registerReducer";
 
 const SignUp = () => {
     return (
@@ -25,11 +25,12 @@ const SignUp = () => {
 };
 
 const SignUpForm = () => {
-
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const {isFetching} = useAppSelector(state => state.auth)
-    const isRegistered = useAppSelector(state => state.registration.isRegistered)
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { isFetching } = useAppSelector((state) => state.auth);
+    const isRegistered = useAppSelector(
+        (state) => state.registration.isRegistered
+    );
 
     const {
         handleBlur,
@@ -47,25 +48,24 @@ const SignUpForm = () => {
         },
         validationSchema: Yup.object({
             email: Yup.string()
-                      .email('Invalid email address')
-                      .required('Required'),
+                .email("Invalid email address")
+                .required("Required"),
             password: Yup.string()
-                         .required('Required')
-                         .min(8, ('Must be more than 7')),
+                .required("Required")
+                .min(8, "Must be more than 7"),
             confirmPassword: Yup.string()
-                                .oneOf([Yup.ref('password'), null], 'Passwords must match')
-                                .required('Required')
+                .oneOf([Yup.ref("password"), null], "Passwords must match")
+                .required("Required"),
         }),
         onSubmit: (values: RegisterDataType) => {
-            dispatch(registerTC(values))
-        }
+            dispatch(registerTC(values));
+        },
     });
     useEffect(() => {
         if (isRegistered) {
-            navigate(PATH.signIn)
-
+            navigate(PATH.signIn);
         }
-    }, [isRegistered, navigate])
+    }, [isRegistered, navigate]);
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -97,7 +97,9 @@ const SignUpForm = () => {
                     type="password"
                     value={values.confirmPassword}
                     name="confirmPassword"
-                    error={touched.confirmPassword ? errors.confirmPassword : ""}
+                    error={
+                        touched.confirmPassword ? errors.confirmPassword : ""
+                    }
                     required
                 />
             </Box>
@@ -110,16 +112,14 @@ const SignUpForm = () => {
                     shadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>
-                    <SText textAlign={"center"}>
-                        Already have an account?
-                    </SText>
+                    <SText textAlign={"center"}>Already have an account?</SText>
                     <SText onClick={() => navigate(PATH.signIn)} isLink>
                         Sign In
                     </SText>
                 </Box>
             </Box>
         </SForm>
-    )
-}
+    );
+};
 
 export default SignUp;

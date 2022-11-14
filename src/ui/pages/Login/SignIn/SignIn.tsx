@@ -1,19 +1,19 @@
-import React from 'react';
-import {SPageWrapper} from '../../styled';
-import {Modal} from "../../../components/Modal/Modal";
+import React from "react";
+import { SPageWrapper } from "../../styled";
+import { Modal } from "../../../components/Modal/Modal";
 import Input from "../../../components/Form/Input";
-import {Box} from "../../../components/Box/Box";
+import { Box } from "../../../components/Box/Box";
 import Checkbox from "../../../components/Checkbox/Checkbox";
-import {SText} from '../../../components/Text/SText';
+import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../Pages";
-import {SForm} from "../../../components/Form/styled";
-import {useFormik} from "formik";
-import * as Yup from 'yup';
-import {loginTC} from "../../../../bll/authReducer";
-import {LoginDataType} from "../../../../dal/api";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../Pages";
+import { SForm } from "../../../components/Form/styled";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { loginTC } from "../../../../bll/authReducer";
+import { LoginDataType } from "../../../../dal/api";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 
 const SignIn = () => {
     return (
@@ -26,10 +26,9 @@ const SignIn = () => {
 };
 
 const SignInForm = () => {
-
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const {isFetching} = useAppSelector(state => state.auth)
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { isFetching } = useAppSelector((state) => state.auth);
 
     const {
         handleBlur,
@@ -44,21 +43,22 @@ const SignInForm = () => {
         initialValues: {
             email: "",
             password: "",
-            rememberMe: false
+            rememberMe: false,
         },
         validationSchema: Yup.object({
-            email: Yup.string().email('Invalid email address').required('Required'),
-            password: Yup.string().required('Required'),
+            email: Yup.string()
+                .email("Invalid email address")
+                .required("Required"),
+            password: Yup.string().required("Required"),
         }),
         onSubmit: (values: LoginDataType) => {
-            dispatch(loginTC(values))
-                .then(() => navigate(PATH.profile))
-        }
+            dispatch(loginTC(values)).then(() => navigate(PATH.profile));
+        },
     });
 
     return (
         <SForm onSubmit={handleSubmit}>
-            <Box flexDirection={"column"} >
+            <Box flexDirection={"column"}>
                 <Input
                     title={"Email"}
                     onBlur={handleBlur}
@@ -86,10 +86,15 @@ const SignInForm = () => {
                     type="checkbox"
                     name="rememberMe"
                     checked={values.rememberMe}
-                    onChange={(event) => setFieldValue("rememberMe", event.target.checked)}
+                    onChange={(event) =>
+                        setFieldValue("rememberMe", event.target.checked)
+                    }
                 />
                 <Box margin={"0 0 0 auto"}>
-                    <SText isLink onClick={() => navigate(PATH.recoverPassword)}>
+                    <SText
+                        isLink
+                        onClick={() => navigate(PATH.recoverPassword)}
+                    >
                         Forgot password?
                     </SText>
                 </Box>
@@ -112,7 +117,7 @@ const SignInForm = () => {
                 </Box>
             </Box>
         </SForm>
-    )
-}
+    );
+};
 
 export default SignIn;

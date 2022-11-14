@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 
 const SLoader = styled.div`
@@ -8,19 +8,20 @@ const SLoader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
 const LoaderIcon = () => {
     return (
         <SLoader>
-            <svg
-                version="1.0"
-                width="64px"
-                height="64px"
-                viewBox="0 0 128 128"
-            >
+            <svg version="1.0" width="64px" height="64px" viewBox="0 0 128 128">
                 <g>
-                    <circle cx="16" cy="64" r="16" fill="#222744" fillOpacity="1" />
+                    <circle
+                        cx="16"
+                        cy="64"
+                        r="16"
+                        fill="#222744"
+                        fillOpacity="1"
+                    />
                     <circle
                         cx="16"
                         cy="64"
@@ -29,7 +30,14 @@ const LoaderIcon = () => {
                         fillOpacity="0.67"
                         transform="rotate(45,64,64)"
                     />
-                    <circle cx="16" cy="64" r="16" fill="#a2a4b1" fillOpacity="0.42" transform="rotate(90,64,64)" />
+                    <circle
+                        cx="16"
+                        cy="64"
+                        r="16"
+                        fill="#a2a4b1"
+                        fillOpacity="0.42"
+                        transform="rotate(90,64,64)"
+                    />
                     <circle
                         cx="16"
                         cy="64"
@@ -38,7 +46,14 @@ const LoaderIcon = () => {
                         fillOpacity="0.2"
                         transform="rotate(135,64,64)"
                     />
-                    <circle cx="16" cy="64" r="16" fill="#e5e6e9" fillOpacity="0.12" transform="rotate(180,64,64)" />
+                    <circle
+                        cx="16"
+                        cy="64"
+                        r="16"
+                        fill="#e5e6e9"
+                        fillOpacity="0.12"
+                        transform="rotate(180,64,64)"
+                    />
                     <circle
                         cx="16"
                         cy="64"
@@ -47,7 +62,14 @@ const LoaderIcon = () => {
                         fillOpacity="0.12"
                         transform="rotate(225,64,64)"
                     />
-                    <circle cx="16" cy="64" r="16" fill="#e5e6e9" fillOpacity="0.12" transform="rotate(270,64,64)" />
+                    <circle
+                        cx="16"
+                        cy="64"
+                        r="16"
+                        fill="#e5e6e9"
+                        fillOpacity="0.12"
+                        transform="rotate(270,64,64)"
+                    />
                     <circle
                         cx="16"
                         cy="64"
@@ -67,7 +89,6 @@ const LoaderIcon = () => {
                 </g>
             </svg>
         </SLoader>
-
     );
 };
 

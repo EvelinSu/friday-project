@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react';
-import {SPageWrapper} from "../../styled";
-import {Modal} from "../../../components/Modal/Modal";
-import {SForm} from "../../../components/Form/styled";
-import {Box} from "../../../components/Box/Box";
+import React, { useEffect } from "react";
+import { SPageWrapper } from "../../styled";
+import { Modal } from "../../../components/Modal/Modal";
+import { SForm } from "../../../components/Form/styled";
+import { Box } from "../../../components/Box/Box";
 import Input from "../../../components/Form/Input";
-import {SText} from "../../../components/Text/SText";
+import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../Pages";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
-import {sendEmailTC} from "../../../../bll/forgotPassReducer";
-import {useFormik} from "formik";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../Pages";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { sendEmailTC } from "../../../../bll/forgotPassReducer";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const RecoverPassword = () => {
@@ -28,11 +28,12 @@ const RecoverPassword = () => {
 };
 
 const RecoverPasswordForm = () => {
-
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const isSendLetter = useAppSelector(state => state.forgotPass.isSendLetter)
-    const {isFetching} = useAppSelector(state => state.auth)
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const isSendLetter = useAppSelector(
+        (state) => state.forgotPass.isSendLetter
+    );
+    const { isFetching } = useAppSelector((state) => state.auth);
 
     const {
         handleBlur,
@@ -47,24 +48,27 @@ const RecoverPasswordForm = () => {
             email: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string().email('Invalid email address').required('Required'),
+            email: Yup.string()
+                .email("Invalid email address")
+                .required("Required"),
         }),
-        onSubmit: ({email}) => {
-            dispatch(sendEmailTC(email))
-        }
+        onSubmit: ({ email }) => {
+            dispatch(sendEmailTC(email));
+        },
     });
 
     useEffect(() => {
         if (isSendLetter) {
-            navigate(PATH.checkEmail)
+            navigate(PATH.checkEmail);
         }
-    }, [isSendLetter])
+    }, [isSendLetter]);
 
     return (
         <SForm onSubmit={handleSubmit}>
             <Box padding={"0 20px"} flexDirection={"column"}>
                 <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
-                    Enter your email address and we will send you further instructions
+                    Enter your email address and we will send you further
+                    instructions
                 </SText>
                 <Input
                     placeholder={"Email"}
@@ -77,7 +81,11 @@ const RecoverPasswordForm = () => {
                     required
                 />
             </Box>
-            <Box margin={"10px 0 0 0"} alignItems={"center"} flexDirection={"column"}>
+            <Box
+                margin={"10px 0 0 0"}
+                alignItems={"center"}
+                flexDirection={"column"}
+            >
                 <Button
                     type="submit"
                     label={"Send"}
@@ -95,7 +103,7 @@ const RecoverPasswordForm = () => {
                 </Box>
             </Box>
         </SForm>
-    )
-}
+    );
+};
 
 export default RecoverPassword;

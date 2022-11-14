@@ -1,5 +1,11 @@
-import React, {useEffect, useLayoutEffect} from 'react';
-import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import React, { useEffect, useLayoutEffect } from "react";
+import {
+    Navigate,
+    Route,
+    Routes,
+    useLocation,
+    useNavigate,
+} from "react-router-dom";
 import SignIn from "./Login/SignIn/SignIn";
 import SignUp from "./Login/SignUp/SignUp";
 import Profile from "./Profile/Profile";
@@ -7,44 +13,45 @@ import PageNotFound from "./PageNotFound/NotFound";
 import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
-import {authMeTC} from "../../bll/authReducer";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import { authMeTC } from "../../bll/authReducer";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import PacksList from "./PacksList/PacksList";
 
 export const PATH = {
-    profile: '/profile',
-    packsList: '/packsList',
-    signIn: '/login/signIn',
-    signUp: '/login/signUp',
-    changePassword: '/login/changePassword',
-    recoverPassword: '/login/recoverPassword',
-    checkEmail: '/login/checkEmail',
-}
+    profile: "/profile",
+    packsList: "/packsList",
+    signIn: "/login/signIn",
+    signUp: "/login/signUp",
+    changePassword: "/login/changePassword",
+    recoverPassword: "/login/recoverPassword",
+    checkEmail: "/login/checkEmail",
+};
 
 const Pages = () => {
-
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
-    const location = useLocation()
-    const {isLoggedIn} = useAppSelector(state => state.auth)
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { isLoggedIn } = useAppSelector((state) => state.auth);
 
     const pathGuard = () => {
-        if (location.pathname.includes('login') && isLoggedIn) navigate(PATH.profile)
-        if (!location.pathname.includes('login') && !isLoggedIn) navigate(PATH.signIn)
-    }
+        if (location.pathname.includes("login") && isLoggedIn)
+            navigate(PATH.profile);
+        if (!location.pathname.includes("login") && !isLoggedIn)
+            navigate(PATH.signIn);
+    };
     useLayoutEffect(() => {
-        pathGuard()
-    }, [location, navigate, isLoggedIn])
+        pathGuard();
+    }, [location, navigate, isLoggedIn]);
     useEffect(() => {
-        pathGuard()
-    }, [location])
+        pathGuard();
+    }, [location]);
     useEffect(() => {
-        dispatch(authMeTC())
-    },[])
+        dispatch(authMeTC());
+    }, []);
 
     return (
         <Routes>
-            <Route path={'/'} element={<Navigate to={PATH.signIn} />} />
+            <Route path={"/"} element={<Navigate to={PATH.signIn} />} />
             <Route path={PATH.profile} element={<Profile />} />
             <Route path={PATH.packsList} element={<PacksList />} />
             <Route path={PATH.signIn} element={<SignIn />} />
@@ -54,7 +61,7 @@ const Pages = () => {
             </Route>
             <Route path={PATH.recoverPassword} element={<RecoverPassword />} />
             <Route path={PATH.checkEmail} element={<CheckEmail />} />
-            <Route path={'*'} element={<PageNotFound />} />
+            <Route path={"*"} element={<PageNotFound />} />
         </Routes>
     );
 };
