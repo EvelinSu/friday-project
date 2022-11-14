@@ -12,6 +12,7 @@ export const SHeader = styled.div`
     gap: 20px;
     border-radius: 20px;
     overflow: auto;
+    width: 100%;
     ${({theme}) => css`
         @media all and (max-width: ${theme.media.small + 'px'}) {
             border-radius: 0;

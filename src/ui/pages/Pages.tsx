@@ -1,19 +1,19 @@
 import React, {useEffect, useLayoutEffect} from 'react';
 import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignUp/SignUp";
+import SignIn from "./Login/SignIn/SignIn";
+import SignUp from "./Login/SignUp/SignUp";
 import Profile from "./Profile/Profile";
 import PageNotFound from "./PageNotFound/NotFound";
-import CheckEmail from "./CheckEmail/CheckEmail";
-import ChangePassword from "./ChangePassword/ChangePassword";
-import RecoverPassword from "./RecoverPassword/RecoverPassword";
+import CheckEmail from "./Login/CheckEmail/CheckEmail";
+import ChangePassword from "./Login/ChangePassword/ChangePassword";
+import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
 import {authMeTC} from "../../bll/authReducer";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-
-
+import PacksList from "./PacksList/PacksList";
 
 export const PATH = {
     profile: '/profile',
+    packsList: '/packsList',
     signIn: '/login/signIn',
     signUp: '/login/signUp',
     changePassword: '/login/changePassword',
@@ -41,6 +41,7 @@ const Pages = () => {
         <Routes>
             <Route path={'/'} element={<Navigate to={PATH.signIn} />} />
             <Route path={PATH.profile} element={<Profile />} />
+            <Route path={PATH.packsList} element={<PacksList />} />
             <Route path={PATH.signIn} element={<SignIn />} />
             <Route path={PATH.signUp} element={<SignUp />} />
             <Route path={PATH.changePassword} element={<ChangePassword />}>

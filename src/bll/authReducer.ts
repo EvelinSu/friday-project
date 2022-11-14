@@ -48,7 +48,7 @@ export const authReducer = slice.reducer
 
 export const {setIsLoggedIn, setUserData, setUserProfile, setIsFetching} = slice.actions
 
-export const authMeTC = () => async (dispatch: TAppDispatch) => {
+export const authMeTC = () => (dispatch: TAppDispatch) => {
     dispatch(setAppStatus('loading'))
     authAPI.authMe()
            .then((res) => {

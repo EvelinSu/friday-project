@@ -48,6 +48,7 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
         }
     `}
     ${props => props.title && css`
+        margin-top: 25px;
         &:before {
             content: '${props.title}';
             position: absolute;
@@ -63,6 +64,8 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
 
 interface TSInputProps {
     isError?: boolean,
+    hasRightIcon?: boolean,
+    hasLeftIcon?: boolean,
 }
 export const SInput = styled.input<TSInputProps>`
     padding: 10px 15px;
@@ -86,4 +89,27 @@ export const SInput = styled.input<TSInputProps>`
     &::placeholder{
         opacity: 0.4;
     }
+    ${props => props.hasLeftIcon && css`
+        padding-left: 40px;
+    `}
+    ${props => props.hasRightIcon && css`
+        padding-right: 35px;
+    `}
+`
+
+
+export const SInputLeftIcon = styled.div`
+    display: flex;
+    align-items: center;
+    position: absolute;
+    padding: 5px 10px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+`
+
+export const SInputRightIcon = styled(SInputLeftIcon)`
+    left: initial;
+    right: 0;
 `

@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {SPageWrapper} from "../styled";
+import {SPagePanel, SPageWrapper} from "../styled";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
-import Modal from "../../components/Modal/Modal";
+import {Modal} from "../../components/Modal/Modal";
 import {Box} from '../../components/Box/Box';
 import Avatar from "../../components/Avatar/Avatar";
 import defaultPhoto from "../../assets/img/default-photo.png"
@@ -14,6 +14,7 @@ import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
 import {setAppError} from "../../../bll/appReducer";
 import {SProfileContent} from "./styled";
+import BackPageButton from "../../components/BackPageButton/BackPageButton";
 
 const Profile = () => {
 
@@ -28,11 +29,16 @@ const Profile = () => {
 
     return (
         <SPageWrapper>
-            <Modal
-                title={"Personal Information"}
-                body={<ProfileModalBody />}
-                width={"400px"}
-            />
+            <SPagePanel>
+                <BackPageButton to={PATH.packsList} />
+            </SPagePanel>
+            <Box justifyContent={"center"} padding={"10vh 0 0"}>
+                <Modal
+                    title={"Personal Information"}
+                    body={<ProfileModalBody />}
+                    width={"400px"}
+                />
+            </Box>
         </SPageWrapper>
     );
 };
@@ -51,10 +57,10 @@ const ProfileModalBody = () => {
     }
 
     const onSaveNameHandler = () => {
-        if (value && value.length && (value.length > 3) && (value !== name)) {
-            dispatch(changeUserProfileTC({name: value}))
-        }
-        else {
+        const newName = value?.trim()
+        if (newName && newName.length && (newName.length > 3) && (newName !== name)) {
+            dispatch(changeUserProfileTC({name: newName}))
+        } else {
             dispatch(setAppError('Nickname has not been changed'))
             setValue(name)
         }

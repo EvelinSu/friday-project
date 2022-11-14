@@ -3,10 +3,11 @@ import {SIconButton} from "./styles";
 
 type TIconButtonProps = {
     icon: React.ReactNode
+    isDark?: boolean
 }
 const IconButton: FC<TIconButtonProps> = (props) => {
     return (
-        <SIconButton>
+        <SIconButton isDark={props.isDark}>
             {props.icon}
         </SIconButton>
     );

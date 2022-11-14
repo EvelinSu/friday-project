@@ -1,10 +1,10 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes} from 'react';
-import {SInput, SInputWrapper} from "./styled";
-import {Box} from "../Box/Box";
+import {SInput, SInputLeftIcon, SInputRightIcon, SInputWrapper} from "./styled";
 
 export type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 export type TInputProps = DefaultInputPropsType & {
-    icon?: React.ReactNode
+    leftIcon?: React.ReactNode
+    rightIcon?: React.ReactNode
     error?: string
     title?: string
 }
@@ -23,11 +23,11 @@ const Input: React.FC<TInputProps> = ({...props}) => {
 
     return (
         <SInputWrapper error={props.error} title={props.title}>
-            {props.icon && (
-                <Box opacity={0.5}>
-                    {props.icon}
-                </Box>
-            )}
+            {props.leftIcon &&
+                (<SInputLeftIcon>
+                    {props.leftIcon}
+                </SInputLeftIcon>)
+            }
             <SInput
                 placeholder={props.placeholder || ''}
                 type={props.type}
@@ -38,7 +38,14 @@ const Input: React.FC<TInputProps> = ({...props}) => {
                 value={props.value}
                 onBlur={onBlur}
                 onError={props.onError}
+                hasLeftIcon={!!props.leftIcon}
+                hasRightIcon={!!props.rightIcon}
             />
+            {props.rightIcon &&
+                (<SInputRightIcon>
+                    {props.rightIcon}
+                </SInputRightIcon>)
+            }
         </SInputWrapper>
     );
 };

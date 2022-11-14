@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export const SIconButton = styled.div`
+type TSIconButtonProps = {
+    isDark?: boolean
+}
+export const SIconButton = styled.div<TSIconButtonProps>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,13 +11,16 @@ export const SIconButton = styled.div`
     min-width: 34px;
     max-width: 34px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: ${props => props.isDark ? "rgba(79, 101, 158, 0.35)" : "rgba(255, 255, 255, 0.15)"};
     cursor: pointer;
-    transition: 0.1s;
+    transition: 0.2s;
     &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
+        opacity: 0.7;
     }
     &:active {
-        background-color: rgba(255, 255, 255, 0.25);
+        opacity: 1;
+        border: ${({theme}) => '1px solid ' + theme.colors.primary};
     }
+
 `

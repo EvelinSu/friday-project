@@ -1,26 +1,28 @@
 import React, {useEffect} from 'react';
-import {SPageWrapper} from "../styled";
-import Modal from "../../components/Modal/Modal";
-import {SForm} from "../../components/Form/styled";
-import {Box} from "../../components/Box/Box";
-import Input from "../../components/Form/Input";
-import {SText} from "../../components/Text/SText";
-import Button from "../../components/Button/Button";
+import {SPageWrapper} from "../../styled";
+import {Modal} from "../../../components/Modal/Modal";
+import {SForm} from "../../../components/Form/styled";
+import {Box} from "../../../components/Box/Box";
+import Input from "../../../components/Form/Input";
+import {SText} from "../../../components/Text/SText";
+import Button from "../../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
-import {PATH} from "../Pages";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {sendEmailTC} from "../../../bll/forgotPassReducer";
+import {PATH} from "../../Pages";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
+import {sendEmailTC} from "../../../../bll/forgotPassReducer";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 
 const RecoverPassword = () => {
     return (
         <SPageWrapper>
-            <Modal
-                title={"Forgot your password?"}
-                body={<RecoverPasswordForm/>}
-                width={"390px"}
-            />
+            <Box justifyContent={"center"} padding={"10vh 0 0"}>
+                <Modal
+                    title={"Forgot your password?"}
+                    body={<RecoverPasswordForm />}
+                    width={"390px"}
+                />
+            </Box>
         </SPageWrapper>
     );
 };
@@ -31,7 +33,6 @@ const RecoverPasswordForm = () => {
     const dispatch = useAppDispatch()
     const isSendLetter = useAppSelector(state => state.forgotPass.isSendLetter)
     const {isFetching} = useAppSelector(state => state.auth)
-
 
     const {
         handleBlur,
@@ -49,18 +50,15 @@ const RecoverPasswordForm = () => {
             email: Yup.string().email('Invalid email address').required('Required'),
         }),
         onSubmit: ({email}) => {
-            console.log(email)
             dispatch(sendEmailTC(email))
         }
     });
-
 
     useEffect(() => {
         if (isSendLetter) {
             navigate(PATH.checkEmail)
         }
     }, [isSendLetter])
-
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -99,6 +97,5 @@ const RecoverPasswordForm = () => {
         </SForm>
     )
 }
-
 
 export default RecoverPassword;

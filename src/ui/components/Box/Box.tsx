@@ -21,7 +21,7 @@ type TBoxProps = {
     disabled?: boolean
 }
 
-export const Box = styled.div<TBoxProps>((props)=> ({
+export const Box = styled.div<TBoxProps>((props) => ({
     display: "flex",
     flexDirection: props.flexDirection,
     alignItems: props.alignItems,

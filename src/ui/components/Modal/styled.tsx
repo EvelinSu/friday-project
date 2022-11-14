@@ -1,30 +1,20 @@
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 
 type TSModalWrapperProps = {
     shadow?: boolean
 }
-export const SModalWrapper = styled.div<TSModalWrapperProps>`
+export const SMegaShadow = styled.div<TSModalWrapperProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: fixed;
     overflow: auto;
-    padding: 30px 30px ${({theme}) => theme.sizes.headerHeight + 30 + 'px'};
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
     bottom: 0;
-    top: ${({theme}) => theme.sizes.headerHeight + 30 + 'px'};
     left: 0;
     right: 0;
-    ${({shadow, theme}) => shadow && css`
-        background-color: rgba(0, 0, 0, 0.4);
-        top: 0;
-        z-index: ${theme.orders.modal};
-    `}
-    ${(props) =>  css`
-        @media all and (max-width: ${props.theme.media.small}px) {
-            top: ${({theme}) => theme.sizes.headerHeight}px;
-            padding: 20px;
-        }
-   `}
 `
 
 type TSModalContainerProps = {

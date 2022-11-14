@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {SModalBody, SModalContainer, SModalFooter, SModalHeader, SModalWrapper} from "./styled";
+import {SModalBody, SModalContainer, SModalFooter, SModalHeader} from "./styled";
 
 type TModalProps = {
     title: string
@@ -9,25 +9,21 @@ type TModalProps = {
     width?: string
 }
 
-const Modal: FC<TModalProps> = (props) => {
+export const Modal: FC<TModalProps> = (props) => {
     return (
-        <SModalWrapper shadow={props.shadow}>
-            <SModalContainer width={props.width}>
-                <SModalHeader>
-                    {props.title}
-                </SModalHeader>
-                <SModalBody>
-                    {props.body}
-                </SModalBody>
-                {props.footer && (
-                    <SModalFooter>
-                        {props.footer}
-                    </SModalFooter>
-                )}
-            </SModalContainer>
+        <SModalContainer width={props.width}>
+            <SModalHeader>
+                {props.title}
+            </SModalHeader>
+            <SModalBody>
+                {props.body}
+            </SModalBody>
+            {props.footer && (
+                <SModalFooter>
+                    {props.footer}
+                </SModalFooter>
+            )}
+        </SModalContainer>
+    )
+}
 
-        </SModalWrapper>
-    );
-};
-
-export default Modal;

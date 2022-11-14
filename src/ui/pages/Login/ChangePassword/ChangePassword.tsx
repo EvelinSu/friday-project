@@ -1,26 +1,28 @@
 import React, {useEffect} from 'react';
-import {SPageWrapper} from "../styled";
-import Modal from "../../components/Modal/Modal";
-import {SForm} from "../../components/Form/styled";
-import {Box} from "../../components/Box/Box";
-import {SText} from "../../components/Text/SText";
-import Button from "../../components/Button/Button";
-import Input from "../../components/Form/Input";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {SPageWrapper} from "../../styled";
+import {SForm} from "../../../components/Form/styled";
+import {Box} from "../../../components/Box/Box";
+import {SText} from "../../../components/Text/SText";
+import Button from "../../../components/Button/Button";
+import Input from "../../../components/Form/Input";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {useNavigate, useParams} from "react-router-dom";
-import {sendNewPassTC, setTokenAC} from "../../../bll/forgotPassReducer";
+import {sendNewPassTC, setTokenAC} from "../../../../bll/forgotPassReducer";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {PATH} from "../Pages";
+import {PATH} from "../../Pages";
+import {Modal} from "../../../components/Modal/Modal";
 
 const ChangePassword = () => {
     return (
         <SPageWrapper>
-            <Modal
-                title={"Create new password"}
-                body={<ChangePasswordForm />}
-                width={"390px"}
-            />
+            <Box justifyContent={"center"} padding={"10vh 0 0"}>
+                <Modal
+                    title={"Create new password"}
+                    body={<ChangePasswordForm />}
+                    width={"390px"}
+                />
+            </Box>
         </SPageWrapper>
     );
 };
@@ -49,22 +51,20 @@ const ChangePasswordForm = () => {
         validationSchema: Yup.object({
             password: Yup.string().required('Required'),
         }),
-        onSubmit: (values: {password : string}) => {
-                token && dispatch(sendNewPassTC(values.password,token))
+        onSubmit: (values: { password: string }) => {
+            token && dispatch(sendNewPassTC(values.password, token))
 
         }
     });
 
-
     useEffect(() => {
         if (!token || !isTokenFromState) {
-        // console.log('token', token)
-        navigate(PATH.profile)
+            // console.log('token', token)
+            navigate(PATH.profile)
         } else if (token) {
             token && dispatch(setTokenAC({token}))
         }
-    },[isTokenFromState])
-
+    }, [isTokenFromState])
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -95,6 +95,5 @@ const ChangePasswordForm = () => {
         </SForm>
     )
 }
-
 
 export default ChangePassword;

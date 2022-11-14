@@ -1,24 +1,26 @@
 import React from 'react';
-import {SPageWrapper} from '../styled';
-import Modal from "../../components/Modal/Modal";
-import Input from "../../components/Form/Input";
-import {Box} from "../../components/Box/Box";
-import Checkbox from "../../components/Checkbox/Checkbox";
-import {SText} from '../../components/Text/SText';
-import Button from "../../components/Button/Button";
+import {SPageWrapper} from '../../styled';
+import {Modal} from "../../../components/Modal/Modal";
+import Input from "../../../components/Form/Input";
+import {Box} from "../../../components/Box/Box";
+import Checkbox from "../../../components/Checkbox/Checkbox";
+import {SText} from '../../../components/Text/SText';
+import Button from "../../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
-import {PATH} from "../Pages";
-import {SForm} from "../../components/Form/styled";
+import {PATH} from "../../Pages";
+import {SForm} from "../../../components/Form/styled";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
-import {loginTC} from "../../../bll/authReducer";
-import {LoginDataType} from "../../../dal/api";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {loginTC} from "../../../../bll/authReducer";
+import {LoginDataType} from "../../../../dal/api";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 
 const SignIn = () => {
     return (
         <SPageWrapper>
-            <Modal title={"Sign In"} body={<SignInForm />} />
+            <Box justifyContent={"center"} padding={"10vh 0 0"}>
+                <Modal title={"Sign In"} body={<SignInForm />} />
+            </Box>
         </SPageWrapper>
     );
 };
@@ -56,7 +58,7 @@ const SignInForm = () => {
 
     return (
         <SForm onSubmit={handleSubmit}>
-            <Box margin={"30px 0 0 0"} flexDirection={"column"} gap={40}>
+            <Box flexDirection={"column"} >
                 <Input
                     title={"Email"}
                     onBlur={handleBlur}

@@ -1,23 +1,25 @@
 import React, {useEffect} from 'react';
-import {SPageWrapper} from '../styled';
-import Modal from "../../components/Modal/Modal";
+import {SPageWrapper} from '../../styled';
+import {Modal} from "../../../components/Modal/Modal";
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {useFormik} from "formik";
 import * as Yup from "yup";
-import {RegisterDataType} from "../../../dal/api";
-import {PATH} from "../Pages";
-import {SForm} from "../../components/Form/styled";
-import {Box} from "../../components/Box/Box";
-import Input from "../../components/Form/Input";
-import {SText} from "../../components/Text/SText";
-import Button from "../../components/Button/Button";
-import {registerTC} from "../../../bll/registerReducer";
+import {RegisterDataType} from "../../../../dal/api";
+import {PATH} from "../../Pages";
+import {SForm} from "../../../components/Form/styled";
+import {Box} from "../../../components/Box/Box";
+import Input from "../../../components/Form/Input";
+import {SText} from "../../../components/Text/SText";
+import Button from "../../../components/Button/Button";
+import {registerTC} from "../../../../bll/registerReducer";
 
 const SignUp = () => {
     return (
         <SPageWrapper>
-            <Modal title={"Sign Up"} body={<SignUpForm />} />
+            <Box justifyContent={"center"} padding={"10vh 0 0"}>
+                <Modal title={"Sign Up"} body={<SignUpForm />} />
+            </Box>
         </SPageWrapper>
     );
 };
@@ -67,7 +69,7 @@ const SignUpForm = () => {
 
     return (
         <SForm onSubmit={handleSubmit}>
-            <Box margin={"30px 0 0 0"} flexDirection={"column"} gap={40}>
+            <Box flexDirection={"column"}>
                 <Input
                     title={"Email"}
                     onBlur={handleBlur}
