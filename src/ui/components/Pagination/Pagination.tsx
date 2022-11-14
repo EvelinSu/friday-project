@@ -1,7 +1,6 @@
 import React from "react";
-import { SPagination, SPaginationItem } from "./styled";
+import {SPagination, SPaginationItem} from "./styled";
 import ArrowIcon from "../../assets/icons/ArrowIcon";
-import ReactPaginate from "react-paginate";
 
 type TPaginationProps = {
     totalPagesCount?: number;

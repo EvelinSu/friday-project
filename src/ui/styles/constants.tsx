@@ -1,5 +1,6 @@
 export const baseTheme = {
     colors: {
+        primaryLighter: "#8facd3",
         primary: "#7398CE",
         primaryDark: "#4F659E",
         textOnPrimary: "#eaeaea",
@@ -36,5 +37,6 @@ export const baseTheme = {
         inputErrors: 2,
         modal: 10,
         notifications: 15,
+        dropdown: 5
     },
 };

@@ -22,7 +22,7 @@ const PacksList = () => {
         dispatch(getPacks(1, 20));
     }, []);
 
-    const [isFilterOpen, setIsFilterOpen] = useState(true);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     return (
         <SPageWrapper>
@@ -42,7 +42,7 @@ const PacksList = () => {
                             onClick={() => setIsFilterOpen(!isFilterOpen)}
                             icon={<FilterIcon />}
                         />
-                        {isFilterOpen && <Filter />}
+                        {isFilterOpen && <Filter setIsOpen={setIsFilterOpen} />}
                     </FilterWrapper>
                 </Box>
             </SPagePanel>

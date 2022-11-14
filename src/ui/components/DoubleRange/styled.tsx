@@ -1,38 +1,14 @@
 import styled from "styled-components";
 
-export const SDoubleRangeWrapper = styled.div((props) => ({
-    position: "relative",
-    userSelect: "none",
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    height: rangeStyles.thumb.height,
-}));
-
-type TSRangeProps = {
-    value1: number;
-    value2: number;
-};
-export const SRangeTrack = styled.div<TSRangeProps>(({theme, value1, value2}) => ({
-    borderRadius: 10,
-    position: "absolute",
-    height: rangeStyles.track.height,
-    left: 0,
-    right: 0,
-    background: `linear-gradient(to right, rgba(0, 0, 0, 0.1) ${value1}%, 
-                                           ${theme.colors.primary} ${value1}% ${value2}%, 
-                                           rgba(0, 0, 0, 0.1) ${value2}%)`,
-}));
-
 const rangeStyles: any = {
     track: {
         appearance: "none",
-        height: 8,
+        height: 5,
     },
     thumb: {
         "-webkit-appearance": "none !important",
-        height: 20,
-        width: 20,
+        height: 16,
+        width: 16,
         cursor: "pointer",
         borderRadius: 30,
         marginTop: -6,
@@ -41,11 +17,37 @@ const rangeStyles: any = {
         transition: "0.2s",
         "&:hover": {
             transform: "scale(1.2)",
-        }
-    }
-}
+        },
+    },
+};
 
-export const SDoubleRange = styled.input(({theme}) => ({
+export const SDoubleRangeWrapper = styled.div`
+    position: relative;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: ${rangeStyles.thumb.height};
+`;
+
+type TSRangeProps = {
+    value1: number;
+    value2: number;
+};
+export const SRangeTrack = styled.div<TSRangeProps>(
+    ({ theme, value1, value2 }) => ({
+        borderRadius: 10,
+        position: "absolute",
+        height: rangeStyles.track.height,
+        left: 0,
+        right: 0,
+        background: `linear-gradient(to right, rgba(0, 0, 0, 0.1) ${value1}%, 
+                                           ${theme.colors.primary} ${value1}% ${value2}%, 
+                                           rgba(0, 0, 0, 0.1) ${value2}%)`,
+    })
+);
+
+export const SDoubleRange = styled.input(({ theme }) => ({
     '&[type="range"]': {
         "-webkit-appearance": "none !important",
         "-moz-appearance": "none",
@@ -62,7 +64,6 @@ export const SDoubleRange = styled.input(({theme}) => ({
     },
     '&[type="range"]::-webkit-slider-runnable-track': {
         ...rangeStyles.track,
-
     },
     '&[type="range"]::-moz-range-track': {
         ...rangeStyles.track,
@@ -83,3 +84,13 @@ export const SDoubleRange = styled.input(({theme}) => ({
         ...rangeStyles.thumb,
     },
 }));
+
+export const DoubleRangeValueWrapper = styled.div`
+    width: 20px;
+    min-width: 20px;
+
+    &:last-of-type {
+        display: flex;
+        justify-content: flex-end;
+    }
+`;
