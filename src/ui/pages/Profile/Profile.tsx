@@ -49,6 +49,7 @@ const ProfileModalBody = () => {
     const { name, email, avatar } = auth.userData;
 
     const [value, setValue] = useState(name);
+
     const onLogoutHandler = () => {
         dispatch(logOutTC());
     };
@@ -72,7 +73,7 @@ const ProfileModalBody = () => {
         setValue(e.currentTarget.value);
     };
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.code === "Enter") {
+        if (e.key === "Enter") {
             onSaveNameHandler();
         }
     };

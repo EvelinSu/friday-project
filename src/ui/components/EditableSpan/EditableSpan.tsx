@@ -38,6 +38,7 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
     };
     const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         props.onKeyDown && props.onKeyDown(e);
+        if (e.key === "Enter") saveChanges();
     };
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         props.onChange && props.onChange(e);
