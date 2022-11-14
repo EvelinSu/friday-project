@@ -2,14 +2,10 @@ import axios from "axios";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || "http://localhost:7542/2.0/",
-    // baseURL: "https://neko-back.herokuapp.com/2.0/",
-
     // baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' :
     // 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
 });
-
-console.log(process.env);
 
 export const authAPI = {
     login(data: LoginDataType) {
@@ -54,30 +50,35 @@ export const forgotPassAPI = {
 export const packsAPI = {
     getPacks(page: number, pageCount: number, userId?: string) {
         return instance.get<ResponsePackType>(
-            `cards/pack?page=${page}?pageCount=${pageCount}${userId ? "?=user_id" + userId : ""}`)
-    }
-}
+            `cards/pack?page=${page}?pageCount=${pageCount}${
+                userId ? "?=user_id" + userId : ""
+            }`
+        );
+    },
+};
+
+////////////////////////////////// types ///////////////////////////
 
 export type TPack = {
-    _id: string
-    cardsCount: number
-    created: string
-    grade: number
-    more_id: string
-    path: string
-    name: string
-    private: boolean
-    rating: number
-    shots: number
-    updated: string
-    user_id: string
-    user_name: string
-}
+    _id: string;
+    cardsCount: number;
+    created: string;
+    grade: number;
+    more_id: string;
+    path: string;
+    name: string;
+    private: boolean;
+    rating: number;
+    shots: number;
+    updated: string;
+    user_id: string;
+    user_name: string;
+};
 
 type ResponsePackType = {
-    cardPacks: TPack[],
-    cardPacksTotalCount: number
-}
+    cardPacks: TPack[];
+    cardPacksTotalCount: number;
+};
 
 export type RegisterDataType = {
     email: string;
