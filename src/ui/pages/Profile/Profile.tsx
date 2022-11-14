@@ -12,9 +12,9 @@ import { PATH } from "../Pages";
 import { changeUserProfileTC, logOutTC } from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
-import { setAppError } from "../../../bll/appReducer";
 import { SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
+import { setAppMessage } from "../../../bll/appReducer";
 
 const Profile = () => {
     const auth = useAppSelector((state) => state.auth);
@@ -64,7 +64,12 @@ const ProfileModalBody = () => {
         ) {
             dispatch(changeUserProfileTC({ name: newName }));
         } else {
-            dispatch(setAppError("Nickname has not been changed"));
+            dispatch(
+                setAppMessage({
+                    text: "Nickname has not been changed",
+                    severity: "error",
+                })
+            );
             setValue(name);
         }
     };
@@ -84,6 +89,7 @@ const ProfileModalBody = () => {
                 <Avatar
                     size={"large"}
                     img={avatar || defaultPhoto}
+                    onClick={() => alert("In progress")}
                     isEditable
                 />
                 <Box

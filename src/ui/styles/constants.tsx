@@ -11,6 +11,7 @@ export const baseTheme = {
 
         severity: {
             error: "#ce5252",
+            success: "#74b460",
         },
         input: {
             default: "rgba(76,85,154,0.09)",
@@ -21,7 +22,7 @@ export const baseTheme = {
         cards: {
             default: ["#3879B5", "rgba(56,121,181,0.53)"],
             text: "#fff",
-        }
+        },
     },
     sizes: {
         headerHeight: 68,
@@ -37,6 +38,6 @@ export const baseTheme = {
         inputErrors: 2,
         modal: 10,
         notifications: 15,
-        dropdown: 5
+        dropdown: 5,
     },
 };

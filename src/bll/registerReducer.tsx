@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RegisterDataType, registrationAPI } from "../dal/api";
 import { TAppDispatch } from "./store/store";
-import { setAppError } from "./appReducer";
 import { setIsFetching } from "./authReducer";
+import { setAppMessage } from "./appReducer";
 
 export type TRegister = {
     email: string;
@@ -41,12 +41,18 @@ export const registerTC =
             .then(() => {
                 dispatch(setRegisterUserAC(data));
                 dispatch(setIsRegisteredAC({ isRegistered: true }));
+                dispatch(
+                    setAppMessage({
+                        text: "Registration was successful!",
+                        severity: "success",
+                    })
+                );
             })
             .catch((e) => {
                 const err = e.response
                     ? e.response.data.error
                     : e.message + ", more details in the console";
-                dispatch(setAppError(err));
+                dispatch(setAppMessage({ text: err, severity: "error" }));
             })
             .finally(() => dispatch(setIsFetching(false)));
     };

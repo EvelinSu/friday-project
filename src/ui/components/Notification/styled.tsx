@@ -39,7 +39,7 @@ export const SNotificationWrapper = styled.div<TSNotificationWrapper>`
 `;
 
 type TSNotificationContainerProps = {
-    severity?: "error";
+    severity?: "error" | "success";
 };
 export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     display: flex;
@@ -55,7 +55,11 @@ export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     height: 60px;
     padding: 10px 20px;
     background-color: ${(props) =>
-        props.severity === "error" && props.theme.colors.severity.error};
+        props.severity === "error"
+            ? props.theme.colors.severity.error
+            : props.severity === "success"
+            ? props.theme.colors.severity.success
+            : props.theme.colors.primary};
     z-index: ${({ theme }) => theme.orders.notifications};
 
     &:last-of-type {

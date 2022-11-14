@@ -20,7 +20,11 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
 
     return (
         <Box alignItems={"center"}>
-            <IconButton title={"Dark theme"} icon={<MoonIcon />} />
+            <IconButton
+                onClick={() => alert("In progress")}
+                title={"Dark theme"}
+                icon={<MoonIcon />}
+            />
             <IconButton
                 title={"Settings"}
                 onClick={() => navigate(PATH.profile)}

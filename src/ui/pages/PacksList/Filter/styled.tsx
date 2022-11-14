@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import { Box } from "../../../components/Box/Box";
 
-export const FilterWrapper = styled.div`
-    display: flex;
+export const FilterWrapper = styled(Box)`
     align-items: center;
     position: relative;
 `;

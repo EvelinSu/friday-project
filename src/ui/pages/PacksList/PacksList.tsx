@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Filter from "./Filter/Filter";
 import { FilterWrapper } from "./Filter/styled";
 import Pagination from "../../components/Pagination/Pagination";
+import { SSearchInput } from "./styled";
 
 const PacksList = () => {
     const dispatch = useAppDispatch();
@@ -33,11 +34,21 @@ const PacksList = () => {
                     justifyContent={"space-between"}
                 >
                     <SMainTitle>Packs list</SMainTitle>
-                    <Button label={"Add new pack"} shadow />
+                    <Button
+                        onClick={() => alert("In progress")}
+                        label={"Add new pack"}
+                        shadow
+                    />
                 </Box>
                 <Box alignItems={"end"} justifyContent={"space-between"}>
-                    <Input title={"Search"} leftIcon={<SearchIcon />} />
-                    <FilterWrapper>
+                    <SSearchInput>
+                        <Input
+                            title={"Search"}
+                            placeholder={"Search by name"}
+                            leftIcon={<SearchIcon />}
+                        />
+                    </SSearchInput>
+                    <FilterWrapper margin={"0 0 3px 0"}>
                         <IconButton
                             onClick={() => setIsFilterOpen(!isFilterOpen)}
                             icon={<FilterIcon />}

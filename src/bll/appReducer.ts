@@ -2,15 +2,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
 
+type TAppMessage = {
+    id: string;
+    severity: "error" | "success";
+    text: string;
+};
+
 export type TApp = {
     isInitialized: boolean;
     status: RequestStatusType;
-    errors: string[];
+    messages: TAppMessage[];
 };
 const initialState: TApp = {
     isInitialized: false,
     status: "idle",
-    errors: [],
+    messages: [],
 };
 
 const slice = createSlice({
@@ -20,13 +26,30 @@ const slice = createSlice({
         setIsInitialized(state, action: PayloadAction<{ value: boolean }>) {
             state.isInitialized = action.payload.value;
         },
-        setAppError(state, action: PayloadAction<string | string[]>) {
-            if (typeof action.payload === "string")
-                state.errors.push(action.payload);
-            else state.errors = action.payload;
+        setAppMessage(
+            state,
+            action: PayloadAction<{
+                text: string;
+                severity: "error" | "success";
+            }>
+        ) {
+            const newMessage: TAppMessage = {
+                id: String(Math.random()),
+                severity: action.payload.severity,
+                text: action.payload.text,
+            };
+            state.messages.push(newMessage);
         },
-        setAppLastError(state) {
-            state.errors = state.errors.splice(0, state.errors.length - 1);
+        setAppLastMessage(state) {
+            state.messages = state.messages.splice(
+                0,
+                state.messages.length - 1
+            );
+        },
+        hideAppMessage(state, action: PayloadAction<string>) {
+            state.messages = state.messages.filter(
+                (el) => el.id !== action.payload
+            );
         },
         setAppStatus(state, action: PayloadAction<RequestStatusType>) {
             state.status = action.payload;
@@ -35,5 +58,10 @@ const slice = createSlice({
 });
 
 export const appReducer = slice.reducer;
-export const { setIsInitialized, setAppError, setAppLastError, setAppStatus } =
-    slice.actions;
+export const {
+    setIsInitialized,
+    setAppMessage,
+    setAppLastMessage,
+    hideAppMessage,
+    setAppStatus,
+} = slice.actions;
