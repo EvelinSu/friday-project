@@ -19,7 +19,7 @@ const NumberOfCards: FC<TNumberOfCardsProps> = ({
 }) => {
     return (
         <Box flexDirection={"column"} gap={10}>
-            <SText margin={"0 0 0 10px"} opacity={0.5}>
+            <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
                 Number of cards
             </SText>
             <Box gap={10} alignItems={"center"}>

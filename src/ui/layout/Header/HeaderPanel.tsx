@@ -1,12 +1,12 @@
-import React, {FC} from "react";
-import {Box} from "../../components/Box/Box";
+import React, { FC } from "react";
+import { Box } from "../../components/Box/Box";
 import IconButton from "../../components/IconButton/IconButton";
 import MoonIcon from "../../assets/icons/MoonIcon";
 import SettingsIcon from "../../assets/icons/SettingsIcon";
-import {SText} from "../../components/Text/SText";
+import { SText } from "../../components/Text/SText";
 import Avatar from "../../components/Avatar/Avatar";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../pages/Pages";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../pages/Pages";
 
 type THeaderPanelProps = {
     avatar: string | null | undefined;
@@ -20,14 +20,13 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
 
     return (
         <Box alignItems={"center"}>
-            <IconButton icon={<MoonIcon />} />
-            <IconButton icon={<SettingsIcon />} />
-            <Box
-                cursor={"pointer"}
-                alignItems={"center"}
-                gap={10}
+            <IconButton title={"Dark theme"} icon={<MoonIcon />} />
+            <IconButton
+                title={"Settings"}
                 onClick={() => navigate(PATH.profile)}
-            >
+                icon={<SettingsIcon />}
+            />
+            <Box alignItems={"center"} gap={10}>
                 {windowWidth > 400 && (
                     <SText maxWidth={"150px"} isEllipsis>
                         {props.name}

@@ -41,6 +41,7 @@ const PacksList = () => {
                         <IconButton
                             onClick={() => setIsFilterOpen(!isFilterOpen)}
                             icon={<FilterIcon />}
+                            title={"Filter"}
                         />
                         {isFilterOpen && <Filter setIsOpen={setIsFilterOpen} />}
                     </FilterWrapper>

@@ -18,7 +18,7 @@ const Header = () => {
 
     return (
         <SHeader>
-            <SHeaderLogo onClick={() => navigate("/")}>
+            <SHeaderLogo onClick={() => navigate(PATH.packsList)}>
                 <Logo />
             </SHeaderLogo>
             {isLoggedIn ? (

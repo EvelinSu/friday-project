@@ -37,7 +37,7 @@ const Filter: FC<TFilterProps> = (props) => {
                 onClick={() => props.setIsOpen(false)}
             />
             <Box flexDirection={"column"} gap={5}>
-                <SText margin={"0 0 0 10px"} opacity={0.5}>
+                <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
                     Sorting
                 </SText>
                 <Select
@@ -54,7 +54,7 @@ const Filter: FC<TFilterProps> = (props) => {
                 value2={value2}
             />
             <Box flexDirection={"column"} gap={5}>
-                <SText margin={"0 0 0 10px"} opacity={0.5}>
+                <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
                     Filter
                 </SText>
                 <Box>
