@@ -15,10 +15,10 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
     ({ cardPacksTotalCount, pageCount, isFetching }) => {
         const [searchParams, setSearchParams] = useSearchParams();
 
-        const [value, setValue] = useState<number>();
+        const [value, setValue] = useState<number>(1);
         const debounceValue = useDebounce(value, 500);
 
-        const page = searchParams.get("page");
+        // const page = searchParams.get("page");
 
         const pageQuantity = Math.max(
             Math.ceil(cardPacksTotalCount / pageCount)
@@ -34,10 +34,8 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
 
         return (
             <MyPaginate
-                initialPage={page ? +page : 1}
                 pageCount={pageQuantity}
                 pageRangeDisplayed={4}
-                forcePage={8}
                 marginPagesDisplayed={1}
                 onPageChange={handlePageChange}
                 previousLabel={<SmallArrowIcon rotate={"90deg"} />}

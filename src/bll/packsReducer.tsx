@@ -36,7 +36,7 @@ const initialState: TPacks = {
             deckCover: "",
         },
     ],
-    page: 0,
+    page: 1,
     pageCount: 12,
     cardPacksTotalCount: 0,
     minCardsCount: 0,

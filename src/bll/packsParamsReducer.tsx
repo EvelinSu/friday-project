@@ -8,7 +8,7 @@ const initialState: TPacksParams = {
     min: undefined,
     max: undefined,
     sortPacks: undefined,
-    page: 0,
+    page: 1,
     pageCount: 12,
     user_id: undefined,
 };

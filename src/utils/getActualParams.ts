@@ -9,7 +9,7 @@ export const getActualPacksParams = (
         min: Number(searchParams.get("min")) || undefined,
         max: Number(searchParams.get("max")) || undefined,
         sortPacks: (searchParams.get("sortPacks") as string) || undefined,
-        page: Number(searchParams.get("page")) || undefined,
+        page: Number(searchParams.get("page")) || 1,
         pageCount: Number(searchParams.get("pageCount")) || 12,
     };
 };

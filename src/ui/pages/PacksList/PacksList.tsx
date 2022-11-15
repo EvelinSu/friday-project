@@ -36,9 +36,8 @@ const PacksList = () => {
     );
 
     useEffect(() => {
-        if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {
-        }
-        dispatch(setCardParams(URLParams));
+        if (JSON.stringify(stateParams) !== JSON.stringify(URLParams))
+            dispatch(setCardParams(URLParams));
     }, [dispatch, URLParams]);
 
     useEffect(() => {
