@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
-import { packsAPI, TPack } from "../dal/api";
 import { setAppMessage } from "./appReducer";
+import { packsAPI } from "../dal/cardsAPI";
+import { TPack } from "../dal/ResponseTypes";
 
 export type TPacks = {
     isFetching: boolean;

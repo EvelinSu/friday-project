@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { RegisterDataType } from "../../../../dal/api";
 import { PATH } from "../../Pages";
 import { SForm } from "../../../components/Form/styled";
 import { Box } from "../../../components/Box/Box";
@@ -13,6 +12,7 @@ import Input from "../../../components/Form/Input";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
 import { registerTC } from "../../../../bll/registerReducer";
+import { RegisterDataType } from "../../../../dal/ResponseTypes";
 
 const SignUp = () => {
     return (

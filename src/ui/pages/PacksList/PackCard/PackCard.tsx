@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { SPackCardActions, SPackCardWrapper } from "./styled";
-import { TPack } from "../../../../dal/api";
 import { Box } from "../../../components/Box/Box";
 import { SText } from "../../../components/Text/SText";
 import Avatar from "../../../components/Avatar/Avatar";
@@ -9,6 +8,7 @@ import EditIcon from "../../../assets/icons/EditIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import DeleteIcon from "../../../assets/icons/DeleteIcon";
 import { transformDate } from "../../../../utils/tarnsformDate";
+import { TPack } from "../../../../dal/ResponseTypes";
 
 type TPackProps = {
     pack: TPack;

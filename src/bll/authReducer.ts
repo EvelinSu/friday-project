@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authAPI, LoginDataType, ProfileDataType } from "../dal/api";
+import { authAPI } from "../dal/authAPI";
 import { TAppDispatch } from "./store/store";
 import { setAppMessage, setAppStatus, setIsInitialized } from "./appReducer";
+import { LoginDataType, ProfileDataType } from "../dal/ResponseTypes";
 
 export type TAuth = {
     userData: {

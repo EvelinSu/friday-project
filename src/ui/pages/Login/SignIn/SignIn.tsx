@@ -12,8 +12,8 @@ import { SForm } from "../../../components/Form/styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginTC } from "../../../../bll/authReducer";
-import { LoginDataType } from "../../../../dal/api";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { LoginDataType } from "../../../../dal/ResponseTypes";
 
 const SignIn = () => {
     return (
