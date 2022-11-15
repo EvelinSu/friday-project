@@ -8,21 +8,20 @@ import IconButton from "../../components/IconButton/IconButton";
 import FilterIcon from "../../assets/icons/FilterIcon";
 import { GridBox } from "../../components/GridBox/GridBox";
 import PackCard from "./PackCard/PackCard";
-import { getPacks } from "../../../bll/packsReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Filter from "./Filter/Filter";
 import { FilterWrapper } from "./Filter/styled";
 import Pagination from "../../components/Pagination/Pagination";
 
 const PacksList = () => {
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     // const [searchParams, setSearchParams] = useSearchParams();
     const { packs, cardPacksTotalCount, currentPage, pageCount } =
         useAppSelector((state) => state.packs);
 
-    useEffect(() => {
-        dispatch(getPacks(currentPage, 9));
-    }, [currentPage]);
+    // useEffect(() => {
+    //     dispatch(getPacks(currentPage, 12));
+    // }, [currentPage]);
 
     const [isFilterOpen, setIsFilterOpen] = useState(true);
 

@@ -19,7 +19,7 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
             Math.ceil(cardPacksTotalCount / pageCount)
         );
         const handlePageChange = ({ selected }: { selected: number }) => {
-            dispatch(getPacks(selected + 1, 9));
+            dispatch(getPacks(selected + 1, 12));
         };
 
         return (
