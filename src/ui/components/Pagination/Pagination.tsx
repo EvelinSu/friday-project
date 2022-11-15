@@ -7,7 +7,7 @@ import { useDebounce } from "usehooks-ts";
 type TPaginationProps = {
     cardPacksTotalCount: number;
     pageCount: number;
-    searchText: string;
+    searchText?: string;
     isFetching: boolean;
 };
 
@@ -28,6 +28,7 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
         };
 
         useEffect(() => {
+            console.log(value);
             setSearchParams({ page: `${value}` });
         }, [debounceValue]);
 

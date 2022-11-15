@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { SMainTitle, SPagePanel, SPageWrapper } from "../styled";
 import { Box } from "../../components/Box/Box";
 import Button from "../../components/Button/Button";
@@ -8,28 +8,49 @@ import IconButton from "../../components/IconButton/IconButton";
 import FilterIcon from "../../assets/icons/FilterIcon";
 import { GridBox } from "../../components/GridBox/GridBox";
 import PackCard from "./PackCard/PackCard";
-import { getPacks } from "../../../bll/packsReducer";
+import { loadPacks } from "../../../bll/packsReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Filter from "./Filter/Filter";
 import { FilterWrapper } from "./Filter/styled";
 import Pagination from "../../components/Pagination/Pagination";
 import { SSearchInput } from "./styled";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import LoaderIcon from "../../assets/loaders/loader";
+import { setCardParams } from "../../../bll/packsParamsReducer";
+import { getActualPacksParams } from "../../../utils/getActualParams";
+import { PATH } from "../Pages";
 
 const PacksList = () => {
     const [searchParams] = useSearchParams();
-    const page = searchParams.get("page");
-
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const { packs, cardPacksTotalCount, pageCount, isFetching } =
+    const { cardPacks, cardPacksTotalCount, pageCount, isFetching } =
         useAppSelector((state) => state.packs);
 
-    useEffect(() => {
-        dispatch(getPacks(page ? +page : 1, pageCount));
-    }, [page]);
+    const stateParams = useAppSelector((state) => state.packsParams);
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+    const URLParams = useMemo(
+        () => getActualPacksParams(searchParams),
+        [searchParams]
+    );
 
+    useEffect(() => {
+        if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {
+        }
+        dispatch(setCardParams(URLParams));
+    }, [dispatch, URLParams]);
+
+    useEffect(() => {
+        if (JSON.stringify(stateParams) === JSON.stringify(URLParams))
+            dispatch(loadPacks(stateParams));
+    }, [dispatch, stateParams]);
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate(PATH.signIn);
+        }
+    }, []);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     return (
@@ -74,17 +95,15 @@ const PacksList = () => {
             <GridBox
                 padding={"20px 0 0 0"}
                 columns={"repeat(auto-fill, minmax(220px, 1fr))"}
-                rows={"repeat(3, minmax(125px, 200px))"}
             >
-                {packs.map((pack) => (
+                {cardPacks.map((pack) => (
                     <PackCard key={pack._id} pack={pack} />
                 ))}
             </GridBox>
             <Pagination
                 cardPacksTotalCount={cardPacksTotalCount}
-                pageCount={pageCount}
-                searchText={""}
                 isFetching={isFetching}
+                pageCount={pageCount}
             />
         </SPageWrapper>
     );

@@ -6,12 +6,15 @@ export type TPack = {
     more_id: string;
     path: string;
     name: string;
+    type: string;
     private: boolean;
     rating: number;
     shots: number;
     updated: string;
     user_id: string;
     user_name: string;
+    __v: number;
+    deckCover: string;
 };
 
 export type TResponsePack = {
@@ -22,6 +25,16 @@ export type TResponsePack = {
     maxCardsCount: number;
     token: string;
     tokenDeathTime: number;
+};
+
+export type TPacksParams = {
+    packName?: string;
+    min?: number;
+    max?: number;
+    sortPacks?: string;
+    page?: number;
+    pageCount?: number;
+    user_id?: string;
 };
 
 export type RegisterDataType = {
