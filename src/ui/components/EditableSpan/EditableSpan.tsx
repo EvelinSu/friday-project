@@ -2,7 +2,6 @@ import React, {
     DetailedHTMLProps,
     FC,
     InputHTMLAttributes,
-    KeyboardEvent,
     useState,
 } from "react";
 import EditIcon from "../../assets/icons/EditIcon";
@@ -13,6 +12,7 @@ import {
 } from "./styled";
 import CircleDoneIcon from "../../assets/icons/CircleDoneIcon";
 import { SText } from "../Text/SText";
+import { EventInputType } from "../../pages/Profile/Profile";
 
 export type DefaultInputPropsType = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
@@ -36,12 +36,10 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
             setIsDisabled(false);
         }, 1000);
     };
-    const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        props.onKeyDown && props.onKeyDown(e);
+
+    const onChange = (e: EventInputType) => {
         if (e.key === "Enter") saveChanges();
-    };
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.onChange && props.onChange(e);
+        else props.onChange && props.onChange(e);
     };
 
     return !isEditable ? (
@@ -69,7 +67,7 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
             <SEditableSpanInput
                 onBlur={saveChanges}
                 autoFocus
-                onKeyDown={onKeyDown}
+                onKeyDown={onChange}
                 onChange={onChange}
                 value={props.value ? props.value : ""}
             />

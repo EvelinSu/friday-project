@@ -16,6 +16,9 @@ import { SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { setAppMessage } from "../../../bll/appReducer";
 
+export type EventInputType = ChangeEvent<HTMLInputElement> &
+    KeyboardEvent<HTMLInputElement>;
+
 const Profile = () => {
     const auth = useAppSelector((state) => state.auth);
     const navigate = useNavigate();
@@ -74,13 +77,8 @@ const ProfileModalBody = () => {
         }
     };
 
-    const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeNameHandler = (e: EventInputType) => {
         setValue(e.currentTarget.value);
-    };
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            onSaveNameHandler();
-        }
     };
 
     return (
@@ -100,7 +98,7 @@ const ProfileModalBody = () => {
                     <EditableSpan
                         value={value || ""}
                         fontSize={"20px"}
-                        onKeyDown={onKeyDownHandler}
+                        onKeyDown={onChangeNameHandler}
                         onChange={onChangeNameHandler}
                         onSave={onSaveNameHandler}
                         placeholder={"Nickname"}
