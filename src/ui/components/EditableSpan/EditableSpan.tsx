@@ -2,6 +2,7 @@ import React, {
     DetailedHTMLProps,
     FC,
     InputHTMLAttributes,
+    KeyboardEvent,
     useState,
 } from "react";
 import EditIcon from "../../assets/icons/EditIcon";
@@ -35,7 +36,10 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
             setIsDisabled(false);
         }, 1000);
     };
-
+    const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        props.onKeyDown && props.onKeyDown(e);
+        if (e.key === "Enter") saveChanges();
+    };
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         props.onChange && props.onChange(e);
     };
@@ -65,6 +69,7 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
             <SEditableSpanInput
                 onBlur={saveChanges}
                 autoFocus
+                onKeyDown={onKeyDown}
                 onChange={onChange}
                 value={props.value ? props.value : ""}
             />

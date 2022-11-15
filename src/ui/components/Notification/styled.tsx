@@ -15,7 +15,7 @@ export const SNotificationWrapper = styled.div<TSNotificationWrapper>`
     color: #fff;
     z-index: ${({ theme }) => theme.orders.notifications};
     ${(props) =>
-        props.notificationsCount &&
+        props.notificationsCount > 1 &&
         css`
             &:after {
                 content: "${props.notificationsCount}";
@@ -39,7 +39,7 @@ export const SNotificationWrapper = styled.div<TSNotificationWrapper>`
 `;
 
 type TSNotificationContainerProps = {
-    severity?: "error";
+    severity?: "error" | "success";
 };
 export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     display: flex;
@@ -55,8 +55,13 @@ export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     height: 60px;
     padding: 10px 20px;
     background-color: ${(props) =>
-        props.severity === "error" && props.theme.colors.severity.error};
+        props.severity === "error"
+            ? props.theme.colors.severity.error
+            : props.severity === "success"
+            ? props.theme.colors.severity.success
+            : props.theme.colors.primary};
     z-index: ${({ theme }) => theme.orders.notifications};
+
     &:last-of-type {
         box-shadow: 0 0 5px 0 rgb(0, 0, 0, 0.3);
     }
@@ -71,6 +76,7 @@ export const SNotificationIcon = styled.div`
     height: 30px;
     border-radius: 50%;
     cursor: pointer;
+
     svg {
         width: 18px;
         height: 18px;

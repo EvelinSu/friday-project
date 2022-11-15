@@ -5,10 +5,11 @@ export const SPackCardWrapper = styled.div`
     justify-content: space-between;
     gap: 10px;
     padding: 15px 15px 5px;
-    background-color: ${({theme}) => theme.colors.primary};
-        // background: ${({theme}) => `linear-gradient(110deg, ${theme.colors.cards.default[0]}, ${theme.colors.cards.default[1]})`};
+    background-color: ${({ theme }) => theme.colors.primary};
+    // background: ${({ theme }) =>
+        `linear-gradient(110deg, ${theme.colors.cards.default[0]}, ${theme.colors.cards.default[1]})`};
     border-radius: 15px;
-    color: ${({theme}) => theme.colors.cards.text};
+    color: ${({ theme }) => theme.colors.cards.text};
     font-size: 12px;
     min-height: 125px;
 `;
@@ -20,6 +21,5 @@ export const SPackCardActions = styled.div`
     gap: 5px;
     padding: 0 0 10px 0;
     flex-direction: column;
-    
+    max-height: 120px;
 `;
-

@@ -7,16 +7,16 @@ import {
 } from "./styled";
 import { SText } from "../Text/SText";
 import CloseIcon from "../../assets/icons/CloseIcon";
-import { setAppError, setAppLastError } from "../../../bll/appReducer";
+import { hideAppMessage, setAppLastMessage } from "../../../bll/appReducer";
 
 const Notification = () => {
     const dispatch = useAppDispatch();
-    const { errors } = useAppSelector((state) => state.app);
+    const { messages } = useAppSelector((state) => state.app);
 
     const [timerId, setTimerId] = useState(0);
 
-    const setIsOpen = (error: string) => {
-        dispatch(setAppError(errors.filter((el) => el !== error)));
+    const setIsOpen = (id: string) => {
+        dispatch(hideAppMessage(id));
     };
 
     const stopTimer = () => {
@@ -26,28 +26,28 @@ const Notification = () => {
     const startTimer = () => {
         stopTimer();
         const id: number = window.setInterval(() => {
-            dispatch(setAppLastError());
+            dispatch(setAppLastMessage());
         }, 2900);
         setTimerId(id);
     };
 
     useEffect(() => {
-        errors.length ? startTimer() : stopTimer();
-    }, [errors]);
+        messages.length ? startTimer() : stopTimer();
+    }, [messages]);
 
-    return errors ? (
+    return messages ? (
         <SNotificationWrapper
-            notificationsCount={errors.length < 100 ? errors.length : "99+"}
+            notificationsCount={messages.length < 100 ? messages.length : "99+"}
         >
-            {errors.map((el, i) => (
+            {messages.map(({ id, severity, text }) => (
                 <SNotificationContainer
                     onMouseOver={stopTimer}
                     onMouseLeave={startTimer}
-                    key={el + i}
-                    severity={"error"}
+                    key={id}
+                    severity={severity}
                 >
-                    <SText lineClamp={2}>{el}</SText>
-                    <SNotificationIcon onClick={() => setIsOpen(el)}>
+                    <SText lineClamp={2}>{text}</SText>
+                    <SNotificationIcon onClick={() => setIsOpen(id)}>
                         <CloseIcon />
                     </SNotificationIcon>
                 </SNotificationContainer>
