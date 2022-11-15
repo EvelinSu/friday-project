@@ -47,7 +47,7 @@ export const SSuperSelectInputIcon = styled.div<TInputProps>`
     justify-content: center;
     cursor: pointer;
     font-size: 12px;
-    transition: 0.2s;
+    transition: 0.1s;
     transform: rotate(${(props) => (props.isOpen ? "180deg" : "0")});
 
     svg {
@@ -66,7 +66,7 @@ export const SSuperOptionsList = styled.div`
     top: 40px;
     max-width: 100%;
     width: calc(100% - 20px);
-    borderradius: 10px;
+    border-radius: 10px;
     background-color: ${({ theme }) => theme.colors.secondaryLight};
     max-height: 160px;
     padding: 5px 0;
@@ -80,8 +80,8 @@ export const SSuperOption = styled.div<TInputProps>`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    borderradius: 10px;
-    transition: 0.5s;
+    border-radius: 10px;
+    transition: 0.2s;
     cursor: pointer;
 
     &:last-of-type {
@@ -92,8 +92,7 @@ export const SSuperOption = styled.div<TInputProps>`
         props.isHovered &&
         css`
             transform: scale(0.9);
-            background-color: ${props.theme.colors.primaryDark};
+            background-color: ${props.theme.colors.input.default};
             padding: 5px 10px;
-            color: ${props.theme.colors.textOnPrimary};
         `},
 `;

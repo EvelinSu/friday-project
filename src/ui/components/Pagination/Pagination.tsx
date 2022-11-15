@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { MyPaginate } from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
+import { useDebounce } from "usehooks-ts";
 
 type TPaginationProps = {
     cardPacksTotalCount: number;
@@ -13,14 +14,22 @@ type TPaginationProps = {
 const Pagination: React.FC<TPaginationProps> = React.memo(
     ({ cardPacksTotalCount, pageCount, isFetching }) => {
         const [searchParams, setSearchParams] = useSearchParams();
+
+        const [value, setValue] = useState<number>();
+        const debounceValue = useDebounce(value, 500);
+
         const page = searchParams.get("page");
 
         const pageQuantity = Math.max(
             Math.ceil(cardPacksTotalCount / pageCount)
         );
-        const handlePageChange = async ({ selected }: { selected: number }) => {
-            setSearchParams({ page: `${selected + 1}` });
+        const handlePageChange = ({ selected }: { selected: number }) => {
+            setValue(selected + 1);
         };
+
+        useEffect(() => {
+            setSearchParams({ page: `${value}` });
+        }, [debounceValue]);
 
         return (
             <MyPaginate
@@ -32,11 +41,9 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
                 onPageChange={handlePageChange}
                 previousLabel={<SmallArrowIcon rotate={"90deg"} />}
                 nextLabel={<SmallArrowIcon rotate={"270deg"} />}
-                pageLinkClassName={
-                    isFetching ? "page-item disabled" : "page-item"
-                }
+                pageLinkClassName="page-item"
                 activeClassName="active"
-                previousLinkClassName="page-item arrow"
+                previousLinkClassName={"page-item arrow"}
                 nextLinkClassName="page-item arrow"
                 breakLabel=". . ."
                 breakClassName="page-item"

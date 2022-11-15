@@ -15,11 +15,9 @@ import { FilterWrapper } from "./Filter/styled";
 import Pagination from "../../components/Pagination/Pagination";
 import { SSearchInput } from "./styled";
 import { useSearchParams } from "react-router-dom";
+import LoaderIcon, { SLoaderWrapper } from "../../assets/loaders/loader";
 
 const PacksList = () => {
-    // const dispatch = useAppDispatch();
-    // const [searchParams, setSearchParams] = useSearchParams();
-
     const [searchParams] = useSearchParams();
     const page = searchParams.get("page");
 
@@ -36,6 +34,11 @@ const PacksList = () => {
 
     return (
         <SPageWrapper>
+            {isFetching && (
+                <SLoaderWrapper>
+                    <LoaderIcon />
+                </SLoaderWrapper>
+            )}
             <SPagePanel>
                 <Box
                     margin={"0 0 10px 0"}

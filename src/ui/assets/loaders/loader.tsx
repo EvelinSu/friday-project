@@ -10,6 +10,29 @@ const SLoader = styled.div`
     align-items: center;
 `;
 
+export const SLoaderWrapper = styled.div`
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    pointer-events: none;
+
+    div {
+        background-color: rgba(0, 0, 0, 0.41);
+
+        flex-grow: initial;
+        height: 80px;
+        width: 80px;
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+    }
+`;
+
 const LoaderIcon = () => {
     return (
         <SLoader>

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
-import { setAppMessage } from "./appReducer";
 import { packsAPI } from "../dal/cardsAPI";
 import { TPack } from "../dal/ResponseTypes";
 
@@ -49,7 +48,6 @@ export const getPacks =
             .getPacks(page, pageCount)
             .then((res) => {
                 const { cardPacksTotalCount, cardPacks, pageCount } = res.data;
-                console.log(res);
                 dispatch(
                     setPacks({
                         packs: cardPacks,
@@ -57,12 +55,12 @@ export const getPacks =
                         cardPacksTotalCount,
                     })
                 );
+                dispatch(setIsFetching(false));
             })
             .catch((e) => {
-                const err = e.response
-                    ? e.response.data.error
-                    : e.message + ", more details in the console";
-                dispatch(setAppMessage({ text: err, severity: "error" }));
-            })
-            .finally(() => dispatch(setIsFetching(false)));
+                // const err = e.response
+                //     ? e.response.data.error
+                //     : e.message + ", more details in the console";
+                // dispatch(setAppMessage({ text: err, severity: "error" }));
+            });
     };
