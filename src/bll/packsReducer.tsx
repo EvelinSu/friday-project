@@ -1,7 +1,7 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TAppDispatch} from "./store/store";
-import {packsAPI, TPack} from "../dal/api";
-import {setAppError} from "./appReducer";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TAppDispatch } from "./store/store";
+import { packsAPI, TPack } from "../dal/api";
+import { setAppMessage } from "./appReducer";
 
 export type TPacks = {
     isFetching: boolean;
@@ -65,9 +65,7 @@ export const getPacks =
                 const err = e.response
                     ? e.response.data.error
                     : e.message + ", more details in the console";
-                dispatch(setAppError(err));
+                dispatch(setAppMessage(err));
             })
             .finally(() => setIsFetching(false));
     };
-
-    }
