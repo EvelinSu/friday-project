@@ -1,7 +1,8 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {authAPI, LoginDataType, ProfileDataType} from "../dal/api";
-import {TAppDispatch} from "./store/store";
-import {setAppError, setAppStatus, setIsInitialized} from "./appReducer";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { authAPI } from "../dal/authAPI";
+import { TAppDispatch } from "./store/store";
+import { setAppError, setAppStatus, setIsInitialized } from "./appReducer";
+import { LoginDataType, ProfileDataType } from "../dal/ResponseTypes";
 
 export type TAuth = {
     userData: {
@@ -54,7 +55,7 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer;
 
-export const {setIsLoggedIn, setUserData, setUserProfile, setIsFetching} =
+export const { setIsLoggedIn, setUserData, setUserProfile, setIsFetching } =
     slice.actions;
 
 export const authMeTC = () => (dispatch: TAppDispatch) => {
@@ -62,14 +63,14 @@ export const authMeTC = () => (dispatch: TAppDispatch) => {
     authAPI
         .authMe()
         .then((res) => {
-            const {id, name, email, avatar} = res.data;
-            dispatch(setUserData({id, name, email, avatar}));
-            dispatch(setIsLoggedIn({value: true}));
+            const { id, name, email, avatar } = res.data;
+            dispatch(setUserData({ id, name, email, avatar }));
+            dispatch(setIsLoggedIn({ value: true }));
         })
         .catch(() => {
-            dispatch(setIsLoggedIn({value: false}));
+            dispatch(setIsLoggedIn({ value: false }));
         })
-        .finally(() => dispatch(setIsInitialized({value: true})));
+        .finally(() => dispatch(setIsInitialized({ value: true })));
 };
 
 export const loginTC =
@@ -78,9 +79,9 @@ export const loginTC =
         authAPI
             .login(data)
             .then((res) => {
-                const {id, name, email, avatar} = res.data;
-                dispatch(setUserData({id, name, email, avatar}));
-                dispatch(setIsLoggedIn({value: true}));
+                const { id, name, email, avatar } = res.data;
+                dispatch(setUserData({ id, name, email, avatar }));
+                dispatch(setIsLoggedIn({ value: true }));
             })
             .catch((e) => {
                 const err = e.response
@@ -95,7 +96,7 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     authAPI
         .logOut()
-        .then(() => dispatch(setIsLoggedIn({value: false})))
+        .then(() => dispatch(setIsLoggedIn({ value: false })))
         .catch((e) => {
             const err = e.response
                 ? e.response.data.error
