@@ -16,11 +16,13 @@ import Pagination from "../../components/Pagination/Pagination";
 
 const PacksList = () => {
     const dispatch = useAppDispatch();
-    const { packs, totalCount } = useAppSelector((state) => state.packs);
+    // const [searchParams, setSearchParams] = useSearchParams();
+    const { packs, cardPacksTotalCount, currentPage, pageCount } =
+        useAppSelector((state) => state.packs);
 
     useEffect(() => {
-        dispatch(getPacks(1, 20));
-    }, []);
+        dispatch(getPacks(currentPage, 9));
+    }, [currentPage]);
 
     const [isFilterOpen, setIsFilterOpen] = useState(true);
 
@@ -54,7 +56,11 @@ const PacksList = () => {
                     <PackCard key={pack._id} pack={pack} />
                 ))}
             </GridBox>
-            <Pagination totalPagesCount={13} />
+            <Pagination
+                cardPacksTotalCount={cardPacksTotalCount}
+                currentPage={currentPage}
+                pageCount={pageCount}
+            />
         </SPageWrapper>
     );
 };

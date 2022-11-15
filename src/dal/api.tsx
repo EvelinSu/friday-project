@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
+    // baseURL: "http://localhost:7542/2.0/",
     baseURL: process.env.REACT_APP_BACK_URL || "http://localhost:7542/2.0/",
     // baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' :
     // 'https://neko-back.herokuapp.com/2.0/',
@@ -49,7 +50,7 @@ export const forgotPassAPI = {
 
 export const packsAPI = {
     getPacks(page: number, pageCount: number, userId?: string) {
-        return instance.get<ResponsePackType>(
+        return instance.get<TResponsePack>(
             `cards/pack?page=${page}&pageCount=${pageCount}${
                 userId ? "&user_id=" + userId : ""
             }`
@@ -75,9 +76,14 @@ export type TPack = {
     user_name: string;
 };
 
-type ResponsePackType = {
+type TResponsePack = {
     cardPacks: TPack[];
     cardPacksTotalCount: number;
+    pageCount: number;
+    minCardsCount: number;
+    maxCardsCount: number;
+    token: string;
+    tokenDeathTime: number;
 };
 
 export type RegisterDataType = {
