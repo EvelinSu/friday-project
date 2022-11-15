@@ -1,55 +1,59 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import ReactPaginate from "react-paginate";
 
-type TSPaginationProps = {
-    isActive?: boolean;
-};
+export const MyPaginate = styled(ReactPaginate)`
+    display: flex;
+    align-items: center;
+    padding: 30px 0 20px 0;
+    gap: 15px;
+    column-gap: 15px;
+    row-gap: 15px;
+    margin-top: auto;
+    user-select: none;
+    ms-user-select: none;
+    text-decoration: none;
+    list-style-type: none;
 
-export const SPagination = styled.div<TSPaginationProps>((props) => ({
-    display: "flex",
-    alignItems: "center",
-    gap: 15,
-    padding: "30px 0 20px 0",
-    columnGap: 15,
-    rowGap: 15,
-    marginTop: "auto",
-    userSelect: "none",
-    msUserSelect: "none",
-}));
+    .page-item {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        padding: 5px;
+        font-size: 12px;
+        min-width: 30px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.05);
+        cursor: pointer;
 
-export const SPaginationItem = styled.div<TSPaginationProps>(
-    ({ theme, isActive }) => ({
-        display: "flex",
-        justifyContent: "center",
-        textAlign: "center",
-        alignItems: "center",
-        padding: 5,
-        fontSize: 12,
-        minWidth: 30,
-        width: 32,
-        height: 32,
-        borderRadius: "50%",
-        backgroundColor: "rgba(0, 0, 0, 0.05)",
-        cursor: "pointer",
-        "&:hover": {
-            transform: "scale(0.9)",
-        },
-        ...(isActive && {
-            backgroundColor: theme.colors.primary,
-            pointerEvents: "none",
-            color: theme.colors.textOnPrimary,
-        }),
-    })
-);
+        &:hover {
+            transform: scale(0.9);
+        }
+    }
 
-type TSPaginationArrow = {
-    isDisabled?: boolean;
-};
-export const SPaginationArrow = styled.div<TSPaginationArrow>`
-    cursor: pointer;
-    ${(props) =>
-        props.isDisabled &&
-        css`
-            pointer-events: none;
-            opacity: 0.3;
-        `}
+    .disabled {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    .active {
+        background-color: ${({ theme }) => theme.colors.primary};
+        pointer-events: none;
+        border-radius: 50%;
+        color: ${({ theme }) => theme.colors.textOnPrimary};
+    }
+
+    .arrow {
+        background-color: transparent;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    .break {
+    }
 `;

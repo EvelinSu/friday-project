@@ -1,5 +1,11 @@
-import React, {useEffect, useLayoutEffect} from "react";
-import {Navigate, Route, Routes, useLocation, useNavigate,} from "react-router-dom";
+import React, { useLayoutEffect } from "react";
+import {
+    Navigate,
+    Route,
+    Routes,
+    useLocation,
+    useNavigate,
+} from "react-router-dom";
 import SignIn from "./Login/SignIn/SignIn";
 import SignUp from "./Login/SignUp/SignUp";
 import Profile from "./Profile/Profile";
@@ -7,8 +13,7 @@ import PageNotFound from "./PageNotFound/NotFound";
 import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
-import {authMeTC} from "../../bll/authReducer";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/hooks";
 import PacksList from "./PacksList/PacksList";
 
 export const PATH = {
@@ -22,10 +27,9 @@ export const PATH = {
 };
 
 const Pages = () => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const {isLoggedIn} = useAppSelector((state) => state.auth);
+    const { isLoggedIn } = useAppSelector((state) => state.auth);
 
     useLayoutEffect(() => {
         if (location.pathname.includes("login") && isLoggedIn) {
@@ -35,9 +39,6 @@ const Pages = () => {
             navigate(PATH.signIn);
         }
     }, [location, isLoggedIn]);
-    useEffect(() => {
-        dispatch(authMeTC());
-    }, []);
 
     return (
         <Routes>

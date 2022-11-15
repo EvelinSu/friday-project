@@ -70,7 +70,9 @@ export const authMeTC = () => (dispatch: TAppDispatch) => {
         .catch(() => {
             dispatch(setIsLoggedIn({ value: false }));
         })
-        .finally(() => dispatch(setIsInitialized({ value: true })));
+        .finally(() => {
+            dispatch(setIsInitialized({ value: true }));
+        });
 };
 
 export const loginTC =

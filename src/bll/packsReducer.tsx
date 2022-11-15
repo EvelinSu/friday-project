@@ -7,18 +7,14 @@ import { TPack } from "../dal/ResponseTypes";
 export type TPacks = {
     isFetching: boolean;
     packs: TPack[];
-    // page: number;
     pageCount: number;
     cardPacksTotalCount: number;
-    currentPage: number;
 };
 const initialState: TPacks = {
     isFetching: false,
     packs: [],
-    // page: 0,
-    pageCount: 0,
+    pageCount: 12,
     cardPacksTotalCount: 0,
-    currentPage: 1,
 };
 
 const slice = createSlice({
@@ -47,7 +43,7 @@ export const { setIsFetching, setPacks } = slice.actions;
 export const getPacks =
     (page: number, pageCount: number, userId?: string) =>
     (dispatch: TAppDispatch) => {
-        setIsFetching(true);
+        dispatch(setIsFetching(true));
 
         packsAPI
             .getPacks(page, pageCount)
@@ -66,7 +62,7 @@ export const getPacks =
                 const err = e.response
                     ? e.response.data.error
                     : e.message + ", more details in the console";
-                dispatch(setAppMessage(err));
+                dispatch(setAppMessage({ text: err, severity: "error" }));
             })
-            .finally(() => setIsFetching(false));
+            .finally(() => dispatch(setIsFetching(false)));
     };

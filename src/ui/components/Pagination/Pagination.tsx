@@ -1,56 +1,47 @@
 import React from "react";
-
-import ReactPaginate from "react-paginate";
-import { useAppDispatch } from "../../../hooks/hooks";
-import { getPacks } from "../../../bll/packsReducer";
+import { useSearchParams } from "react-router-dom";
+import { MyPaginate } from "./styled";
+import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 
 type TPaginationProps = {
     cardPacksTotalCount: number;
-    currentPage: number;
     pageCount: number;
+    searchText: string;
+    isFetching: boolean;
 };
 
 const Pagination: React.FC<TPaginationProps> = React.memo(
-    ({ cardPacksTotalCount, currentPage, pageCount }) => {
-        // const pages = [1, 2, 3, 4, 5, "...", 13];
+    ({ cardPacksTotalCount, pageCount, isFetching }) => {
+        const [searchParams, setSearchParams] = useSearchParams();
+        const page = searchParams.get("page");
 
-        const dispatch = useAppDispatch();
         const pageQuantity = Math.max(
             Math.ceil(cardPacksTotalCount / pageCount)
         );
-        const handlePageChange = ({ selected }: { selected: number }) => {
-            dispatch(getPacks(selected + 1, 12));
+        const handlePageChange = async ({ selected }: { selected: number }) => {
+            setSearchParams({ page: `${selected + 1}` });
         };
 
         return (
-            <ReactPaginate
-                initialPage={currentPage - 1}
+            <MyPaginate
+                initialPage={page ? +page : 1}
                 pageCount={pageQuantity}
                 pageRangeDisplayed={4}
+                forcePage={8}
                 marginPagesDisplayed={1}
-                // forcePage={currentPage - 1}
                 onPageChange={handlePageChange}
-                previousLabel="< previous"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakLabel="..."
+                previousLabel={<SmallArrowIcon rotate={"90deg"} />}
+                nextLabel={<SmallArrowIcon rotate={"270deg"} />}
+                pageLinkClassName={
+                    isFetching ? "page-item disabled" : "page-item"
+                }
+                activeClassName="active"
+                previousLinkClassName="page-item arrow"
+                nextLinkClassName="page-item arrow"
+                breakLabel=". . ."
                 breakClassName="page-item"
                 breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
             />
-
-            // <SPagination>
-            //     <ArrowIcon />
-            //     {pages.map((el) => {
-            //         return <SPaginationItem key={el}>{el}</SPaginationItem>;
-            //     })}
-            //     <ArrowIcon rotate={"180deg"} />
-            // </SPagination>
         );
     }
 );

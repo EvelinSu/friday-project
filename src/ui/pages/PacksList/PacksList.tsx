@@ -14,16 +14,23 @@ import Filter from "./Filter/Filter";
 import { FilterWrapper } from "./Filter/styled";
 import Pagination from "../../components/Pagination/Pagination";
 import { SSearchInput } from "./styled";
+import { useSearchParams } from "react-router-dom";
 
 const PacksList = () => {
     // const dispatch = useAppDispatch();
     // const [searchParams, setSearchParams] = useSearchParams();
-    const { packs, cardPacksTotalCount, currentPage, pageCount } =
+
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get("page");
+
+    const dispatch = useAppDispatch();
+
+    const { packs, cardPacksTotalCount, pageCount, isFetching } =
         useAppSelector((state) => state.packs);
 
-    // useEffect(() => {
-    //     dispatch(getPacks(currentPage, 12));
-    // }, [currentPage]);
+    useEffect(() => {
+        dispatch(getPacks(page ? +page : 1, pageCount));
+    }, [page]);
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -68,6 +75,7 @@ const PacksList = () => {
             <GridBox
                 padding={"20px 0 0 0"}
                 columns={"repeat(auto-fill, minmax(220px, 1fr))"}
+                rows={"repeat(3, minmax(125px, 200px))"}
             >
                 {packs.map((pack) => (
                     <PackCard key={pack._id} pack={pack} />
@@ -75,8 +83,9 @@ const PacksList = () => {
             </GridBox>
             <Pagination
                 cardPacksTotalCount={cardPacksTotalCount}
-                currentPage={currentPage}
                 pageCount={pageCount}
+                searchText={""}
+                isFetching={isFetching}
             />
         </SPageWrapper>
     );
