@@ -1,13 +1,26 @@
-import React from "react";
-import styled from "styled-components";
+import React, { FC } from "react";
+import styled, { css } from "styled-components";
 
-const SLoader = styled.div`
+const SLoader = styled.div<TLoaderIcon>`
     flex-grow: 1;
     height: 100%;
     width: 100%;
+    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
+
+    ${(props) =>
+        props.absolute &&
+        css`
+            position: absolute;
+            max-width: calc(100% - 40px);
+        `}
+    svg {
+        width: 80px;
+        height: 80px;
+    }
 `;
 
 export const SLoaderWrapper = styled.div`
@@ -23,19 +36,20 @@ export const SLoaderWrapper = styled.div`
     pointer-events: none;
 
     div {
-        background-color: rgba(0, 0, 0, 0.41);
-
         flex-grow: initial;
-        height: 80px;
-        width: 80px;
-        backdrop-filter: blur(5px);
-        border-radius: 20px;
+        border-radius: 50px;
+
+        svg {
+        }
     }
 `;
 
-const LoaderIcon = () => {
+type TLoaderIcon = {
+    absolute?: boolean;
+};
+const LoaderIcon: FC<TLoaderIcon> = (props) => {
     return (
-        <SLoader>
+        <SLoader absolute={props.absolute}>
             <svg version="1.0" width="64px" height="64px" viewBox="0 0 128 128">
                 <g>
                     <circle

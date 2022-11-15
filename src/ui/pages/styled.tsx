@@ -8,6 +8,7 @@ export const SPageWrapper = styled.div`
     padding: 20px 20px 0 20px;
     overflow: hidden;
     flex-grow: 1;
+    position: relative;
 `;
 
 export const SPagePanel = styled.div`
