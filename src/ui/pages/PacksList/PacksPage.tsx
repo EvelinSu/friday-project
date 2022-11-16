@@ -30,8 +30,9 @@ const PacksPage = () => {
     }, [dispatch, URLParams]);
 
     useEffect(() => {
+        console.log(URLParams);
         dispatch(loadPacks(URLParams));
-    }, [dispatch, searchParams]);
+    }, [dispatch, stateParams]);
 
     return (
         <SPageWrapper>

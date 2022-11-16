@@ -37,8 +37,8 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
 
         return (
             <MyPaginate
-                initialPage={value ? +value - 1 : 0}
-                // forcePage={6}
+                // initialPage={pageInState ? pageInState - 1 : 0}
+                forcePage={pageInState ? pageInState - 1 : 0}
                 pageCount={pageQuantity}
                 pageRangeDisplayed={4}
                 marginPagesDisplayed={1}
