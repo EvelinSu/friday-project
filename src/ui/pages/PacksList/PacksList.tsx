@@ -10,13 +10,14 @@ const PacksList = () => {
 
     const pageCount = searchParams.get("pageCount");
 
+    const windowWidth = window.innerWidth;
     const rowsCount = pageCount && +pageCount > 8 ? +pageCount / 4 : 3;
 
     return (
         <GridBox
             padding={"20px 0 0 0"}
             columns={"repeat(auto-fill, minmax(220px, 1fr))"}
-            rows={`repeat(${rowsCount}, minmax(125px, 200px))`}
+            rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(125px, 200px))` : ``}
         >
             {cardPacks.map((pack) => (
                 <PackCard key={pack._id} pack={pack} />

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
 import { packsAPI } from "../dal/cardsAPI";
 import { TNewCardsPack, TPack, TPacksParams } from "../dal/ResponseTypes";
@@ -14,7 +14,6 @@ export type TPacksData = {
     maxCardsCount: number;
     user_id: string;
     token: string;
-    tokenDeathTime: number;
 };
 
 export type TPacks = {
@@ -30,7 +29,6 @@ const initialState: TPacks = {
         minCardsCount: 0,
         maxCardsCount: 0,
         token: "",
-        tokenDeathTime: 0,
     },
 };
 
@@ -41,14 +39,14 @@ const slice = createSlice({
         setPacks(state, action: PayloadAction<TPacksData>) {
             state.cardPacksData = action.payload;
         },
-        clearStatePacks(state, action) {
+        clearStatePacks(state) {
             state = initialState;
         },
     },
 });
 
 export const packsReducer = slice.reducer;
-export const { setPacks, clearStatePacks } = slice.actions;
+export const {setPacks, clearStatePacks} = slice.actions;
 
 export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
@@ -58,6 +56,8 @@ export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
             dispatch(setPacks(res.data));
         })
         .catch((e) => {
+            // Некорректная ошибка. Должна быть 429, а возвращается 401.
+
             // const err = e.response
             //     ? e.response.data.error
             //     : e.message + ", more details in the console";
@@ -66,15 +66,11 @@ export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
         .finally(() => dispatch(setIsFetching(false)));
 };
 
-export const addNewPack = createAsyncThunk(
-    "packs/addNewPack",
-    async (
-        paramThunk: { newCardsPack: TNewCardsPack; param: TPacksParams },
-        { dispatch, rejectWithValue }
-    ) => {
+export const addNewPack =
+    (newCardsPack: TNewCardsPack, param: TPacksParams) => async (dispatch: TAppDispatch) => {
         try {
             dispatch(setIsFetching(true));
-            await packsAPI.addPack(paramThunk.newCardsPack);
+            await packsAPI.addPack(newCardsPack);
             dispatch(setIsFetching(false));
             dispatch(
                 setAppMessage({
@@ -82,7 +78,7 @@ export const addNewPack = createAsyncThunk(
                     severity: "success",
                 })
             );
-            dispatch(loadPacks(paramThunk.param));
+            dispatch(loadPacks(param));
         } catch (e) {
             dispatch(setIsFetching(false));
 
@@ -93,5 +89,4 @@ export const addNewPack = createAsyncThunk(
                 })
             );
         }
-    }
-);
+    };

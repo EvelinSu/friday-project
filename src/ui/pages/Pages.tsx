@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import SignIn from "./Login/SignIn/SignIn";
 import SignUp from "./Login/SignUp/SignUp";
 import Profile from "./Profile/Profile";
@@ -7,7 +7,6 @@ import PageNotFound from "./PageNotFound/NotFound";
 import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
-import { useAppSelector } from "../../hooks/hooks";
 import PacksPage from "./PacksList/PacksPage";
 
 export const PATH = {
@@ -21,19 +20,6 @@ export const PATH = {
 };
 
 const Pages = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const { isLoggedIn } = useAppSelector((state) => state.auth);
-
-    useEffect(() => {
-        if (location.pathname.includes("login") && isLoggedIn) {
-            navigate(PATH.profile);
-        }
-        // if (!location.pathname.includes("login") && !isLoggedIn) {
-        //     navigate(PATH.signIn);
-        // }
-    }, [location, isLoggedIn]);
-
     return (
         <Routes>
             <Route path={"/"} element={<Navigate to={PATH.signIn} />} />

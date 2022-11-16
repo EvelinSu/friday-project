@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { HashRouter } from "react-router-dom";
+import React, { useLayoutEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SSiteWrapper } from "./ui/layout/styled";
 import Header from "./ui/layout/Header/Header";
-import Pages from "./ui/pages/Pages";
+import Pages, { PATH } from "./ui/pages/Pages";
 import { ThemeProvider } from "styled-components";
 import { baseTheme } from "./ui/styles/constants";
 import Notification from "./ui/components/Notification/Notification";
@@ -12,22 +12,29 @@ import { authMeTC } from "./bll/authReducer";
 
 function App() {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [isLoading, setIsLoading] = useState(true);
 
-    const { isInitialized } = useAppSelector((state) => state.app);
-    useEffect(() => {
-        dispatch(authMeTC());
+    useLayoutEffect(() => {
+        setIsLoading(true);
+        dispatch(authMeTC()).then(() => setIsLoading(false));
     }, [dispatch]);
+
+    const { isLoggedIn } = useAppSelector((state) => state.auth);
+    useLayoutEffect(() => {
+        if (location.pathname.includes("login") && isLoggedIn) navigate(PATH.profile);
+        if (!location.pathname.includes("login") && !isLoggedIn) navigate(PATH.signIn);
+    }, [location, isLoggedIn, navigate, isLoading]);
 
     return (
         <ThemeProvider theme={baseTheme}>
-            <HashRouter>
-                {!isInitialized && <GlobalLoader />}
-                <SSiteWrapper>
-                    <Header />
-                    <Pages />
-                    <Notification />
-                </SSiteWrapper>
-            </HashRouter>
+            {isLoading && <GlobalLoader />}
+            <SSiteWrapper>
+                <Header />
+                {!isLoading && <Pages />}
+                <Notification />
+            </SSiteWrapper>
         </ThemeProvider>
     );
 }

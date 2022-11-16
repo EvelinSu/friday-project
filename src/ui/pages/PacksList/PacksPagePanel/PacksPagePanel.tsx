@@ -21,12 +21,7 @@ const PacksPagePanel = () => {
     const dispatch = useAppDispatch();
 
     const addNewPackHandler = () => {
-        dispatch(
-            addNewPack({
-                newCardsPack: { name: "new pack", deckCover: "" },
-                param: URLParams,
-            })
-        );
+        dispatch(addNewPack({ name: "new pack", deckCover: "" }, URLParams));
     };
 
     return (
