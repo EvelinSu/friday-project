@@ -68,9 +68,10 @@ export const authMeTC = () => (dispatch: TAppDispatch) => {
         .then((res) => {
             const { id, name, email, avatar } = res.data;
             dispatch(setUserData({ id, name, email, avatar }));
+            console.log(res);
             dispatch(setIsLoggedIn({ value: true }));
         })
-        .catch(() => {
+        .catch((e) => {
             dispatch(setIsLoggedIn({ value: false }));
         })
         .finally(() => {
@@ -129,9 +130,19 @@ export const changeUserProfileTC =
                 );
             })
             .catch((e) => {
-                const err = e.response
-                    ? e.response.data.error
-                    : e.message + ", more details in the console";
-                dispatch(setAppMessage({ text: err, severity: "error" }));
+                console.log(e);
+                if (e.request.status === 413) {
+                    dispatch(
+                        setAppMessage({
+                            text: e.response.statusText,
+                            severity: "error",
+                        })
+                    );
+                } else {
+                    const err = e.response
+                        ? e.response.data.error
+                        : e.message + ", more details in the console";
+                    dispatch(setAppMessage({ text: err, severity: "error" }));
+                }
             });
     };
