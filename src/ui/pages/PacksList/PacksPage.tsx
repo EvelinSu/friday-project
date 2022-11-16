@@ -24,7 +24,6 @@ const PacksPage = () => {
         [searchParams]
     );
 
-    // console.log(" search" + searchParams.get("page"));
     useEffect(() => {
         if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {
             dispatch(setCardParams(URLParams));

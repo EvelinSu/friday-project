@@ -22,7 +22,6 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
         const [value, setValue] = useState(
             searchParams.get("page") ? searchParams.get("page") : "1"
         );
-        // console.log(searchParams.get("page"));
         const debounceValue = useDebounce(value, 500);
 
         const pageQuantity = Math.max(
@@ -38,7 +37,8 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
 
         return (
             <MyPaginate
-                initialPage={pageInState}
+                initialPage={pageInState ? pageInState - 1 : 0}
+                // forcePage={6}
                 pageCount={pageQuantity}
                 pageRangeDisplayed={4}
                 marginPagesDisplayed={1}
