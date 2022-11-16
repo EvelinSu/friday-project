@@ -18,6 +18,7 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount
     const pageInState = useAppSelector((state) => state.packs.cardPacksData.page);
     const [value, setValue] = useState(searchParams.get("page") ? searchParams.get("page") : "1");
     const debounceValue = useDebounce(value, 500);
+    const userId = useAppSelector((state) => state.packsParams.user_id);
 
     const pageQuantity = Math.max(Math.ceil(cardPacksTotalCount / pageCount));
     const handlePageChange = ({ selected }: { selected: number }) => {
@@ -25,7 +26,8 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount
     };
 
     useEffect(() => {
-        setSearchParams({ page: `${value}`, pageCount: `${pageCount}` });
+        if (userId) setSearchParams({ page: `${value}`, pageCount: `${pageCount}`, user_id: userId });
+        else setSearchParams({ page: `${value}`, pageCount: `${pageCount}` });
     }, [debounceValue]);
 
     return (

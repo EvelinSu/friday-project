@@ -32,8 +32,7 @@ const Filter: FC<TFilterProps> = (props) => {
 
     const [userPacks, setUserPacks] = useSearchParams();
 
-    const userId = useAppSelector((state) => state.auth.userData?.id);
-
+    const userId = useAppSelector((state) => state.auth.userData.id);
     const onChangeTab = (tab: string) => {
         if (userId) {
             setUserPacks(tab === "Only my" ? { user_id: userId } : { user_id: "" });
