@@ -37,6 +37,12 @@ export type TPacksParams = {
     user_id?: string;
 };
 
+export type TNewCardsPack = {
+    name: string;
+    deckCover: string;
+    private?: boolean;
+};
+
 export type RegisterDataType = {
     email: string;
     password: string;

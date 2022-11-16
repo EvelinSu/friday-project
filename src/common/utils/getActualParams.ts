@@ -1,4 +1,4 @@
-import { TPacksParams } from "../dal/ResponseTypes";
+import { TPacksParams } from "../../dal/ResponseTypes";
 
 export const getActualPacksParams = (
     searchParams: URLSearchParams

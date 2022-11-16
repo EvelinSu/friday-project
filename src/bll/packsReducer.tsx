@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
 import { packsAPI } from "../dal/cardsAPI";
-import { TPack, TPacksParams } from "../dal/ResponseTypes";
+import { TNewCardsPack, TPack, TPacksParams } from "../dal/ResponseTypes";
+import { setAppMessage } from "./appReducer";
+import { setIsFetching } from "./authReducer";
 
 export type TPacksData = {
     cardPacks: TPack[];
@@ -16,11 +18,9 @@ export type TPacksData = {
 };
 
 export type TPacks = {
-    isFetching: boolean;
     cardPacksData: TPacksData;
 };
 const initialState: TPacks = {
-    isFetching: false,
     cardPacksData: {
         cardPacks: [],
         user_id: "",
@@ -38,9 +38,6 @@ const slice = createSlice({
     name: "packs",
     initialState: initialState,
     reducers: {
-        setIsFetching(state, action: PayloadAction<boolean>) {
-            state.isFetching = action.payload;
-        },
         setPacks(state, action: PayloadAction<TPacksData>) {
             state.cardPacksData = action.payload;
         },
@@ -51,7 +48,7 @@ const slice = createSlice({
 });
 
 export const packsReducer = slice.reducer;
-export const { setIsFetching, setPacks, clearStatePacks } = slice.actions;
+export const { setPacks, clearStatePacks } = slice.actions;
 
 export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
@@ -68,3 +65,33 @@ export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
         })
         .finally(() => dispatch(setIsFetching(false)));
 };
+
+export const addNewPack = createAsyncThunk(
+    "packs/addNewPack",
+    async (
+        paramThunk: { newCardsPack: TNewCardsPack; param: TPacksParams },
+        { dispatch, rejectWithValue }
+    ) => {
+        try {
+            dispatch(setIsFetching(true));
+            await packsAPI.addPack(paramThunk.newCardsPack);
+            dispatch(setIsFetching(false));
+            dispatch(
+                setAppMessage({
+                    text: "New pack created",
+                    severity: "success",
+                })
+            );
+            dispatch(loadPacks(paramThunk.param));
+        } catch (e) {
+            dispatch(setIsFetching(false));
+
+            dispatch(
+                setAppMessage({
+                    text: "something went wrong try again later",
+                    severity: "error",
+                })
+            );
+        }
+    }
+);
