@@ -5,7 +5,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import LoaderIcon from "../../assets/loaders/loader";
 import { setCardParams } from "../../../bll/packsParamsReducer";
-import { getActualPacksParams } from "../../../utils/getActualParams";
+import { getActualPacksParams } from "../../../common/utils/getActualParams";
 import { loadPacks } from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
@@ -14,9 +14,8 @@ const PacksPage = () => {
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
 
-    const { isFetching, cardPacksData } = useAppSelector(
-        (state) => state.packs
-    );
+    const { cardPacksData } = useAppSelector((state) => state.packs);
+    const { isFetching } = useAppSelector((state) => state.auth);
 
     const stateParams = useAppSelector((state) => state.packsParams);
     const URLParams = useMemo(

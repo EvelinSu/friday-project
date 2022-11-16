@@ -7,7 +7,7 @@ import IconButton from "../../../components/IconButton/IconButton";
 import EditIcon from "../../../assets/icons/EditIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import DeleteIcon from "../../../assets/icons/DeleteIcon";
-import { transformDate } from "../../../../utils/tarnsformDate";
+import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { TPack } from "../../../../dal/ResponseTypes";
 
 type TPackProps = {

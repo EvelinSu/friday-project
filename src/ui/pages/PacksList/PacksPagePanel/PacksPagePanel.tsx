@@ -9,9 +9,25 @@ import { FilterWrapper } from "../Filter/styled";
 import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
 import Filter from "../Filter/Filter";
+import { useAppDispatch } from "../../../../hooks/hooks";
+import { addNewPack } from "../../../../bll/packsReducer";
+import { getActualPacksParams } from "../../../../common/utils/getActualParams";
+import { useSearchParams } from "react-router-dom";
 
 const PacksPagePanel = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [searchParams] = useSearchParams();
+    const URLParams = getActualPacksParams(searchParams);
+    const dispatch = useAppDispatch();
+
+    const addNewPackHandler = () => {
+        dispatch(
+            addNewPack({
+                newCardsPack: { name: "new pack", deckCover: "" },
+                param: URLParams,
+            })
+        );
+    };
 
     return (
         <SPagePanel>
@@ -22,7 +38,7 @@ const PacksPagePanel = () => {
             >
                 <SMainTitle>Packs list</SMainTitle>
                 <Button
-                    onClick={() => alert("In progress")}
+                    onClick={addNewPackHandler}
                     label={"Add new pack"}
                     shadow
                 />
