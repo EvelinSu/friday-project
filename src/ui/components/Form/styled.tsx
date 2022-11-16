@@ -11,6 +11,7 @@ interface TSInputWrapperProps {
     error?: string;
     title?: string;
 }
+
 export const SInputWrapper = styled.div<TSInputWrapperProps>`
     display: flex;
     flex-direction: row;
@@ -42,6 +43,7 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
                     bottom: 8px;
                 }
             }
+
             &:hover {
                 &:after {
                     opacity: 1;
@@ -53,6 +55,7 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
         props.title &&
         css`
             margin-top: 25px;
+
             &:before {
                 content: "${props.title}";
                 position: absolute;
@@ -70,23 +73,28 @@ interface TSInputProps {
     hasRightIcon?: boolean;
     hasLeftIcon?: boolean;
 }
+
 export const SInput = styled.input<TSInputProps>`
     padding: 10px 15px;
     border-radius: 15px;
     background-color: ${({ theme }) => theme.colors.input.default};
-    outline: 1px solid transparent;
+    outline: 1px solid rgba(0, 0, 0, 0.2);
     width: 100%;
+
     &:hover {
         opacity: 0.8;
     }
+
     &:focus {
         outline: ${({ theme }) => `1px solid ${theme.colors.primary}`};
         opacity: 1;
     }
+
     ${(props) =>
         props.isError &&
         css`
             outline: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
+
             &:focus {
                 outline: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
             }
@@ -94,6 +102,7 @@ export const SInput = styled.input<TSInputProps>`
     &::placeholder {
         opacity: 0.4;
     }
+
     ${(props) =>
         props.hasLeftIcon &&
         css`

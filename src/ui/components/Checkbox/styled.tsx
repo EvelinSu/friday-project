@@ -14,13 +14,16 @@ export const SCheckbox = styled.input`
     align-self: center;
     background-color: ${({ theme }) => theme.colors.input.default};
     border-radius: 50%;
+    outline: 1px solid rgba(0, 0, 0, 0.2);
     margin-right: 10px;
     position: relative;
     cursor: pointer;
+
     &:checked {
         appearance: none;
         height: 0;
         width: 0;
+
         &:after {
             content: "";
             background-color: ${({ theme }) => theme.colors.primary};
