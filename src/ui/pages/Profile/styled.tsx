@@ -9,3 +9,8 @@ export const SProfileContent = styled.div`
         flex-direction: column;
     }
 `;
+
+export const SProfileButton = styled.div`
+    display: flex;
+    justify-content: center;
+`;

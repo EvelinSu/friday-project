@@ -14,7 +14,8 @@ type TButtonProps = DefaultHTMLButtonType & {
     isLoading?: boolean;
     icon?: React.ReactElement;
     needAuth?: boolean;
-    shadow?: boolean;
+    withShadow?: boolean;
+    withBorder?: boolean;
 };
 
 const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
@@ -30,7 +31,8 @@ const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
             backgroundColor={props.backgroundColor}
             size={props.size}
             isLoading={props.isLoading}
-            shadow={props.shadow}
+            withShadow={props.withShadow}
+            withBorder={props.withBorder}
         >
             {props.icon}
             {props.label}

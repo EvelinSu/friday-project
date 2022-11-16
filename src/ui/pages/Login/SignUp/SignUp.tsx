@@ -93,7 +93,7 @@ const SignUpForm = () => {
                     label={"Sign Up"}
                     isLoading={isFetching}
                     isDisabled={!isValid}
-                    shadow
+                    withShadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>
                     <SText textAlign={"center"}>Already have an account?</SText>

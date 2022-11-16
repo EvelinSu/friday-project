@@ -12,7 +12,7 @@ import { PATH } from "../Pages";
 import { changeUserProfileTC, logOutTC } from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
-import { SProfileContent } from "./styled";
+import { SProfileButton, SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { setAppMessage } from "../../../bll/appReducer";
 
@@ -94,15 +94,15 @@ const ProfileModalBody = () => {
                     </SText>
                 </Box>
             </SProfileContent>
-            <Box justifyContent={"center"}>
+            <SProfileButton>
                 <Button
                     label={"Log out"}
                     onClick={onLogoutHandler}
                     icon={<SignOutIcon />}
                     isLoading={isFetching}
-                    shadow
+                    withBorder
                 />
-            </Box>
+            </SProfileButton>
         </Box>
     );
 };

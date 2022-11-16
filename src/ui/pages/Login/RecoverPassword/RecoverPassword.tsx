@@ -70,7 +70,7 @@ const RecoverPasswordForm = () => {
                     label={"Send"}
                     isDisabled={!isValid}
                     isLoading={isFetching}
-                    shadow
+                    withShadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>
                     <SText textAlign={"center"}>Did you remember your password?</SText>

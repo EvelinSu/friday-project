@@ -1,21 +1,23 @@
 import styled, { css, keyframes } from "styled-components";
 
 const buttonLoad = keyframes`
-  0% {
-    opacity: 0.7;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 0.7;
-  }
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0.7;
+    }
 `;
+
 interface TSButton {
     backgroundColor?: string;
     size?: "lg" | "sm";
     hasIcon?: boolean;
-    shadow?: boolean;
+    withShadow?: boolean;
+    withBorder?: boolean;
     isLoading?: boolean;
 }
 
@@ -30,19 +32,47 @@ export const SButton = styled.button<TSButton>`
     color: #fff;
     cursor: pointer;
     transition: 0.2s;
+
     &:hover {
         box-shadow: inset 0 0 30px 30px rgba(255, 255, 255, 0.1);
     }
+
     &:active {
         box-shadow: inset 0 0 30px 30px rgba(255, 255, 255, 0);
     }
+
     ${(props) =>
-        props.shadow &&
+        props.withShadow &&
         css`
-            box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 18px ${({ theme }) => theme.colors.button.successShadow};
             padding: 10px 30px;
             font-size: 16px;
         `};
+    ${(props) =>
+        props.withBorder &&
+        css`
+            font-size: 16px;
+            background-color: transparent;
+            box-shadow: none;
+            padding: 8px 20px !important;
+            color: ${({ theme }) => theme.colors.button.error};
+            border: 2px solid ${({ theme }) => theme.colors.button.error};
+            transition: 0.2s;
+
+            svg path {
+                transition: 0.2s;
+                stroke: ${({ theme }) => theme.colors.button.error};
+            }
+
+            &:hover {
+                background-color: ${({ theme }) => theme.colors.button.error};
+                color: #fff;
+
+                svg path {
+                    stroke: #fff;
+                }
+            }
+        `}
     ${(props) =>
         props.disabled &&
         css`
@@ -61,6 +91,7 @@ export const SButton = styled.button<TSButton>`
         css`
             gap: 10px;
             padding: 10px 20px;
+
             svg {
                 background-color: rgba(255, 255, 255, 0.1);
                 border-radius: 50%;

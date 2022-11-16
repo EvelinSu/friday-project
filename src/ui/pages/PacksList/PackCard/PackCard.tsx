@@ -9,6 +9,7 @@ import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import DeleteIcon from "../../../assets/icons/DeleteIcon";
 import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { TPack } from "../../../../dal/ResponseTypes";
+import { useAppSelector } from "../../../../hooks/hooks";
 
 type TPackProps = {
     pack: TPack;
@@ -20,6 +21,7 @@ const PackCard: FC<TPackProps> = ({ pack }) => {
     };
 
     const correctDate = transformDate(pack.updated);
+    const { id } = useAppSelector((state) => state.auth.userData);
 
     return (
         <SPackCardWrapper>
@@ -52,8 +54,12 @@ const PackCard: FC<TPackProps> = ({ pack }) => {
             </Box>
             <SPackCardActions>
                 <IconButton color={"#fff"} size={"sm"} icon={<BookCheckIcon />} />
-                <IconButton color={"#fff"} size={"sm"} icon={<EditIcon />} />
-                <IconButton color={"#fff"} size={"sm"} icon={<DeleteIcon />} />
+                {id === pack.user_id && (
+                    <>
+                        <IconButton color={"#fff"} size={"sm"} icon={<EditIcon />} />
+                        <IconButton color={"#fff"} size={"sm"} icon={<DeleteIcon />} />
+                    </>
+                )}
             </SPackCardActions>
         </SPackCardWrapper>
     );

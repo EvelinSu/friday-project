@@ -27,7 +27,7 @@ const CheckEmailModal = () => {
             <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
                 We’ve sent an Email with instructions to example@mail.com
             </SText>
-            <Button onClick={() => navigate(PATH.signIn)} label={"Back to login"} shadow />
+            <Button onClick={() => navigate(PATH.signIn)} label={"Back to login"} withShadow />
         </Box>
     );
 };

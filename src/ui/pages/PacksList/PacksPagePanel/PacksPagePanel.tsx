@@ -28,7 +28,7 @@ const PacksPagePanel = () => {
         <SPagePanel>
             <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
                 <SMainTitle>Packs list</SMainTitle>
-                <Button onClick={addNewPackHandler} label={"Add new pack"} shadow />
+                <Button onClick={addNewPackHandler} label={"Add new pack"} withShadow />
             </Box>
             <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
                 <SSearchInput>

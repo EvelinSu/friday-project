@@ -76,7 +76,7 @@ const ChangePasswordForm = () => {
                     label={"Accept"}
                     isDisabled={!isValid}
                     isLoading={isFetching}
-                    shadow
+                    withShadow
                 />
             </Box>
         </SForm>
