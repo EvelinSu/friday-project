@@ -39,9 +39,7 @@ const slice = createSlice({
             state.userData = action.payload;
         },
         setUserProfile(state, action: PayloadAction<ProfileDataType>) {
-            if (action.payload.avatar) {
-                state.userData.avatar = action.payload.avatar;
-            }
+            if (action.payload.avatar) state.userData.avatar = action.payload.avatar;
             if (action.payload.name) state.userData.name = action.payload.name;
         },
         setIsFetching(state, action: PayloadAction<boolean>) {
@@ -95,7 +93,6 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
             dispatch(clearStatePacks());
             dispatch(setIsLoggedIn({ value: false }));
         })
-
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";
             dispatch(setAppMessage({ text: err, severity: "error" }));
@@ -108,21 +105,11 @@ export const changeUserProfileTC = (data: ProfileDataType) => (dispatch: TAppDis
         .changeUserProfile(data)
         .then(() => {
             dispatch(setUserProfile(data));
-            dispatch(
-                setAppMessage({
-                    text: "Successfully!",
-                    severity: "success",
-                })
-            );
+            dispatch(setAppMessage({ text: "Successfully!", severity: "success" }));
         })
         .catch((e) => {
             if (e.request.status === 413) {
-                dispatch(
-                    setAppMessage({
-                        text: e.response.statusText,
-                        severity: "error",
-                    })
-                );
+                dispatch(setAppMessage({ text: e.response.statusText, severity: "error" }));
             } else {
                 const err = e.response
                     ? e.response.data.error

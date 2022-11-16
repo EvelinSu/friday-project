@@ -26,13 +26,7 @@ const slice = createSlice({
         setIsInitialized(state, action: PayloadAction<{ value: boolean }>) {
             state.isInitialized = action.payload.value;
         },
-        setAppMessage(
-            state,
-            action: PayloadAction<{
-                text: string;
-                severity: "error" | "success";
-            }>
-        ) {
+        setAppMessage(state, action: PayloadAction<{ text: string; severity: "error" | "success" }>) {
             const newMessage: TAppMessage = {
                 id: String(Math.random()),
                 severity: action.payload.severity,

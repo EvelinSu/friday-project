@@ -38,12 +38,7 @@ export const registerTC = (data: RegisterDataType) => (dispatch: TAppDispatch) =
         .then(() => {
             dispatch(setRegisterUserAC(data));
             dispatch(setIsRegisteredAC({ isRegistered: true }));
-            dispatch(
-                setAppMessage({
-                    text: "Registration was successful!",
-                    severity: "success",
-                })
-            );
+            dispatch(setAppMessage({ text: "Registration was successful!", severity: "success" }));
         })
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";

@@ -46,18 +46,15 @@ const slice = createSlice({
 });
 
 export const packsReducer = slice.reducer;
-export const {setPacks, clearStatePacks} = slice.actions;
+export const { setPacks, clearStatePacks } = slice.actions;
 
 export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     packsAPI
         .getPacks(param)
-        .then((res) => {
-            dispatch(setPacks(res.data));
-        })
+        .then((res) => dispatch(setPacks(res.data)))
         .catch((e) => {
             // Некорректная ошибка. Должна быть 429, а возвращается 401.
-
             // const err = e.response
             //     ? e.response.data.error
             //     : e.message + ", more details in the console";
@@ -72,21 +69,10 @@ export const addNewPack =
             dispatch(setIsFetching(true));
             await packsAPI.addPack(newCardsPack);
             dispatch(setIsFetching(false));
-            dispatch(
-                setAppMessage({
-                    text: "New pack created",
-                    severity: "success",
-                })
-            );
+            dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
             dispatch(loadPacks(param));
         } catch (e) {
             dispatch(setIsFetching(false));
-
-            dispatch(
-                setAppMessage({
-                    text: "something went wrong try again later",
-                    severity: "error",
-                })
-            );
+            dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
         }
     };

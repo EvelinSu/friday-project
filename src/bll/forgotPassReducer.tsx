@@ -21,7 +21,6 @@ const slice = createSlice({
             state.isSendLetter = action.payload.isSendLetter;
         },
         setTokenAC(state, action: PayloadAction<{ token: string }>) {
-            debugger;
             state.token = action.payload.token;
         },
     },
@@ -37,12 +36,7 @@ export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
         .sendEmail(email)
         .then(() => {
             dispatch(setStatusSendAC({ isSendLetter: true }));
-            dispatch(
-                setAppMessage({
-                    text: "Check your email!",
-                    severity: "success",
-                })
-            );
+            dispatch(setAppMessage({ text: "Check your email!", severity: "success" }));
         })
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";
@@ -53,13 +47,9 @@ export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
 
 export const sendNewPassTC = (password: string, token: string) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
-
     authAPI
         .sendNewPass(password, token)
-        .then((res) => {
-            console.log(res);
-            dispatch(setTokenAC({ token: "" }));
-        })
+        .then(() => dispatch(setTokenAC({ token: "" })))
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";
             dispatch(setAppMessage({ text: err, severity: "error" }));

@@ -16,6 +16,7 @@ const PacksPage = () => {
 
     const { cardPacksData } = useAppSelector((state) => state.packs);
     const { isFetching } = useAppSelector((state) => state.auth);
+    const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
 
     const stateParams = useAppSelector((state) => state.packsParams);
     const URLParams = useMemo(() => getActualPacksParams(searchParams), [searchParams]);
@@ -35,11 +36,13 @@ const PacksPage = () => {
             {isFetching && <LoaderIcon absolute />}
             <PacksPagePanel />
             <PacksList />
-            <Pagination
-                cardPacksTotalCount={cardPacksData.cardPacksTotalCount}
-                isFetching={isFetching}
-                pageCount={URLParams.pageCount || cardPacksData.pageCount}
-            />
+            {cardPacks.length > 0 && (
+                <Pagination
+                    cardPacksTotalCount={cardPacksData.cardPacksTotalCount}
+                    isFetching={isFetching}
+                    pageCount={URLParams.pageCount || cardPacksData.pageCount}
+                />
+            )}
         </SPageWrapper>
     );
 };
