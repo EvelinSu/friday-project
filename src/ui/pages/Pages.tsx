@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import {
     Navigate,
     Route,
@@ -14,7 +14,7 @@ import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
 import { useAppSelector } from "../../hooks/hooks";
-import PacksList from "./PacksList/PacksList";
+import PacksPage from "./PacksList/PacksPage";
 
 export const PATH = {
     profile: "/profile",
@@ -31,20 +31,20 @@ const Pages = () => {
     const location = useLocation();
     const { isLoggedIn } = useAppSelector((state) => state.auth);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (location.pathname.includes("login") && isLoggedIn) {
             navigate(PATH.profile);
         }
-        if (!location.pathname.includes("login") && !isLoggedIn) {
-            navigate(PATH.signIn);
-        }
+        // if (!location.pathname.includes("login") && !isLoggedIn) {
+        //     navigate(PATH.signIn);
+        // }
     }, [location, isLoggedIn]);
 
     return (
         <Routes>
             <Route path={"/"} element={<Navigate to={PATH.signIn} />} />
             <Route path={PATH.profile} element={<Profile />} />
-            <Route path={PATH.packsList} element={<PacksList />} />
+            <Route path={PATH.packsList} element={<PacksPage />} />
             <Route path={PATH.signIn} element={<SignIn />} />
             <Route path={PATH.signUp} element={<SignUp />} />
             <Route path={PATH.changePassword} element={<ChangePassword />}>

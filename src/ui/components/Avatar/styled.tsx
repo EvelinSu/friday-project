@@ -8,13 +8,14 @@ type TSAvatarProps = {
 };
 
 const imgSizes = (size: TSizes) => {
-    const sizePx = size === "small"
-        ? 40
-        : size === "large"
+    const sizePx =
+        size === "small"
+            ? 40
+            : size === "large"
             ? 125
             : size === "smallest"
-                ? 25
-                : 60;
+            ? 25
+            : 60;
     return {
         minWidth: sizePx,
         maxWidth: sizePx,
@@ -43,6 +44,7 @@ export const SAvatar = styled.div<TSAvatarProps>((props) => ({
 
 export const SAvatarShadow = styled.div((props) => ({
     display: "flex",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(0, 0, 0, 0.4)",
@@ -61,3 +63,20 @@ export const SAvatarShadow = styled.div((props) => ({
         opacity: 1,
     },
 }));
+
+export const SAvatarDeleteIcon = styled.div`
+    width: 26px;
+    height: 26px;
+    margin-bottom: -30px;
+    padding: 5px;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    svg path {
+        fill: ${({ theme }) => theme.colors.severity.error};
+        stroke: ${({ theme }) => theme.colors.severity.error};
+    }
+`;

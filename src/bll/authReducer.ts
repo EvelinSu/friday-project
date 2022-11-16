@@ -44,8 +44,9 @@ const slice = createSlice({
             state.userData = action.payload;
         },
         setUserProfile(state, action: PayloadAction<ProfileDataType>) {
-            if (state.userData.avatar)
+            if (action.payload.avatar) {
                 state.userData.avatar = action.payload.avatar;
+            }
             if (action.payload.name) state.userData.name = action.payload.name;
         },
         setIsFetching(state, action: PayloadAction<boolean>) {

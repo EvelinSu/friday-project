@@ -12,9 +12,9 @@ export const store = configureStore({
         auth: authReducer,
         app: appReducer,
         packs: packsReducer,
+        packsParams: packsParamsReducer,
         registration: registerReducer,
         forgotPass: forgotPassReducer,
-        packsParams: packsParamsReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().prepend(thunkMiddleware),

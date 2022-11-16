@@ -12,24 +12,24 @@ type TPaginationProps = {
 };
 
 const Pagination: React.FC<TPaginationProps> = React.memo(
-    ({ cardPacksTotalCount, pageCount, isFetching }) => {
+    ({ cardPacksTotalCount, pageCount }) => {
         const [searchParams, setSearchParams] = useSearchParams();
 
-        const [value, setValue] = useState<number>(1);
+        const [value, setValue] = useState(
+            searchParams.get("page") ? searchParams.get("page") : "1"
+        );
+        console.log(searchParams.get("page"));
         const debounceValue = useDebounce(value, 500);
-
-        // const page = searchParams.get("page");
 
         const pageQuantity = Math.max(
             Math.ceil(cardPacksTotalCount / pageCount)
         );
         const handlePageChange = ({ selected }: { selected: number }) => {
-            setValue(selected + 1);
+            setValue(`${selected + 1}`);
         };
 
         useEffect(() => {
-            console.log(value);
-            setSearchParams({ page: `${value}` });
+            setSearchParams({ page: `${value}`, pageCount: `${pageCount}` });
         }, [debounceValue]);
 
         return (
