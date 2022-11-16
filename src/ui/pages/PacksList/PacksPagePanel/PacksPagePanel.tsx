@@ -9,26 +9,18 @@ import { FilterWrapper } from "../Filter/styled";
 import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
 import Filter from "../Filter/Filter";
-import { useAppDispatch } from "../../../../hooks/hooks";
-import { addNewPack } from "../../../../bll/packsReducer";
-import { getActualPacksParams } from "../../../../common/utils/getActualParams";
-import { useSearchParams } from "react-router-dom";
+import AddPackModal from "../AddPackModal/AddPackModal";
 
 const PacksPagePanel = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [searchParams] = useSearchParams();
-    const URLParams = getActualPacksParams(searchParams);
-    const dispatch = useAppDispatch();
 
-    const addNewPackHandler = () => {
-        dispatch(addNewPack({ name: "new pack", deckCover: "" }, URLParams));
-    };
+    const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
 
     return (
         <SPagePanel>
             <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
                 <SMainTitle>Packs list</SMainTitle>
-                <Button onClick={addNewPackHandler} label={"Add new pack"} withShadow />
+                <Button onClick={() => setIsAddPackModalOpen(true)} label={"Add new pack"} withShadow />
             </Box>
             <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
                 <SSearchInput>
@@ -44,6 +36,7 @@ const PacksPagePanel = () => {
                     {isFilterOpen && <Filter setIsOpen={setIsFilterOpen} />}
                 </FilterWrapper>
             </Box>
+            {isAddPackModalOpen && <AddPackModal onClose={() => setIsAddPackModalOpen(false)} />}
         </SPagePanel>
     );
 };

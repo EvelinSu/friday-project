@@ -17,9 +17,11 @@ export type TPacksData = {
 };
 
 export type TPacks = {
+    isAddFetching: boolean;
     cardPacksData: TPacksData;
 };
 const initialState: TPacks = {
+    isAddFetching: false,
     cardPacksData: {
         cardPacks: [],
         user_id: "",
@@ -40,13 +42,16 @@ const slice = createSlice({
             state.cardPacksData = action.payload;
         },
         clearStatePacks(state) {
-            state = initialState;
+            state.cardPacksData = initialState.cardPacksData;
+        },
+        setIsAddFetching(state, action: PayloadAction<boolean>) {
+            state.isAddFetching = action.payload;
         },
     },
 });
 
 export const packsReducer = slice.reducer;
-export const { setPacks, clearStatePacks } = slice.actions;
+export const { setPacks, clearStatePacks, setIsAddFetching } = slice.actions;
 
 export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
@@ -65,6 +70,7 @@ export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
 
 export const addNewPack =
     (newCardsPack: TNewCardsPack, param: TPacksParams) => async (dispatch: TAppDispatch) => {
+        dispatch(setIsAddFetching(true));
         try {
             dispatch(setIsFetching(true));
             await packsAPI.addPack(newCardsPack);
@@ -74,5 +80,7 @@ export const addNewPack =
         } catch (e) {
             dispatch(setIsFetching(false));
             dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
+        } finally {
+            dispatch(setIsAddFetching(false));
         }
     };

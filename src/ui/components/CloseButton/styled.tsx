@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const SCloseButton = styled.div`
+export const SCloseButton = styled.div<{ padding?: string }>`
     position: absolute;
     top: 5px;
     right: 5px;
-    padding: 5px;
+    padding: ${(props) => props.padding || "5px"};
     cursor: pointer;
 
     &:hover {

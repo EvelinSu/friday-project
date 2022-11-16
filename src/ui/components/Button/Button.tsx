@@ -16,6 +16,7 @@ type TButtonProps = DefaultHTMLButtonType & {
     needAuth?: boolean;
     withShadow?: boolean;
     withBorder?: boolean;
+    severity?: "success" | "neutral";
 };
 
 const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
@@ -33,6 +34,7 @@ const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
             isLoading={props.isLoading}
             withShadow={props.withShadow}
             withBorder={props.withBorder}
+            severity={props.severity}
         >
             {props.icon}
             {props.label}

@@ -4,11 +4,12 @@ import CloseIcon from "../../assets/icons/CloseIcon";
 
 type TCloseButtonProps = {
     onClick: () => void;
-    color: string;
+    padding?: string;
+    color?: string;
 };
 const CloseButton: FC<TCloseButtonProps> = (props) => {
     return (
-        <SCloseButton onClick={props.onClick} color={props.color}>
+        <SCloseButton onClick={props.onClick} color={props.color} padding={props.padding}>
             <CloseIcon />
         </SCloseButton>
     );

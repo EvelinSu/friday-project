@@ -19,6 +19,7 @@ interface TSButton {
     withShadow?: boolean;
     withBorder?: boolean;
     isLoading?: boolean;
+    severity?: "success" | "neutral";
 }
 
 export const SButton = styled.button<TSButton>`
@@ -26,7 +27,7 @@ export const SButton = styled.button<TSButton>`
     align-items: center;
     justify-content: center;
     white-space: nowrap;
-    padding: 7px 15px;
+    padding: 8px 15px;
     border-radius: 20px;
     background-color: ${(props) => props.backgroundColor || props.theme.colors.button.success};
     color: #fff;
@@ -84,7 +85,12 @@ export const SButton = styled.button<TSButton>`
         css`
             padding: 10px 20px;
             border-radius: 25px;
-            font-size: 18px;
+            font-size: 16px;
+        `}
+    ${({ severity, theme }) =>
+        severity &&
+        css`
+            background-color: ${theme.colors.button[severity || "success"]};
         `}
     ${(props) =>
         props.hasIcon &&

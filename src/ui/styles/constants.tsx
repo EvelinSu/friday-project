@@ -21,6 +21,7 @@ export const baseTheme = {
             successShadow: "rgba(54, 110, 255, 0.35)",
             error: "#e16f6f",
             errorShadow: "rgba(255,54,54,0.35)",
+            neutral: "#a9b2cc",
         },
         cards: {
             default: ["#3879B5", "rgba(56,121,181,0.53)"],

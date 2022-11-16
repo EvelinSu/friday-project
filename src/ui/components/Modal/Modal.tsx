@@ -4,14 +4,14 @@ import { SModalBody, SModalContainer, SModalFooter, SModalHeader } from "./style
 type TModalProps = {
     title: string;
     body: React.ReactNode;
-    shadow?: boolean;
     footer?: React.ReactNode;
     width?: string;
 };
 
 export const Modal: FC<TModalProps> = (props) => {
+
     return (
-        <SModalContainer width={props.width}>
+        <SModalContainer width={props.width} onClick={e => e.stopPropagation()}>
             <SModalHeader>{props.title}</SModalHeader>
             <SModalBody>{props.body}</SModalBody>
             {props.footer && <SModalFooter>{props.footer}</SModalFooter>}

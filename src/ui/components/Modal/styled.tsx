@@ -15,6 +15,7 @@ export const SMegaShadow = styled.div<TSModalWrapperProps>`
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: ${({ theme }) => theme.orders.modal};
 `;
 
 type TSModalContainerProps = {
@@ -31,6 +32,7 @@ export const SModalContainer = styled.div<TSModalContainerProps>`
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
     max-width: ${(props) => props.width || "360px"};
     width: 100%;
+    position: relative;
 `;
 
 export const SModalHeader = styled.div`
