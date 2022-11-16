@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import {
-    SNotificationContainer,
-    SNotificationIcon,
-    SNotificationWrapper,
-} from "./styled";
+import { SNotificationContainer, SNotificationIcon, SNotificationWrapper } from "./styled";
 import { SText } from "../Text/SText";
 import CloseIcon from "../../assets/icons/CloseIcon";
 import { hideAppMessage, setAppLastMessage } from "../../../bll/appReducer";
@@ -36,9 +32,7 @@ const Notification = () => {
     }, [messages]);
 
     return messages ? (
-        <SNotificationWrapper
-            notificationsCount={messages.length < 100 ? messages.length : "99+"}
-        >
+        <SNotificationWrapper notificationsCount={messages.length < 100 ? messages.length : "99+"}>
             {messages.map(({ id, severity, text }) => (
                 <SNotificationContainer
                     onMouseOver={stopTimer}

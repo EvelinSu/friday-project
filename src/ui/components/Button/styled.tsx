@@ -26,8 +26,7 @@ export const SButton = styled.button<TSButton>`
     white-space: nowrap;
     padding: 7px 15px;
     border-radius: 20px;
-    background-color: ${(props) =>
-        props.backgroundColor || props.theme.colors.button.success};
+    background-color: ${(props) => props.backgroundColor || props.theme.colors.button.success};
     color: #fff;
     cursor: pointer;
     transition: 0.2s;
@@ -40,8 +39,7 @@ export const SButton = styled.button<TSButton>`
     ${(props) =>
         props.shadow &&
         css`
-            box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
             padding: 10px 30px;
             font-size: 16px;
         `};

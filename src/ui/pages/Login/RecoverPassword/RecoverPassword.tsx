@@ -17,11 +17,7 @@ const RecoverPassword = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal
-                    title={"Forgot your password?"}
-                    body={<RecoverPasswordForm />}
-                    width={"390px"}
-                />
+                <Modal title={"Forgot your password?"} body={<RecoverPasswordForm />} width={"390px"} />
             </Box>
         </SPageWrapper>
     );
@@ -30,27 +26,15 @@ const RecoverPassword = () => {
 const RecoverPasswordForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const isSendLetter = useAppSelector(
-        (state) => state.forgotPass.isSendLetter
-    );
+    const isSendLetter = useAppSelector((state) => state.forgotPass.isSendLetter);
     const { isFetching } = useAppSelector((state) => state.auth);
 
-    const {
-        handleBlur,
-        handleSubmit,
-        touched,
-        handleChange,
-        isValid,
-        values,
-        errors,
-    } = useFormik({
+    const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
         initialValues: {
             email: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string()
-                .email("Invalid email address")
-                .required("Required"),
+            email: Yup.string().email("Invalid email address").required("Required"),
         }),
         onSubmit: ({ email }) => {
             dispatch(sendEmailTC(email));
@@ -67,8 +51,7 @@ const RecoverPasswordForm = () => {
         <SForm onSubmit={handleSubmit}>
             <Box padding={"0 20px"} flexDirection={"column"}>
                 <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
-                    Enter your email address and we will send you further
-                    instructions
+                    Enter your email address and we will send you further instructions
                 </SText>
                 <Input
                     placeholder={"Email"}
@@ -81,11 +64,7 @@ const RecoverPasswordForm = () => {
                     required
                 />
             </Box>
-            <Box
-                margin={"10px 0 0 0"}
-                alignItems={"center"}
-                flexDirection={"column"}
-            >
+            <Box margin={"10px 0 0 0"} alignItems={"center"} flexDirection={"column"}>
                 <Button
                     type="submit"
                     label={"Send"}
@@ -94,9 +73,7 @@ const RecoverPasswordForm = () => {
                     shadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>
-                    <SText textAlign={"center"}>
-                        Did you remember your password?
-                    </SText>
+                    <SText textAlign={"center"}>Did you remember your password?</SText>
                     <SText onClick={() => navigate(PATH.signIn)} isLink>
                         Sign In
                     </SText>

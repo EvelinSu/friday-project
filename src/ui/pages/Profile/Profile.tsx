@@ -16,8 +16,7 @@ import { SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { setAppMessage } from "../../../bll/appReducer";
 
-export type EventInputType = ChangeEvent<HTMLInputElement> &
-    KeyboardEvent<HTMLInputElement>;
+export type EventInputType = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
 const Profile = () => {
     const auth = useAppSelector((state) => state.auth);
@@ -35,11 +34,7 @@ const Profile = () => {
                 <BackPageButton to={PATH.packsList} />
             </SPagePanel>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal
-                    title={"Personal Information"}
-                    body={<ProfileModalBody />}
-                    width={"400px"}
-                />
+                <Modal title={"Personal Information"} body={<ProfileModalBody />} width={"400px"} />
             </Box>
         </SPageWrapper>
     );
@@ -59,12 +54,7 @@ const ProfileModalBody = () => {
 
     const onSaveNameHandler = () => {
         const newName = value?.trim();
-        if (
-            newName &&
-            newName.length &&
-            newName.length > 3 &&
-            newName !== name
-        ) {
+        if (newName && newName.length && newName.length > 3 && newName !== name) {
             dispatch(changeUserProfileTC({ name: newName }));
         } else {
             dispatch(
@@ -90,11 +80,7 @@ const ProfileModalBody = () => {
                     onClick={() => alert("In progress")}
                     isEditable
                 />
-                <Box
-                    width={"100%"}
-                    flexDirection={"column"}
-                    overflow={"hidden"}
-                >
+                <Box width={"100%"} flexDirection={"column"} overflow={"hidden"}>
                     <EditableSpan
                         value={value || ""}
                         fontSize={"20px"}
@@ -103,12 +89,7 @@ const ProfileModalBody = () => {
                         onSave={onSaveNameHandler}
                         placeholder={"Nickname"}
                     />
-                    <SText
-                        title={email ? email : ""}
-                        isEllipsis
-                        fontSize={"14px"}
-                        fontWeight={300}
-                    >
+                    <SText title={email ? email : ""} isEllipsis fontSize={"14px"} fontWeight={300}>
                         {email}
                     </SText>
                 </Box>

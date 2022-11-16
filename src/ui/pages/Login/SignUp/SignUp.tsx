@@ -28,31 +28,17 @@ const SignUpForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { isFetching } = useAppSelector((state) => state.auth);
-    const isRegistered = useAppSelector(
-        (state) => state.registration.isRegistered
-    );
+    const isRegistered = useAppSelector((state) => state.registration.isRegistered);
 
-    const {
-        handleBlur,
-        handleSubmit,
-        touched,
-        handleChange,
-        isValid,
-        values,
-        errors,
-    } = useFormik({
+    const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
         initialValues: {
             email: "",
             password: "",
             confirmPassword: "",
         },
         validationSchema: Yup.object({
-            email: Yup.string()
-                .email("Invalid email address")
-                .required("Required"),
-            password: Yup.string()
-                .required("Required")
-                .min(8, "Must be more than 7"),
+            email: Yup.string().email("Invalid email address").required("Required"),
+            password: Yup.string().required("Required").min(8, "Must be more than 7"),
             confirmPassword: Yup.string()
                 .oneOf([Yup.ref("password"), null], "Passwords must match")
                 .required("Required"),
@@ -97,9 +83,7 @@ const SignUpForm = () => {
                     type="password"
                     value={values.confirmPassword}
                     name="confirmPassword"
-                    error={
-                        touched.confirmPassword ? errors.confirmPassword : ""
-                    }
+                    error={touched.confirmPassword ? errors.confirmPassword : ""}
                     required
                 />
             </Box>

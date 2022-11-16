@@ -12,11 +12,7 @@ const CheckEmail = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal
-                    title={"Check email"}
-                    body={<CheckEmailModal />}
-                    width={"390px"}
-                />
+                <Modal title={"Check email"} body={<CheckEmailModal />} width={"390px"} />
             </Box>
         </SPageWrapper>
     );
@@ -26,20 +22,12 @@ const CheckEmailModal = () => {
     const navigate = useNavigate();
 
     return (
-        <Box
-            margin={"0 0 15px 0"}
-            flexDirection={"column"}
-            alignItems={"center"}
-        >
+        <Box margin={"0 0 15px 0"} flexDirection={"column"} alignItems={"center"}>
             <MainEmailIcon />
             <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
                 We’ve sent an Email with instructions to example@mail.com
             </SText>
-            <Button
-                onClick={() => navigate(PATH.signIn)}
-                label={"Back to login"}
-                shadow
-            />
+            <Button onClick={() => navigate(PATH.signIn)} label={"Back to login"} shadow />
         </Box>
     );
 };

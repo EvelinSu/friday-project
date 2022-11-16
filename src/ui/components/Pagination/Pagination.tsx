@@ -12,49 +12,41 @@ type TPaginationProps = {
     isFetching: boolean;
 };
 
-const Pagination: React.FC<TPaginationProps> = React.memo(
-    ({ cardPacksTotalCount, pageCount }) => {
-        const [searchParams, setSearchParams] = useSearchParams();
+const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount, pageCount }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
 
-        const pageInState = useAppSelector(
-            (state) => state.packs.cardPacksData.page
-        );
-        const [value, setValue] = useState(
-            searchParams.get("page") ? searchParams.get("page") : "1"
-        );
-        const debounceValue = useDebounce(value, 500);
+    const pageInState = useAppSelector((state) => state.packs.cardPacksData.page);
+    const [value, setValue] = useState(searchParams.get("page") ? searchParams.get("page") : "1");
+    const debounceValue = useDebounce(value, 500);
 
-        const pageQuantity = Math.max(
-            Math.ceil(cardPacksTotalCount / pageCount)
-        );
-        const handlePageChange = ({ selected }: { selected: number }) => {
-            setValue(`${selected + 1}`);
-        };
+    const pageQuantity = Math.max(Math.ceil(cardPacksTotalCount / pageCount));
+    const handlePageChange = ({ selected }: { selected: number }) => {
+        setValue(`${selected + 1}`);
+    };
 
-        useEffect(() => {
-            setSearchParams({ page: `${value}`, pageCount: `${pageCount}` });
-        }, [debounceValue]);
+    useEffect(() => {
+        setSearchParams({ page: `${value}`, pageCount: `${pageCount}` });
+    }, [debounceValue]);
 
-        return (
-            <MyPaginate
-                // initialPage={pageInState ? pageInState - 1 : 0}
-                forcePage={pageInState ? pageInState - 1 : 0}
-                pageCount={pageQuantity}
-                pageRangeDisplayed={4}
-                marginPagesDisplayed={1}
-                onPageChange={handlePageChange}
-                previousLabel={<SmallArrowIcon rotate={"90deg"} />}
-                nextLabel={<SmallArrowIcon rotate={"270deg"} />}
-                pageLinkClassName="page-item"
-                activeClassName="active"
-                previousLinkClassName={"page-item arrow"}
-                nextLinkClassName="page-item arrow"
-                breakLabel=". . ."
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-            />
-        );
-    }
-);
+    return (
+        <MyPaginate
+            // initialPage={pageInState ? pageInState - 1 : 0}
+            forcePage={pageInState ? pageInState - 1 : 0}
+            pageCount={pageQuantity}
+            pageRangeDisplayed={4}
+            marginPagesDisplayed={1}
+            onPageChange={handlePageChange}
+            previousLabel={<SmallArrowIcon rotate={"90deg"} />}
+            nextLabel={<SmallArrowIcon rotate={"270deg"} />}
+            pageLinkClassName="page-item"
+            activeClassName="active"
+            previousLinkClassName={"page-item arrow"}
+            nextLinkClassName="page-item arrow"
+            breakLabel=". . ."
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+        />
+    );
+});
 
 export default Pagination;

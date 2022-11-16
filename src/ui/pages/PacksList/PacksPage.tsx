@@ -18,10 +18,7 @@ const PacksPage = () => {
     const { isFetching } = useAppSelector((state) => state.auth);
 
     const stateParams = useAppSelector((state) => state.packsParams);
-    const URLParams = useMemo(
-        () => getActualPacksParams(searchParams),
-        [searchParams]
-    );
+    const URLParams = useMemo(() => getActualPacksParams(searchParams), [searchParams]);
 
     useEffect(() => {
         if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {

@@ -30,31 +30,21 @@ const SignInForm = () => {
     const dispatch = useAppDispatch();
     const { isFetching } = useAppSelector((state) => state.auth);
 
-    const {
-        handleBlur,
-        handleSubmit,
-        touched,
-        handleChange,
-        isValid,
-        setFieldValue,
-        values,
-        errors,
-    } = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-            rememberMe: false,
-        },
-        validationSchema: Yup.object({
-            email: Yup.string()
-                .email("Invalid email address")
-                .required("Required"),
-            password: Yup.string().required("Required"),
-        }),
-        onSubmit: (values: LoginDataType) => {
-            dispatch(loginTC(values)).then(() => navigate(PATH.profile));
-        },
-    });
+    const { handleBlur, handleSubmit, touched, handleChange, isValid, setFieldValue, values, errors } =
+        useFormik({
+            initialValues: {
+                email: "",
+                password: "",
+                rememberMe: false,
+            },
+            validationSchema: Yup.object({
+                email: Yup.string().email("Invalid email address").required("Required"),
+                password: Yup.string().required("Required"),
+            }),
+            onSubmit: (values: LoginDataType) => {
+                dispatch(loginTC(values)).then(() => navigate(PATH.profile));
+            },
+        });
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -86,15 +76,10 @@ const SignInForm = () => {
                     type="checkbox"
                     name="rememberMe"
                     checked={values.rememberMe}
-                    onChange={(event) =>
-                        setFieldValue("rememberMe", event.target.checked)
-                    }
+                    onChange={(event) => setFieldValue("rememberMe", event.target.checked)}
                 />
                 <Box margin={"0 0 0 auto"}>
-                    <SText
-                        isLink
-                        onClick={() => navigate(PATH.recoverPassword)}
-                    >
+                    <SText isLink onClick={() => navigate(PATH.recoverPassword)}>
                         Forgot password?
                     </SText>
                 </Box>
@@ -108,9 +93,7 @@ const SignInForm = () => {
                     shadow
                 />
                 <Box gap={10} flexDirection={"column"} alignItems={"center"}>
-                    <SText textAlign={"center"}>
-                        Don't you have an account?
-                    </SText>
+                    <SText textAlign={"center"}>Don't you have an account?</SText>
                     <SText onClick={() => navigate(PATH.signUp)} isLink>
                         Sign Up
                     </SText>

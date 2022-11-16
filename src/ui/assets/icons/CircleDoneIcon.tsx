@@ -17,20 +17,8 @@ const CircleDoneIcon: FC<TCircleDoneIconProps> = (props) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <circle
-                cx="12"
-                cy="12"
-                r="9"
-                stroke="#7398CE"
-                strokeOpacity="0.71"
-                strokeWidth="2"
-            />
-            <path
-                d="M8 12L11 15L16 9"
-                stroke="#7398CE"
-                strokeOpacity="0.71"
-                strokeWidth="2"
-            />
+            <circle cx="12" cy="12" r="9" stroke="#7398CE" strokeOpacity="0.71" strokeWidth="2" />
+            <path d="M8 12L11 15L16 9" stroke="#7398CE" strokeOpacity="0.71" strokeWidth="2" />
         </svg>
     );
 };

@@ -1,10 +1,5 @@
 import React, { FC } from "react";
-import {
-    SModalBody,
-    SModalContainer,
-    SModalFooter,
-    SModalHeader,
-} from "./styled";
+import { SModalBody, SModalContainer, SModalFooter, SModalHeader } from "./styled";
 
 type TModalProps = {
     title: string;

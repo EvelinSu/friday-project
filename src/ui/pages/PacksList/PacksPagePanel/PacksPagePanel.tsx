@@ -31,29 +31,13 @@ const PacksPagePanel = () => {
 
     return (
         <SPagePanel>
-            <Box
-                margin={"0 0 10px 0"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-            >
+            <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
                 <SMainTitle>Packs list</SMainTitle>
-                <Button
-                    onClick={addNewPackHandler}
-                    label={"Add new pack"}
-                    shadow
-                />
+                <Button onClick={addNewPackHandler} label={"Add new pack"} shadow />
             </Box>
-            <Box
-                margin={"0 0 20px 0"}
-                alignItems={"end"}
-                justifyContent={"space-between"}
-            >
+            <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
                 <SSearchInput>
-                    <Input
-                        title={"Search"}
-                        placeholder={"Search by name"}
-                        leftIcon={<SearchIcon />}
-                    />
+                    <Input title={"Search"} placeholder={"Search by name"} leftIcon={<SearchIcon />} />
                 </SSearchInput>
                 <FilterWrapper margin={"0 0 3px 0"}>
                     <IconButton

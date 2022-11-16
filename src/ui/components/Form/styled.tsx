@@ -86,11 +86,9 @@ export const SInput = styled.input<TSInputProps>`
     ${(props) =>
         props.isError &&
         css`
-            outline: ${({ theme }) =>
-                `1px solid ${theme.colors.severity.error}`};
+            outline: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
             &:focus {
-                outline: ${({ theme }) =>
-                    `1px solid ${theme.colors.severity.error}`};
+                outline: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
             }
         `}
     &::placeholder {

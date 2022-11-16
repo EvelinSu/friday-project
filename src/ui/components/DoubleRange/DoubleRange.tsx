@@ -1,5 +1,5 @@
 import React from "react";
-import {SDoubleRange, SDoubleRangeWrapper, SRangeTrack} from "./styled";
+import { SDoubleRange, SDoubleRangeWrapper, SRangeTrack } from "./styled";
 
 type SuperDoubleRangePropsType = {
     setValue1: (value: number) => void;
@@ -18,25 +18,21 @@ const DoubleRange: React.FC<SuperDoubleRangePropsType> = ({
     minmax,
     // min, max, step, disable, ...
 }) => {
-
-    let gap = minmax[1] / 5
+    let gap = minmax[1] / 5;
 
     const onChangeValue1 = (newValue: number) => {
-        if (newValue + gap <= values[1]) setValue1(newValue)
-    }
+        if (newValue + gap <= values[1]) setValue1(newValue);
+    };
     const onChangeValue2 = (newValue: number) => {
-        if (values[0] + gap <= newValue) setValue2(newValue)
-    }
+        if (values[0] + gap <= newValue) setValue2(newValue);
+    };
     const getPercent = (num: number) => {
-        return ((num - minmax[0]) * 100 / (minmax[1] - minmax[0]))
-    }
+        return ((num - minmax[0]) * 100) / (minmax[1] - minmax[0]);
+    };
 
     return (
         <SDoubleRangeWrapper>
-            <SRangeTrack
-                value1={getPercent(values[0])}
-                value2={getPercent(values[1])}
-            ></SRangeTrack>
+            <SRangeTrack value1={getPercent(values[0])} value2={getPercent(values[1])}></SRangeTrack>
             <SDoubleRange
                 type={"range"}
                 onChange={(e) => onChangeValue1(+e.currentTarget.value)}
@@ -54,7 +50,6 @@ const DoubleRange: React.FC<SuperDoubleRangePropsType> = ({
                 max={minmax[1]}
             />
         </SDoubleRangeWrapper>
-
     );
 };
 

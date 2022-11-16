@@ -2,13 +2,7 @@ import React from "react";
 
 const PhotoIcon = () => {
     return (
-        <svg
-            width="64"
-            height="66"
-            viewBox="0 0 64 66"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="64" height="66" viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"

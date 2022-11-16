@@ -24,8 +24,7 @@ export const SNotificationWrapper = styled.div<TSNotificationWrapper>`
                 justify-content: center;
                 background-color: ${props.theme.colors.secondary};
                 color: ${props.theme.colors.textOnSecondary};
-                box-shadow: 1px 1px 2px rgb(0, 0, 0, 0.1),
-                    -1px -1px 2px rgb(0, 0, 0, 0.1);
+                box-shadow: 1px 1px 2px rgb(0, 0, 0, 0.1), -1px -1px 2px rgb(0, 0, 0, 0.1);
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;

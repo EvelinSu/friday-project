@@ -41,15 +41,10 @@ const slice = createSlice({
             state.messages.push(newMessage);
         },
         setAppLastMessage(state) {
-            state.messages = state.messages.splice(
-                0,
-                state.messages.length - 1
-            );
+            state.messages = state.messages.splice(0, state.messages.length - 1);
         },
         hideAppMessage(state, action: PayloadAction<string>) {
-            state.messages = state.messages.filter(
-                (el) => el.id !== action.payload
-            );
+            state.messages = state.messages.filter((el) => el.id !== action.payload);
         },
         setAppStatus(state, action: PayloadAction<RequestStatusType>) {
             state.status = action.payload;
@@ -59,10 +54,5 @@ const slice = createSlice({
 });
 
 export const appReducer = slice.reducer;
-export const {
-    setIsInitialized,
-    setAppMessage,
-    setAppLastMessage,
-    hideAppMessage,
-    setAppStatus,
-} = slice.actions;
+export const { setIsInitialized, setAppMessage, setAppLastMessage, hideAppMessage, setAppStatus } =
+    slice.actions;

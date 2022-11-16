@@ -8,14 +8,7 @@ type TSAvatarProps = {
 };
 
 const imgSizes = (size: TSizes) => {
-    const sizePx =
-        size === "small"
-            ? 40
-            : size === "large"
-            ? 125
-            : size === "smallest"
-            ? 25
-            : 60;
+    const sizePx = size === "small" ? 40 : size === "large" ? 125 : size === "smallest" ? 25 : 60;
     return {
         minWidth: sizePx,
         maxWidth: sizePx,

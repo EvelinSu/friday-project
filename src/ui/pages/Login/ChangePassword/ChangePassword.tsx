@@ -17,11 +17,7 @@ const ChangePassword = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal
-                    title={"Create new password"}
-                    body={<ChangePasswordForm />}
-                    width={"390px"}
-                />
+                <Modal title={"Create new password"} body={<ChangePasswordForm />} width={"390px"} />
             </Box>
         </SPageWrapper>
     );
@@ -36,15 +32,7 @@ const ChangePasswordForm = () => {
     const { token } = useParams();
     // console.log('token', token)
 
-    const {
-        handleBlur,
-        touched,
-        handleChange,
-        handleSubmit,
-        isValid,
-        values,
-        errors,
-    } = useFormik({
+    const { handleBlur, touched, handleChange, handleSubmit, isValid, values, errors } = useFormik({
         initialValues: {
             password: "",
         },
@@ -69,8 +57,7 @@ const ChangePasswordForm = () => {
         <SForm onSubmit={handleSubmit}>
             <Box padding={"0 20px"} flexDirection={"column"}>
                 <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>
-                    Create new password and we will send you further
-                    instructions to email
+                    Create new password and we will send you further instructions to email
                 </SText>
                 <Input
                     placeholder="Password"

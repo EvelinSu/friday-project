@@ -1,10 +1,6 @@
 import React from "react";
 import PageNotFoundImage from "../../assets/img/PageNotFoundImage.gif";
-import {
-    SPageNotFound,
-    SPageNotFoundImage,
-    SPageNotFoundTitle,
-} from "./styled";
+import { SPageNotFound, SPageNotFoundImage, SPageNotFoundTitle } from "./styled";
 
 const PageNotFound = () => {
     return (

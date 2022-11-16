@@ -52,13 +52,7 @@ const LoaderIcon: FC<TLoaderIcon> = (props) => {
         <SLoader absolute={props.absolute}>
             <svg version="1.0" width="64px" height="64px" viewBox="0 0 128 128">
                 <g>
-                    <circle
-                        cx="16"
-                        cy="64"
-                        r="16"
-                        fill="#222744"
-                        fillOpacity="1"
-                    />
+                    <circle cx="16" cy="64" r="16" fill="#222744" fillOpacity="1" />
                     <circle
                         cx="16"
                         cy="64"

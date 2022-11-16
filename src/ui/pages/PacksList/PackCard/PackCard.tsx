@@ -51,11 +51,7 @@ const PackCard: FC<TPackProps> = ({ pack }) => {
                 </Box>
             </Box>
             <SPackCardActions>
-                <IconButton
-                    color={"#fff"}
-                    size={"sm"}
-                    icon={<BookCheckIcon />}
-                />
+                <IconButton color={"#fff"} size={"sm"} icon={<BookCheckIcon />} />
                 <IconButton color={"#fff"} size={"sm"} icon={<EditIcon />} />
                 <IconButton color={"#fff"} size={"sm"} icon={<DeleteIcon />} />
             </SPackCardActions>

@@ -1,9 +1,5 @@
 import { instance } from "./instance";
-import {
-    LoginDataType,
-    ProfileDataType,
-    RegisterDataType,
-} from "./ResponseTypes";
+import { LoginDataType, ProfileDataType, RegisterDataType } from "./ResponseTypes";
 
 export const authAPI = {
     login(data: LoginDataType) {

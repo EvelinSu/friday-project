@@ -1,15 +1,6 @@
-import React, {
-    DetailedHTMLProps,
-    FC,
-    InputHTMLAttributes,
-    useState,
-} from "react";
+import React, { DetailedHTMLProps, FC, InputHTMLAttributes, useState } from "react";
 import EditIcon from "../../assets/icons/EditIcon";
-import {
-    SEditableSpanInput,
-    SEditableSpanInputWrapper,
-    SEditableSpanText,
-} from "./styled";
+import { SEditableSpanInput, SEditableSpanInputWrapper, SEditableSpanText } from "./styled";
 import CircleDoneIcon from "../../assets/icons/CircleDoneIcon";
 import { SText } from "../Text/SText";
 import { EventInputType } from "../../pages/Profile/Profile";
@@ -43,16 +34,9 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
     };
 
     return !isEditable ? (
-        <SEditableSpanText
-            disabled={isDisabled}
-            onClick={() => setIsEditable(true)}
-        >
+        <SEditableSpanText disabled={isDisabled} onClick={() => setIsEditable(true)}>
             {props.value ? (
-                <SText
-                    title={props.value ? props.value : ""}
-                    fontSize={props.fontSize}
-                    isEllipsis
-                >
+                <SText title={props.value ? props.value : ""} fontSize={props.fontSize} isEllipsis>
                     {props.value}
                 </SText>
             ) : (

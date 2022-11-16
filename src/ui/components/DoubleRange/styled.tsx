@@ -34,18 +34,16 @@ type TSRangeProps = {
     value1: number;
     value2: number;
 };
-export const SRangeTrack = styled.div<TSRangeProps>(
-    ({ theme, value1, value2 }) => ({
-        borderRadius: 10,
-        position: "absolute",
-        height: rangeStyles.track.height,
-        left: 0,
-        right: 0,
-        background: `linear-gradient(to right, rgba(0, 0, 0, 0.1) ${value1}%, 
+export const SRangeTrack = styled.div<TSRangeProps>(({ theme, value1, value2 }) => ({
+    borderRadius: 10,
+    position: "absolute",
+    height: rangeStyles.track.height,
+    left: 0,
+    right: 0,
+    background: `linear-gradient(to right, rgba(0, 0, 0, 0.1) ${value1}%, 
                                            ${theme.colors.primary} ${value1}% ${value2}%, 
                                            rgba(0, 0, 0, 0.1) ${value2}%)`,
-    })
-);
+}));
 
 export const SDoubleRange = styled.input(({ theme }) => ({
     '&[type="range"]': {

@@ -1,10 +1,5 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
-import {
-    SInput,
-    SInputLeftIcon,
-    SInputRightIcon,
-    SInputWrapper,
-} from "./styled";
+import { SInput, SInputLeftIcon, SInputRightIcon, SInputWrapper } from "./styled";
 
 export type DefaultInputPropsType = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
@@ -30,9 +25,7 @@ const Input: React.FC<TInputProps> = ({ ...props }) => {
 
     return (
         <SInputWrapper error={props.error} title={props.title}>
-            {props.leftIcon && (
-                <SInputLeftIcon>{props.leftIcon}</SInputLeftIcon>
-            )}
+            {props.leftIcon && <SInputLeftIcon>{props.leftIcon}</SInputLeftIcon>}
             <SInput
                 placeholder={props.placeholder || ""}
                 type={props.type}
@@ -46,9 +39,7 @@ const Input: React.FC<TInputProps> = ({ ...props }) => {
                 hasLeftIcon={!!props.leftIcon}
                 hasRightIcon={!!props.rightIcon}
             />
-            {props.rightIcon && (
-                <SInputRightIcon>{props.rightIcon}</SInputRightIcon>
-            )}
+            {props.rightIcon && <SInputRightIcon>{props.rightIcon}</SInputRightIcon>}
         </SInputWrapper>
     );
 };

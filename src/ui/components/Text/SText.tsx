@@ -1,5 +1,5 @@
-import styled, {css} from "styled-components";
-import {Property} from "csstype";
+import styled, { css } from "styled-components";
+import { Property } from "csstype";
 
 interface TSTextProps {
     isEllipsis?: boolean;
@@ -12,7 +12,7 @@ interface TSTextProps {
     lineHeight?: Property.LineHeight;
     lineClamp?: number;
     maxWidth?: Property.MaxWidth;
-    whiteSpace?: Property.WhiteSpace
+    whiteSpace?: Property.WhiteSpace;
 }
 
 export const SText = styled.span<TSTextProps>`
@@ -25,29 +25,29 @@ export const SText = styled.span<TSTextProps>`
     text-align: ${(props) => props.textAlign};
     white-space: ${(props) => props.whiteSpace};
     ${(props) =>
-            props.lineClamp &&
-            css`
-                display: -webkit-box;
-                -webkit-line-clamp: ${props.lineClamp};
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            `}
+        props.lineClamp &&
+        css`
+            display: -webkit-box;
+            -webkit-line-clamp: ${props.lineClamp};
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        `}
     ${(props) =>
-            props.isEllipsis &&
-            css`
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            `}
-    ${({isLink, theme}) =>
-            isLink &&
-            css`
-                text-decoration: underline;
-                color: ${theme.colors.primary};
-                cursor: pointer;
+        props.isEllipsis &&
+        css`
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        `}
+    ${({ isLink, theme }) =>
+        isLink &&
+        css`
+            text-decoration: underline;
+            color: ${theme.colors.primary};
+            cursor: pointer;
 
-                &:hover {
-                    text-decoration: none;
-                }
-            `}
+            &:hover {
+                text-decoration: none;
+            }
+        `}
 `;

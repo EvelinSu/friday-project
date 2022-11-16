@@ -29,9 +29,7 @@ function Select(props: TAlternativeSuperSelect) {
                 setHoveredElement(verify);
             }
             if (e.key === "ArrowUp" && props.options[i] === hoveredElement) {
-                let verify =
-                    props.options[i - 1] ||
-                    props.options[props.options.length - 1];
+                let verify = props.options[i - 1] || props.options[props.options.length - 1];
                 props.onChangeOption(verify);
                 setHoveredElement(verify);
             }
@@ -61,8 +59,7 @@ function Select(props: TAlternativeSuperSelect) {
 
     const arrowPreventDefault = () => {
         window.addEventListener("keydown", (event) => {
-            (event.key === "ArrowUp" || event.key === "ArrowDown") &&
-                event.preventDefault();
+            (event.key === "ArrowUp" || event.key === "ArrowDown") && event.preventDefault();
             //для запрета глобал скролла стрелками
         });
     };
@@ -76,19 +73,13 @@ function Select(props: TAlternativeSuperSelect) {
         >
             <SSuperSelectInputWrapper onClick={() => setOpened(!opened)}>
                 <SSuperSelectInput>
-                    {props.value || (
-                        <SText opacity={0.4}>{props.placeholder}</SText>
-                    )}
+                    {props.value || <SText opacity={0.4}>{props.placeholder}</SText>}
                 </SSuperSelectInput>
                 <SSuperSelectInputIcon isOpen={opened}>
                     <SmallArrowIcon />
                 </SSuperSelectInputIcon>
             </SSuperSelectInputWrapper>
-            {opened && (
-                <SSuperOptionsList>
-                    {mappedOptions || "empty"}
-                </SSuperOptionsList>
-            )}
+            {opened && <SSuperOptionsList>{mappedOptions || "empty"}</SSuperOptionsList>}
         </SSuperSelectWrapper>
     );
 }

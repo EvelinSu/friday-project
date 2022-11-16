@@ -1,8 +1,6 @@
 import { TPacksParams } from "../../dal/ResponseTypes";
 
-export const getActualPacksParams = (
-    searchParams: URLSearchParams
-): TPacksParams => {
+export const getActualPacksParams = (searchParams: URLSearchParams): TPacksParams => {
     const windowHeight = window.innerHeight;
     const pageCount = windowHeight > 1080 ? 20 : windowHeight > 790 ? 16 : 12;
     return {

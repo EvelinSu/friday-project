@@ -17,10 +17,7 @@ const slice = createSlice({
     name: "password",
     initialState: initialState,
     reducers: {
-        setStatusSendAC(
-            state,
-            action: PayloadAction<{ isSendLetter: boolean }>
-        ) {
+        setStatusSendAC(state, action: PayloadAction<{ isSendLetter: boolean }>) {
             state.isSendLetter = action.payload.isSendLetter;
         },
         setTokenAC(state, action: PayloadAction<{ token: string }>) {
@@ -48,29 +45,24 @@ export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
             );
         })
         .catch((e) => {
-            const err = e.response
-                ? e.response.data.error
-                : e.message + ", more details in the console";
+            const err = e.response ? e.response.data.error : e.message + ", more details in the console";
             dispatch(setAppMessage({ text: err, severity: "error" }));
         })
         .finally(() => dispatch(setIsFetching(false)));
 };
 
-export const sendNewPassTC =
-    (password: string, token: string) => (dispatch: TAppDispatch) => {
-        dispatch(setIsFetching(true));
+export const sendNewPassTC = (password: string, token: string) => (dispatch: TAppDispatch) => {
+    dispatch(setIsFetching(true));
 
-        authAPI
-            .sendNewPass(password, token)
-            .then((res) => {
-                console.log(res);
-                dispatch(setTokenAC({ token: "" }));
-            })
-            .catch((e) => {
-                const err = e.response
-                    ? e.response.data.error
-                    : e.message + ", more details in the console";
-                dispatch(setAppMessage({ text: err, severity: "error" }));
-            })
-            .finally(() => dispatch(setIsFetching(false)));
-    };
+    authAPI
+        .sendNewPass(password, token)
+        .then((res) => {
+            console.log(res);
+            dispatch(setTokenAC({ token: "" }));
+        })
+        .catch((e) => {
+            const err = e.response ? e.response.data.error : e.message + ", more details in the console";
+            dispatch(setAppMessage({ text: err, severity: "error" }));
+        })
+        .finally(() => dispatch(setIsFetching(false)));
+};

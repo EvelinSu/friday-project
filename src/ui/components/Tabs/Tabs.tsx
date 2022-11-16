@@ -10,11 +10,7 @@ const Tabs: FC<TTabsProps> = (props) => {
     return (
         <STabs>
             {props.values.map((el) => (
-                <STab
-                    onClick={() => props.setActiveTab(el)}
-                    isActive={props.activeTab === el}
-                    key={el}
-                >
+                <STab onClick={() => props.setActiveTab(el)} isActive={props.activeTab === el} key={el}>
                     {el}
                 </STab>
             ))}

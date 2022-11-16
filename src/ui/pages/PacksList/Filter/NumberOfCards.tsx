@@ -11,12 +11,7 @@ type TNumberOfCardsProps = {
     value2: number;
 };
 
-const NumberOfCards: FC<TNumberOfCardsProps> = ({
-    value1,
-    value2,
-    setValue1,
-    setValue2,
-}) => {
+const NumberOfCards: FC<TNumberOfCardsProps> = ({ value1, value2, setValue1, setValue2 }) => {
     return (
         <Box flexDirection={"column"} gap={10}>
             <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>

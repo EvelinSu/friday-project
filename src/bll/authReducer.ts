@@ -58,8 +58,7 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer;
 
-export const { setIsLoggedIn, setUserData, setUserProfile, setIsFetching } =
-    slice.actions;
+export const { setIsLoggedIn, setUserData, setUserProfile, setIsFetching } = slice.actions;
 
 export const authMeTC = () => (dispatch: TAppDispatch) => {
     dispatch(setAppStatus("loading"));
@@ -79,24 +78,21 @@ export const authMeTC = () => (dispatch: TAppDispatch) => {
         });
 };
 
-export const loginTC =
-    (data: LoginDataType) => async (dispatch: TAppDispatch) => {
-        dispatch(setIsFetching(true));
-        authAPI
-            .login(data)
-            .then((res) => {
-                const { id, name, email, avatar } = res.data;
-                dispatch(setUserData({ id, name, email, avatar }));
-                dispatch(setIsLoggedIn({ value: true }));
-            })
-            .catch((e) => {
-                const err = e.response
-                    ? e.response.data.error
-                    : e.message + ", more details in the console";
-                dispatch(setAppMessage({ text: err, severity: "error" }));
-            })
-            .finally(() => dispatch(setIsFetching(false)));
-    };
+export const loginTC = (data: LoginDataType) => async (dispatch: TAppDispatch) => {
+    dispatch(setIsFetching(true));
+    authAPI
+        .login(data)
+        .then((res) => {
+            const { id, name, email, avatar } = res.data;
+            dispatch(setUserData({ id, name, email, avatar }));
+            dispatch(setIsLoggedIn({ value: true }));
+        })
+        .catch((e) => {
+            const err = e.response ? e.response.data.error : e.message + ", more details in the console";
+            dispatch(setAppMessage({ text: err, severity: "error" }));
+        })
+        .finally(() => dispatch(setIsFetching(false)));
+};
 
 export const logOutTC = () => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
@@ -108,41 +104,38 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
         })
 
         .catch((e) => {
-            const err = e.response
-                ? e.response.data.error
-                : e.message + ", more details in the console";
+            const err = e.response ? e.response.data.error : e.message + ", more details in the console";
             dispatch(setAppMessage({ text: err, severity: "error" }));
         })
         .finally(() => dispatch(setIsFetching(false)));
 };
 
-export const changeUserProfileTC =
-    (data: ProfileDataType) => (dispatch: TAppDispatch) => {
-        authAPI
-            .changeUserProfile(data)
-            .then(() => {
-                dispatch(setUserProfile(data));
+export const changeUserProfileTC = (data: ProfileDataType) => (dispatch: TAppDispatch) => {
+    authAPI
+        .changeUserProfile(data)
+        .then(() => {
+            dispatch(setUserProfile(data));
+            dispatch(
+                setAppMessage({
+                    text: "Successfully!",
+                    severity: "success",
+                })
+            );
+        })
+        .catch((e) => {
+            console.log(e);
+            if (e.request.status === 413) {
                 dispatch(
                     setAppMessage({
-                        text: "Successfully!",
-                        severity: "success",
+                        text: e.response.statusText,
+                        severity: "error",
                     })
                 );
-            })
-            .catch((e) => {
-                console.log(e);
-                if (e.request.status === 413) {
-                    dispatch(
-                        setAppMessage({
-                            text: e.response.statusText,
-                            severity: "error",
-                        })
-                    );
-                } else {
-                    const err = e.response
-                        ? e.response.data.error
-                        : e.message + ", more details in the console";
-                    dispatch(setAppMessage({ text: err, severity: "error" }));
-                }
-            });
-    };
+            } else {
+                const err = e.response
+                    ? e.response.data.error
+                    : e.message + ", more details in the console";
+                dispatch(setAppMessage({ text: err, severity: "error" }));
+            }
+        });
+};

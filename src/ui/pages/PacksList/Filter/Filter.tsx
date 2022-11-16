@@ -32,10 +32,7 @@ const Filter: FC<TFilterProps> = (props) => {
 
     return (
         <SFilterWrapper>
-            <CloseButton
-                color={"rgba(0, 0, 0, 0.5)"}
-                onClick={() => props.setIsOpen(false)}
-            />
+            <CloseButton color={"rgba(0, 0, 0, 0.5)"} onClick={() => props.setIsOpen(false)} />
             <Box flexDirection={"column"} gap={5}>
                 <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
                     Sorting
@@ -47,22 +44,13 @@ const Filter: FC<TFilterProps> = (props) => {
                     placeholder={"Sort by"}
                 />
             </Box>
-            <NumberOfCards
-                setValue1={setValue1}
-                setValue2={setValue2}
-                value1={value1}
-                value2={value2}
-            />
+            <NumberOfCards setValue1={setValue1} setValue2={setValue2} value1={value1} value2={value2} />
             <Box flexDirection={"column"} gap={5}>
                 <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
                     Filter
                 </SText>
                 <Box>
-                    <Tabs
-                        values={tabs}
-                        activeTab={activeTab}
-                        setActiveTab={onChangeTab}
-                    />
+                    <Tabs values={tabs} activeTab={activeTab} setActiveTab={onChangeTab} />
                 </Box>
                 <SFilterReset>
                     <SText isLink>Reset</SText>
