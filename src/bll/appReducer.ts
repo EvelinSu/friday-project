@@ -54,6 +54,7 @@ const slice = createSlice({
         setAppStatus(state, action: PayloadAction<RequestStatusType>) {
             state.status = action.payload;
         },
+        //clearFullState crateActon
     },
 });
 

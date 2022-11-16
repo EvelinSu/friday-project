@@ -3,6 +3,7 @@ import { authAPI } from "../dal/authAPI";
 import { TAppDispatch } from "./store/store";
 import { setAppMessage, setAppStatus, setIsInitialized } from "./appReducer";
 import { LoginDataType, ProfileDataType } from "../dal/ResponseTypes";
+import { clearStatePacks } from "./packsReducer";
 
 export type TAuth = {
     userData: {
@@ -100,7 +101,11 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     authAPI
         .logOut()
-        .then(() => dispatch(setIsLoggedIn({ value: false })))
+        .then(() => {
+            dispatch(clearStatePacks({}));
+            dispatch(setIsLoggedIn({ value: false }));
+        })
+
         .catch((e) => {
             const err = e.response
                 ? e.response.data.error
