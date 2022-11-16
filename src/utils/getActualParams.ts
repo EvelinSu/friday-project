@@ -5,7 +5,6 @@ export const getActualPacksParams = (
 ): TPacksParams => {
     const windowHeight = window.innerHeight;
     const pageCount = windowHeight > 1080 ? 20 : windowHeight > 790 ? 16 : 12;
-
     return {
         user_id: searchParams.get("user_id") || undefined,
         packName: searchParams.get("packName") || undefined,

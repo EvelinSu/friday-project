@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { MyPaginate } from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 import { useDebounce } from "usehooks-ts";
+import { useAppSelector } from "../../../hooks/hooks";
 
 type TPaginationProps = {
     cardPacksTotalCount: number;
@@ -15,10 +16,13 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
     ({ cardPacksTotalCount, pageCount }) => {
         const [searchParams, setSearchParams] = useSearchParams();
 
+        const pageInState = useAppSelector(
+            (state) => state.packs.cardPacksData.page
+        );
         const [value, setValue] = useState(
             searchParams.get("page") ? searchParams.get("page") : "1"
         );
-        console.log(searchParams.get("page"));
+        // console.log(searchParams.get("page"));
         const debounceValue = useDebounce(value, 500);
 
         const pageQuantity = Math.max(
@@ -34,6 +38,7 @@ const Pagination: React.FC<TPaginationProps> = React.memo(
 
         return (
             <MyPaginate
+                initialPage={pageInState}
                 pageCount={pageQuantity}
                 pageRangeDisplayed={4}
                 marginPagesDisplayed={1}

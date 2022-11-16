@@ -24,7 +24,7 @@ const initialState: TPacks = {
     cardPacksData: {
         cardPacks: [],
         user_id: "",
-        page: 1,
+        page: 0,
         pageCount: 12,
         cardPacksTotalCount: 0,
         minCardsCount: 0,
@@ -44,11 +44,14 @@ const slice = createSlice({
         setPacks(state, action: PayloadAction<TPacksData>) {
             state.cardPacksData = action.payload;
         },
+        clearStatePacks(state, action) {
+            state = initialState;
+        },
     },
 });
 
 export const packsReducer = slice.reducer;
-export const { setIsFetching, setPacks } = slice.actions;
+export const { setIsFetching, setPacks, clearStatePacks } = slice.actions;
 
 export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
