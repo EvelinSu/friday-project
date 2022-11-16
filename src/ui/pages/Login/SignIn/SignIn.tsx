@@ -6,7 +6,7 @@ import { Box } from "../../../components/Box/Box";
 import Checkbox from "../../../components/Checkbox/Checkbox";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { PATH } from "../../Pages";
 import { SForm } from "../../../components/Form/styled";
 import { useFormik } from "formik";
@@ -52,10 +52,10 @@ const SignInForm = () => {
             password: Yup.string().required("Required"),
         }),
         onSubmit: (values: LoginDataType) => {
+            console.log(values);
             dispatch(loginTC(values)).then(() => navigate(PATH.profile));
         },
     });
-
     return (
         <SForm onSubmit={handleSubmit}>
             <Box flexDirection={"column"}>

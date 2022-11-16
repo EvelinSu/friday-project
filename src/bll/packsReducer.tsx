@@ -22,7 +22,26 @@ export type TPacks = {
 };
 const initialState: TPacks = {
     cardPacksData: {
-        cardPacks: [],
+        cardPacks: [
+            {
+                _id: "",
+                user_id: "",
+                user_name: "",
+                private: false,
+                name: "",
+                path: "",
+                grade: 0,
+                shots: 0,
+                cardsCount: 0,
+                type: "",
+                rating: 0,
+                created: "",
+                updated: "",
+                more_id: "",
+                __v: 0,
+                deckCover: "",
+            },
+        ],
         user_id: "",
         page: 0,
         pageCount: 12,
