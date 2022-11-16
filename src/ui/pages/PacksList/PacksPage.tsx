@@ -16,6 +16,7 @@ const PacksPage = () => {
 
     const { cardPacksData } = useAppSelector((state) => state.packs);
     const { isFetching } = useAppSelector((state) => state.auth);
+    const userId = useAppSelector((state) => state.auth.userData?.id);
     const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
 
     const stateParams = useAppSelector((state) => state.packsParams);
@@ -23,7 +24,7 @@ const PacksPage = () => {
 
     useEffect(() => {
         if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {
-            dispatch(setCardParams(URLParams));
+            dispatch(setCardParams(userId ? { ...URLParams, user_id: userId } : URLParams));
         }
     }, [dispatch, URLParams]);
 

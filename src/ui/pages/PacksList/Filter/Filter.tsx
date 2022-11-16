@@ -6,6 +6,9 @@ import { SText } from "../../../components/Text/SText";
 import Tabs from "../../../components/Tabs/Tabs";
 import NumberOfCards from "./NumberOfCards";
 import CloseButton from "../../../components/CloseButton/CloseButton";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { setUserCardParams } from "../../../../bll/packsParamsReducer";
+import { useSearchParams } from "react-router-dom";
 
 const initialFilters = {
     activeTab: "All",
@@ -25,8 +28,17 @@ const Filter: FC<TFilterProps> = (props) => {
 
     const [value1, setValue1] = useState(initialFilters.numberOfCards[0]);
     const [value2, setValue2] = useState(initialFilters.numberOfCards[1]);
+    const dispatch = useAppDispatch();
+
+    const [userPacks, setUserPacks] = useSearchParams();
+
+    const userId = useAppSelector((state) => state.auth.userData?.id);
 
     const onChangeTab = (tab: string) => {
+        if (userId) {
+            setUserPacks(tab === "Only my" ? { user_id: userId } : { user_id: "" });
+            dispatch(setUserCardParams({ user_id: userId }));
+        }
         setActiveTab(tab);
     };
 

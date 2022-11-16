@@ -9,11 +9,12 @@ type TTabsProps = {
 const Tabs: FC<TTabsProps> = (props) => {
     return (
         <STabs>
-            {props.values.map((el) => (
-                <STab onClick={() => props.setActiveTab(el)} isActive={props.activeTab === el} key={el}>
-                    {el}
-                </STab>
-            ))}
+            <STab onClick={() => props.setActiveTab("All")} isActive={props.activeTab === "All"}>
+                All
+            </STab>
+            <STab onClick={() => props.setActiveTab("Only my")} isActive={props.activeTab === "Only my"}>
+                Only my
+            </STab>
         </STabs>
     );
 };
