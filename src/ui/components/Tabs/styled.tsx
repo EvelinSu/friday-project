@@ -16,7 +16,7 @@ export const STab = styled.div<TSTabProps>`
     cursor: pointer;
 
     &:hover {
-        outline: 1px solid ${({ theme }) => theme.colors.primary};
+        border: 1px solid ${({ theme }) => theme.colors.primary};
     }
 
     ${(props) =>

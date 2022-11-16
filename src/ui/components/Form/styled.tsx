@@ -78,7 +78,7 @@ export const SInput = styled.input<TSInputProps>`
     padding: 10px 15px;
     border-radius: 15px;
     background-color: ${({ theme }) => theme.colors.input.default};
-    outline: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     width: 100%;
 
     &:hover {
@@ -86,17 +86,17 @@ export const SInput = styled.input<TSInputProps>`
     }
 
     &:focus {
-        outline: ${({ theme }) => `1px solid ${theme.colors.primary}`};
+        border: ${({ theme }) => `1px solid ${theme.colors.primary}`};
         opacity: 1;
     }
 
     ${(props) =>
         props.isError &&
         css`
-            outline: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
+            border: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
 
             &:focus {
-                outline: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
+                border: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
             }
         `}
     &::placeholder {
