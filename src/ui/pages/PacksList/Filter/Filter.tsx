@@ -36,7 +36,6 @@ const Filter: FC<TFilterProps> = (props) => {
     const urlUserId = searchParams.get("user_id");
 
     const onChangeTab = (tab: string) => {
-        console.log(tab);
         if (userId) {
             setSearchParams(tab === "Only my" ? { user_id: userId } : "");
             dispatch(setUserCardParams({ user_id: userId }));
