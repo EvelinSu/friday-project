@@ -10,13 +10,17 @@ import DeleteIcon from "../../../assets/icons/DeleteIcon";
 import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { TPack } from "../../../../dal/ResponseTypes";
 import { useAppSelector } from "../../../../hooks/hooks";
+import { TPackModalsType } from "../PacksList";
 
 type TPackProps = {
     pack: TPack;
-    setUpdateModal: (id: string) => void;
-    setDeleteModal: (id: string) => void;
+    onIconClickHandler: (
+        e: React.MouseEvent<HTMLDivElement>,
+        id: string,
+        modalType: TPackModalsType
+    ) => void;
 };
-const PackCard: FC<TPackProps> = ({ pack, setUpdateModal, setDeleteModal }) => {
+const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler }) => {
     const user = {
         name: "Ivan Ivanov",
         avatar: "https://i.imgur.com/8806AGy.png",
@@ -59,19 +63,18 @@ const PackCard: FC<TPackProps> = ({ pack, setUpdateModal, setDeleteModal }) => {
                     </SText>
                 </Box>
             </Box>
-
             <SPackCardActions>
                 <IconButton color={"#fff"} size={"sm"} icon={<BookCheckIcon />} />
                 {id === pack.user_id && (
                     <>
                         <IconButton
-                            onClick={() => setUpdateModal(pack._id)}
+                            onClick={(e) => onIconClickHandler(e, pack._id, "update")}
                             color={"#fff"}
                             size={"sm"}
                             icon={<EditIcon />}
                         />
                         <IconButton
-                            onClick={() => setDeleteModal(pack._id)}
+                            onClick={(e) => onIconClickHandler(e, pack._id, "delete")}
                             color={"#fff"}
                             size={"sm"}
                             icon={<DeleteIcon />}

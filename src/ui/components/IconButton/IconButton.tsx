@@ -7,12 +7,12 @@ type TIconButtonProps = {
     isLightest?: boolean;
     color?: string;
     size?: "sm";
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     title?: string;
 };
 const IconButton: FC<TIconButtonProps> = (props) => {
-    const onClickHandler = () => {
-        props.onClick && props.onClick();
+    const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+        props.onClick && props.onClick(e);
     };
 
     return (

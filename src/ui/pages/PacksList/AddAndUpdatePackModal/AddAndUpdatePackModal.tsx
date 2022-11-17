@@ -15,7 +15,7 @@ import * as Yup from "yup";
 type TAddPackModalProps = {
     title: string;
     onClose: () => void;
-    kakHochesh: (values: TAddAndUpdatePackModalValues) => void;
+    onSubmitHandler: (values: TAddAndUpdatePackModalValues) => void;
 };
 
 export type TAddAndUpdatePackModalValues = {
@@ -25,8 +25,8 @@ export type TAddAndUpdatePackModalValues = {
 };
 
 type TAddPackFormProps = {
-    kakHochesh: (values: TAddAndUpdatePackModalValues) => void;
     onClose: () => void;
+    onSubmitHandler: (values: TAddAndUpdatePackModalValues) => void;
 };
 const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -37,14 +37,14 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
         <SMegaShadow onClick={onClickHandler}>
             <Modal
                 title={props.title}
-                body={<AddPackForm kakHochesh={props.kakHochesh} onClose={props.onClose} />}
+                body={<AddPackForm onSubmitHandler={props.onSubmitHandler} onClose={props.onClose} />}
             />
         </SMegaShadow>
     );
 };
 
 const AddPackForm: FC<TAddPackFormProps> = (props) => {
-    const isFetching = useAppSelector((state) => state.packs.isModalButtonsDisabled);
+    const { isModalButtonsDisabled } = useAppSelector((state) => state.packs);
 
     const { resetForm, handleSubmit, handleChange, values } = useFormik({
         initialValues: {
@@ -56,7 +56,7 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
             name: Yup.string(),
         }),
         onSubmit: (values: TAddAndUpdatePackModalValues) => {
-            props.kakHochesh(values);
+            props.onSubmitHandler(values);
             resetForm();
         },
     });
@@ -75,6 +75,7 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
                     onChange={handleChange}
                     name={"name"}
                     type={"name"}
+                    autoFocus={true}
                 />
                 <Box>
                     <Checkbox
@@ -88,13 +89,13 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
                 <Box justifyContent={"center"}>
                     <Button
                         type="submit"
-                        isLoading={isFetching}
+                        isLoading={isModalButtonsDisabled}
                         label={"Save"}
                         severity={"success"}
                         size={"lg"}
                     />
                     <Button
-                        isLoading={isFetching}
+                        isLoading={isModalButtonsDisabled}
                         onClick={() => props.onClose()}
                         label={"Cancel"}
                         severity={"neutral"}

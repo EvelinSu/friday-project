@@ -54,7 +54,6 @@ const PacksPagePanel = () => {
                     />
                 )}
             </Box>
-
             <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
                 <SSearchInput>
                     <Input title={"Search"} placeholder={"Search by name"} leftIcon={<SearchIcon />} />
@@ -72,7 +71,7 @@ const PacksPagePanel = () => {
             {isAddPackModalOpen && (
                 <AddAndUpdatePackModal
                     title={"Add new pack"}
-                    kakHochesh={addNewPackHandler}
+                    onSubmitHandler={addNewPackHandler}
                     onClose={() => setIsAddPackModalOpen(false)}
                 />
             )}

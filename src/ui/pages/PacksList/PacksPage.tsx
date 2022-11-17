@@ -26,7 +26,7 @@ const PacksPage = () => {
         if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {
             dispatch(setCardParams(URLParams));
         }
-    }, [dispatch, URLParams]);
+    }, [dispatch, URLParams, stateParams]);
 
     useEffect(() => {
         dispatch(loadPacks(URLParams));
@@ -39,7 +39,6 @@ const PacksPage = () => {
             {isFetching && <LoaderIcon absolute />}
             <PacksPagePanel />
             <PacksList />
-
             {cardPacks.length > 0 && (
                 <Pagination
                     cardPacksTotalCount={cardPacksData.cardPacksTotalCount}

@@ -1,6 +1,6 @@
 import React from "react";
 import { SHeader, SHeaderButton, SHeaderLogo } from "./styled";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Logo from "../../assets/icons/Logo";
 import IconButton from "../../components/IconButton/IconButton";
 import SignInIcon from "../../assets/icons/SignInIcon";
@@ -9,16 +9,22 @@ import HeaderPanel from "./HeaderPanel";
 import { PATH } from "../../pages/Pages";
 import { useAppSelector } from "../../../hooks/hooks";
 import defaultPhoto from "../../assets/img/default-photo.png";
+import { getActualPacksParams } from "../../../common/utils/getActualParams";
 
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
-
+    const [pathParams] = useSearchParams();
     const { isLoggedIn, userData } = useAppSelector((state) => state.auth);
+    const actualUrlParams = getActualPacksParams(pathParams);
 
     return (
         <SHeader>
-            <SHeaderLogo onClick={() => navigate(PATH.packsList)}>
+            <SHeaderLogo
+                onClick={() =>
+                    navigate(PATH.packsList + `?page=1&page_count=${actualUrlParams.pageCount}`)
+                }
+            >
                 <Logo />
             </SHeaderLogo>
             {isLoggedIn ? (

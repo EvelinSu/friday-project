@@ -2,7 +2,7 @@ import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { SPagePanel, SPageWrapper } from "../styled";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { Box } from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
@@ -15,12 +15,14 @@ import SignOutIcon from "../../assets/icons/SignOutIcon";
 import { SProfileButton, SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { setAppMessage } from "../../../bll/appReducer";
+import { getActualPacksParams } from "../../../common/utils/getActualParams";
 
 export type EventInputType = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
 const Profile = () => {
     const auth = useAppSelector((state) => state.auth);
-
+    const [pathParams] = useSearchParams();
+    const actualUrlParams = getActualPacksParams(pathParams);
     if (!auth.isLoggedIn) {
         return <Navigate to={PATH.signIn} />;
     }
@@ -28,7 +30,9 @@ const Profile = () => {
     return (
         <SPageWrapper>
             <SPagePanel>
-                <BackPageButton to={PATH.packsList} />
+                <BackPageButton
+                    to={PATH.packsList + `?page=1&page_count=${actualUrlParams.pageCount}`}
+                />
             </SPagePanel>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
                 <Modal title={"Personal Information"} body={<ProfileModalBody />} width={"400px"} />

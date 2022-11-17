@@ -23,7 +23,7 @@ function App() {
 
     const { isLoggedIn } = useAppSelector((state) => state.auth);
     useLayoutEffect(() => {
-        if (location.pathname.includes("login") && isLoggedIn) return navigate(PATH.profile);
+        if (location.pathname.includes("login") && isLoggedIn) return navigate(PATH.packsList);
         if (!location.pathname.includes("login") && !isLoggedIn) return navigate(PATH.signIn);
     }, [location, isLoggedIn, isLoading]);
 

@@ -26,8 +26,11 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount
     };
 
     useEffect(() => {
-        if (userId) setSearchParams({ page: `${value}`, pageCount: `${pageCount}`, user_id: userId });
-        else setSearchParams({ page: `${value}`, pageCount: `${pageCount}` });
+        if (userId) {
+            setSearchParams({ page: `${value}`, page_count: `${pageCount}`, user_id: userId });
+        } else {
+            setSearchParams({ page: `${value}`, page_count: `${pageCount}` });
+        }
     }, [debounceValue]);
 
     return (
