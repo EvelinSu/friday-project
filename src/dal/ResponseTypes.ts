@@ -29,6 +29,11 @@ export type TOtherUserData = {
     avatar: string;
 };
 
+export type TCardsPackUpdate = {
+    _id: string;
+    name: string;
+};
+
 export type TResponsePack = {
     cardPacks: TPack[];
     cardPacksTotalCount: number;
