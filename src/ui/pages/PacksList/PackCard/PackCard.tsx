@@ -32,7 +32,9 @@ const PackCard: FC<TPackProps> = ({ pack }) => {
                 flexDirection={"column"}
                 justifyContent={"space-between"}
             >
-                <SText isEllipsis>{pack.name}</SText>
+                <SText title={pack.name} isEllipsis>
+                    {pack.name}
+                </SText>
                 <Box gap={5} flexDirection={"column"}>
                     <Box gap={5}>
                         <SText opacity={0.4} whiteSpace={"nowrap"}>
@@ -49,7 +51,9 @@ const PackCard: FC<TPackProps> = ({ pack }) => {
                 </Box>
                 <Box gap={10} alignItems={"center"}>
                     <Avatar img={user.avatar} size={"smallest"} />
-                    <SText isEllipsis>{pack.user_name}</SText>
+                    <SText title={pack.user_name} isEllipsis>
+                        {pack.user_name}
+                    </SText>
                 </Box>
             </Box>
             <SPackCardActions>

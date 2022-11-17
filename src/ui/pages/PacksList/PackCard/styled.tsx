@@ -12,6 +12,12 @@ export const SPackCardWrapper = styled.div`
     color: ${({ theme }) => theme.colors.cards.text};
     font-size: 12px;
     min-height: 125px;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.7;
+    }
 `;
 
 export const SPackCardActions = styled.div`
