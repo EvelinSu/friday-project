@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
 import { packsAPI } from "../dal/cardsAPI";
 import { TNewCardsPack, TPack, TPacksParams } from "../dal/ResponseTypes";
 import { setAppMessage } from "./appReducer";
 import { setIsFetching } from "./authReducer";
 import { getUser } from "./userReducer";
+import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksList/AddAndUpdatePackModal/AddAndUpdatePackModal";
 
 export type TPacksData = {
     cardPacks: TPack[];
@@ -18,11 +19,11 @@ export type TPacksData = {
 };
 
 export type TPacks = {
-    isAddFetching: boolean;
+    isModalButtonsDisabled: boolean;
     cardPacksData: TPacksData;
 };
 const initialState: TPacks = {
-    isAddFetching: false,
+    isModalButtonsDisabled: false,
     cardPacksData: {
         cardPacks: [],
         user_id: "",
@@ -45,38 +46,41 @@ const slice = createSlice({
         clearStatePacks(state) {
             state.cardPacksData = initialState.cardPacksData;
         },
-        setIsAddFetching(state, action: PayloadAction<boolean>) {
-            state.isAddFetching = action.payload;
+        setIsModalButtonsDisabled(state, action: PayloadAction<boolean>) {
+            state.isModalButtonsDisabled = action.payload;
         },
     },
 });
 
 export const packsReducer = slice.reducer;
-export const { setPacks, clearStatePacks, setIsAddFetching } = slice.actions;
+export const { setPacks, clearStatePacks, setIsModalButtonsDisabled } = slice.actions;
 
-export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
-    dispatch(setIsFetching(true));
-    packsAPI
-        .getPacks(param)
-        .then((res) => {
-            dispatch(setPacks(res.data));
-            if (param.user_id) {
-                dispatch(getUser(param.user_id));
-            }
-        })
-        .catch((e) => {
-            // Некорректная ошибка. Должна быть 429, а возвращается 401.
-            // const err = e.response
-            //     ? e.response.data.error
-            //     : e.message + ", more details in the console";
-            // dispatch(setAppMessage({ text: err, severity: "error" }));
-        })
-        .finally(() => dispatch(setIsFetching(false)));
-};
+export const loadPacks = createAsyncThunk(
+    "packs/loadPacks",
+    async (param: TPacksParams, { dispatch }) => {
+        dispatch(setIsFetching(true));
+        packsAPI
+            .getPacks(param)
+            .then((res) => {
+                dispatch(setPacks(res.data));
+                if (param.user_id) {
+                    dispatch(getUser(param.user_id));
+                }
+            })
+            .catch((e) => {
+                // Некорректная ошибка. Должна быть 429, а возвращается 401.
+                // const err = e.response
+                //     ? e.response.data.error
+                //     : e.message + ", more details in the console";
+                // dispatch(setAppMessage({ text: err, severity: "error" }));
+            })
+            .finally(() => dispatch(setIsFetching(false)));
+    }
+);
 
 export const addNewPack =
     (newCardsPack: TNewCardsPack, param: TPacksParams) => async (dispatch: TAppDispatch) => {
-        dispatch(setIsAddFetching(true));
+        dispatch(setIsModalButtonsDisabled(true));
         try {
             await packsAPI.addPack(newCardsPack);
             dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
@@ -84,12 +88,12 @@ export const addNewPack =
         } catch (e) {
             dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
         } finally {
-            dispatch(setIsAddFetching(false));
+            dispatch(setIsModalButtonsDisabled(false));
         }
     };
 
 export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatch: TAppDispatch) => {
-    dispatch(setIsFetching(true));
+    dispatch(setIsModalButtonsDisabled(true));
     try {
         await packsAPI.deletePack(id);
         dispatch(loadPacks(paramURL));
@@ -97,6 +101,32 @@ export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatc
     } catch (e) {
         dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
     } finally {
-        dispatch(setIsFetching(false));
+        dispatch(setIsModalButtonsDisabled(false));
     }
 };
+
+export const updatePack = createAsyncThunk(
+    "packs/updatePack",
+    async (
+        param: { values: TAddAndUpdatePackModalValues; _id: string; paramURL: TPacksParams },
+        { dispatch }
+    ) => {
+        dispatch(setIsModalButtonsDisabled(true));
+        try {
+            const { name, deckCover, isPrivate } = param.values;
+            await packsAPI.updatePack({ _id: param._id, name, deckCover, isPrivate });
+            dispatch(loadPacks(param.paramURL));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
+        } catch (e) {
+            // const err = e as Error | AxiosError
+            // const err = e.response
+            //     ? e.response.data.error
+            //     : e.message + ", more details in the console";
+            // dispatch(setAppMessage({ text: err, severity: "error" }));
+
+            dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
+        } finally {
+            dispatch(setIsModalButtonsDisabled(false));
+        }
+    }
+);

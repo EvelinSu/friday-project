@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC } from "react";
 import { SPackCardActions, SPackCardWrapper } from "./styled";
 import { Box } from "../../../components/Box/Box";
 import { SText } from "../../../components/Text/SText";
@@ -9,30 +9,22 @@ import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import DeleteIcon from "../../../assets/icons/DeleteIcon";
 import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { TPack } from "../../../../dal/ResponseTypes";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { deletePack } from "../../../../bll/packsReducer";
-import { getActualPacksParams } from "../../../../common/utils/getActualParams";
-import { useSearchParams } from "react-router-dom";
+import { useAppSelector } from "../../../../hooks/hooks";
 
 type TPackProps = {
     pack: TPack;
+    setUpdateModal: (id: string) => void;
+    setDeleteModal: (id: string) => void;
 };
-const PackCard: FC<TPackProps> = ({ pack }) => {
+const PackCard: FC<TPackProps> = ({ pack, setUpdateModal, setDeleteModal }) => {
     const user = {
         name: "Ivan Ivanov",
         avatar: "https://i.imgur.com/8806AGy.png",
     };
     // const { name, avatar } = useAppSelector((state) => state.user);
-    const [searchParams] = useSearchParams();
-    const dispatch = useAppDispatch();
     const correctDate = transformDate(pack.updated);
-    const URLParams = useMemo(() => getActualPacksParams(searchParams), [searchParams]);
 
     const { id } = useAppSelector((state) => state.auth.userData);
-
-    const deletePackHandler = () => {
-        dispatch(deletePack(pack._id, URLParams));
-    };
 
     return (
         <SPackCardWrapper>
@@ -67,13 +59,19 @@ const PackCard: FC<TPackProps> = ({ pack }) => {
                     </SText>
                 </Box>
             </Box>
+
             <SPackCardActions>
                 <IconButton color={"#fff"} size={"sm"} icon={<BookCheckIcon />} />
                 {id === pack.user_id && (
                     <>
-                        <IconButton color={"#fff"} size={"sm"} icon={<EditIcon />} />
                         <IconButton
-                            onClick={deletePackHandler}
+                            onClick={() => setUpdateModal(pack._id)}
+                            color={"#fff"}
+                            size={"sm"}
+                            icon={<EditIcon />}
+                        />
+                        <IconButton
+                            onClick={() => setDeleteModal(pack._id)}
                             color={"#fff"}
                             size={"sm"}
                             icon={<DeleteIcon />}

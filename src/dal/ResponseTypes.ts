@@ -32,6 +32,8 @@ export type TOtherUserData = {
 export type TCardsPackUpdate = {
     _id: string;
     name: string;
+    deckCover: string;
+    isPrivate: boolean;
 };
 
 export type TResponsePack = {
