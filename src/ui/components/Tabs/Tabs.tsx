@@ -30,7 +30,7 @@ const Tabs: FC<TTabsProps> = ({ initialFilters }) => {
 
     const isOtherUserId = () => {
         setActiveTab("Other");
-        setTabs([...tabs, "Other"]);
+        setTabs(["All", "My", "Other"]);
     };
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
 import { packsAPI } from "../dal/cardsAPI";
 import { TNewCardsPack, TPack, TPacksParams } from "../dal/ResponseTypes";
@@ -74,7 +74,7 @@ export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
         .finally(() => dispatch(setIsFetching(false)));
 };
 
-export const addNewPack =
+export const addNewPack = createAsyncThunk
     (newCardsPack: TNewCardsPack, param: TPacksParams) => async (dispatch: TAppDispatch) => {
         dispatch(setIsAddFetching(true));
         try {
