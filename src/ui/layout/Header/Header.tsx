@@ -9,20 +9,20 @@ import HeaderPanel from "./HeaderPanel";
 import { PATH } from "../../pages/Pages";
 import { useAppSelector } from "../../../hooks/hooks";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import { getActualPacksParams } from "../../../common/utils/getActualParams";
+import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [pathParams] = useSearchParams();
     const { isLoggedIn, userData } = useAppSelector((state) => state.auth);
-    const actualUrlParams = getActualPacksParams(pathParams);
+    const actualUrlParams = getUrlPacksParams(pathParams);
 
     return (
         <SHeader>
             <SHeaderLogo
                 onClick={() =>
-                    navigate(PATH.packsList + `?page=1&page_count=${actualUrlParams.pageCount}`)
+                    navigate(PATH.packsList + `?page=1&pageCount=${actualUrlParams.pageCount}`)
                 }
             >
                 <Logo />

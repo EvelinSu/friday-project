@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { MyPaginate } from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 import { useDebounce } from "usehooks-ts";
 import { useAppSelector } from "../../../hooks/hooks";
+import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 
 type TPaginationProps = {
     cardPacksTotalCount: number;
@@ -14,11 +15,11 @@ type TPaginationProps = {
 
 const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount, pageCount }) => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     const pageInState = useAppSelector((state) => state.packs.cardPacksData.page);
-    const [value, setValue] = useState(searchParams.get("page") ? searchParams.get("page") : "1");
+    const [value, setValue] = useState(URLParams.page);
     const debounceValue = useDebounce(value, 500);
-    const userId = useAppSelector((state) => state.packsParams.user_id);
 
     const pageQuantity = Math.max(Math.ceil(cardPacksTotalCount / pageCount));
     const handlePageChange = ({ selected }: { selected: number }) => {
@@ -26,17 +27,12 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount
     };
 
     useEffect(() => {
-        if (userId) {
-            setSearchParams({ page: `${value}`, page_count: `${pageCount}`, user_id: userId });
-        } else {
-            setSearchParams({ page: `${value}`, page_count: `${pageCount}` });
-        }
+        setSearchParams({ ...URLParams, page: `${value}` });
     }, [debounceValue]);
 
     return (
         <MyPaginate
-            // initialPage={pageInState ? pageInState - 1 : 0}
-            forcePage={pageInState ? pageInState - 1 : 0}
+            forcePage={pageInState > -1 ? pageInState - 1 : 0}
             pageCount={pageQuantity}
             pageRangeDisplayed={4}
             marginPagesDisplayed={1}

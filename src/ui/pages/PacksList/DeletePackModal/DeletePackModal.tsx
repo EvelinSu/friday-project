@@ -6,7 +6,7 @@ import Button from "../../../components/Button/Button";
 import { SMegaShadow } from "../../../components/Modal/styled";
 import { deletePack } from "../../../../bll/packsReducer";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { getActualPacksParams } from "../../../../common/utils/getActualParams";
+import { getUrlPacksParams } from "../../../../common/utils/getActualParams";
 import { useSearchParams } from "react-router-dom";
 
 type TDeletePackModalProps = {
@@ -26,7 +26,7 @@ const DeletePackModal: FC<TDeletePackModalProps> = (props) => {
 
 const DeletePackModalBody: FC<TDeletePackModalProps> = (props) => {
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getActualPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
     const dispatch = useAppDispatch();
 
     const { isModalButtonsDisabled } = useAppSelector((state) => state.packs);

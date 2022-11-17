@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Box } from "../../../components/Box/Box";
 import { SMainTitle, SPagePanel } from "../../styled";
 import Button from "../../../components/Button/Button";
@@ -16,19 +16,19 @@ import Avatar from "../../../components/Avatar/Avatar";
 import { SText } from "../../../components/Text/SText";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
-import { getActualPacksParams } from "../../../../common/utils/getActualParams";
 import { addNewPack } from "../../../../bll/packsReducer";
+import { getUrlPacksParams } from "../../../../common/utils/getActualParams";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
-    const URLParams = getActualPacksParams(searchParams);
 
     const userId = useAppSelector((state) => state.auth.userData.id);
     const otherUserData = useAppSelector((state) => state.user);
-    const userIdURL = searchParams.get("user_id");
-    const checkUserId = userIdURL && userIdURL !== userId;
+    const checkUserId = URLParams.user_id && URLParams.user_id !== userId;
     const dispatch = useAppDispatch();
 
     const addNewPackHandler = (values: TAddAndUpdatePackModalValues) => {

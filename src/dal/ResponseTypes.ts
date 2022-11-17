@@ -48,11 +48,11 @@ export type TResponsePack = {
 
 export type TPacksParams = {
     packName?: string;
-    min?: number;
-    max?: number;
+    min?: string;
+    max?: string;
     sortPacks?: string;
-    page?: number;
-    pageCount?: number;
+    page?: string;
+    pageCount?: string;
     user_id?: string;
 };
 

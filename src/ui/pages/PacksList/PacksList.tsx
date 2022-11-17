@@ -6,25 +6,24 @@ import { useSearchParams } from "react-router-dom";
 import AddAndUpdatePackModal, {
     TAddAndUpdatePackModalValues,
 } from "./AddAndUpdatePackModal/AddAndUpdatePackModal";
-import { getActualPacksParams } from "../../../common/utils/getActualParams";
+import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 import DeletePackModal from "./DeletePackModal/DeletePackModal";
 import { updatePack } from "../../../bll/packsReducer";
 
 export type TPackModalsType = "delete" | "update" | false;
 
 const PacksList = () => {
-    const [searchParams] = useSearchParams();
-    const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
-    const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModalsType>(false);
-
-    const pageCount = searchParams.get("page_count");
-
-    const URLParams = useMemo(() => getActualPacksParams(searchParams), [searchParams]);
-    const [currentId, setCurrentId] = useState<string>("");
     const dispatch = useAppDispatch();
 
+    const [searchParams] = useSearchParams();
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+
+    const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
+    const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModalsType>(false);
+    const [currentId, setCurrentId] = useState<string>("");
+
     const windowWidth = window.innerWidth;
-    const rowsCount = pageCount && +pageCount > 8 ? +pageCount / 4 : 3;
+    const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 4 : 3;
 
     const onIconClickHandler = (
         e: React.MouseEvent<HTMLDivElement>,

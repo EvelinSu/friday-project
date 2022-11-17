@@ -5,7 +5,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import { Navigate, useSearchParams } from "react-router-dom";
 import LoaderIcon from "../../assets/loaders/loader";
 import { setCardParams } from "../../../bll/packsParamsReducer";
-import { getActualPacksParams } from "../../../common/utils/getActualParams";
+import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 import { loadPacks } from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
@@ -20,7 +20,7 @@ const PacksPage = () => {
     const { isFetching, isLoggedIn } = useAppSelector((state) => state.auth);
     const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
     const stateParams = useAppSelector((state) => state.packsParams);
-    const URLParams = useMemo(() => getActualPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     useEffect(() => {
         if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {
@@ -42,7 +42,7 @@ const PacksPage = () => {
             <Pagination
                 cardPacksTotalCount={cardPacksData.cardPacksTotalCount}
                 isFetching={isFetching}
-                pageCount={URLParams.pageCount || cardPacksData.pageCount}
+                pageCount={+(URLParams.pageCount || +cardPacksData.pageCount)}
             />
         </SPageWrapper>
     );

@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-import { TPacksParams } from "../dal/ResponseTypes";
+import {TPacksParams} from "../dal/ResponseTypes";
 
 //
 const initialState: TPacksParams = {
@@ -8,8 +8,8 @@ const initialState: TPacksParams = {
     min: undefined,
     max: undefined,
     sortPacks: undefined,
-    page: 1,
-    pageCount: 12,
+    page: "1",
+    pageCount: "12",
     user_id: undefined,
 };
 
