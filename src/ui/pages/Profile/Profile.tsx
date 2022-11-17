@@ -1,8 +1,8 @@
-import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { SPagePanel, SPageWrapper } from "../styled";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Modal } from "../../components/Modal/Modal";
 import { Box } from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
@@ -20,13 +20,10 @@ export type EventInputType = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLI
 
 const Profile = () => {
     const auth = useAppSelector((state) => state.auth);
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!auth.isLoggedIn) {
-            navigate(PATH.signIn);
-        }
-    }, [auth.isLoggedIn, navigate]);
+    if (!auth.isLoggedIn) {
+        return <Navigate to={PATH.signIn} />;
+    }
 
     return (
         <SPageWrapper>

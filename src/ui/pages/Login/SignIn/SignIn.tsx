@@ -42,7 +42,7 @@ const SignInForm = () => {
                 password: Yup.string().required("Required"),
             }),
             onSubmit: (values: LoginDataType) => {
-                dispatch(loginTC(values)).then(() => navigate(PATH.profile));
+                dispatch(loginTC(values)).then(() => navigate(PATH.packsList));
             },
         });
 
