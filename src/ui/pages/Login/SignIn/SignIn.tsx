@@ -6,7 +6,7 @@ import { Box } from "../../../components/Box/Box";
 import Checkbox from "../../../components/Checkbox/Checkbox";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { PATH } from "../../Pages";
 import { SForm } from "../../../components/Form/styled";
 import { useFormik } from "formik";
@@ -16,6 +16,12 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { LoginDataType } from "../../../../dal/ResponseTypes";
 
 const SignIn = () => {
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
+    if (isLoggedIn) {
+        return <Navigate to={PATH.packsList} />;
+    }
+
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
@@ -42,7 +48,7 @@ const SignInForm = () => {
                 password: Yup.string().required("Required"),
             }),
             onSubmit: (values: LoginDataType) => {
-                dispatch(loginTC(values)).then(() => navigate(PATH.packsList));
+                dispatch(loginTC(values));
             },
         });
 
