@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Select from "../../../components/Select/Select";
 import { SFilterReset, SFilterWrapper } from "./styled";
 import { Box } from "../../../components/Box/Box";
@@ -30,16 +30,23 @@ const Filter: FC<TFilterProps> = (props) => {
     const [value2, setValue2] = useState(initialFilters.numberOfCards[1]);
     const dispatch = useAppDispatch();
 
-    const [userPacks, setUserPacks] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const userId = useAppSelector((state) => state.auth.userData.id);
+    const urlUserId = searchParams.get("user_id");
+
     const onChangeTab = (tab: string) => {
+        console.log(tab);
         if (userId) {
-            setUserPacks(tab === "Only my" ? { user_id: userId } : { user_id: "" });
+            setSearchParams(tab === "Only my" ? { user_id: userId } : "");
             dispatch(setUserCardParams({ user_id: userId }));
         }
         setActiveTab(tab);
     };
+
+    useEffect(() => {
+        urlUserId && urlUserId !== userId && setActiveTab("other");
+    }, [urlUserId]);
 
     return (
         <SFilterWrapper>
