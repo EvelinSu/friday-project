@@ -4,6 +4,7 @@ import { packsAPI } from "../dal/cardsAPI";
 import { TNewCardsPack, TPack, TPacksParams } from "../dal/ResponseTypes";
 import { setAppMessage } from "./appReducer";
 import { setIsFetching } from "./authReducer";
+import { getUser } from "./userReducer";
 
 export type TPacksData = {
     cardPacks: TPack[];
@@ -57,7 +58,12 @@ export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     packsAPI
         .getPacks(param)
-        .then((res) => dispatch(setPacks(res.data)))
+        .then((res) => {
+            dispatch(setPacks(res.data));
+            if (param.user_id) {
+                dispatch(getUser(param.user_id));
+            }
+        })
         .catch((e) => {
             // Некорректная ошибка. Должна быть 429, а возвращается 401.
             // const err = e.response
