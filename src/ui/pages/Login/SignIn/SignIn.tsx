@@ -35,36 +35,28 @@ const SignIn = () => {
 const SignInForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const {isFetching} = useAppSelector((state) => state.auth);
+    const { isFetching } = useAppSelector((state) => state.auth);
 
-    const {
-        handleBlur,
-        handleSubmit,
-        touched,
-        handleChange,
-        isValid,
-        setFieldValue,
-        values,
-        errors,
-    } = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-            rememberMe: false,
-        },
-        validationSchema: Yup.object({
-            email: Yup.string().email("Invalid email address").required("Required"),
-            password: Yup.string().required("Required"),
-        }),
-        onSubmit: (values: LoginDataType) => {
-            dispatch(loginTC(values));
-        },
-    });
+    const { handleBlur, handleSubmit, touched, handleChange, isValid, setFieldValue, values, errors } =
+        useFormik({
+            initialValues: {
+                email: "",
+                password: "",
+                rememberMe: false,
+            },
+            validationSchema: Yup.object({
+                email: Yup.string().email("Invalid email address").required("Required"),
+                password: Yup.string().required("Required"),
+            }),
+            onSubmit: (values: LoginDataType) => {
+                dispatch(loginTC(values));
+            },
+        });
 
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const onViewClickHandler = () => {
-        setIsPasswordVisible(!isPasswordVisible)
+        setIsPasswordVisible(!isPasswordVisible);
     };
 
     return (
@@ -72,6 +64,7 @@ const SignInForm = () => {
             <Box flexDirection={"column"}>
                 <Input
                     title={"Email"}
+                    placeholder={"example@gmail.com"}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     type={"email"}
@@ -83,12 +76,15 @@ const SignInForm = () => {
                 <Input
                     title={"Password"}
                     onBlur={handleBlur}
+                    placeholder={"⁎⁎⁎⁎⁎⁎⁎⁎"}
                     onChange={handleChange}
                     type={!isPasswordVisible ? "password" : "text"}
                     value={values.password}
                     name="password"
                     error={touched.password ? errors.password : ""}
-                    rightIcon={<ViewInputIcon isVisible={isPasswordVisible} onClick={onViewClickHandler} />}
+                    rightIcon={
+                        <ViewInputIcon isVisible={isPasswordVisible} onClick={onViewClickHandler} />
+                    }
                     required
                 />
             </Box>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { SHeader, SHeaderButton, SHeaderLogo } from "./styled";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Logo from "../../assets/icons/Logo";
@@ -14,16 +14,14 @@ import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [pathParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const { isLoggedIn, userData } = useAppSelector((state) => state.auth);
-    const actualUrlParams = getUrlPacksParams(pathParams);
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     return (
         <SHeader>
             <SHeaderLogo
-                onClick={() =>
-                    navigate(PATH.packsList + `?page=1&pageCount=${actualUrlParams.pageCount}`)
-                }
+                onClick={() => navigate(PATH.packsList + `?page=1&pageCount=${URLParams.pageCount}`)}
             >
                 <Logo />
             </SHeaderLogo>

@@ -64,7 +64,12 @@ const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler }) => {
                 </Box>
             </Box>
             <SPackCardActions>
-                <IconButton color={"#fff"} size={"sm"} icon={<BookCheckIcon />} />
+                <IconButton
+                    onClick={() => alert("In progress")}
+                    color={"#fff"}
+                    size={"sm"}
+                    icon={<BookCheckIcon />}
+                />
                 {id === pack.user_id && (
                     <>
                         <IconButton

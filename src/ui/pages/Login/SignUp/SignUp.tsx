@@ -65,6 +65,7 @@ const SignUpForm = () => {
             <Box flexDirection={"column"}>
                 <Input
                     title={"Email"}
+                    placeholder={"example@gmail.com"}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     type={"email"}
@@ -75,6 +76,7 @@ const SignUpForm = () => {
                 />
                 <Input
                     title={"Password"}
+                    placeholder={"⁎⁎⁎⁎⁎⁎⁎⁎"}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     type={!isPasswordVisible.pw ? "password" : "text"}
@@ -91,6 +93,7 @@ const SignUpForm = () => {
                 />
                 <Input
                     title={"Confirm password"}
+                    placeholder={"⁎⁎⁎⁎⁎⁎⁎⁎"}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     type={!isPasswordVisible.confirmPw ? "password" : "text"}

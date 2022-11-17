@@ -52,6 +52,7 @@ export const SEditableSpanText = styled.span<TSEditableSpanProps>`
     gap: 10px;
     height: 30px;
     border-radius: 15px;
+    border: 1px solid transparent;
     width: 100%;
     cursor: pointer;
     transition: 0.1s;
