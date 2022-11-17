@@ -6,35 +6,45 @@ import Input from "../../../components/Form/Input";
 import Checkbox from "../../../components/Checkbox/Checkbox";
 import { Box } from "../../../components/Box/Box";
 import Button from "../../../components/Button/Button";
-import { useSearchParams } from "react-router-dom";
-import { getActualPacksParams } from "../../../../common/utils/getActualParams";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+
+import { useAppSelector } from "../../../../hooks/hooks";
 import { SForm } from "../../../components/Form/styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { addNewPack } from "../../../../bll/packsReducer";
 
 type TAddPackModalProps = {
+    title: string;
+    onClose: () => void;
+    kakHochesh: (values: TAddAndUpdatePackModalValues) => void;
+};
+
+export type TAddAndUpdatePackModalValues = {
+    name: string;
+    deckCover: string;
+    isPrivate: boolean;
+};
+
+type TAddPackFormProps = {
+    kakHochesh: (values: TAddAndUpdatePackModalValues) => void;
     onClose: () => void;
 };
-const AddPackModal: FC<TAddPackModalProps> = (props) => {
+const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         props.onClose();
     };
     return (
         <SMegaShadow onClick={onClickHandler}>
-            <Modal title={"Add new pack"} body={<AddPackForm onClose={props.onClose} />} />
+            <Modal
+                title={props.title}
+                body={<AddPackForm kakHochesh={props.kakHochesh} onClose={props.onClose} />}
+            />
         </SMegaShadow>
     );
 };
 
-const AddPackForm: FC<TAddPackModalProps> = (props) => {
-    const [searchParams] = useSearchParams();
-    const URLParams = getActualPacksParams(searchParams);
-    const dispatch = useAppDispatch();
-
-    const isFetching = useAppSelector((state) => state.packs.isAddFetching);
+const AddPackForm: FC<TAddPackFormProps> = (props) => {
+    const isFetching = useAppSelector((state) => state.packs.isModalButtonsDisabled);
 
     const { resetForm, handleSubmit, handleChange, values } = useFormik({
         initialValues: {
@@ -45,10 +55,8 @@ const AddPackForm: FC<TAddPackModalProps> = (props) => {
         validationSchema: Yup.object({
             name: Yup.string(),
         }),
-        onSubmit: (values) => {
-            dispatch(addNewPack(values, URLParams)).then(() => {
-                props.onClose();
-            });
+        onSubmit: (values: TAddAndUpdatePackModalValues) => {
+            props.kakHochesh(values);
             resetForm();
         },
     });
@@ -98,4 +106,4 @@ const AddPackForm: FC<TAddPackModalProps> = (props) => {
     );
 };
 
-export default AddPackModal;
+export default AddAndUpdatePackModal;

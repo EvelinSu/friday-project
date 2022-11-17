@@ -39,6 +39,7 @@ const PacksPage = () => {
             {isFetching && <LoaderIcon absolute />}
             <PacksPagePanel />
             <PacksList />
+
             {cardPacks.length > 0 && (
                 <Pagination
                     cardPacksTotalCount={cardPacksData.cardPacksTotalCount}

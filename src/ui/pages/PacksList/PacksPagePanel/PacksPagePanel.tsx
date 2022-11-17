@@ -9,21 +9,31 @@ import { FilterWrapper } from "../Filter/styled";
 import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
 import Filter from "../Filter/Filter";
-import AddPackModal from "../AddPackModal/AddPackModal";
+import AddAndUpdatePackModal, {
+    TAddAndUpdatePackModalValues,
+} from "../AddAndUpdatePackModal/AddAndUpdatePackModal";
 import Avatar from "../../../components/Avatar/Avatar";
 import { SText } from "../../../components/Text/SText";
-import { useAppSelector } from "../../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
+import { getActualPacksParams } from "../../../../common/utils/getActualParams";
+import { addNewPack } from "../../../../bll/packsReducer";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
+    const URLParams = getActualPacksParams(searchParams);
 
     const userId = useAppSelector((state) => state.auth.userData.id);
     const otherUserData = useAppSelector((state) => state.user);
     const userIdURL = searchParams.get("user_id");
     const checkUserId = userIdURL && userIdURL !== userId;
+    const dispatch = useAppDispatch();
+
+    const addNewPackHandler = (values: TAddAndUpdatePackModalValues) => {
+        dispatch(addNewPack(values, URLParams)).then(() => setIsAddPackModalOpen(false));
+    };
 
     return (
         <SPagePanel>
@@ -59,7 +69,13 @@ const PacksPagePanel = () => {
                     {isFilterOpen && <Filter setIsOpen={setIsFilterOpen} />}
                 </FilterWrapper>
             </Box>
-            {isAddPackModalOpen && <AddPackModal onClose={() => setIsAddPackModalOpen(false)} />}
+            {isAddPackModalOpen && (
+                <AddAndUpdatePackModal
+                    title={"Add new pack"}
+                    kakHochesh={addNewPackHandler}
+                    onClose={() => setIsAddPackModalOpen(false)}
+                />
+            )}
         </SPagePanel>
     );
 };
