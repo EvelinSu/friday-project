@@ -9,7 +9,6 @@ import AddAndUpdatePackModal, {
 import { getActualPacksParams } from "../../../common/utils/getActualParams";
 import DeletePackModal from "./DeletePackModal/DeletePackModal";
 import { updatePack } from "../../../bll/packsReducer";
-import PacksNotFound from "./PacksNotFound";
 
 export type TPackModalsType = "delete" | "update" | false;
 
@@ -49,13 +48,9 @@ const PacksList = () => {
             columns={"repeat(auto-fill, minmax(220px, 1fr))"}
             rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(125px, 200px))` : ``}
         >
-            {cardPacks.length > 1 ? (
-                cardPacks.map((pack) => (
-                    <PackCard key={pack._id} pack={pack} onIconClickHandler={onIconClickHandler} />
-                ))
-            ) : (
-                <PacksNotFound />
-            )}
+            {cardPacks.map((pack) => (
+                <PackCard key={pack._id} pack={pack} onIconClickHandler={onIconClickHandler} />
+            ))}
             {isPackModalOpen === "delete" && (
                 <DeletePackModal onClose={() => setIsPackModalOpen(false)} packId={currentId} />
             )}

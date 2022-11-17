@@ -17,6 +17,8 @@ type TAlternativeSuperSelect = {
     onChangeOption: (option: TFilterOptions) => void;
     value: string;
     placeholder?: string;
+    id?: string;
+    onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void
 };
 
 function Select(props: TAlternativeSuperSelect) {
@@ -43,15 +45,15 @@ function Select(props: TAlternativeSuperSelect) {
 
     const mappedOptions = props.options
         ? props.options.map((el, i) => (
-              <SSuperOption
-                  onClick={() => onClickHandler(el)}
-                  onMouseEnter={() => setHoveredElement(el)}
-                  isHovered={hoveredElement === el}
-                  key={i}
-              >
-                  {el}
-              </SSuperOption>
-          ))
+            <SSuperOption
+                onClick={() => onClickHandler(el)}
+                onMouseEnter={() => setHoveredElement(el)}
+                isHovered={hoveredElement === el}
+                key={i}
+            >
+                {el}
+            </SSuperOption>
+        ))
         : []; // map
 
     const onClickHandler = (el: any) => {
@@ -66,12 +68,18 @@ function Select(props: TAlternativeSuperSelect) {
         });
     };
 
+    const onBlurHandler = (e: React.FocusEvent<HTMLDivElement>) => {
+        setOpened(false)
+        props.onBlur && props.onBlur(e)
+    }
+
     return (
         <SSuperSelectWrapper
+            id={props.id}
             onFocus={arrowPreventDefault}
             onKeyUp={onKeyHandler}
             tabIndex={0}
-            onBlur={() => setOpened(false)}
+            onBlur={onBlurHandler}
         >
             <SSuperSelectInputWrapper onClick={() => setOpened(!opened)}>
                 <SSuperSelectInput>

@@ -10,6 +10,7 @@ import { loadPacks } from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
 import { PATH } from "../Pages";
+import PacksNotFound from "./PacksNotFound";
 
 const PacksPage = () => {
     const [searchParams] = useSearchParams();
@@ -18,7 +19,6 @@ const PacksPage = () => {
     const { cardPacksData } = useAppSelector((state) => state.packs);
     const { isFetching, isLoggedIn } = useAppSelector((state) => state.auth);
     const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
-
     const stateParams = useAppSelector((state) => state.packsParams);
     const URLParams = useMemo(() => getActualPacksParams(searchParams), [searchParams]);
 
@@ -38,14 +38,12 @@ const PacksPage = () => {
         <SPageWrapper>
             {isFetching && <LoaderIcon absolute />}
             <PacksPagePanel />
-            <PacksList />
-            {cardPacks.length > 0 && (
-                <Pagination
-                    cardPacksTotalCount={cardPacksData.cardPacksTotalCount}
-                    isFetching={isFetching}
-                    pageCount={URLParams.pageCount || cardPacksData.pageCount}
-                />
-            )}
+            {cardPacks.length > 0 ? <PacksList /> : <PacksNotFound isPacksFetching={isFetching} />}
+            <Pagination
+                cardPacksTotalCount={cardPacksData.cardPacksTotalCount}
+                isFetching={isFetching}
+                pageCount={URLParams.pageCount || cardPacksData.pageCount}
+            />
         </SPageWrapper>
     );
 };

@@ -21,6 +21,7 @@ const initialFilters: TInitialFilters = {
 
 type TFilterProps = {
     setIsOpen: (isOpen: boolean) => void;
+    onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
 };
 const Filter: FC<TFilterProps> = (props) => {
     const options: TFilterOptions[] = ["Last Updated", "Number of cards"];
@@ -38,13 +39,22 @@ const Filter: FC<TFilterProps> = (props) => {
                     Sorting
                 </SText>
                 <Select
+                    onBlur={props.onBlur}
+                    id={"filter-select"}
                     options={options}
                     onChangeOption={setOption}
                     value={option}
                     placeholder={"Sort by"}
                 />
             </Box>
-            <NumberOfCards setValue1={setValue1} setValue2={setValue2} value1={value1} value2={value2} />
+            <NumberOfCards
+                id={"filter-range"}
+                onBlur={props.onBlur}
+                setValue1={setValue1}
+                setValue2={setValue2}
+                value1={value1}
+                value2={value2}
+            />
             <Box flexDirection={"column"} gap={5}>
                 <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
                     Filter

@@ -7,6 +7,7 @@ type SuperDoubleRangePropsType = {
     values: [number, number];
     minmax: Array<number>;
     step?: number;
+    id?: string;
     // min, max, step, disable, ...
 };
 
@@ -16,6 +17,7 @@ const DoubleRange: React.FC<SuperDoubleRangePropsType> = ({
     values,
     step = 1,
     minmax,
+    id,
     // min, max, step, disable, ...
 }) => {
     let gap = minmax[1] / 5;
@@ -34,6 +36,7 @@ const DoubleRange: React.FC<SuperDoubleRangePropsType> = ({
         <SDoubleRangeWrapper>
             <SRangeTrack value1={getPercent(values[0])} value2={getPercent(values[1])}></SRangeTrack>
             <SDoubleRange
+                id={id}
                 type={"range"}
                 onChange={(e) => onChangeValue1(+e.currentTarget.value)}
                 value={values[0]}
@@ -42,6 +45,7 @@ const DoubleRange: React.FC<SuperDoubleRangePropsType> = ({
                 max={minmax[1]}
             />
             <SDoubleRange
+                id={id}
                 type={"range"}
                 onChange={(e) => onChangeValue2(+e.currentTarget.value)}
                 value={values[1]}

@@ -34,6 +34,10 @@ const PacksPagePanel = () => {
     const addNewPackHandler = (values: TAddAndUpdatePackModalValues) => {
         dispatch(addNewPack(values, URLParams)).then(() => setIsAddPackModalOpen(false));
     };
+    const onFilterBlurHandler = (e: React.FocusEvent<HTMLDivElement>) => {
+        if (e.relatedTarget?.id.includes("filter")) return;
+        setIsFilterOpen(false);
+    };
 
     return (
         <SPagePanel>
@@ -58,7 +62,12 @@ const PacksPagePanel = () => {
                 <SSearchInput>
                     <Input title={"Search"} placeholder={"Search by name"} leftIcon={<SearchIcon />} />
                 </SSearchInput>
-                <FilterWrapper tabIndex={0} onBlur={() => setIsFilterOpen(false)} margin={"0 0 3px 0"}>
+                <FilterWrapper
+                    id={"filter"}
+                    tabIndex={0}
+                    onBlur={onFilterBlurHandler}
+                    margin={"0 0 3px 0"}
+                >
                     <IconButton
                         onClick={() => setIsFilterOpen(!isFilterOpen)}
                         icon={<FilterIcon />}

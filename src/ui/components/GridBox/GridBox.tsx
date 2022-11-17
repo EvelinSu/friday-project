@@ -15,5 +15,4 @@ export const GridBox = styled.div<TGridBoxProps>((props) => ({
     overflow: "auto",
     borderRadius: 15,
     flexGrow: 1,
-    position: "relative",
 }));

@@ -37,7 +37,6 @@ const Tabs: FC<TTabsProps> = ({ initialFilters }) => {
         }
         if (tabs.includes("Other")) setTabs(["All", "My"]);
     };
-    console.log(searchParams);
 
     const isOtherUserId = () => {
         setActiveTab("Other");
