@@ -17,6 +17,18 @@ export type TPack = {
     deckCover: string;
 };
 
+export type TOtherUserData = {
+    _id: string;
+    email: string;
+    isAdmin: boolean;
+    name: string;
+    verified: boolean;
+    publicCardPacksCount: number;
+    created: string;
+    updated: string;
+    avatar: string;
+};
+
 export type TResponsePack = {
     cardPacks: TPack[];
     cardPacksTotalCount: number;
