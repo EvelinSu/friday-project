@@ -16,7 +16,7 @@ export const SPackCardWrapper = styled.div`
     cursor: pointer;
 
     &:hover {
-        opacity: 0.7;
+        transform: scale(0.95);
     }
 `;
 
