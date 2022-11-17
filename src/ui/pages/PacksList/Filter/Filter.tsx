@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Select from "../../../components/Select/Select";
 import { SFilterReset, SFilterWrapper } from "./styled";
 import { Box } from "../../../components/Box/Box";
@@ -6,6 +6,9 @@ import { SText } from "../../../components/Text/SText";
 import Tabs from "../../../components/Tabs/Tabs";
 import NumberOfCards from "./NumberOfCards";
 import CloseButton from "../../../components/CloseButton/CloseButton";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { setUserCardParams } from "../../../../bll/packsParamsReducer";
+import { useSearchParams } from "react-router-dom";
 
 const initialFilters = {
     activeTab: "All",
@@ -20,15 +23,27 @@ const Filter: FC<TFilterProps> = (props) => {
     const options = ["Last Updated", "Number of cards"];
     const tabs = ["All", "Only my"];
 
+    const dispatch = useAppDispatch();
     const [option, setOption] = useState(initialFilters.sorting);
     const [activeTab, setActiveTab] = useState(initialFilters.activeTab);
-
     const [value1, setValue1] = useState(initialFilters.numberOfCards[0]);
     const [value2, setValue2] = useState(initialFilters.numberOfCards[1]);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const userId = useAppSelector((state) => state.auth.userData.id);
+    const urlUserId = searchParams.get("user_id");
 
     const onChangeTab = (tab: string) => {
+        if (userId) {
+            setSearchParams(tab === "Only my" ? { user_id: userId } : "");
+            dispatch(setUserCardParams({ user_id: userId }));
+        }
         setActiveTab(tab);
     };
+
+    useEffect(() => {
+        urlUserId && urlUserId !== userId ? setActiveTab("other") : setActiveTab("Only my");
+    }, [urlUserId]);
 
     return (
         <SFilterWrapper>

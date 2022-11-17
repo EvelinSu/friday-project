@@ -10,18 +10,41 @@ import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
 import Filter from "../Filter/Filter";
 import AddPackModal from "../AddPackModal/AddPackModal";
+import Avatar from "../../../components/Avatar/Avatar";
+import { SText } from "../../../components/Text/SText";
+import { useAppSelector } from "../../../../hooks/hooks";
+import { useSearchParams } from "react-router-dom";
 
 const PacksPagePanel = () => {
+    const [searchParams] = useSearchParams();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
+
+    const userId = useAppSelector((state) => state.auth.userData.id);
+    const otherUserData = useAppSelector((state) => state.user);
+    const userIdURL = searchParams.get("user_id");
+    const checkUserId = userIdURL && userIdURL !== userId;
 
     return (
         <SPagePanel>
             <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
                 <SMainTitle>Packs list</SMainTitle>
-                <Button onClick={() => setIsAddPackModalOpen(true)} label={"Add new pack"} withShadow />
+                {checkUserId ? (
+                    <Box alignItems={"center"} gap={10}>
+                        <SText maxWidth={"150px"} isEllipsis>
+                            {otherUserData.name}
+                        </SText>
+                        <Avatar size={"small"} img={otherUserData.avatar ? otherUserData.avatar : ""} />
+                    </Box>
+                ) : (
+                    <Button
+                        onClick={() => setIsAddPackModalOpen(true)}
+                        label={"Add new pack"}
+                        withShadow
+                    />
+                )}
             </Box>
+
             <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
                 <SSearchInput>
                     <Input title={"Search"} placeholder={"Search by name"} leftIcon={<SearchIcon />} />

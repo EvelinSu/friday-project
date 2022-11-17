@@ -4,6 +4,7 @@ import { packsAPI } from "../dal/cardsAPI";
 import { TNewCardsPack, TPack, TPacksParams } from "../dal/ResponseTypes";
 import { setAppMessage } from "./appReducer";
 import { setIsFetching } from "./authReducer";
+import { getUser } from "./userReducer";
 
 export type TPacksData = {
     cardPacks: TPack[];
@@ -57,7 +58,12 @@ export const loadPacks = (param: TPacksParams) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     packsAPI
         .getPacks(param)
-        .then((res) => dispatch(setPacks(res.data)))
+        .then((res) => {
+            dispatch(setPacks(res.data));
+            if (param.user_id) {
+                dispatch(getUser(param.user_id));
+            }
+        })
         .catch((e) => {
             // Некорректная ошибка. Должна быть 429, а возвращается 401.
             // const err = e.response
@@ -72,15 +78,25 @@ export const addNewPack =
     (newCardsPack: TNewCardsPack, param: TPacksParams) => async (dispatch: TAppDispatch) => {
         dispatch(setIsAddFetching(true));
         try {
-            dispatch(setIsFetching(true));
             await packsAPI.addPack(newCardsPack);
-            dispatch(setIsFetching(false));
             dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
             dispatch(loadPacks(param));
         } catch (e) {
-            dispatch(setIsFetching(false));
             dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
         } finally {
             dispatch(setIsAddFetching(false));
         }
     };
+
+export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatch: TAppDispatch) => {
+    dispatch(setIsFetching(true));
+    try {
+        await packsAPI.deletePack(id);
+        dispatch(loadPacks(paramURL));
+        dispatch(setAppMessage({ text: "Done!", severity: "success" }));
+    } catch (e) {
+        dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
+    } finally {
+        dispatch(setIsFetching(false));
+    }
+};

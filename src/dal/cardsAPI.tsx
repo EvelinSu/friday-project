@@ -8,14 +8,7 @@ export const packsAPI = {
     addPack(cardsPack: TNewCardsPack) {
         return instance.post("/cards/pack", { cardsPack });
     },
+    deletePack(id: string) {
+        return instance.delete(`/cards/pack?id=${id}`);
+    },
 };
-
-// export const packsAPI = {
-//     getPacks(page: number, pageCount: number, userId?: string) {
-//         return instance.get<TResponsePack>(
-//             `cards/pack?page=${page}&pageCount=${pageCount}${
-//                 userId ? "&user_id=" + userId : ""
-//             }`
-//         );
-//     },
-// };
