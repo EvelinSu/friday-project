@@ -23,13 +23,11 @@ const Filter: FC<TFilterProps> = (props) => {
     const options = ["Last Updated", "Number of cards"];
     const tabs = ["All", "Only my"];
 
+    const dispatch = useAppDispatch();
     const [option, setOption] = useState(initialFilters.sorting);
     const [activeTab, setActiveTab] = useState(initialFilters.activeTab);
-
     const [value1, setValue1] = useState(initialFilters.numberOfCards[0]);
     const [value2, setValue2] = useState(initialFilters.numberOfCards[1]);
-    const dispatch = useAppDispatch();
-
     const [searchParams, setSearchParams] = useSearchParams();
 
     const userId = useAppSelector((state) => state.auth.userData.id);
@@ -44,7 +42,7 @@ const Filter: FC<TFilterProps> = (props) => {
     };
 
     useEffect(() => {
-        urlUserId && urlUserId !== userId && setActiveTab("other");
+        urlUserId && urlUserId !== userId ? setActiveTab("other") : setActiveTab("Only my");
     }, [urlUserId]);
 
     return (
