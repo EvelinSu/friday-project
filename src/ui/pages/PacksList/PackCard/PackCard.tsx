@@ -15,10 +15,10 @@ type TPackProps = {
     pack: TPack;
 };
 const PackCard: FC<TPackProps> = ({ pack }) => {
-    // const user = {
-    //     name: "Ivan Ivanov",
-    //     avatar: "https://i.imgur.com/8806AGy.png",
-    // };
+    const user = {
+        name: "Ivan Ivanov",
+        avatar: "https://i.imgur.com/8806AGy.png",
+    };
     const { name, avatar } = useAppSelector((state) => state.user);
     const correctDate = transformDate(pack.updated);
     const { id } = useAppSelector((state) => state.auth.userData);
@@ -48,8 +48,8 @@ const PackCard: FC<TPackProps> = ({ pack }) => {
                     </Box>
                 </Box>
                 <Box gap={10} alignItems={"center"}>
-                    <Avatar img={avatar} size={"smallest"} />
-                    <SText isEllipsis>{name}</SText>
+                    <Avatar img={user.avatar} size={"smallest"} />
+                    <SText isEllipsis>{pack.user_name}</SText>
                 </Box>
             </Box>
             <SPackCardActions>
