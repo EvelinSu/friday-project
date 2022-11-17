@@ -24,13 +24,12 @@ const Tabs: FC<TTabsProps> = ({ initialFilters }) => {
         if (userId) {
             setSearchParams(tab === "Only my" ? { user_id: userId } : "");
             dispatch(setUserCardParams({ user_id: userId }));
-            setActiveTab(tab);
         }
     };
 
     useEffect(() => {
         urlUserId === userId ? setActiveTab("Only my") : setActiveTab("All");
-    }, []);
+    }, [urlUserId, userId]);
 
     return (
         <STabs>
