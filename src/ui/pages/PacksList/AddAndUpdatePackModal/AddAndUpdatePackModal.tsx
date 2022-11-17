@@ -11,22 +11,26 @@ import { useAppSelector } from "../../../../hooks/hooks";
 import { SForm } from "../../../components/Form/styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { TPack } from "../../../../dal/ResponseTypes";
 
 type TAddPackModalProps = {
     title: string;
     onClose: () => void;
     onSubmitHandler: (values: TAddAndUpdatePackModalValues) => void;
+    currentPack?: TPack;
 };
 
 export type TAddAndUpdatePackModalValues = {
     name: string;
     deckCover: string;
     isPrivate: boolean;
+    currentPack?: TPack;
 };
 
 type TAddPackFormProps = {
     onClose: () => void;
     onSubmitHandler: (values: TAddAndUpdatePackModalValues) => void;
+    currentPack?: TPack;
 };
 const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -37,7 +41,13 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
         <SMegaShadow onClick={onClickHandler}>
             <Modal
                 title={props.title}
-                body={<AddPackForm onSubmitHandler={props.onSubmitHandler} onClose={props.onClose} />}
+                body={
+                    <AddPackForm
+                        onSubmitHandler={props.onSubmitHandler}
+                        onClose={props.onClose}
+                        currentPack={props.currentPack}
+                    />
+                }
             />
         </SMegaShadow>
     );
@@ -48,9 +58,9 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
 
     const { resetForm, handleSubmit, handleChange, values } = useFormik({
         initialValues: {
-            name: "",
-            deckCover: "",
-            isPrivate: false,
+            name: props.currentPack?.name || "",
+            deckCover: props.currentPack?.deckCover || "",
+            isPrivate: props.currentPack?.private || false,
         },
         validationSchema: Yup.object({
             name: Yup.string(),

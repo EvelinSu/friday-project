@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SPageWrapper } from "../../styled";
 import { Modal } from "../../../components/Modal/Modal";
 import Input from "../../../components/Form/Input";
@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import { loginTC } from "../../../../bll/authReducer";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { LoginDataType } from "../../../../dal/ResponseTypes";
+import ViewInputIcon from "../ViewInputIcon";
 
 const SignIn = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
@@ -34,23 +35,37 @@ const SignIn = () => {
 const SignInForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { isFetching } = useAppSelector((state) => state.auth);
+    const {isFetching} = useAppSelector((state) => state.auth);
 
-    const { handleBlur, handleSubmit, touched, handleChange, isValid, setFieldValue, values, errors } =
-        useFormik({
-            initialValues: {
-                email: "",
-                password: "",
-                rememberMe: false,
-            },
-            validationSchema: Yup.object({
-                email: Yup.string().email("Invalid email address").required("Required"),
-                password: Yup.string().required("Required"),
-            }),
-            onSubmit: (values: LoginDataType) => {
-                dispatch(loginTC(values));
-            },
-        });
+    const {
+        handleBlur,
+        handleSubmit,
+        touched,
+        handleChange,
+        isValid,
+        setFieldValue,
+        values,
+        errors,
+    } = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+            rememberMe: false,
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().email("Invalid email address").required("Required"),
+            password: Yup.string().required("Required"),
+        }),
+        onSubmit: (values: LoginDataType) => {
+            dispatch(loginTC(values));
+        },
+    });
+
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
+    const onViewClickHandler = () => {
+        setIsPasswordVisible(!isPasswordVisible)
+    };
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -69,10 +84,11 @@ const SignInForm = () => {
                     title={"Password"}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    type="password"
+                    type={!isPasswordVisible ? "password" : "text"}
                     value={values.password}
                     name="password"
                     error={touched.password ? errors.password : ""}
+                    rightIcon={<ViewInputIcon isVisible={isPasswordVisible} onClick={onViewClickHandler} />}
                     required
                 />
             </Box>

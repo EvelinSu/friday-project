@@ -10,6 +10,7 @@ export type TInputProps = DefaultInputPropsType & {
     rightIcon?: React.ReactNode;
     error?: string;
     title?: string;
+    ref?: string;
 };
 
 const Input: React.FC<TInputProps> = ({ ...props }) => {

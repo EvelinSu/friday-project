@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SPageWrapper } from "../../styled";
 import { Modal } from "../../../components/Modal/Modal";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
 import { registerTC } from "../../../../bll/registerReducer";
 import { RegisterDataType } from "../../../../dal/ResponseTypes";
+import ViewInputIcon from "../ViewInputIcon";
 
 const SignUp = () => {
     return (
@@ -53,6 +54,12 @@ const SignUpForm = () => {
         }
     }, [isRegistered, navigate]);
 
+    const [isPasswordVisible, setIsPasswordVisible] = useState({ confirmPw: false, pw: false });
+
+    const onViewClickHandler = (name: "confirmPw" | "pw") => {
+        setIsPasswordVisible({ ...isPasswordVisible, [name]: !isPasswordVisible[name] });
+    };
+
     return (
         <SForm onSubmit={handleSubmit}>
             <Box flexDirection={"column"}>
@@ -70,20 +77,32 @@ const SignUpForm = () => {
                     title={"Password"}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    type="password"
+                    type={!isPasswordVisible.pw ? "password" : "text"}
                     value={values.password}
                     name="password"
                     error={touched.password ? errors.password : ""}
+                    rightIcon={
+                        <ViewInputIcon
+                            onClick={() => onViewClickHandler("pw")}
+                            isVisible={isPasswordVisible.pw}
+                        />
+                    }
                     required
                 />
                 <Input
                     title={"Confirm password"}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    type="password"
+                    type={!isPasswordVisible.confirmPw ? "password" : "text"}
                     value={values.confirmPassword}
                     name="confirmPassword"
                     error={touched.confirmPassword ? errors.confirmPassword : ""}
+                    rightIcon={
+                        <ViewInputIcon
+                            onClick={() => onViewClickHandler("confirmPw")}
+                            isVisible={isPasswordVisible.confirmPw}
+                        />
+                    }
                     required
                 />
             </Box>

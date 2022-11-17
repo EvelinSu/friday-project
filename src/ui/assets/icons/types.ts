@@ -1,1 +1,3 @@
-export type TIconProps = {};
+export type TIconProps = {
+    onClick?: () => void;
+};

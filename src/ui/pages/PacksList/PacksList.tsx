@@ -58,6 +58,7 @@ const PacksList = () => {
                     title={"Update pack"}
                     onSubmitHandler={updatePackHandler}
                     onClose={() => setIsPackModalOpen(false)}
+                    currentPack={cardPacks.find((el) => el._id === currentId)}
                 />
             )}
         </GridBox>
