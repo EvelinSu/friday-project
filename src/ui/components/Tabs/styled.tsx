@@ -14,6 +14,7 @@ export const STab = styled.div<TSTabProps>`
     background-color: ${({ theme }) => theme.colors.input.default};
     border-radius: 10px;
     cursor: pointer;
+    border: 1px solid transparent;
 
     &:hover {
         border: 1px solid ${({ theme }) => theme.colors.primary};

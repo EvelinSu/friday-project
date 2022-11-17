@@ -10,9 +10,11 @@ import {
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 import { SText } from "../Text/SText";
 
+export type TFilterOptions = "" | "Last Updated" | "Number of cards";
+
 type TAlternativeSuperSelect = {
-    options: Array<string>;
-    onChangeOption: (option: string) => void;
+    options: TFilterOptions[];
+    onChangeOption: (option: TFilterOptions) => void;
     value: string;
     placeholder?: string;
 };
@@ -39,7 +41,7 @@ function Select(props: TAlternativeSuperSelect) {
         }
     };
 
-    const mappedOptions: any[] = props.options
+    const mappedOptions = props.options
         ? props.options.map((el, i) => (
               <SSuperOption
                   onClick={() => onClickHandler(el)}

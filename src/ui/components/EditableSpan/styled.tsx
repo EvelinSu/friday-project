@@ -9,6 +9,7 @@ export const SEditableSpanInputWrapper = styled.div<TSEditableSpanProps>`
     overflow: hidden;
     position: relative;
     transition: 0.1s;
+
     svg {
         position: absolute;
         cursor: pointer;
@@ -17,10 +18,12 @@ export const SEditableSpanInputWrapper = styled.div<TSEditableSpanProps>`
         min-width: 32px;
         width: 32px;
         height: 32px;
+
         &:hover {
             opacity: 0.8;
         }
     }
+
     ${(props) =>
         props.disabled &&
         css`
@@ -34,7 +37,9 @@ export const SEditableSpanInput = styled.input`
     height: 30px;
     padding: 0 40px 0 10px;
     border-radius: 15px;
+    border: 1px solid transparent;
     width: 100%;
+
     &:focus {
         opacity: 1;
         border: 1px solid ${(props) => props.theme.colors.primary};
@@ -50,17 +55,21 @@ export const SEditableSpanText = styled.span<TSEditableSpanProps>`
     width: 100%;
     cursor: pointer;
     transition: 0.1s;
+
     span {
         transition: 0.2s;
     }
+
     svg {
         cursor: pointer;
         margin-left: auto;
         min-width: 14px;
+
         &:hover {
             opacity: 0.8;
         }
     }
+
     ${(props) =>
         props.disabled &&
         css`
@@ -71,6 +80,7 @@ export const SEditableSpanText = styled.span<TSEditableSpanProps>`
         background-color: ${(props) => props.theme.colors.input.default};
         padding: 0 10px;
         width: 100%;
+
         span {
             transition: 0.2s;
             font-size: 14px !important;
