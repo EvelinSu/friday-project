@@ -58,7 +58,7 @@ const PacksPagePanel = () => {
                 <SSearchInput>
                     <Input title={"Search"} placeholder={"Search by name"} leftIcon={<SearchIcon />} />
                 </SSearchInput>
-                <FilterWrapper margin={"0 0 3px 0"}>
+                <FilterWrapper tabIndex={0} onBlur={() => setIsFilterOpen(false)} margin={"0 0 3px 0"}>
                     <IconButton
                         onClick={() => setIsFilterOpen(!isFilterOpen)}
                         icon={<FilterIcon />}
