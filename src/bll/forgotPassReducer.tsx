@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authAPI } from "../dal/authAPI";
 import { TAppDispatch } from "./store/store";
-import { setIsFetching } from "./authReducer";
-import { setAppMessage } from "./appReducer";
+import { setAppMessage, setIsFetching } from "./appReducer";
 
 export type TForgotPass = {
     isSendLetter: boolean;
@@ -25,10 +24,6 @@ const slice = createSlice({
         },
     },
 });
-
-export const forgotPassReducer = slice.reducer;
-
-export const { setStatusSendAC, setTokenAC } = slice.actions;
 
 export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
@@ -56,3 +51,6 @@ export const sendNewPassTC = (password: string, token: string) => (dispatch: TAp
         })
         .finally(() => dispatch(setIsFetching(false)));
 };
+
+export const forgotPassReducer = slice.reducer;
+export const { setStatusSendAC, setTokenAC } = slice.actions;

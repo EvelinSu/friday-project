@@ -23,10 +23,10 @@ const ChangePassword = () => {
     );
 };
 
-const ChangePasswordForm = () => {
+export const ChangePasswordForm = () => {
     const navigate = useNavigate();
 
-    const { isFetching } = useAppSelector((state) => state.auth);
+    const { isFetching } = useAppSelector((state) => state.app);
     const dispatch = useAppDispatch();
     const isTokenFromState = useAppSelector((state) => state.forgotPass.token);
     const { token } = useParams();

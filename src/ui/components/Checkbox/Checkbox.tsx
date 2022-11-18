@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
-import { DefaultInputPropsType } from "../Form/Input";
+import { TDefaultInputProps } from "../Form/Input";
 import { SText } from "../Text/SText";
 import { SCheckbox, SLabel } from "./styled";
 
-type TCheckboxProps = DefaultInputPropsType & {
+type TCheckboxProps = TDefaultInputProps & {
     label: string;
     onChangeChecked?: (checked: boolean) => void;
 };

@@ -62,12 +62,12 @@ export type TNewCardsPack = {
     private?: boolean;
 };
 
-export type RegisterDataType = {
+export type TRegisterData = {
     email: string;
     password: string;
 };
 // Данные, отправляемые на сервер при логинизации
-export type LoginDataType = {
+export type TLoginData = {
     email: string;
     password: string;
     rememberMe: boolean;
@@ -75,13 +75,13 @@ export type LoginDataType = {
 };
 
 // Смена имени и аватара
-export type ProfileDataType = {
+export type TProfileData = {
     avatar?: string;
     name?: string;
 };
 
 // ответ при не верном введении логина или пароля
-export type ResponseType = {
+export type TResponse = {
     email: string;
     error: string;
     in: string;

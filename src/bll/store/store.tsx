@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "../authReducer";
 import { appReducer } from "../appReducer";
-import { registerReducer } from "../registerReducer";
 import { forgotPassReducer } from "../forgotPassReducer";
 import { packsReducer } from "../packsReducer";
 import { packsParamsReducer } from "../packsParamsReducer";
@@ -14,7 +13,6 @@ export const store = configureStore({
         app: appReducer,
         packs: packsReducer,
         packsParams: packsParamsReducer,
-        registration: registerReducer,
         forgotPass: forgotPassReducer,
         user: userReducer,
     },

@@ -2,14 +2,12 @@ import React, { useEffect, useMemo } from "react";
 import { SPageWrapper } from "../styled";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Pagination from "../../components/Pagination/Pagination";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import LoaderIcon from "../../assets/loaders/loader";
-import { setCardParams } from "../../../bll/packsParamsReducer";
 import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 import { loadPacks } from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
-import { PATH } from "../Pages";
 import PacksNotFound from "./PacksNotFound";
 
 const PacksPage = () => {
@@ -17,22 +15,13 @@ const PacksPage = () => {
     const dispatch = useAppDispatch();
 
     const { cardPacksData } = useAppSelector((state) => state.packs);
-    const { isFetching, isLoggedIn } = useAppSelector((state) => state.auth);
+    const { isFetching } = useAppSelector((state) => state.app);
     const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
-    const stateParams = useAppSelector((state) => state.packsParams);
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     useEffect(() => {
-        if (JSON.stringify(stateParams) !== JSON.stringify(URLParams)) {
-            dispatch(setCardParams(URLParams));
-        }
-    }, [dispatch, URLParams, stateParams]);
-
-    useEffect(() => {
         dispatch(loadPacks(URLParams));
-    }, [URLParams, dispatch]);
-
-    if (!isLoggedIn) return <Navigate to={PATH.signIn} />;
+    }, [URLParams]);
 
     return (
         <SPageWrapper>

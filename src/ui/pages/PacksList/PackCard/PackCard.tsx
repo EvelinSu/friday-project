@@ -10,7 +10,7 @@ import DeleteIcon from "../../../assets/icons/DeleteIcon";
 import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { TPack } from "../../../../dal/ResponseTypes";
 import { useAppSelector } from "../../../../hooks/hooks";
-import { TPackModalsType } from "../PacksList";
+import { TPackModals } from "../PacksList";
 import LockFillIcon from "../../../assets/icons/LockFillIcon";
 import defaultAvatar from "../../../assets/img/default-photo.png";
 
@@ -19,11 +19,11 @@ type TPackProps = {
     onIconClickHandler: (
         e: React.MouseEvent<HTMLDivElement>,
         id: string,
-        modalType: TPackModalsType
+        modalType: TPackModals
     ) => void;
     isFetching: boolean;
 };
-const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler, isFetching }) => {
+const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetching }) => {
     const { id, avatar } = useAppSelector((state) => state.auth.userData);
 
     const user = {
@@ -102,6 +102,6 @@ const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler, isFetching }) => {
             </SPackCardActions>
         </SPackCardWrapper>
     );
-};
+});
 
 export default PackCard;

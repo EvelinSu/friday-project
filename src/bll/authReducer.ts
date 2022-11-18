@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authAPI } from "../dal/authAPI";
 import { TAppDispatch } from "./store/store";
-import { setAppMessage, setAppStatus, setIsInitialized } from "./appReducer";
-import { LoginDataType, ProfileDataType } from "../dal/ResponseTypes";
+import { setAppMessage, setAppStatus, setIsFetching, setIsInitialized } from "./appReducer";
+import { TLoginData, TProfileData, TRegisterData } from "../dal/ResponseTypes";
 import { clearStatePacks } from "./packsReducer";
+import axios, { AxiosError } from "axios";
 
 type TUserData = {
     id: string | null;
@@ -14,8 +15,8 @@ type TUserData = {
 
 export type TAuth = {
     userData: TUserData;
+    registerData: TRegisterData;
     isLoggedIn: boolean;
-    isFetching: boolean;
 };
 const initialState: TAuth = {
     userData: {
@@ -24,8 +25,11 @@ const initialState: TAuth = {
         email: null,
         avatar: null,
     },
+    registerData: {
+        email: "",
+        password: "",
+    },
     isLoggedIn: false,
-    isFetching: false,
 };
 
 const slice = createSlice({
@@ -38,19 +42,40 @@ const slice = createSlice({
         setUserData(state, action: PayloadAction<TUserData>) {
             state.userData = action.payload;
         },
-        setUserProfile(state, action: PayloadAction<ProfileDataType>) {
+        setUserProfile(state, action: PayloadAction<TProfileData>) {
             if (action.payload.avatar) state.userData.avatar = action.payload.avatar;
             if (action.payload.name) state.userData.name = action.payload.name;
         },
-        setIsFetching(state, action: PayloadAction<boolean>) {
-            state.isFetching = action.payload;
+
+        setRegisterUserData(state, action: PayloadAction<TRegisterData>) {
+            state.registerData = action.payload;
         },
     },
 });
 
-export const authReducer = slice.reducer;
-
-export const { setIsLoggedIn, setUserData, setUserProfile, setIsFetching } = slice.actions;
+export const registerTC = createAsyncThunk(
+    "auth/register",
+    async (param: TRegisterData, { dispatch }) => {
+        dispatch(setIsFetching(true));
+        try {
+            await authAPI.register(param);
+            dispatch(setRegisterUserData(param));
+            dispatch(setAppMessage({ text: "Registration was successful!", severity: "success" }));
+            return true;
+        } catch (e: unknown) {
+            const err = e as Error | AxiosError<{ e: string }>;
+            if (axios.isAxiosError(err)) {
+                const error = err.response?.data
+                    ? err.response.data.error
+                    : err.message + ", more details in the console";
+                dispatch(setAppMessage({ text: error, severity: "error" }));
+            }
+            return false;
+        } finally {
+            dispatch(setIsFetching(false));
+        }
+    }
+);
 
 export const authMeTC = () => async (dispatch: TAppDispatch) => {
     try {
@@ -68,7 +93,7 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
     }
 };
 
-export const loginTC = (data: LoginDataType) => async (dispatch: TAppDispatch) => {
+export const loginTC = (data: TLoginData) => async (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     authAPI
         .login(data)
@@ -77,6 +102,7 @@ export const loginTC = (data: LoginDataType) => async (dispatch: TAppDispatch) =
             const id = res.data._id;
             dispatch(setUserData({ id, name, email, avatar }));
             dispatch(setIsLoggedIn({ value: true }));
+            dispatch(setRegisterUserData({ email: "", password: "" }));
         })
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";
@@ -100,7 +126,7 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
         .finally(() => dispatch(setIsFetching(false)));
 };
 
-export const changeUserProfileTC = (data: ProfileDataType) => (dispatch: TAppDispatch) => {
+export const changeUserProfileTC = (data: TProfileData) => (dispatch: TAppDispatch) => {
     authAPI
         .changeUserProfile(data)
         .then(() => {
@@ -118,3 +144,7 @@ export const changeUserProfileTC = (data: ProfileDataType) => (dispatch: TAppDis
             }
         });
 };
+
+export const { setIsLoggedIn, setUserData, setUserProfile, setRegisterUserData } = slice.actions;
+
+export const authReducer = slice.reducer;

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
+export type TRequestStatus = "idle" | "loading" | "succeeded" | "failed";
 
 type TAppMessage = {
     id: string;
@@ -10,13 +10,15 @@ type TAppMessage = {
 
 export type TApp = {
     isInitialized: boolean;
-    status: RequestStatusType;
+    status: TRequestStatus;
     messages: TAppMessage[];
+    isFetching: boolean;
 };
 const initialState: TApp = {
     isInitialized: false,
     status: "idle",
     messages: [],
+    isFetching: false,
 };
 
 const slice = createSlice({
@@ -40,13 +42,22 @@ const slice = createSlice({
         hideAppMessage(state, action: PayloadAction<string>) {
             state.messages = state.messages.filter((el) => el.id !== action.payload);
         },
-        setAppStatus(state, action: PayloadAction<RequestStatusType>) {
+        setAppStatus(state, action: PayloadAction<TRequestStatus>) {
             state.status = action.payload;
+        },
+        setIsFetching(state, action: PayloadAction<boolean>) {
+            state.isFetching = action.payload;
         },
         //clearFullState crateActon
     },
 });
 
 export const appReducer = slice.reducer;
-export const { setIsInitialized, setAppMessage, setAppLastMessage, hideAppMessage, setAppStatus } =
-    slice.actions;
+export const {
+    setIsFetching,
+    setIsInitialized,
+    setAppMessage,
+    setAppLastMessage,
+    hideAppMessage,
+    setAppStatus,
+} = slice.actions;

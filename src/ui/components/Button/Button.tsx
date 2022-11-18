@@ -1,12 +1,12 @@
 import React, { DetailedHTMLProps, FC } from "react";
 import { SButton } from "./styled";
 
-export type DefaultHTMLButtonType = DetailedHTMLProps<
+export type TDefaultHTMLButton = DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
 >;
 
-type TButtonProps = DefaultHTMLButtonType & {
+type TButtonProps = TDefaultHTMLButton & {
     label: string;
     isDisabled?: boolean;
     backgroundColor?: string;

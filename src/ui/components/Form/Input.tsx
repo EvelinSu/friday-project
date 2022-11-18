@@ -1,11 +1,11 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { SInput, SInputLeftIcon, SInputRightIcon, SInputWrapper } from "./styled";
 
-export type DefaultInputPropsType = DetailedHTMLProps<
+export type TDefaultInputProps = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
 >;
-export type TInputProps = DefaultInputPropsType & {
+export type TInputProps = TDefaultInputProps & {
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
     error?: string;

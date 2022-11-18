@@ -20,6 +20,7 @@ const Tabs: FC<TTabsProps> = ({ initialFilters }) => {
     const [activeTab, setActiveTab] = useState(initialFilters.activeTab);
 
     const userId = useAppSelector((state) => state.auth.userData.id);
+    const { isFetching } = useAppSelector((state) => state.app);
 
     const onChangeTab = (tab: TFilterTabs) => {
         if (userId) {
@@ -49,11 +50,15 @@ const Tabs: FC<TTabsProps> = ({ initialFilters }) => {
             ? isOtherUserId()
             : setActiveTab("All");
     }, [URLParams, userId]);
-
     return (
         <STabs>
             {tabs.map((el) => (
-                <STab key={el} onClick={() => onChangeTab(el)} isActive={activeTab === el}>
+                <STab
+                    key={el}
+                    onClick={() => onChangeTab(el)}
+                    isActive={activeTab === el}
+                    isDisabled={isFetching}
+                >
                     {el}
                 </STab>
             ))}

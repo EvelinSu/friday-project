@@ -1,8 +1,8 @@
 import { instance } from "./instance";
-import { LoginDataType, ProfileDataType, RegisterDataType } from "./ResponseTypes";
+import { TLoginData, TProfileData, TRegisterData } from "./ResponseTypes";
 
 export const authAPI = {
-    login(data: LoginDataType) {
+    login(data: TLoginData) {
         return instance.post("auth/login", data);
     },
     authMe() {
@@ -11,10 +11,10 @@ export const authAPI = {
     logOut() {
         return instance.delete("auth/me");
     },
-    changeUserProfile(data: ProfileDataType) {
+    changeUserProfile(data: TProfileData) {
         return instance.put("auth/me", data);
     },
-    register(data: RegisterDataType) {
+    register(data: TRegisterData) {
         return instance.post("auth/register", data);
     },
     sendEmail(email: string) {

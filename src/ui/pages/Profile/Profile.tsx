@@ -17,7 +17,7 @@ import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 import { setAppMessage } from "../../../bll/appReducer";
 
-export type EventInputType = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
+export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
 const Profile = () => {
     const [searchParams] = useSearchParams();
@@ -36,7 +36,8 @@ const Profile = () => {
 
 const ProfileModalBody = () => {
     const dispatch = useAppDispatch();
-    const { isFetching, userData } = useAppSelector((state) => state.auth);
+    const { userData } = useAppSelector((state) => state.auth);
+    const { isFetching } = useAppSelector((state) => state.app);
     const { name, email, avatar } = userData;
 
     const [value, setValue] = useState(name);
@@ -57,7 +58,7 @@ const ProfileModalBody = () => {
         }
     };
 
-    const onChangeNameHandler = (e: EventInputType) => {
+    const onChangeNameHandler = (e: TEventInput) => {
         setValue(e.currentTarget.value);
     };
 

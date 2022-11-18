@@ -1,7 +1,7 @@
 import React from "react";
 import { SDoubleRange, SDoubleRangeWrapper, SRangeTrack } from "./styled";
 
-type SuperDoubleRangePropsType = {
+type TSuperDoubleRangeProps = {
     setValue1: (value: number) => void;
     setValue2: (value: number) => void;
     values: [number, number];
@@ -11,7 +11,7 @@ type SuperDoubleRangePropsType = {
     // min, max, step, disable, ...
 };
 
-const DoubleRange: React.FC<SuperDoubleRangePropsType> = ({
+const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
     setValue1,
     setValue2,
     values,

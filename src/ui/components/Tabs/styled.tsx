@@ -8,6 +8,7 @@ export const STabs = styled.div`
 
 type TSTabProps = {
     isActive: boolean;
+    isDisabled: boolean;
 };
 export const STab = styled.div<TSTabProps>`
     padding: 5px 10px;
@@ -25,6 +26,12 @@ export const STab = styled.div<TSTabProps>`
         css`
             background-color: ${props.theme.colors.primary};
             color: ${props.theme.colors.textOnPrimary};
+            pointer-events: none;
+        `}
+    ${(props) =>
+        props.isDisabled &&
+        css`
+            opacity: 0.7;
             pointer-events: none;
         `}
 `;

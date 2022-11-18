@@ -3,14 +3,14 @@ import EditIcon from "../../assets/icons/EditIcon";
 import { SEditableSpanInput, SEditableSpanInputWrapper, SEditableSpanText } from "./styled";
 import CircleDoneIcon from "../../assets/icons/CircleDoneIcon";
 import { SText } from "../Text/SText";
-import { EventInputType } from "../../pages/Profile/Profile";
+import { TEventInput } from "../../pages/Profile/Profile";
 
-export type DefaultInputPropsType = DetailedHTMLProps<
+export type TDefaultInputProps = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
 >;
 
-type TEditableSpanProps = DefaultInputPropsType & {
+type TEditableSpanProps = TDefaultInputProps & {
     value?: string | null;
     fontSize?: string;
     onSave?: () => void;
@@ -28,9 +28,12 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
         }, 1000);
     };
 
-    const onChange = (e: EventInputType) => {
-        if (e.key === "Enter") saveChanges();
-        else props.onChange && props.onChange(e);
+    const onChange = (e: TEventInput) => {
+        if (e.key === "Enter") {
+            saveChanges();
+        } else {
+            props.onChange && props.onChange(e);
+        }
     };
 
     return !isEditable ? (

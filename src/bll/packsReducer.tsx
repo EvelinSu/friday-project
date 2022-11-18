@@ -2,8 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
 import { packsAPI } from "../dal/cardsAPI";
 import { TPack, TPacksParams } from "../dal/ResponseTypes";
-import { setAppMessage } from "./appReducer";
-import { setIsFetching } from "./authReducer";
+import { setAppMessage, setIsFetching } from "./appReducer";
 import { getUser } from "./userReducer";
 import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksList/AddAndUpdatePackModal/AddAndUpdatePackModal";
 import axios, { AxiosError } from "axios";
@@ -20,11 +19,11 @@ export type TPacksData = {
 };
 
 export type TPacks = {
-    isModalButtonsDisabled: boolean;
+    isButtonsDisabled: boolean;
     cardPacksData: TPacksData;
 };
 const initialState: TPacks = {
-    isModalButtonsDisabled: false,
+    isButtonsDisabled: false,
     cardPacksData: {
         cardPacks: [],
         user_id: "",
@@ -47,14 +46,11 @@ const slice = createSlice({
         clearStatePacks(state) {
             state.cardPacksData = initialState.cardPacksData;
         },
-        setIsModalButtonsDisabled(state, action: PayloadAction<boolean>) {
-            state.isModalButtonsDisabled = action.payload;
+        setIsButtonsDisabled(state, action: PayloadAction<boolean>) {
+            state.isButtonsDisabled = action.payload;
         },
     },
 });
-
-export const packsReducer = slice.reducer;
-export const { setPacks, clearStatePacks, setIsModalButtonsDisabled } = slice.actions;
 
 export const loadPacks = createAsyncThunk(
     "packs/loadPacks",
@@ -81,22 +77,21 @@ export const loadPacks = createAsyncThunk(
 export const addNewPack =
     (newCardsPack: TAddAndUpdatePackModalValues, param: TPacksParams) =>
     async (dispatch: TAppDispatch) => {
-        dispatch(setIsModalButtonsDisabled(true));
+        dispatch(setIsButtonsDisabled(true));
         const { name, deckCover, isPrivate } = newCardsPack;
         try {
             await packsAPI.addPack({ name, deckCover, private: isPrivate });
             dispatch(loadPacks(param));
-
             dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
         } catch (e) {
             dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
         } finally {
-            dispatch(setIsModalButtonsDisabled(false));
+            dispatch(setIsButtonsDisabled(false));
         }
     };
 
 export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatch: TAppDispatch) => {
-    dispatch(setIsModalButtonsDisabled(true));
+    dispatch(setIsButtonsDisabled(true));
     try {
         await packsAPI.deletePack(id);
         dispatch(loadPacks(paramURL));
@@ -108,7 +103,7 @@ export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatc
             dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
         }
     } finally {
-        dispatch(setIsModalButtonsDisabled(false));
+        dispatch(setIsButtonsDisabled(false));
     }
 };
 
@@ -118,7 +113,7 @@ export const updatePack = createAsyncThunk(
         param: { values: TAddAndUpdatePackModalValues; _id: string; paramURL: TPacksParams },
         { dispatch }
     ) => {
-        dispatch(setIsModalButtonsDisabled(true));
+        dispatch(setIsButtonsDisabled(true));
         try {
             const { name, deckCover, isPrivate } = param.values;
             await packsAPI.updatePack({ _id: param._id, name, deckCover, private: isPrivate });
@@ -131,7 +126,10 @@ export const updatePack = createAsyncThunk(
                 dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
             }
         } finally {
-            dispatch(setIsModalButtonsDisabled(false));
+            dispatch(setIsButtonsDisabled(false));
         }
     }
 );
+
+export const packsReducer = slice.reducer;
+export const { setPacks, clearStatePacks, setIsButtonsDisabled } = slice.actions;

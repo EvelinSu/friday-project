@@ -54,7 +54,7 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
 };
 
 const AddPackForm: FC<TAddPackFormProps> = (props) => {
-    const { isModalButtonsDisabled } = useAppSelector((state) => state.packs);
+    const { isButtonsDisabled } = useAppSelector((state) => state.packs);
 
     const { handleSubmit, handleChange, values } = useFormik({
         initialValues: {
@@ -98,13 +98,13 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
                 <Box justifyContent={"center"}>
                     <Button
                         type="submit"
-                        isLoading={isModalButtonsDisabled}
+                        isLoading={isButtonsDisabled}
                         label={"Save"}
                         severity={"success"}
                         size={"lg"}
                     />
                     <Button
-                        isLoading={isModalButtonsDisabled}
+                        isLoading={isButtonsDisabled}
                         onClick={() => props.onClose()}
                         label={"Cancel"}
                         severity={"neutral"}

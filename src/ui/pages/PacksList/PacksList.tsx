@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import PackCard from "./PackCard/PackCard";
 import { GridBox } from "../../components/GridBox/GridBox";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
@@ -10,30 +10,29 @@ import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 import DeletePackModal from "./DeletePackModal/DeletePackModal";
 import { updatePack } from "../../../bll/packsReducer";
 
-export type TPackModalsType = "delete" | "update" | false;
+export type TPackModals = "delete" | "update" | false;
 
 const PacksList = () => {
     const dispatch = useAppDispatch();
 
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
-    const isFetching = useAppSelector((state) => state.auth.isFetching);
+    const { isFetching } = useAppSelector((state) => state.app);
     const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
-    const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModalsType>(false);
+    const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModals>(false);
     const [currentId, setCurrentId] = useState<string>("");
 
     const windowWidth = window.innerWidth;
     const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 5 : 4;
 
-    const onIconClickHandler = (
-        e: React.MouseEvent<HTMLDivElement>,
-        id: string,
-        modalType: TPackModalsType
-    ) => {
-        e.stopPropagation();
-        setIsPackModalOpen(modalType);
-        setCurrentId(id);
-    };
+    const onIconClickHandler = useCallback(
+        (e: React.MouseEvent<HTMLDivElement>, id: string, modalType: TPackModals) => {
+            e.stopPropagation();
+            setIsPackModalOpen(modalType);
+            setCurrentId(id);
+        },
+        []
+    );
 
     const updatePackHandler = (values: TAddAndUpdatePackModalValues) => {
         dispatch(updatePack({ _id: currentId, values, paramURL: URLParams })).then(() => {
