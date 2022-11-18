@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
 import { packsAPI } from "../dal/cardsAPI";
-import { TNewCardsPack, TPack, TPacksParams } from "../dal/ResponseTypes";
+import { TPack, TPacksParams } from "../dal/ResponseTypes";
 import { setAppMessage } from "./appReducer";
 import { setIsFetching } from "./authReducer";
 import { getUser } from "./userReducer";
 import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksList/AddAndUpdatePackModal/AddAndUpdatePackModal";
+import axios, { AxiosError } from "axios";
 
 export type TPacksData = {
     cardPacks: TPack[];
@@ -59,30 +60,31 @@ export const loadPacks = createAsyncThunk(
     "packs/loadPacks",
     async (param: TPacksParams, { dispatch }) => {
         dispatch(setIsFetching(true));
-        packsAPI
-            .getPacks(param)
-            .then((res) => {
-                dispatch(setPacks(res.data));
-                if (param.user_id) {
-                    dispatch(getUser(param.user_id));
-                }
-            })
-            .catch((e) => {
-                // Некорректная ошибка. Должна быть 429, а возвращается 401.
-                // const err = e.response
-                //     ? e.response.data.error
-                //     : e.message + ", more details in the console";
-                // dispatch(setAppMessage({ text: err, severity: "error" }));
-            })
-            .finally(() => dispatch(setIsFetching(false)));
+        try {
+            const res = await packsAPI.getPacks(param);
+            dispatch(setPacks(res.data));
+            if (param.user_id) {
+                dispatch(getUser(param.user_id));
+            }
+        } catch (e) {
+            // Некорректная ошибка. Должна быть 429, а возвращается 401.
+            // const err = e.response
+            //     ? e.response.data.error
+            //     : e.message + ", more details in the console";
+            // dispatch(setAppMessage({ text: err, severity: "error" }));
+        } finally {
+            dispatch(setIsFetching(false));
+        }
     }
 );
 
 export const addNewPack =
-    (newCardsPack: TNewCardsPack, param: TPacksParams) => async (dispatch: TAppDispatch) => {
+    (newCardsPack: TAddAndUpdatePackModalValues, param: TPacksParams) =>
+    async (dispatch: TAppDispatch) => {
         dispatch(setIsModalButtonsDisabled(true));
+        const { name, deckCover, isPrivate } = newCardsPack;
         try {
-            await packsAPI.addPack(newCardsPack);
+            await packsAPI.addPack({ name, deckCover, private: isPrivate });
             dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
             dispatch(loadPacks(param));
         } catch (e) {
@@ -99,7 +101,12 @@ export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatc
         dispatch(loadPacks(paramURL));
         dispatch(setAppMessage({ text: "Done!", severity: "success" }));
     } catch (e) {
-        dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
+        const err = e as Error | AxiosError;
+        if (axios.isAxiosError(err)) {
+            console.log(err);
+            const errorMessage = err.response?.data ? err.response.data : err;
+            dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
+        }
     } finally {
         dispatch(setIsModalButtonsDisabled(false));
     }
@@ -114,17 +121,16 @@ export const updatePack = createAsyncThunk(
         dispatch(setIsModalButtonsDisabled(true));
         try {
             const { name, deckCover, isPrivate } = param.values;
-            await packsAPI.updatePack({ _id: param._id, name, deckCover, isPrivate });
+            await packsAPI.updatePack({ _id: param._id, name, deckCover, private: isPrivate });
             dispatch(loadPacks(param.paramURL));
             dispatch(setAppMessage({ text: "Done!", severity: "success" }));
         } catch (e) {
-            // const err = e as Error | AxiosError
-            // const err = e.response
-            //     ? e.response.data.error
-            //     : e.message + ", more details in the console";
-            // dispatch(setAppMessage({ text: err, severity: "error" }));
-
-            dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
+            const err = e as Error | AxiosError;
+            if (axios.isAxiosError(err)) {
+                console.log(err);
+                const errorMessage = err.response?.data ? err.response.data : err;
+                dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
+            }
         } finally {
             dispatch(setIsModalButtonsDisabled(false));
         }
