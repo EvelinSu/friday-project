@@ -7,13 +7,13 @@ import { useAppSelector } from "../../../hooks/hooks";
 import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 
 type TPaginationProps = {
-    cardPacksTotalCount: number;
+    totalCount: number;
     pageCount: number;
     searchText?: string;
     isFetching: boolean;
 };
 
-const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount, pageCount }) => {
+const Pagination: React.FC<TPaginationProps> = React.memo(({ totalCount, pageCount }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
@@ -21,7 +21,7 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount
     const pageInState = useAppSelector((state) => state.packs.cardPacksData.page);
     const debounceValue = useDebounce(value, 500);
 
-    const pageQuantity = Math.max(Math.ceil(cardPacksTotalCount / pageCount));
+    const pageQuantity = Math.max(Math.ceil(totalCount / pageCount));
     const handlePageChange = ({ selected }: { selected: number }) => {
         setValue(`${selected + 1}`);
     };
@@ -36,7 +36,7 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({ cardPacksTotalCount
         <MyPaginate
             forcePage={pageInState > -1 ? pageInState - 1 : 0}
             pageCount={pageQuantity}
-            pageRangeDisplayed={4}
+            pageRangeDisplayed={3}
             marginPagesDisplayed={1}
             onPageChange={handlePageChange}
             previousLabel={<SmallArrowIcon rotate={"90deg"} />}

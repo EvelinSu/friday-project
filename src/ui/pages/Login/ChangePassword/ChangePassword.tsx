@@ -11,13 +11,13 @@ import { sendNewPassTC, setTokenAC } from "../../../../bll/forgotPassReducer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PATH } from "../../Pages";
-import { Modal } from "../../../components/Modal/Modal";
+import { UiBox } from "../../../components/UiBox/UiBox";
 
 const ChangePassword = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal title={"Create new password"} body={<ChangePasswordForm />} width={"390px"} />
+                <UiBox title={"Create new password"} body={<ChangePasswordForm />} width={"390px"} />
             </Box>
         </SPageWrapper>
     );

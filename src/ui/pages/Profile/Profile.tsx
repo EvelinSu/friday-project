@@ -3,7 +3,7 @@ import { SPagePanel, SPageWrapper } from "../styled";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
 import { useSearchParams } from "react-router-dom";
-import { Modal } from "../../components/Modal/Modal";
+import { UiBox } from "../../components/UiBox/UiBox";
 import { Box } from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
 import defaultPhoto from "../../assets/img/default-photo.png";
@@ -28,13 +28,13 @@ const Profile = () => {
                 <BackPageButton to={PATH.packsList + `?page=1&pageCount=${URLParams.pageCount}`} />
             </SPagePanel>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal title={"Personal Information"} body={<ProfileModalBody />} width={"400px"} />
+                <UiBox title={"Personal Information"} body={<ProfileUiBoxBody />} width={"400px"} />
             </Box>
         </SPageWrapper>
     );
 };
 
-const ProfileModalBody = () => {
+const ProfileUiBoxBody = () => {
     const dispatch = useAppDispatch();
     const { userData } = useAppSelector((state) => state.auth);
     const { isFetching } = useAppSelector((state) => state.app);

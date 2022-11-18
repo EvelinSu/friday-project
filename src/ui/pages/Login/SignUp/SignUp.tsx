@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SPageWrapper } from "../../styled";
-import { Modal } from "../../../components/Modal/Modal";
+import { UiBox } from "../../../components/UiBox/UiBox";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { useFormik } from "formik";
@@ -19,7 +19,7 @@ const SignUp = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal title={"Sign Up"} body={<SignUpForm />} />
+                <UiBox title={"Sign Up"} body={<SignUpForm />} />
             </Box>
         </SPageWrapper>
     );

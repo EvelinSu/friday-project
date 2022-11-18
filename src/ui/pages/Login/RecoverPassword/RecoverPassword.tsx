@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { SPageWrapper } from "../../styled";
-import { Modal } from "../../../components/Modal/Modal";
+import { UiBox } from "../../../components/UiBox/UiBox";
 import { SForm } from "../../../components/Form/styled";
 import { Box } from "../../../components/Box/Box";
 import Input from "../../../components/Form/Input";
@@ -17,7 +17,7 @@ const RecoverPassword = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal title={"Forgot your password?"} body={<RecoverPasswordForm />} width={"390px"} />
+                <UiBox title={"Forgot your password?"} body={<RecoverPasswordForm />} width={"390px"} />
             </Box>
         </SPageWrapper>
     );

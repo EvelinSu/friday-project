@@ -1,6 +1,6 @@
 import React from "react";
 import { SPageWrapper } from "../../styled";
-import { Modal } from "../../../components/Modal/Modal";
+import { UiBox } from "../../../components/UiBox/UiBox";
 import MainEmailIcon from "../../../assets/icons/MainEmailIcon";
 import { Box } from "../../../components/Box/Box";
 import { SText } from "../../../components/Text/SText";
@@ -12,13 +12,13 @@ const CheckEmail = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal title={"Check email"} body={<CheckEmailModal />} width={"390px"} />
+                <UiBox title={"Check email"} body={<CheckEmailUiBox />} width={"390px"} />
             </Box>
         </SPageWrapper>
     );
 };
 
-const CheckEmailModal = () => {
+const CheckEmailUiBox = () => {
     const navigate = useNavigate();
 
     return (

@@ -1,17 +1,16 @@
 import React, { FC } from "react";
-import { Modal } from "../../../components/Modal/Modal";
-import { SMegaShadow } from "../../../components/Modal/styled";
 import CloseButton from "../../../components/CloseButton/CloseButton";
 import Input from "../../../components/Form/Input";
 import Checkbox from "../../../components/Checkbox/Checkbox";
 import { Box } from "../../../components/Box/Box";
 import Button from "../../../components/Button/Button";
-
 import { useAppSelector } from "../../../../hooks/hooks";
 import { SForm } from "../../../components/Form/styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TPack } from "../../../../dal/ResponseTypes";
+import { SMegaShadow } from "../../../components/MegaShadow/styled";
+import { UiBox } from "../../../components/UiBox/UiBox";
 
 type TAddPackModalProps = {
     title: string;
@@ -39,7 +38,7 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
     };
     return (
         <SMegaShadow onClick={onClickHandler}>
-            <Modal
+            <UiBox
                 title={props.title}
                 body={
                     <AddPackForm

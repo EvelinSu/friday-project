@@ -7,7 +7,7 @@ import PageNotFound from "./PageNotFound/NotFound";
 import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
-import PacksPage from "./PacksList/PacksPage";
+import PacksPage from "./PacksPage/PacksPage";
 
 export const PATH = {
     profile: "/profile",

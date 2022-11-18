@@ -15,8 +15,9 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [searchParams] = useSearchParams();
-    const { isLoggedIn, userData } = useAppSelector((state) => state.auth);
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+
+    const { isLoggedIn, userData } = useAppSelector((state) => state.auth);
 
     return (
         <SHeader>

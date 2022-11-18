@@ -2,22 +2,22 @@ import React, { useMemo, useState } from "react";
 import { Box } from "../../../components/Box/Box";
 import { SMainTitle, SPagePanel } from "../../styled";
 import Button from "../../../components/Button/Button";
-import { SSearchInput } from "../styled";
 import Input from "../../../components/Form/Input";
 import SearchIcon from "../../../assets/icons/SearchIcon";
 import { FilterWrapper } from "../Filter/styled";
 import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
 import Filter from "../Filter/Filter";
-import AddAndUpdatePackModal, {
-    TAddAndUpdatePackModalValues,
-} from "../AddAndUpdatePackModal/AddAndUpdatePackModal";
 import Avatar from "../../../components/Avatar/Avatar";
 import { SText } from "../../../components/Text/SText";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
 import { addNewPack } from "../../../../bll/packsReducer";
 import { getUrlPacksParams } from "../../../../common/utils/getActualParams";
+import AddAndUpdatePackModal, {
+    TAddAndUpdatePackModalValues,
+} from "../PacksModals/AddAndUpdatePackModal";
+import { SSearchInput } from "../styled";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();

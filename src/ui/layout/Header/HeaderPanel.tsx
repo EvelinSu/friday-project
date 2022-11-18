@@ -26,7 +26,12 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
                 onClick={() => navigate(PATH.profile)}
                 icon={<SettingsIcon />}
             />
-            <Box alignItems={"center"} gap={10}>
+            <Box
+                alignItems={"center"}
+                gap={10}
+                onClick={() => navigate(PATH.profile)}
+                cursor={"pointer"}
+            >
                 {windowWidth > 400 && (
                     <SText maxWidth={"150px"} isEllipsis>
                         {props.name}

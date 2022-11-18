@@ -3,12 +3,12 @@ import PackCard from "./PackCard/PackCard";
 import { GridBox } from "../../components/GridBox/GridBox";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
+import { getUrlPacksParams } from "../../../common/utils/getActualParams";
+import { updatePack } from "../../../bll/packsReducer";
 import AddAndUpdatePackModal, {
     TAddAndUpdatePackModalValues,
-} from "./AddAndUpdatePackModal/AddAndUpdatePackModal";
-import { getUrlPacksParams } from "../../../common/utils/getActualParams";
-import DeletePackModal from "./DeletePackModal/DeletePackModal";
-import { updatePack } from "../../../bll/packsReducer";
+} from "./PacksModals/AddAndUpdatePackModal";
+import DeletePackModal from "./PacksModals/DeletePackModal";
 
 export type TPackModals = "delete" | "update" | false;
 

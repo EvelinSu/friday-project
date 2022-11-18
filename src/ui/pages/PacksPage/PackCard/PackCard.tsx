@@ -10,9 +10,9 @@ import DeleteIcon from "../../../assets/icons/DeleteIcon";
 import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { TPack } from "../../../../dal/ResponseTypes";
 import { useAppSelector } from "../../../../hooks/hooks";
-import { TPackModals } from "../PacksList";
 import LockFillIcon from "../../../assets/icons/LockFillIcon";
 import defaultAvatar from "../../../assets/img/default-photo.png";
+import { TPackModals } from "../PacksList";
 
 type TPackProps = {
     pack: TPack;

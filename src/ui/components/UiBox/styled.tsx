@@ -1,27 +1,9 @@
 import styled from "styled-components";
 
-type TSModalWrapperProps = {
-    shadow?: boolean;
-};
-export const SMegaShadow = styled.div<TSModalWrapperProps>`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-    padding: 30px;
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: ${({ theme }) => theme.orders.modal};
-`;
-
-type TSModalContainerProps = {
+type TSUiBoxContainerProps = {
     width?: string;
 };
-export const SModalContainer = styled.div<TSModalContainerProps>`
+export const SUiBoxContainer = styled.div<TSUiBoxContainerProps>`
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -35,7 +17,7 @@ export const SModalContainer = styled.div<TSModalContainerProps>`
     position: relative;
 `;
 
-export const SModalHeader = styled.div`
+export const SUiBoxHeader = styled.div`
     padding-bottom: 20px;
     font-size: 26px;
     font-weight: 600;
@@ -43,10 +25,10 @@ export const SModalHeader = styled.div`
     color: ${({ theme }) => theme.colors.primaryDark};
 `;
 
-export const SModalBody = styled.div`
+export const SUiBoxBody = styled.div`
     width: 100%;
 `;
 
-export const SModalFooter = styled.div`
+export const SUiBoxFooter = styled.div`
     //
 `;

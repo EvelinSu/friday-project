@@ -3,7 +3,7 @@ import { STab, STabs } from "./styled";
 import { setUserCardParams } from "../../../bll/packsParamsReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
-import { TInitialFilters } from "../../pages/PacksList/Filter/Filter";
+import { TInitialFilters } from "../../pages/PacksPage/Filter/Filter";
 import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 
 export type TFilterTabs = "All" | "My" | "Other";

@@ -8,16 +8,17 @@ import { getUrlPacksParams } from "../../../common/utils/getActualParams";
 import { loadPacks } from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
-import PacksNotFound from "./PacksNotFound";
+import PacksNotFound from "./PacksNotFound/PacksNotFound";
 
 const PacksPage = () => {
-    const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
+
+    const [searchParams] = useSearchParams();
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     const { cardPacksData } = useAppSelector((state) => state.packs);
     const { isFetching } = useAppSelector((state) => state.app);
     const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     useEffect(() => {
         dispatch(loadPacks(URLParams));
@@ -29,7 +30,7 @@ const PacksPage = () => {
             <PacksPagePanel />
             {cardPacks.length > 0 ? <PacksList /> : <PacksNotFound isPacksFetching={isFetching} />}
             <Pagination
-                cardPacksTotalCount={cardPacksData.cardPacksTotalCount}
+                totalCount={cardPacksData.cardPacksTotalCount}
                 isFetching={isFetching}
                 pageCount={+(URLParams.pageCount || +cardPacksData.pageCount)}
             />

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { SText } from "../../components/Text/SText";
+import { SText } from "../../../components/Text/SText";
 
 const PacksNotFound: FC<{ isPacksFetching: boolean }> = (props) => {
     return props.isPacksFetching ? (

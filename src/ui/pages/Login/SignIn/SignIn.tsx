@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SPageWrapper } from "../../styled";
-import { Modal } from "../../../components/Modal/Modal";
+import { UiBox } from "../../../components/UiBox/UiBox";
 import Input from "../../../components/Form/Input";
 import { Box } from "../../../components/Box/Box";
 import Checkbox from "../../../components/Checkbox/Checkbox";
@@ -20,7 +20,7 @@ const SignIn = () => {
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <Modal title={"Sign In"} body={<SignInForm />} />
+                <UiBox title={"Sign In"} body={<SignInForm />} />
             </Box>
         </SPageWrapper>
     );

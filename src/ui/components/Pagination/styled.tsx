@@ -13,6 +13,7 @@ export const MyPaginate = styled(ReactPaginate)`
     ms-user-select: none;
     text-decoration: none;
     list-style-type: none;
+    margin-bottom: 0;
 
     .page-item {
         display: flex;

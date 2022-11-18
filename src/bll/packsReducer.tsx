@@ -4,8 +4,8 @@ import { packsAPI } from "../dal/cardsAPI";
 import { TPack, TPacksParams } from "../dal/ResponseTypes";
 import { setAppMessage, setIsFetching } from "./appReducer";
 import { getUser } from "./userReducer";
-import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksList/AddAndUpdatePackModal/AddAndUpdatePackModal";
 import axios, { AxiosError } from "axios";
+import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksPage/PacksModals/AddAndUpdatePackModal";
 
 export type TPacksData = {
     cardPacks: TPack[];

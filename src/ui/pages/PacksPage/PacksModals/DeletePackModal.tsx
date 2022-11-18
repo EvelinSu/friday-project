@@ -1,13 +1,13 @@
 import React, { FC, useMemo } from "react";
-import { Modal } from "../../../components/Modal/Modal";
 import { Box } from "../../../components/Box/Box";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import { SMegaShadow } from "../../../components/Modal/styled";
 import { deletePack } from "../../../../bll/packsReducer";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { getUrlPacksParams } from "../../../../common/utils/getActualParams";
 import { useSearchParams } from "react-router-dom";
+import { SMegaShadow } from "../../../components/MegaShadow/styled";
+import { UiBox } from "../../../components/UiBox/UiBox";
 
 type TDeletePackModalProps = {
     onClose: () => void;
@@ -16,7 +16,7 @@ type TDeletePackModalProps = {
 const DeletePackModal: FC<TDeletePackModalProps> = (props) => {
     return (
         <SMegaShadow onClick={() => props.onClose()}>
-            <Modal
+            <UiBox
                 title={"Delete pack"}
                 body={<DeletePackModalBody packId={props.packId} onClose={props.onClose} />}
             />
