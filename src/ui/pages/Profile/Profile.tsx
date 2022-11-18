@@ -15,6 +15,7 @@ import SignOutIcon from "../../assets/icons/SignOutIcon";
 import { SProfileButton, SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { getUrlPacksParams } from "../../../common/utils/getActualParams";
+import { setAppMessage } from "../../../bll/appReducer";
 
 export type EventInputType = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
@@ -47,7 +48,13 @@ const ProfileModalBody = () => {
     const onSaveNameHandler = () => {
         const newName = value?.trim();
         if (newName === name) return;
-        dispatch(changeUserProfileTC({ name: newName }));
+        if (!newName || newName.length < 1) {
+            dispatch(setAppMessage({ text: "Invalid nickname", severity: "error" }));
+            setValue(name);
+            return;
+        } else {
+            dispatch(changeUserProfileTC({ name: newName }));
+        }
     };
 
     const onChangeNameHandler = (e: EventInputType) => {

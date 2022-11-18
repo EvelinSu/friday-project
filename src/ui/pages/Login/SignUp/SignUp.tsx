@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SPageWrapper } from "../../styled";
 import { Modal } from "../../../components/Modal/Modal";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,6 @@ const SignUpForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { isFetching } = useAppSelector((state) => state.auth);
-    const isRegistered = useAppSelector((state) => state.registration.isRegistered);
 
     const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
         initialValues: {
@@ -45,14 +44,11 @@ const SignUpForm = () => {
                 .required("Required"),
         }),
         onSubmit: (values: RegisterDataType) => {
-            dispatch(registerTC(values));
+            dispatch(registerTC(values)).then(() => {
+                navigate(PATH.signIn);
+            });
         },
     });
-    useEffect(() => {
-        if (isRegistered) {
-            navigate(PATH.signIn);
-        }
-    }, [isRegistered, navigate]);
 
     const [isPasswordVisible, setIsPasswordVisible] = useState({ confirmPw: false, pw: false });
 

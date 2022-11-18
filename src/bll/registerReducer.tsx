@@ -7,11 +7,9 @@ import { setAppMessage } from "./appReducer";
 
 export type TRegister = {
     email: string;
-    isRegistered: boolean;
 };
 const initialState: TRegister = {
     email: "",
-    isRegistered: false,
 };
 
 const slice = createSlice({
@@ -21,23 +19,19 @@ const slice = createSlice({
         setRegisterUserAC(state, action: PayloadAction<{ email: string }>) {
             state.email = action.payload.email;
         },
-        setIsRegisteredAC(state, action: PayloadAction<{ isRegistered: boolean }>) {
-            state.isRegistered = action.payload.isRegistered;
-        },
     },
 });
 
 export const registerReducer = slice.reducer;
 
-export const { setRegisterUserAC, setIsRegisteredAC } = slice.actions;
+export const { setRegisterUserAC } = slice.actions;
 
-export const registerTC = (data: RegisterDataType) => (dispatch: TAppDispatch) => {
+export const registerTC = (data: RegisterDataType) => async (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     authAPI
         .register(data)
         .then(() => {
             dispatch(setRegisterUserAC(data));
-            dispatch(setIsRegisteredAC({ isRegistered: true }));
             dispatch(setAppMessage({ text: "Registration was successful!", severity: "success" }));
         })
         .catch((e) => {
