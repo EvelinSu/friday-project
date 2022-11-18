@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SPageWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    max-width: 1000px;
+    max-width: 1230px;
     width: 100%;
     padding: 20px 20px 0 20px;
     overflow: hidden;

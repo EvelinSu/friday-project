@@ -2,7 +2,7 @@ import { TPacksParams } from "../../dal/ResponseTypes";
 
 export const getUrlPacksParams = (searchParams: URLSearchParams): TPacksParams => {
     const windowHeight = window.innerHeight;
-    const pageCount = windowHeight > 1080 ? 20 : windowHeight > 930 ? 16 : 12;
+    const pageCount = windowHeight > 1070 ? 25 : windowHeight > 930 ? 20 : 15;
 
     const params: any = {};
 
