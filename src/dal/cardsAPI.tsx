@@ -6,6 +6,7 @@ export const packsAPI = {
         return instance.get(`/cards/pack`, { params });
     },
     addPack(cardsPack: TNewCardsPack) {
+        console.log(cardsPack);
         return instance.post("/cards/pack", { cardsPack });
     },
     deletePack(id: string) {

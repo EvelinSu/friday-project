@@ -33,7 +33,7 @@ export type TCardsPackUpdate = {
     _id: string;
     name: string;
     deckCover: string;
-    isPrivate: boolean;
+    private: boolean;
 };
 
 export type TResponsePack = {
