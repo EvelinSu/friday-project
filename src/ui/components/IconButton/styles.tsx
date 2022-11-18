@@ -5,6 +5,7 @@ type TSIconButtonProps = {
     isLightest?: boolean;
     color?: string;
     size?: "sm";
+    isDisabled?: boolean;
 };
 
 export const SIconButton = styled.div<TSIconButtonProps>`
@@ -49,5 +50,12 @@ export const SIconButton = styled.div<TSIconButtonProps>`
                 width: 16px;
                 height: 16px;
             }
+        `}
+
+    ${(props) =>
+        props.isDisabled &&
+        css`
+            pointer-events: none;
+            opacity: 0.6;
         `}
 `;

@@ -19,8 +19,9 @@ type TPackProps = {
         id: string,
         modalType: TPackModalsType
     ) => void;
+    isFetching: boolean;
 };
-const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler }) => {
+const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler, isFetching }) => {
     const user = {
         name: "Ivan Ivanov",
         avatar: "https://i.imgur.com/8806AGy.png",
@@ -68,6 +69,7 @@ const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler }) => {
                     onClick={() => alert("In progress")}
                     color={"#fff"}
                     size={"sm"}
+                    isDisabled={isFetching}
                     icon={<BookCheckIcon />}
                 />
                 {id === pack.user_id && (
@@ -76,12 +78,14 @@ const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler }) => {
                             onClick={(e) => onIconClickHandler(e, pack._id, "update")}
                             color={"#fff"}
                             size={"sm"}
+                            isDisabled={isFetching}
                             icon={<EditIcon />}
                         />
                         <IconButton
                             onClick={(e) => onIconClickHandler(e, pack._id, "delete")}
                             color={"#fff"}
                             size={"sm"}
+                            isDisabled={isFetching}
                             icon={<DeleteIcon />}
                         />
                     </>

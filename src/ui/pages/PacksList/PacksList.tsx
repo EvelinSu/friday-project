@@ -17,7 +17,7 @@ const PacksList = () => {
 
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
-
+    const isFetching = useAppSelector((state) => state.auth.isFetching);
     const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
     const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModalsType>(false);
     const [currentId, setCurrentId] = useState<string>("");
@@ -48,7 +48,12 @@ const PacksList = () => {
             rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(125px, 200px))` : ``}
         >
             {cardPacks.map((pack) => (
-                <PackCard key={pack._id} pack={pack} onIconClickHandler={onIconClickHandler} />
+                <PackCard
+                    key={pack._id}
+                    pack={pack}
+                    onIconClickHandler={onIconClickHandler}
+                    isFetching={isFetching}
+                />
             ))}
             {isPackModalOpen === "delete" && (
                 <DeletePackModal onClose={() => setIsPackModalOpen(false)} packId={currentId} />

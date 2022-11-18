@@ -85,8 +85,9 @@ export const addNewPack =
         const { name, deckCover, isPrivate } = newCardsPack;
         try {
             await packsAPI.addPack({ name, deckCover, private: isPrivate });
-            dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
             dispatch(loadPacks(param));
+
+            dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
         } catch (e) {
             dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
         } finally {
@@ -103,7 +104,6 @@ export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatc
     } catch (e) {
         const err = e as Error | AxiosError;
         if (axios.isAxiosError(err)) {
-            console.log(err);
             const errorMessage = err.response?.data ? err.response.data : err;
             dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
         }
@@ -127,7 +127,6 @@ export const updatePack = createAsyncThunk(
         } catch (e) {
             const err = e as Error | AxiosError;
             if (axios.isAxiosError(err)) {
-                console.log(err);
                 const errorMessage = err.response?.data ? err.response.data : err;
                 dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
             }

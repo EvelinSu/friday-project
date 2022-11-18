@@ -9,6 +9,7 @@ type TIconButtonProps = {
     size?: "sm";
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     title?: string;
+    isDisabled?: boolean;
 };
 const IconButton: FC<TIconButtonProps> = (props) => {
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -23,6 +24,7 @@ const IconButton: FC<TIconButtonProps> = (props) => {
             color={props.color}
             isDark={props.isDark}
             isLightest={props.isLightest}
+            isDisabled={props.isDisabled}
         >
             {props.icon}
         </SIconButton>
