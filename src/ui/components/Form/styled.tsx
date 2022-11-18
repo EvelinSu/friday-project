@@ -119,7 +119,7 @@ export const SInputLeftIcon = styled.div`
     display: flex;
     align-items: center;
     position: absolute;
-    left: 0;
+    left: 10px;
     top: 0;
     bottom: 0;
     pointer-events: none;
