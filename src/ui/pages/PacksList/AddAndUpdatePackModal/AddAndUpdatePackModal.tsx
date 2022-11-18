@@ -56,7 +56,7 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
 const AddPackForm: FC<TAddPackFormProps> = (props) => {
     const { isModalButtonsDisabled } = useAppSelector((state) => state.packs);
 
-    const { resetForm, handleSubmit, handleChange, values } = useFormik({
+    const { handleSubmit, handleChange, values } = useFormik({
         initialValues: {
             name: props.currentPack?.name || "",
             deckCover: props.currentPack?.deckCover || "",
@@ -67,7 +67,6 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
         }),
         onSubmit: (values: TAddAndUpdatePackModalValues) => {
             props.onSubmitHandler(values);
-            resetForm();
         },
     });
 

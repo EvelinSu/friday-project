@@ -23,7 +23,7 @@ const PacksList = () => {
     const [currentId, setCurrentId] = useState<string>("");
 
     const windowWidth = window.innerWidth;
-    const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 4 : 3;
+    const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 5 : 4;
 
     const onIconClickHandler = (
         e: React.MouseEvent<HTMLDivElement>,
@@ -45,6 +45,7 @@ const PacksList = () => {
         <GridBox
             padding={"20px 0 0 0"}
             columns={"repeat(auto-fill, minmax(220px, 1fr))"}
+            style={{ flexGrow: windowWidth > 540 ? 1 : "" }}
             rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(125px, 200px))` : ``}
         >
             {cardPacks.map((pack) => (

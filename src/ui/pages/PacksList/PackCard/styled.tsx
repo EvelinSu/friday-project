@@ -29,3 +29,11 @@ export const SPackCardActions = styled.div`
     flex-direction: column;
     max-height: 120px;
 `;
+
+export const SPackCardPrivateIcon = styled.div`
+    display: flex;
+    align-items: center;
+    opacity: 0.5;
+    width: 18px;
+    height: 18px;
+`;

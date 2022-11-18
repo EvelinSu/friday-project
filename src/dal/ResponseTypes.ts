@@ -7,7 +7,7 @@ export type TPack = {
     path: string;
     name: string;
     type: string;
-    private: boolean;
+    private: boolean; // с сервера приходит private
     rating: number;
     shots: number;
     updated: string;

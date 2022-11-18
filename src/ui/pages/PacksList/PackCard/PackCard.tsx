@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { SPackCardActions, SPackCardWrapper } from "./styled";
+import { SPackCardActions, SPackCardPrivateIcon, SPackCardWrapper } from "./styled";
 import { Box } from "../../../components/Box/Box";
 import { SText } from "../../../components/Text/SText";
 import Avatar from "../../../components/Avatar/Avatar";
@@ -11,6 +11,8 @@ import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { TPack } from "../../../../dal/ResponseTypes";
 import { useAppSelector } from "../../../../hooks/hooks";
 import { TPackModalsType } from "../PacksList";
+import LockFillIcon from "../../../assets/icons/LockFillIcon";
+import defaultAvatar from "../../../assets/img/default-photo.png";
 
 type TPackProps = {
     pack: TPack;
@@ -22,14 +24,14 @@ type TPackProps = {
     isFetching: boolean;
 };
 const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler, isFetching }) => {
+    const { id, avatar } = useAppSelector((state) => state.auth.userData);
+
     const user = {
         name: "Ivan Ivanov",
-        avatar: "https://i.imgur.com/8806AGy.png",
+        avatar: pack.user_id === id ? avatar : defaultAvatar,
     };
     // const { name, avatar } = useAppSelector((state) => state.user);
     const correctDate = transformDate(pack.updated);
-
-    const { id } = useAppSelector((state) => state.auth.userData);
 
     return (
         <SPackCardWrapper>
@@ -40,9 +42,16 @@ const PackCard: FC<TPackProps> = ({ pack, onIconClickHandler, isFetching }) => {
                 flexDirection={"column"}
                 justifyContent={"space-between"}
             >
-                <SText title={pack.name} isEllipsis>
-                    {pack.name}
-                </SText>
+                <Box alignItems={"center"} gap={"5px"}>
+                    {pack.private && (
+                        <SPackCardPrivateIcon title={"Private pack"}>
+                            <LockFillIcon />
+                        </SPackCardPrivateIcon>
+                    )}
+                    <SText title={pack.name} isEllipsis>
+                        {pack.name}
+                    </SText>
+                </Box>
                 <Box gap={5} flexDirection={"column"}>
                     <Box gap={5}>
                         <SText opacity={0.4} whiteSpace={"nowrap"}>
