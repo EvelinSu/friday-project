@@ -11,9 +11,9 @@ import { Box } from "../../../components/Box/Box";
 import Input from "../../../components/Form/Input";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import { registerTC } from "../../../../bll/registerReducer";
-import { RegisterDataType } from "../../../../dal/ResponseTypes";
+import { TRegisterData } from "../../../../dal/ResponseTypes";
 import ViewInputIcon from "../ViewInputIcon";
+import { registerTC } from "../../../../bll/authReducer";
 
 const SignUp = () => {
     return (
@@ -28,7 +28,7 @@ const SignUp = () => {
 const SignUpForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { isFetching } = useAppSelector((state) => state.auth);
+    const { isFetching } = useAppSelector((state) => state.app);
 
     const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
         initialValues: {
@@ -43,9 +43,9 @@ const SignUpForm = () => {
                 .oneOf([Yup.ref("password"), null], "Passwords must match")
                 .required("Required"),
         }),
-        onSubmit: (values: RegisterDataType) => {
-            dispatch(registerTC(values)).then(() => {
-                navigate(PATH.signIn);
+        onSubmit: (values: TRegisterData) => {
+            dispatch(registerTC(values)).then((res) => {
+                res.payload && navigate(PATH.signIn);
             });
         },
     });

@@ -6,23 +6,17 @@ import { Box } from "../../../components/Box/Box";
 import Checkbox from "../../../components/Checkbox/Checkbox";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PATH } from "../../Pages";
 import { SForm } from "../../../components/Form/styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginTC } from "../../../../bll/authReducer";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { LoginDataType } from "../../../../dal/ResponseTypes";
+import { TLoginData } from "../../../../dal/ResponseTypes";
 import ViewInputIcon from "../ViewInputIcon";
 
 const SignIn = () => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-
-    if (isLoggedIn) {
-        return <Navigate to={PATH.packsList} />;
-    }
-
     return (
         <SPageWrapper>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
@@ -35,20 +29,21 @@ const SignIn = () => {
 const SignInForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { isFetching } = useAppSelector((state) => state.auth);
+    const { isFetching } = useAppSelector((state) => state.app);
+    const { registerData } = useAppSelector((state) => state.auth);
 
     const { handleBlur, handleSubmit, touched, handleChange, isValid, setFieldValue, values, errors } =
         useFormik({
             initialValues: {
-                email: "",
-                password: "",
+                email: registerData.email || "",
+                password: registerData.password || "",
                 rememberMe: false,
             },
             validationSchema: Yup.object({
                 email: Yup.string().email("Invalid email address").required("Required"),
                 password: Yup.string().required("Required"),
             }),
-            onSubmit: (values: LoginDataType) => {
+            onSubmit: (values: TLoginData) => {
                 dispatch(loginTC(values));
             },
         });
