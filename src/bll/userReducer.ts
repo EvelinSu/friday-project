@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TOtherUserData } from "../dal/ResponseTypes";
+import { TUserData } from "../dal/ResponseTypes";
 import { userAPI } from "../dal/userAPI";
 import { setIsFetching } from "./appReducer";
 
-const initialState: TOtherUserData = {
+const initialState: TUserData = {
     _id: "",
     email: "",
     isAdmin: false,
@@ -19,7 +19,7 @@ const slice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<TOtherUserData>) {
+        setUser(state, action: PayloadAction<TUserData>) {
             return action.payload;
         },
     },

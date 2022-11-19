@@ -1,24 +1,36 @@
 import { instance } from "./instance";
-import { TLoginData, TProfileData, TRegisterData } from "./ResponseTypes";
+import {
+    TLoginData,
+    TProfileData,
+    TRegisterData,
+    TResponseChangeUserProfile,
+    TResponseSendEmail,
+    TResponseUserData,
+    TSendPassData,
+} from "./ResponseTypes";
+import { AxiosResponse } from "axios";
 
 export const authAPI = {
     login(data: TLoginData) {
-        return instance.post("auth/login", data);
+        return instance.post<TLoginData, AxiosResponse<TResponseUserData>>("auth/login", data);
     },
     authMe() {
-        return instance.post("auth/me", {});
+        return instance.post<AxiosResponse<TResponseUserData>>("auth/me");
     },
     logOut() {
-        return instance.delete("auth/me");
+        return instance.delete<{ info: string }>("auth/me");
     },
     changeUserProfile(data: TProfileData) {
-        return instance.put("auth/me", data);
+        return instance.put<TProfileData, AxiosResponse<TResponseChangeUserProfile>>("auth/me", data);
     },
     register(data: TRegisterData) {
-        return instance.post("auth/register", data);
+        return instance.post<TRegisterData, AxiosResponse<{ addedUser: TResponseUserData }>>(
+            "auth/register",
+            data
+        );
     },
     sendEmail(email: string) {
-        return instance.post("auth/forgot", {
+        return instance.post<{ email: string }, AxiosResponse<TResponseSendEmail>>("auth/forgot", {
             email: email,
             from: "app Cards",
             message: `<div style="background-color: #3b3b49; color: white; padding: 15px">
@@ -27,10 +39,10 @@ export const authAPI = {
                 link</a></div>`,
         });
     },
-    sendNewPass(pass: string, token: string) {
-        return instance.post("auth/set-new-password", {
-            password: pass,
-            resetPasswordToken: token,
-        });
+    sendNewPass(data: TSendPassData) {
+        return instance.post<TSendPassData, AxiosResponse<{ info: string }>>(
+            "auth/set-new-password",
+            data
+        );
     },
 };

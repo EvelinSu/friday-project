@@ -12,6 +12,8 @@ import Input from "../../../components/Form/Input";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
 import { TRegisterData } from "../../../../dal/ResponseTypes";
+import { registerTC } from "../../../../bll/registerReducer";
+
 import ViewInputIcon from "../ViewInputIcon";
 import { registerTC } from "../../../../bll/authReducer";
 

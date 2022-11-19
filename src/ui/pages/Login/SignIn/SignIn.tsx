@@ -13,8 +13,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginTC } from "../../../../bll/authReducer";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { TLoginData } from "../../../../dal/ResponseTypes";
 import ViewInputIcon from "../ViewInputIcon";
+import { TLoginData } from "../../../../dal/ResponseTypes";
 
 const SignIn = () => {
     return (

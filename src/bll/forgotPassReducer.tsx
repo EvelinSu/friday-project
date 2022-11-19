@@ -40,17 +40,20 @@ export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
         .finally(() => dispatch(setIsFetching(false)));
 };
 
-export const sendNewPassTC = (password: string, token: string) => (dispatch: TAppDispatch) => {
-    dispatch(setIsFetching(true));
-    authAPI
-        .sendNewPass(password, token)
-        .then(() => dispatch(setTokenAC({ token: "" })))
-        .catch((e) => {
-            const err = e.response ? e.response.data.error : e.message + ", more details in the console";
-            dispatch(setAppMessage({ text: err, severity: "error" }));
-        })
-        .finally(() => dispatch(setIsFetching(false)));
-};
+export const sendNewPassTC =
+    (password: string, resetPasswordToken: string) => (dispatch: TAppDispatch) => {
+        dispatch(setIsFetching(true));
+        authAPI
+            .sendNewPass({ password, resetPasswordToken })
+            .then(() => dispatch(setTokenAC({ token: "" })))
+            .catch((e) => {
+                const err = e.response
+                    ? e.response.data.error
+                    : e.message + ", more details in the console";
+                dispatch(setAppMessage({ text: err, severity: "error" }));
+            })
+            .finally(() => dispatch(setIsFetching(false)));
+    };
 
 export const forgotPassReducer = slice.reducer;
 export const { setStatusSendAC, setTokenAC } = slice.actions;
