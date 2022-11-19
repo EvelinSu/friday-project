@@ -17,7 +17,7 @@ export type TPack = {
     __v: number;
 };
 
-export type TOtherUserData = {
+export type TUserData = {
     _id: string;
     email: string;
     isAdmin: boolean;
@@ -113,3 +113,5 @@ export type TSendPassData = {
     password: string;
     resetPasswordToken: string;
 };
+
+export type TResponseUser = {};
