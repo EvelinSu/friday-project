@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
 import { setIsFetching } from "./authReducer";
-import { RegisterDataType } from "../dal/ResponseTypes";
 import { authAPI } from "../dal/authAPI";
 import { setAppMessage } from "./appReducer";
+import { TRegisterData } from "../dal/ResponseTypes";
 
 export type TRegister = {
     email: string;
@@ -26,7 +26,7 @@ export const registerReducer = slice.reducer;
 
 export const { setRegisterUserAC } = slice.actions;
 
-export const registerTC = (data: RegisterDataType) => async (dispatch: TAppDispatch) => {
+export const registerTC = (data: TRegisterData) => async (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     authAPI
         .register(data)

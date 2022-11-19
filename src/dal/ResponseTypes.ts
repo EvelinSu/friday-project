@@ -7,7 +7,7 @@ export type TPack = {
     path: string;
     name: string;
     type: string;
-    private: boolean; // с сервера приходит private
+    private: boolean;
     rating: number;
     shots: number;
     updated: string;
@@ -62,27 +62,53 @@ export type TNewCardsPack = {
     private?: boolean;
 };
 
-export type RegisterDataType = {
+export type TRegisterData = {
     email: string;
     password: string;
 };
-// Данные, отправляемые на сервер при логинизации
-export type LoginDataType = {
+
+export type TLoginData = {
     email: string;
     password: string;
     rememberMe: boolean;
     captcha?: string;
 };
 
-// Смена имени и аватара
-export type ProfileDataType = {
+export type TProfileData = {
     avatar?: string;
     name?: string;
 };
 
-// ответ при не верном введении логина или пароля
-export type ResponseType = {
+export type TResponseUserData = {
+    _id: string;
     email: string;
-    error: string;
-    in: string;
+    rememberMe: boolean;
+    isAdmin: boolean;
+    name: string;
+    verified: boolean;
+    publicCardPacksCount: number;
+    created: string;
+    updated: string;
+    __v: number;
+    token?: string;
+    tokenDeathTime?: number;
+    avatar?: string;
+};
+
+export type TResponseChangeUserProfile = {
+    updatedUser: TResponseUserData;
+    token: string;
+    tokenDeathTime: number;
+};
+
+export type TResponseSendEmail = {
+    info: string;
+    success: boolean;
+    answer: boolean;
+    html: boolean;
+};
+
+export type TSendPassData = {
+    password: string;
+    resetPasswordToken: string;
 };

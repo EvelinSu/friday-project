@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authAPI } from "../dal/authAPI";
 import { TAppDispatch } from "./store/store";
 import { setAppMessage, setAppStatus, setIsInitialized } from "./appReducer";
-import { LoginDataType, ProfileDataType } from "../dal/ResponseTypes";
+import { TLoginData, TProfileData } from "../dal/ResponseTypes";
 import { clearStatePacks } from "./packsReducer";
 
 type TUserData = {
@@ -38,7 +38,7 @@ const slice = createSlice({
         setUserData(state, action: PayloadAction<TUserData>) {
             state.userData = action.payload;
         },
-        setUserProfile(state, action: PayloadAction<ProfileDataType>) {
+        setUserProfile(state, action: PayloadAction<TProfileData>) {
             if (action.payload.avatar) state.userData.avatar = action.payload.avatar;
             if (action.payload.name) state.userData.name = action.payload.name;
         },
@@ -57,8 +57,8 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
         dispatch(setIsInitialized({ value: false }));
         dispatch(setAppStatus("loading"));
         const me = await authAPI.authMe();
-        const { name, email, avatar } = me.data;
-        const id = me.data._id;
+        const { name, email, avatar } = me.data.data;
+        const id = me.data.data._id;
         await dispatch(setUserData({ id, name, email, avatar }));
         dispatch(setIsLoggedIn({ value: true }));
     } catch (e) {
@@ -68,7 +68,7 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
     }
 };
 
-export const loginTC = (data: LoginDataType) => async (dispatch: TAppDispatch) => {
+export const loginTC = (data: TLoginData) => async (dispatch: TAppDispatch) => {
     dispatch(setIsFetching(true));
     authAPI
         .login(data)
@@ -100,7 +100,7 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
         .finally(() => dispatch(setIsFetching(false)));
 };
 
-export const changeUserProfileTC = (data: ProfileDataType) => (dispatch: TAppDispatch) => {
+export const changeUserProfileTC = (data: TProfileData) => (dispatch: TAppDispatch) => {
     authAPI
         .changeUserProfile(data)
         .then(() => {

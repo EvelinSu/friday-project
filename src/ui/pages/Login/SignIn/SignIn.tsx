@@ -13,8 +13,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginTC } from "../../../../bll/authReducer";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { LoginDataType } from "../../../../dal/ResponseTypes";
 import ViewInputIcon from "../ViewInputIcon";
+import { TLoginData } from "../../../../dal/ResponseTypes";
 
 const SignIn = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
@@ -48,7 +48,7 @@ const SignInForm = () => {
                 email: Yup.string().email("Invalid email address").required("Required"),
                 password: Yup.string().required("Required"),
             }),
-            onSubmit: (values: LoginDataType) => {
+            onSubmit: (values: TLoginData) => {
                 dispatch(loginTC(values));
             },
         });

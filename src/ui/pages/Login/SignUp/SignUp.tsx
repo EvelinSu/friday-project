@@ -12,7 +12,7 @@ import Input from "../../../components/Form/Input";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
 import { registerTC } from "../../../../bll/registerReducer";
-import { RegisterDataType } from "../../../../dal/ResponseTypes";
+import { TRegisterData } from "../../../../dal/ResponseTypes";
 import ViewInputIcon from "../ViewInputIcon";
 
 const SignUp = () => {
@@ -43,7 +43,7 @@ const SignUpForm = () => {
                 .oneOf([Yup.ref("password"), null], "Passwords must match")
                 .required("Required"),
         }),
-        onSubmit: (values: RegisterDataType) => {
+        onSubmit: (values: TRegisterData) => {
             dispatch(registerTC(values)).then(() => {
                 navigate(PATH.signIn);
             });
