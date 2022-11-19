@@ -21,15 +21,14 @@ import { SSearchInput } from "../styled";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
-
+    const dispatch = useAppDispatch();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     const userId = useAppSelector((state) => state.auth.userData.id);
     const otherUserData = useAppSelector((state) => state.user);
     const checkUserId = URLParams.user_id && URLParams.user_id !== userId;
-    const dispatch = useAppDispatch();
 
     const addNewPackHandler = (values: TAddAndUpdatePackModalValues) => {
         dispatch(addNewPack(values, URLParams)).then(() => setIsAddPackModalOpen(false));

@@ -26,8 +26,9 @@ const RecoverPassword = () => {
 const RecoverPasswordForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
     const isSendLetter = useAppSelector((state) => state.forgotPass.isSendLetter);
-    const { isFetching } = useAppSelector((state) => state.app);
+    const isFetching = useAppSelector((state) => state.app.isFetching);
 
     const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
         initialValues: {

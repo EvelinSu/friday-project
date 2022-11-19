@@ -14,13 +14,13 @@ export type TPackModals = "delete" | "update" | false;
 
 const PacksList = () => {
     const dispatch = useAppDispatch();
-
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
-    const { isFetching } = useAppSelector((state) => state.app);
-    const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
     const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModals>(false);
     const [currentId, setCurrentId] = useState<string>("");
+
+    const isFetching = useAppSelector((state) => state.app.isFetching);
+    const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks);
 
     const windowWidth = window.innerWidth;
     const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 5 : 4;

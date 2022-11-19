@@ -53,7 +53,7 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
 };
 
 const AddPackForm: FC<TAddPackFormProps> = (props) => {
-    const { isButtonsDisabled } = useAppSelector((state) => state.packs);
+    const isButtonsDisabled = useAppSelector((state) => state.packs.isButtonsDisabled);
 
     const { handleSubmit, handleChange, values } = useFormik({
         initialValues: {

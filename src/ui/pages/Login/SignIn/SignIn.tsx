@@ -29,8 +29,8 @@ const SignIn = () => {
 const SignInForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { isFetching } = useAppSelector((state) => state.app);
-    const { registerData } = useAppSelector((state) => state.auth);
+    const isFetching = useAppSelector((state) => state.app.isFetching);
+    const registerData = useAppSelector((state) => state.auth.registerData);
 
     const { handleBlur, handleSubmit, touched, handleChange, isValid, setFieldValue, values, errors } =
         useFormik({

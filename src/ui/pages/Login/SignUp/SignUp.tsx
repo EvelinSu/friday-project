@@ -29,7 +29,8 @@ const SignUp = () => {
 const SignUpForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { isFetching } = useAppSelector((state) => state.app);
+
+    const isFetching = useAppSelector((state) => state.app.isFetching);
 
     const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
         initialValues: {
