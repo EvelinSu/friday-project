@@ -1,18 +1,19 @@
 import { instance } from "./instance";
-import { TCardsPackUpdate, TNewCardsPack, TPacksParams } from "./ResponseTypes";
+import { TCardsPackUpdate, TNewCardsPack, TPack, TPacksParams, TResponsePack } from "./ResponseTypes";
+import { AxiosResponse } from "axios";
 
 export const packsAPI = {
     getPacks(params: TPacksParams) {
-        return instance.get(`/cards/pack`, { params });
+        return instance.get<TResponsePack>(`/cards/pack`, { params });
     },
     addPack(cardsPack: TNewCardsPack) {
         console.log(cardsPack);
-        return instance.post("/cards/pack", { cardsPack });
+        return instance.post<TNewCardsPack, AxiosResponse<TResponsePack>>("/cards/pack", { cardsPack });
     },
     deletePack(id: string) {
-        return instance.delete(`/cards/pack?id=${id}`);
+        return instance.delete<TPack>(`/cards/pack?id=${id}`);
     },
     updatePack(cardsPack: TCardsPackUpdate) {
-        return instance.put(`/cards/pack`, { cardsPack });
+        return instance.put<TCardsPackUpdate, AxiosResponse<TPack>>(`/cards/pack`, { cardsPack });
     },
 };

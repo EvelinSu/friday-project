@@ -1,20 +1,20 @@
 export type TPack = {
     _id: string;
-    cardsCount: number;
-    created: string;
-    grade: number;
-    more_id: string;
-    path: string;
-    name: string;
-    type: string;
-    private: boolean;
-    rating: number;
-    shots: number;
-    updated: string;
     user_id: string;
     user_name: string;
-    __v: number;
+    private: boolean;
+    name: string;
+    path: string;
+    grade: number;
+    shots: number;
     deckCover: string;
+    cardsCount: number;
+    type: string;
+    rating: number;
+    created: string;
+    updated: string;
+    more_id: string;
+    __v: number;
 };
 
 export type TOtherUserData = {
@@ -38,8 +38,9 @@ export type TCardsPackUpdate = {
 
 export type TResponsePack = {
     cardPacks: TPack[];
-    cardPacksTotalCount: number;
+    page: number;
     pageCount: number;
+    cardPacksTotalCount: number;
     minCardsCount: number;
     maxCardsCount: number;
     token: string;
