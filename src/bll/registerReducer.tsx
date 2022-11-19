@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TAppDispatch } from "./store/store";
-import { setIsFetching } from "./authReducer";
 import { authAPI } from "../dal/authAPI";
-import { setAppMessage } from "./appReducer";
+import { setAppMessage, setIsFetching } from "./appReducer";
 import { TRegisterData } from "../dal/ResponseTypes";
 
 export type TRegister = {
