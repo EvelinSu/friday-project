@@ -2,8 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Box } from "../../../components/Box/Box";
 import { SMainTitle, SPagePanel } from "../../styled";
 import Button from "../../../components/Button/Button";
-import Input from "../../../components/Form/Input";
-import SearchIcon from "../../../assets/icons/SearchIcon";
+
 import { FilterWrapper } from "../Filter/styled";
 import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
@@ -17,19 +16,19 @@ import { getUrlPacksParams } from "../../../../common/utils/getActualParams";
 import AddAndUpdatePackModal, {
     TAddAndUpdatePackModalValues,
 } from "../PacksModals/AddAndUpdatePackModal";
-import { SSearchInput } from "../styled";
+
+import { SearchPack } from "./SearchPack";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
-
+    const dispatch = useAppDispatch();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
+    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
     const userId = useAppSelector((state) => state.auth.userData.id);
     const otherUserData = useAppSelector((state) => state.user);
     const checkUserId = URLParams.user_id && URLParams.user_id !== userId;
-    const dispatch = useAppDispatch();
 
     const addNewPackHandler = (values: TAddAndUpdatePackModalValues) => {
         dispatch(addNewPack(values, URLParams)).then(() => setIsAddPackModalOpen(false));
@@ -59,9 +58,7 @@ const PacksPagePanel = () => {
                 )}
             </Box>
             <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
-                <SSearchInput>
-                    <Input title={"Search"} placeholder={"Search by name"} leftIcon={<SearchIcon />} />
-                </SSearchInput>
+                <SearchPack />
                 <FilterWrapper
                     id={"filter"}
                     tabIndex={0}
