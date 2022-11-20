@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TUserData } from "../dal/ResponseTypes";
 import { userAPI } from "../dal/userAPI";
 import { setIsFetching } from "./appReducer";
+import { TUserData } from "../dal/ResponseTypes";
 
 const initialState: TUserData = {
     _id: "",

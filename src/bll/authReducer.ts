@@ -82,8 +82,9 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
         dispatch(setIsInitialized({ value: false }));
         dispatch(setAppStatus("loading"));
         const me = await authAPI.authMe();
-        const { name, email, avatar } = me.data.data;
-        const id = me.data.data._id;
+        const { name, email, avatar } = me.data;
+        console.log(me.data);
+        const id = me.data._id;
         await dispatch(setUserData({ id, name, email, avatar }));
         dispatch(setIsLoggedIn({ value: true }));
     } catch (e) {

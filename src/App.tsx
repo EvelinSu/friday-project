@@ -21,9 +21,8 @@ function App() {
         dispatch(authMeTC()).then(() => setIsLoading(false));
     }, [dispatch]);
 
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-    // const a = useAppSelector((state) => state.app.isInitialized);
-    // console.log(a);
+    const { isLoggedIn } = useAppSelector((state) => state.auth);
+
     useLayoutEffect(() => {
         if (location.pathname.includes("login") && isLoggedIn) return navigate(PATH.packsList);
         if (!location.pathname.includes("login") && !isLoggedIn) return navigate(PATH.signIn);

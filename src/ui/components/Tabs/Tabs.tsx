@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from "react";
 import { STab, STabs } from "./styled";
-import { setCardParams } from "../../../bll/packsParamsReducer";
+import { setUserCardParams } from "../../../bll/packsParamsReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
 import { TInitialFilters } from "../../pages/PacksPage/Filter/Filter";
@@ -24,7 +24,7 @@ const Tabs: FC<TTabsProps> = ({ initialFilters }) => {
 
     const onChangeTab = (tab: TFilterTabs) => {
         if (userId) {
-            dispatch(setCardParams({ page: "1", pageCount: URLParams.pageCount, user_id: userId }));
+            dispatch(setUserCardParams({ page: "1", pageCount: URLParams.pageCount, user_id: userId }));
             setSearchParams(
                 tab === "My"
                     ? {

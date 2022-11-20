@@ -24,13 +24,13 @@ type TPackProps = {
     isFetching: boolean;
 };
 const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetching }) => {
-    const id = useAppSelector((state) => state.auth.userData.id);
-    const avatar = useAppSelector((state) => state.auth.userData.avatar);
+    const { id, avatar } = useAppSelector((state) => state.auth.userData);
 
     const user = {
         name: "Ivan Ivanov",
         avatar: pack.user_id === id ? avatar : defaultAvatar,
     };
+    // const { name, avatar } = useAppSelector((state) => state.user);
     const correctDate = transformDate(pack.updated);
 
     return (

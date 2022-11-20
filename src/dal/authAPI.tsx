@@ -15,7 +15,7 @@ export const authAPI = {
         return instance.post<TLoginData, AxiosResponse<TResponseUserData>>("auth/login", data);
     },
     authMe() {
-        return instance.post<AxiosResponse<TResponseUserData>>("auth/me");
+        return instance.post<{}, AxiosResponse<TResponseUserData>>("auth/me");
     },
     logOut() {
         return instance.delete<{ info: string }>("auth/me");

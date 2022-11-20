@@ -25,10 +25,11 @@ const DeletePackModal: FC<TDeletePackModalProps> = (props) => {
 };
 
 const DeletePackModalBody: FC<TDeletePackModalProps> = (props) => {
-    const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
-    const isButtonsDisabled = useAppSelector((state) => state.packs.isButtonsDisabled);
+    const dispatch = useAppDispatch();
+
+    const { isButtonsDisabled } = useAppSelector((state) => state.packs);
 
     const deletePackHandler = () => {
         dispatch(deletePack(props.packId, URLParams)).then(() => {

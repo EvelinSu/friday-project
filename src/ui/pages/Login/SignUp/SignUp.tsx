@@ -12,7 +12,6 @@ import Input from "../../../components/Form/Input";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
 import { TRegisterData } from "../../../../dal/ResponseTypes";
-
 import ViewInputIcon from "../ViewInputIcon";
 import { registerTC } from "../../../../bll/authReducer";
 
@@ -29,8 +28,7 @@ const SignUp = () => {
 const SignUpForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-
-    const isFetching = useAppSelector((state) => state.app.isFetching);
+    const { isFetching } = useAppSelector((state) => state.app);
 
     const { handleBlur, handleSubmit, touched, handleChange, isValid, values, errors } = useFormik({
         initialValues: {

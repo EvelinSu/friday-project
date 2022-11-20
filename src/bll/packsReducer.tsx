@@ -14,6 +14,7 @@ export type TPacksData = {
     cardPacksTotalCount: number;
     minCardsCount: number;
     maxCardsCount: number;
+    user_id: string;
     token: string;
 };
 
@@ -25,7 +26,7 @@ const initialState: TPacks = {
     isButtonsDisabled: false,
     cardPacksData: {
         cardPacks: [],
-        // user_id: "",
+        user_id: "",
         page: 0,
         pageCount: 12,
         cardPacksTotalCount: 0,

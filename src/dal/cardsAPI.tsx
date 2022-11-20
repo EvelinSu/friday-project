@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 
 export const packsAPI = {
     getPacks(params: TPacksParams) {
-        return instance.get<TResponsePack>(`/cards/pack`, { params });
+        return instance.get(`/cards/pack`, { params });
     },
     addPack(cardsPack: TNewCardsPack) {
         return instance.post<TNewCardsPack, AxiosResponse<TResponsePack>>("/cards/pack", { cardsPack });

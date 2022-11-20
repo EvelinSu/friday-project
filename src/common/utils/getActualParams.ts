@@ -10,6 +10,7 @@ export const getUrlPacksParams = (searchParams: URLSearchParams): TPacksParams =
     }
 
     const params: any = {};
+
     searchParams.forEach((key, value) => {
         params[value] = key;
     });

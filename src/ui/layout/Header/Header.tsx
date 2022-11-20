@@ -17,8 +17,7 @@ const Header = () => {
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-    const userData = useAppSelector((state) => state.auth.userData);
+    const { isLoggedIn, userData } = useAppSelector((state) => state.auth);
 
     return (
         <SHeader>
