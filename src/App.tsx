@@ -22,7 +22,8 @@ function App() {
     }, [dispatch]);
 
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-
+    // const a = useAppSelector((state) => state.app.isInitialized);
+    // console.log(a);
     useLayoutEffect(() => {
         if (location.pathname.includes("login") && isLoggedIn) return navigate(PATH.packsList);
         if (!location.pathname.includes("login") && !isLoggedIn) return navigate(PATH.signIn);
