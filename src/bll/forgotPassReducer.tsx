@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authAPI } from "../dal/authAPI";
 import { TAppDispatch } from "./store/store";
 import { setAppMessage, setIsFetching } from "./appReducer";
+import axios, { AxiosError } from "axios";
 
 export type TForgotPass = {
     isSendLetter: boolean;
@@ -25,20 +26,25 @@ const slice = createSlice({
     },
 });
 
-export const sendEmailTC = (email: string) => (dispatch: TAppDispatch) => {
-    dispatch(setIsFetching(true));
-    authAPI
-        .sendEmail(email)
-        .then(() => {
+export const sendEmailTC = createAsyncThunk(
+    "password/sendEmailTC",
+    async (email: string, { dispatch }) => {
+        dispatch(setIsFetching(true));
+        try {
+            await authAPI.sendEmail(email);
             dispatch(setStatusSendAC({ isSendLetter: true }));
             dispatch(setAppMessage({ text: "Check your email!", severity: "success" }));
-        })
-        .catch((e) => {
-            const err = e.response ? e.response.data.error : e.message + ", more details in the console";
-            dispatch(setAppMessage({ text: err, severity: "error" }));
-        })
-        .finally(() => dispatch(setIsFetching(false)));
-};
+        } catch (e) {
+            const err = e as Error | AxiosError;
+            if (axios.isAxiosError(err)) {
+                const errorMessage = err.response?.data ? err.response.data : err;
+                dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
+            }
+        } finally {
+            dispatch(setIsFetching(false));
+        }
+    }
+);
 
 export const sendNewPassTC =
     (password: string, resetPasswordToken: string) => (dispatch: TAppDispatch) => {
