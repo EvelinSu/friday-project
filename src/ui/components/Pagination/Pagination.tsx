@@ -16,10 +16,10 @@ type TPaginationProps = {
 const Pagination: React.FC<TPaginationProps> = React.memo(({ totalCount, pageCount }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
-    const [value, setValue] = useState(URLParams.page);
-    const debounceValue = useDebounce(value, 500);
 
+    const [value, setValue] = useState(URLParams.page);
     const pageInState = useAppSelector((state) => state.packs.cardPacksData.page);
+    const debounceValue = useDebounce(value, 500);
 
     const pageQuantity = Math.max(Math.ceil(totalCount / pageCount));
     const handlePageChange = ({ selected }: { selected: number }) => {

@@ -2,8 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Box } from "../../../components/Box/Box";
 import { SMainTitle, SPagePanel } from "../../styled";
 import Button from "../../../components/Button/Button";
-import Input from "../../../components/Form/Input";
-import SearchIcon from "../../../assets/icons/SearchIcon";
+
 import { FilterWrapper } from "../Filter/styled";
 import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
@@ -17,7 +16,8 @@ import { getUrlPacksParams } from "../../../../common/utils/getActualParams";
 import AddAndUpdatePackModal, {
     TAddAndUpdatePackModalValues,
 } from "../PacksModals/AddAndUpdatePackModal";
-import { SSearchInput } from "../styled";
+
+import { SearchPack } from "./SearchPack";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
@@ -58,9 +58,7 @@ const PacksPagePanel = () => {
                 )}
             </Box>
             <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
-                <SSearchInput>
-                    <Input title={"Search"} placeholder={"Search by name"} leftIcon={<SearchIcon />} />
-                </SSearchInput>
+                <SearchPack />
                 <FilterWrapper
                     id={"filter"}
                     tabIndex={0}

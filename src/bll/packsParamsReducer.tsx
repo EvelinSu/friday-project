@@ -1,6 +1,6 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import {TPacksParams} from "../dal/ResponseTypes";
+import { TPacksParams } from "../dal/ResponseTypes";
 
 //
 const initialState: TPacksParams = {
@@ -18,13 +18,16 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         setCardParams(state, action: PayloadAction<TPacksParams>) {
-            return action.payload;
+            return {
+                ...state,
+                ...action.payload,
+            };
         },
-        setUserCardParams(state, action: PayloadAction<TPacksParams>) {
-            state.user_id = action.payload.user_id;
-        },
+        // setUserCardParams(state, action: PayloadAction<TPacksParams>) {
+        //     state.user_id = action.payload.user_id;
+        // },
     },
 });
 
 export const packsParamsReducer = slice.reducer;
-export const { setCardParams, setUserCardParams } = slice.actions;
+export const { setCardParams } = slice.actions;

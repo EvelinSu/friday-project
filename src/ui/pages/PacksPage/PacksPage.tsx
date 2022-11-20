@@ -12,12 +12,13 @@ import PacksNotFound from "./PacksNotFound/PacksNotFound";
 
 const PacksPage = () => {
     const dispatch = useAppDispatch();
+
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
 
-    const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks);
-    const cardPacksData = useAppSelector((state) => state.packs.cardPacksData);
-    const isFetching = useAppSelector((state) => state.app).isFetching;
+    const { cardPacksData } = useAppSelector((state) => state.packs);
+    const { isFetching } = useAppSelector((state) => state.app);
+    const { cardPacks } = useAppSelector((state) => state.packs.cardPacksData);
 
     useEffect(() => {
         dispatch(loadPacks(URLParams));
