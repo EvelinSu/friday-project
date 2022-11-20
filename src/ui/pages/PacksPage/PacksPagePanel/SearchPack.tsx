@@ -11,11 +11,9 @@ export const SearchPack = () => {
     const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
     const [value, setValue] = useState(URLParams.packName || "");
     const debounceValue = useDebounce(value, 500);
-
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value);
     };
-
     useEffect(() => {
         if (debounceValue) {
             setSearchParams({ ...URLParams, packName: debounceValue });
