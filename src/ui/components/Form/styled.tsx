@@ -93,10 +93,10 @@ export const SInput = styled.input<TSInputProps>`
     ${(props) =>
         props.isError &&
         css`
-            border: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
+            border: 1px solid ${props.theme.colors.severity.error};
 
             &:focus {
-                border: ${({ theme }) => `1px solid ${theme.colors.severity.error}`};
+                border: 1px solid ${props.theme.colors.severity.error};
             }
         `}
     &::placeholder {

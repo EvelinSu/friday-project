@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
     SSuperOption,
     SSuperOptionsList,
@@ -8,9 +8,9 @@ import {
     SSuperSelectWrapper,
 } from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
-import { SText } from "../Text/SText";
+import {SText} from "../Text/SText";
 
-export type TFilterOptions = "" | "Last Updated" | "Number of cards";
+export type TFilterOptions = "" | "Updated recently" | "Updated long ago" | "Few cards" | "Lots of cards"
 
 type TAlternativeSuperSelect = {
     options: TFilterOptions[];
@@ -64,7 +64,7 @@ function Select(props: TAlternativeSuperSelect) {
     const arrowPreventDefault = () => {
         window.addEventListener("keydown", (event) => {
             (event.key === "ArrowUp" || event.key === "ArrowDown") && event.preventDefault();
-            //для запрета глобал скролла стрелками
+            // to disable scrolling with arrows
         });
     };
 

@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authAPI } from "../dal/authAPI";
-import { TAppDispatch } from "./store/store";
-import { setAppMessage, setAppStatus, setIsFetching, setIsInitialized } from "./appReducer";
-import { TLoginData, TProfileData, TRegisterData } from "../dal/ResponseTypes";
-import { clearStatePacks } from "./packsReducer";
-import axios, { AxiosError } from "axios";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {authAPI} from "../dal/authAPI";
+import {TAppDispatch} from "./store/store";
+import {setAppMessage, setAppStatus, setIsFetching, setIsInitialized} from "./appReducer";
+import {TLoginData, TProfileData, TRegisterData} from "../dal/ResponseTypes";
+import {clearStatePacks} from "./packsReducer";
+import axios, {AxiosError} from "axios";
 
 type TUserData = {
     id: string | null;
@@ -55,12 +55,12 @@ const slice = createSlice({
 
 export const registerTC = createAsyncThunk(
     "auth/register",
-    async (param: TRegisterData, { dispatch }) => {
+    async (param: TRegisterData, {dispatch}) => {
         dispatch(setIsFetching(true));
         try {
             await authAPI.register(param);
             dispatch(setRegisterUserData(param));
-            dispatch(setAppMessage({ text: "Registration was successful!", severity: "success" }));
+            dispatch(setAppMessage({text: "Registration was successful!", severity: "success"}));
             return true;
         } catch (e: unknown) {
             const err = e as Error | AxiosError<{ e: string }>;
@@ -68,7 +68,7 @@ export const registerTC = createAsyncThunk(
                 const error = err.response?.data
                     ? err.response.data.error
                     : err.message + ", more details in the console";
-                dispatch(setAppMessage({ text: error, severity: "error" }));
+                dispatch(setAppMessage({text: error, severity: "error"}));
             }
             return false;
         } finally {
@@ -79,18 +79,18 @@ export const registerTC = createAsyncThunk(
 
 export const authMeTC = () => async (dispatch: TAppDispatch) => {
     try {
-        dispatch(setIsInitialized({ value: false }));
+        dispatch(setIsInitialized({value: false}));
         dispatch(setAppStatus("loading"));
         const me = await authAPI.authMe();
-        const { name, email, avatar } = me.data;
+        const {name, email, avatar} = me.data;
         console.log(me.data);
         const id = me.data._id;
-        await dispatch(setUserData({ id, name, email, avatar }));
-        dispatch(setIsLoggedIn({ value: true }));
+        await dispatch(setUserData({id, name, email, avatar}));
+        dispatch(setIsLoggedIn({value: true}));
     } catch (e) {
-        dispatch(setIsLoggedIn({ value: false }));
+        dispatch(setIsLoggedIn({value: false}));
     } finally {
-        dispatch(setIsInitialized({ value: true }));
+        dispatch(setIsInitialized({value: true}));
     }
 };
 
@@ -99,17 +99,16 @@ export const loginTC = (data: TLoginData) => async (dispatch: TAppDispatch) => {
     authAPI
         .login(data)
         .then((res) => {
-            const { name, email, avatar } = res.data;
+            const {name, email, avatar} = res.data;
             const id = res.data._id;
-            dispatch(setUserData({ id, name, email, avatar }));
-            dispatch(setIsLoggedIn({ value: true }));
-            dispatch(setRegisterUserData({ email: "", password: "" }));
+            dispatch(setUserData({id, name, email, avatar}));
+            dispatch(setIsLoggedIn({value: true}));
+            dispatch(setRegisterUserData({email: "", password: ""}));
         })
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";
-            dispatch(setAppMessage({ text: err, severity: "error" }));
+            dispatch(setAppMessage({text: err, severity: "error"}));
         })
-        .finally(() => dispatch(setIsFetching(false)));
 };
 
 export const logOutTC = () => (dispatch: TAppDispatch) => {
@@ -118,11 +117,11 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
         .logOut()
         .then(() => {
             dispatch(clearStatePacks());
-            dispatch(setIsLoggedIn({ value: false }));
+            dispatch(setIsLoggedIn({value: false}));
         })
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";
-            dispatch(setAppMessage({ text: err, severity: "error" }));
+            dispatch(setAppMessage({text: err, severity: "error"}));
         })
         .finally(() => dispatch(setIsFetching(false)));
 };
@@ -132,20 +131,20 @@ export const changeUserProfileTC = (data: TProfileData) => (dispatch: TAppDispat
         .changeUserProfile(data)
         .then(() => {
             dispatch(setUserProfile(data));
-            dispatch(setAppMessage({ text: "Successfully!", severity: "success" }));
+            dispatch(setAppMessage({text: "Successfully!", severity: "success"}));
         })
         .catch((e) => {
             if (e.request.status === 413) {
-                dispatch(setAppMessage({ text: e.response.statusText, severity: "error" }));
+                dispatch(setAppMessage({text: e.response.statusText, severity: "error"}));
             } else {
                 const err = e.response
                     ? e.response.data.error
                     : e.message + ", more details in the console";
-                dispatch(setAppMessage({ text: err, severity: "error" }));
+                dispatch(setAppMessage({text: err, severity: "error"}));
             }
         });
 };
 
-export const { setIsLoggedIn, setUserData, setUserProfile, setRegisterUserData } = slice.actions;
+export const {setIsLoggedIn, setUserData, setUserProfile, setRegisterUserData} = slice.actions;
 
 export const authReducer = slice.reducer;

@@ -1,5 +1,5 @@
 import React from "react";
-import { SDoubleRange, SDoubleRangeWrapper, SRangeTrack } from "./styled";
+import {SDoubleRange, SDoubleRangeWrapper, SRangeTrack} from "./styled";
 
 type TSuperDoubleRangeProps = {
     setValue1: (value: number) => void;
@@ -20,7 +20,7 @@ const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
     id,
     // min, max, step, disable, ...
 }) => {
-    let gap = minmax[1] / 5;
+    let gap = minmax[1] / 6;
 
     const onChangeValue1 = (newValue: number) => {
         if (newValue + gap <= values[1]) setValue1(newValue);

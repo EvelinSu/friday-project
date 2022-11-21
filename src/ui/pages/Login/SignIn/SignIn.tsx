@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { SPageWrapper } from "../../styled";
-import { UiBox } from "../../../components/UiBox/UiBox";
+import React, {useState} from "react";
+import {SPageWrapper} from "../../styled";
+import {UiBox} from "../../../components/UiBox/UiBox";
 import Input from "../../../components/Form/Input";
-import { Box } from "../../../components/Box/Box";
+import {Box} from "../../../components/Box/Box";
 import Checkbox from "../../../components/Checkbox/Checkbox";
-import { SText } from "../../../components/Text/SText";
+import {SText} from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
-import { PATH } from "../../Pages";
-import { SForm } from "../../../components/Form/styled";
-import { useFormik } from "formik";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../Pages";
+import {SForm} from "../../../components/Form/styled";
+import {useFormik} from "formik";
 import * as Yup from "yup";
-import { loginTC } from "../../../../bll/authReducer";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { TLoginData } from "../../../../dal/ResponseTypes";
+import {loginTC} from "../../../../bll/authReducer";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
+import {TLoginData} from "../../../../dal/ResponseTypes";
 import ViewInputIcon from "../ViewInputIcon";
 
 const SignIn = () => {
@@ -29,10 +29,10 @@ const SignIn = () => {
 const SignInForm = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { isFetching } = useAppSelector((state) => state.app);
-    const { registerData } = useAppSelector((state) => state.auth);
+    const isFetching = useAppSelector((state) => state.app.isFetching);
+    const registerData = useAppSelector((state) => state.auth.registerData);
 
-    const { handleBlur, handleSubmit, touched, handleChange, isValid, setFieldValue, values, errors } =
+    const {handleBlur, handleSubmit, touched, handleChange, isValid, setFieldValue, values, errors} =
         useFormik({
             initialValues: {
                 email: registerData.email || "",

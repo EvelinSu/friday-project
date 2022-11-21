@@ -1,21 +1,21 @@
-import React, { ChangeEvent, KeyboardEvent, useMemo, useState } from "react";
-import { SPagePanel, SPageWrapper } from "../styled";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import React, {ChangeEvent, KeyboardEvent, useMemo, useState} from "react";
+import {SPagePanel, SPageWrapper} from "../styled";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import { useSearchParams } from "react-router-dom";
-import { UiBox } from "../../components/UiBox/UiBox";
-import { Box } from "../../components/Box/Box";
+import {useSearchParams} from "react-router-dom";
+import {UiBox} from "../../components/UiBox/UiBox";
+import {Box} from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import { SText } from "../../components/Text/SText";
-import { PATH } from "../Pages";
-import { changeUserProfileTC, logOutTC } from "../../../bll/authReducer";
+import {SText} from "../../components/Text/SText";
+import {PATH} from "../Pages";
+import {changeUserProfileTC, logOutTC} from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
-import { SProfileButton, SProfileContent } from "./styled";
+import {SProfileButton, SProfileContent} from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
-import { getUrlPacksParams } from "../../../common/utils/getActualParams";
-import { setAppMessage } from "../../../bll/appReducer";
+import {getUrlPacksParams} from "../../../common/utils/getActualParams";
+import {setAppMessage} from "../../../bll/appReducer";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
@@ -36,10 +36,10 @@ const Profile = () => {
 
 const ProfileUiBoxBody = () => {
     const dispatch = useAppDispatch();
-    const { userData } = useAppSelector((state) => state.auth);
-    const { isFetching } = useAppSelector((state) => state.app);
-    const { name, email, avatar } = userData;
-
+    const name = useAppSelector((state) => state.auth.userData.name);
+    const email = useAppSelector((state) => state.auth.userData.email);
+    const avatar = useAppSelector((state) => state.auth.userData.avatar);
+    const isFetching = useAppSelector((state) => state.app.isFetching);
     const [value, setValue] = useState(name);
 
     const onLogoutHandler = () => {
@@ -50,11 +50,11 @@ const ProfileUiBoxBody = () => {
         const newName = value?.trim();
         if (newName === name) return;
         if (!newName || newName.length < 1) {
-            dispatch(setAppMessage({ text: "Invalid nickname", severity: "error" }));
+            dispatch(setAppMessage({text: "Invalid nickname", severity: "error"}));
             setValue(name);
             return;
         } else {
-            dispatch(changeUserProfileTC({ name: newName }));
+            dispatch(changeUserProfileTC({name: newName}));
         }
     };
 

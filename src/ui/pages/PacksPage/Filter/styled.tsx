@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box } from "../../../components/Box/Box";
+import {Box} from "../../../components/Box/Box";
 
 export const FilterWrapper = styled(Box)`
     align-items: center;
@@ -16,6 +16,7 @@ export const SFilterWrapper = styled.div`
     padding: 20px;
     border-radius: 15px;
     backdrop-filter: blur(7.5px);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
     width: 220px;
     z-index: ${(props) => props.theme.orders.dropdown};
 
