@@ -1,12 +1,13 @@
 import {TCardsParams, TPacksParams} from "../../dal/ResponseTypes";
 
 type TURLParams = TPacksParams & TCardsParams
+const windowHeight = window.innerHeight;
+// const windowWidth = window.innerWidth;
+
+let pageCount = windowHeight > 1102 ? 20 : windowHeight > 942 ? 16 : 12;
+export const initialParams = `?page=1&pageCount=${pageCount}`
 
 export const getUrlParams = (searchParams: URLSearchParams): TURLParams => {
-    const windowHeight = window.innerHeight;
-    const windowWidth = window.innerWidth;
-
-    let pageCount = windowHeight > 1102 ? 20 : windowHeight > 942 ? 16 : 12;
 
     const params: any = {};
 
@@ -20,5 +21,3 @@ export const getUrlParams = (searchParams: URLSearchParams): TURLParams => {
         pageCount: params.pageCount || pageCount,
     };
 };
-
-

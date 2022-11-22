@@ -1,4 +1,4 @@
-import React, {FC, useMemo} from "react";
+import React, {FC} from "react";
 import {SPackCardActions, SPackCardPrivateIcon, SPackCardWrapper} from "./styled";
 import {Box} from "../../../components/Box/Box";
 import {SText} from "../../../components/Text/SText";
@@ -13,8 +13,8 @@ import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import LockFillIcon from "../../../assets/icons/LockFillIcon";
 import defaultAvatar from "../../../assets/img/default-photo.png";
 import {TPackModals} from "../PacksList";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {getUrlParams} from "../../../../common/utils/getUrlParams";
+import {useNavigate} from "react-router-dom";
+import {initialParams} from "../../../../common/utils/getUrlParams";
 import {PATH} from "../../Pages";
 import {initialCardsData, setCards} from "../../../../bll/cardsReducer";
 
@@ -32,8 +32,6 @@ const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetchi
     const myAvatar = useAppSelector((state) => state.auth.userData.avatar);
     const myId = useAppSelector((state) => state.auth.userData.id);
     const navigate = useNavigate()
-    const [searchParams, setSearchParams] = useSearchParams()
-    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const avatar = pack.user_id === myId ? myAvatar : defaultAvatar
 
@@ -42,8 +40,7 @@ const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetchi
 
     const onPackClickHandler = () => {
         dispatch(setCards(initialCardsData))
-        navigate(PATH.cardsList +
-            `?page=1&pageCount=${URLParams.pageCount}&cardsPack_id=${pack._id}`)
+        navigate(PATH.cardsList + initialParams + `&cardsPack_id=${pack._id}`)
     }
 
     return (

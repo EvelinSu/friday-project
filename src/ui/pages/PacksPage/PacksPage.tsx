@@ -20,12 +20,10 @@ const PacksPage = () => {
     const cardPacksData = useAppSelector((state) => state.packs.cardPacksData);
     const isFetching = useAppSelector((state) => state.app.isFetching);
     const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks);
-    const packsParams = useAppSelector((state) => state.packsParams);
 
     useEffect(() => {
         dispatch(setCardParams(URLParams));
         dispatch(loadPacks(URLParams));
-        console.log(URLParams, packsParams)
     }, [URLParams]);
 
     return (

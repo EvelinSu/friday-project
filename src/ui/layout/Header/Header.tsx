@@ -1,6 +1,6 @@
-import React, {useMemo} from "react";
+import React from "react";
 import {SHeader, SHeaderButton, SHeaderLogo} from "./styled";
-import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Logo from "../../assets/icons/Logo";
 import IconButton from "../../components/IconButton/IconButton";
 import SignInIcon from "../../assets/icons/SignInIcon";
@@ -9,20 +9,18 @@ import HeaderPanel from "./HeaderPanel";
 import {PATH} from "../../pages/Pages";
 import {useAppSelector} from "../../../hooks/hooks";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
+import {initialParams} from "../../../common/utils/getUrlParams";
 
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const {isLoggedIn, userData} = useAppSelector((state) => state.auth);
 
     return (
         <SHeader>
             <SHeaderLogo
-                onClick={() => navigate(PATH.packsList + `?page=1&pageCount=${URLParams.pageCount}`)}
+                onClick={() => navigate(PATH.packsList + initialParams)}
             >
                 <Logo />
             </SHeaderLogo>

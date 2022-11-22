@@ -1,8 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent, useMemo, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {SPagePanel, SPageWrapper} from "../styled";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import {useSearchParams} from "react-router-dom";
 import {UiBox} from "../../components/UiBox/UiBox";
 import {Box} from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
@@ -14,18 +13,16 @@ import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
 import {SProfileButton, SProfileContent} from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
+import {initialParams} from "../../../common/utils/getUrlParams";
 import {setAppMessage} from "../../../bll/appReducer";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
 const Profile = () => {
-    const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     return (
         <SPageWrapper>
             <SPagePanel>
-                <BackPageButton to={PATH.packsList + `?page=1&pageCount=${URLParams.pageCount}`} />
+                <BackPageButton to={PATH.packsList + initialParams} />
             </SPagePanel>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
                 <UiBox title={"Personal Information"} body={<ProfileUiBoxBody />} width={"400px"} />

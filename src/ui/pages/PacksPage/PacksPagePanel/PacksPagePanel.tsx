@@ -12,7 +12,7 @@ import {SText} from "../../../components/Text/SText";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {useSearchParams} from "react-router-dom";
 import {addNewPack} from "../../../../bll/packsReducer";
-import {getUrlParams} from "../../../../common/utils/getUrlParams";
+import {getUrlParams, initialParams} from "../../../../common/utils/getUrlParams";
 import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "../PacksModals/AddAndUpdatePackModal";
 
 import {SearchPack} from "./SearchPack";
@@ -67,6 +67,7 @@ const PacksPagePanel = () => {
                     tabIndex={0}
                     onBlur={onFilterBlurHandler}
                     margin={"0 0 3px 0"}
+                    isActive={`?${searchParams}` !== initialParams}
                 >
                     <IconButton
                         onClick={() => setIsFilterOpen(!isFilterOpen)}
