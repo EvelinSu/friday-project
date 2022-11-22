@@ -8,7 +8,6 @@ type TSuperDoubleRangeProps = {
     minmax: Array<number>;
     step?: number;
     id?: string;
-    // min, max, step, disable, ...
 };
 
 const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
@@ -18,7 +17,6 @@ const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
     step = 1,
     minmax,
     id,
-    // min, max, step, disable, ...
 }) => {
     let gap = minmax[1] / 6;
 
