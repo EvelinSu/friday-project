@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { SIconButton } from "./styles";
+import React, {FC} from "react";
+import {SIconButton} from "./styles";
 
 type TIconButtonProps = {
     icon: React.ReactNode;
@@ -10,9 +10,11 @@ type TIconButtonProps = {
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     title?: string;
     isDisabled?: boolean;
+    allowPropagation?: boolean
 };
 const IconButton: FC<TIconButtonProps> = (props) => {
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+        !props.allowPropagation && e.stopPropagation()
         props.onClick && props.onClick(e);
     };
 
