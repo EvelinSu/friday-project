@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import SignIn from "./Login/SignIn/SignIn";
 import SignUp from "./Login/SignUp/SignUp";
 import Profile from "./Profile/Profile";
@@ -8,10 +8,12 @@ import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
 import PacksPage from "./PacksPage/PacksPage";
+import {CardsPage} from "./CardsPage/CardsPage";
 
 export const PATH = {
     profile: "/profile",
     packsList: "/packsList",
+    cardsList: "/cardsList",
     signIn: "/login/signIn",
     signUp: "/login/signUp",
     changePassword: "/login/changePassword",
@@ -25,6 +27,7 @@ const Pages = () => {
             <Route path={"/"} element={<Navigate to={PATH.signIn} />} />
             <Route path={PATH.profile} element={<Profile />} />
             <Route path={PATH.packsList} element={<PacksPage />} />
+            <Route path={PATH.cardsList} element={<CardsPage />} />
             <Route path={PATH.signIn} element={<SignIn />} />
             <Route path={PATH.signUp} element={<SignUp />} />
             <Route path={PATH.changePassword} element={<ChangePassword />}>

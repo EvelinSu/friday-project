@@ -13,9 +13,22 @@ export type TPack = {
     updated: string;
     user_id: string;
     user_name: string;
-    __v: number;
     deckCover: string;
 };
+
+export type TCard = {
+    answer: string,
+    cardPacks_id: string,
+    comments: string,
+    created: string,
+    grade: number,
+    question: string,
+    rating: number,
+    shots: number,
+    updated: string,
+    user_id: string,
+    _id: string
+}
 
 export type TUserData = {
     _id: string;
@@ -35,6 +48,13 @@ export type TCardsPackUpdate = {
     deckCover: string;
     private: boolean;
 };
+export type TCardUpdate = {
+    _id: string;
+    answer?: string;
+    question?: string;
+    answerImg?: string;
+    questionImg?: string
+};
 
 export type TResponsePack = {
     cardPacks: TPack[];
@@ -45,6 +65,21 @@ export type TResponsePack = {
     maxCardsCount: number;
     token: string;
     tokenDeathTime: number;
+};
+
+export type TResponseCard = {
+    cards: TCard[];
+    cardsTotalCount: number;
+    maxGrade: number,
+    minGrade: number,
+    packCreated: string,
+    packDeckCover: string,
+    packName: string,
+    packPrivate: boolean,
+    packUpdated: string,
+    packUserId: string,
+    page: number,
+    pageCount: number,
 };
 
 export type TPacksParams = {
@@ -61,6 +96,12 @@ export type TNewCardsPack = {
     name: string;
     deckCover: string;
     private?: boolean;
+};
+
+export type TNewCard = {
+    question?: string;
+    answer?: string;
+    cardsPack_id: string
 };
 
 export type TRegisterData = {
@@ -113,4 +154,15 @@ export type TResponseSendEmail = {
 export type TSendPassData = {
     password: string;
     resetPasswordToken: string;
+};
+
+export type TCardsParams = {
+    cardAnswer?: string;
+    cardQuestion?: string;
+    cardsPack_id: string;
+    min?: string;
+    max?: string;
+    sortCards?: string;
+    page?: string;
+    pageCount?: string;
 };
