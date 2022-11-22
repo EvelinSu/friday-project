@@ -1,15 +1,15 @@
-import React, {useEffect, useMemo} from "react";
-import {SPageWrapper} from "../styled";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import React, { useEffect, useMemo } from "react";
+import { SPageWrapper } from "../styled";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Pagination from "../../components/Pagination/Pagination";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import LoaderIcon from "../../assets/loaders/loader";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
-import {loadPacks} from "../../../bll/packsReducer";
+import { loadPacks } from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
-import {setCardParams} from "../../../bll/packsParamsReducer";
-import {PacksNotFound} from "./PacksNotFound/PacksNotFound";
+import { setCardParams } from "../../../bll/packsParamsReducer";
+import { PacksNotFound } from "./PacksNotFound/PacksNotFound";
+import { getUrlParams } from "../../../common/utils/getUrlParams";
 
 const PacksPage = () => {
     const dispatch = useAppDispatch();
