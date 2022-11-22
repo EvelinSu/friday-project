@@ -57,7 +57,7 @@ const PacksList = () => {
                     isFetching={isFetching}
                 />
             ))}
-            {cardsSkeleton}
+            {windowWidth > 540 && cardsSkeleton}
             {isPackModalOpen === "delete" && (
                 <DeleteModal
                     deleteHandler={deleteHandler}

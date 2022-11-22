@@ -67,7 +67,7 @@ const PacksPagePanel = () => {
                     tabIndex={0}
                     onBlur={onFilterBlurHandler}
                     margin={"0 0 3px 0"}
-                    isActive={`?${searchParams}` !== initialParams}
+                    isActive={`?${searchParams}`.length > initialParams.length + 5}
                 >
                     <IconButton
                         onClick={() => setIsFilterOpen(!isFilterOpen)}

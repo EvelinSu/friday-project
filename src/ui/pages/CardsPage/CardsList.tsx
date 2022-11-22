@@ -62,7 +62,7 @@ const CardsList = () => {
                     isFetching={isFetching}
                 />
             ))}
-            {cardsSkeleton}
+            {windowWidth > 540 && cardsSkeleton}
             {isCardModalOpen === "delete" && (
                 <DeleteModal
                     onClose={() => setIsCardModalOpen(false)}
