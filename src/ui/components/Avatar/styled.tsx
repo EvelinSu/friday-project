@@ -8,7 +8,7 @@ type TSAvatarProps = {
 };
 
 const imgSizes = (size: TSizes) => {
-    const sizePx = size === "small" ? 40 : size === "large" ? 125 : size === "smallest" ? 25 : 60;
+    const sizePx = size === "small" ? 40 : size === "large" ? 125 : size === "smallest" ? 30 : 60;
     return {
         minWidth: sizePx,
         maxWidth: sizePx,
@@ -69,7 +69,7 @@ export const SAvatarDeleteIcon = styled.div`
     }
 
     svg path {
-        fill: ${({ theme }) => theme.colors.severity.error};
-        stroke: ${({ theme }) => theme.colors.severity.error};
+        fill: ${({theme}) => theme.colors.severity.error};
+        stroke: ${({theme}) => theme.colors.severity.error};
     }
 `;

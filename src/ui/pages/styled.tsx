@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {SText} from "../components/Text/SText";
 
 export const SPageWrapper = styled.div`
     display: flex;
@@ -20,7 +21,7 @@ export const SPageContent = styled.div`
     background-color: black;
 `;
 
-export const SMainTitle = styled.div`
+export const SMainTitle = styled(SText)`
     font-size: 22px;
     font-weight: 600;
 `;

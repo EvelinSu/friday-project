@@ -42,13 +42,14 @@ const PacksPagePanel = () => {
                 justifyContent={"space-between"}
             >
                 <Box
+                    overflow={"hidden"}
                     margin={"0 0 10px 0"}
                     alignItems={"center"}
                     cursor={"pointer"}
                     onClick={() => navigate(PATH.packsList + `?page=1&pageCount=${URLParams.pageCount}`)}
                 >
                     <IconButton icon={<LongArrowIcon />} isDark allowPropagation />
-                    <SMainTitle>
+                    <SMainTitle isEllipsis>
                         {userId === myId
                             ? 'My pack'
                             : packName || <SText opacity={0.2}>Pack</SText>

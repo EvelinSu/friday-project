@@ -6,10 +6,7 @@ export const getUrlParams = (searchParams: URLSearchParams): TURLParams => {
     const windowHeight = window.innerHeight;
     const windowWidth = window.innerWidth;
 
-    let pageCount = windowHeight > 1030 ? 24 : windowHeight > 860 ? 16 : 12;
-    if (windowWidth < 1250 && windowWidth > 1020) {
-        pageCount = pageCount + 1;
-    }
+    let pageCount = windowHeight > 1102 ? 20 : windowHeight > 942 ? 16 : 12;
 
     const params: any = {};
 
