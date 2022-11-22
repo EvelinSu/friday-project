@@ -1,10 +1,29 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {Box} from "../../../components/Box/Box";
 
-export const FilterWrapper = styled(Box)`
+export const FilterWrapper = styled(Box)<{ isActive?: boolean }>`
     align-items: center;
     justify-content: center;
     position: relative;
+
+    .icon-button {
+        min-height: 39px;
+        min-width: 39px;
+        border-radius: 15px;
+        position: relative;
+        ${props => props.isActive && css`
+            &:after {
+                content: "";
+                width: 8px;
+                height: 8px;
+                background-color: ${props.theme.colors.severity.notification};
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-radius: 50px;
+            }
+        `}
+    }
 `;
 
 const windowWidth = window.innerWidth

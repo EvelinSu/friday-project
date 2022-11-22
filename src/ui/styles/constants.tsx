@@ -12,6 +12,7 @@ export const baseTheme = {
         severity: {
             error: "#ce5252",
             success: "#74b460",
+            notification: "#608ab4",
         },
         input: {
             default: "rgba(76,85,154,0.09)",

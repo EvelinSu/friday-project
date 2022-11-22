@@ -11,13 +11,7 @@ import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 import {SText} from "../Text/SText";
 import {useSearchParams} from "react-router-dom";
 import {getUrlParams} from "../../../common/utils/getUrlParams";
-
-export type TFilterOptions =
-    | ""
-    | "Updated recently"
-    | "Updated long ago"
-    | "Few cards"
-    | "Lots of cards";
+import {transformToURLOption} from "../../../common/utils/transformURLOption";
 
 type TAlternativeSuperSelect = {
     options: string[];
@@ -87,33 +81,14 @@ function Select(props: TAlternativeSuperSelect) {
     };
 
     useEffect(() => {
-        switch (props.value) {
-            case "Updated recently":
-                setSearchParams({
-                    ...URLParams,
-                    sortPacks: "0updated",
-                });
-                props.onChangeOption(props.value);
-                break;
-            case "Updated long ago":
-                setSearchParams({
-                    ...URLParams,
-                    sortPacks: "1updated",
-                });
-                break;
-            case "Few cards":
-                setSearchParams({
-                    ...URLParams,
-                    sortPacks: "1cardsCount",
-                });
-                break;
-            case "Lots of cards":
-                setSearchParams({
-                    ...URLParams,
-                    sortPacks: "0cardsCount",
-                });
-                break;
+        if (props.value !== "") {
+            setSearchParams({...URLParams, sortPack: transformToURLOption(props.value)})
         }
+        if (props.value === "") {
+            delete URLParams.sortPacks
+            setSearchParams(URLParams)
+        }
+
     }, [props.value]);
 
     return (

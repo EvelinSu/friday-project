@@ -24,6 +24,7 @@ const IconButton: FC<TIconButtonProps> = (props) => {
             onClick={onClickHandler}
             size={props.size}
             color={props.color}
+            className={"icon-button"}
             isDark={props.isDark}
             isLightest={props.isLightest}
             isDisabled={props.isDisabled}

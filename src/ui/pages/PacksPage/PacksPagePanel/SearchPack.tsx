@@ -29,6 +29,12 @@ export const SearchPack = () => {
         }
     }, [debounceValue]);
 
+    useEffect(() => {
+        if (!URLParams.cardQuestion && !URLParams.packName) {
+            setValue("")
+        }
+    }, [URLParams])
+
     return (
         <SSearchInput>
             <Input

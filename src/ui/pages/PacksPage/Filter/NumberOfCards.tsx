@@ -25,12 +25,6 @@ const NumberOfCards: FC<TNumberOfCardsProps> = ({...props}) => {
     const [value2, setValue2] = useState(Number(URLParams.max) || maxCardsCount)
     const debounceValues = useDebounce([value1, value2], 500);
 
-    useEffect(() => {
-        setValue1(Number(URLParams.min) || minCardsCount)
-        setValue2(
-            Number(URLParams.max) > 10 ? Number(URLParams.max) : maxCardsCount > 10 ? maxCardsCount : 10)
-    }, [maxCardsCount, minCardsCount])
-
     const onBlurHandler = (e: React.FocusEvent<HTMLDivElement>) => {
         props.onBlur && props.onBlur(e);
     };
@@ -40,6 +34,11 @@ const NumberOfCards: FC<TNumberOfCardsProps> = ({...props}) => {
         if (valueName === "max") setValue2(value)
         setIsInactive(false)
     }
+    useEffect(() => {
+        setValue1(Number(URLParams.min) || minCardsCount)
+        setValue2(
+            Number(URLParams.max) > 10 ? Number(URLParams.max) : maxCardsCount > 10 ? maxCardsCount : 10)
+    }, [maxCardsCount, minCardsCount])
 
     useEffect(() => {
         if (!isInactive && (value1 !== Number(URLParams.min) || value2 !== Number(URLParams.max))) {
@@ -50,6 +49,11 @@ const NumberOfCards: FC<TNumberOfCardsProps> = ({...props}) => {
             });
         }
         setIsInactive(true);
+        if (Number(URLParams.max) === maxCardsCount && Number(URLParams.min) === minCardsCount) {
+            delete URLParams.min
+            delete URLParams.max
+            setSearchParams(URLParams)
+        }
     }, [debounceValues]);
 
     return (
