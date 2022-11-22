@@ -2,7 +2,6 @@ import React, {useMemo, useState} from "react";
 import {Box} from "../../../components/Box/Box";
 import {SMainTitle, SPagePanel} from "../../styled";
 import Button from "../../../components/Button/Button";
-
 import {FilterWrapper} from "../Filter/styled";
 import IconButton from "../../../components/IconButton/IconButton";
 import FilterIcon from "../../../assets/icons/FilterIcon";
@@ -14,7 +13,6 @@ import {useSearchParams} from "react-router-dom";
 import {addNewPack} from "../../../../bll/packsReducer";
 import {getUrlParams, initialParams} from "../../../../common/utils/getUrlParams";
 import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "../PacksModals/AddAndUpdatePackModal";
-
 import {Search} from "../../../components/Search/Search";
 import {AddIcon} from "../../../assets/icons/AddIcon";
 
@@ -40,7 +38,11 @@ const PacksPagePanel = () => {
 
     return (
         <SPagePanel>
-            <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
+            <Box
+                margin={"0 0 10px 0"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+            >
                 <Box margin={"0 0 10px 0"}>
                     <SMainTitle>Packs list</SMainTitle>
                 </Box>
