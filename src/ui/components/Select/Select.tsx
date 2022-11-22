@@ -82,7 +82,7 @@ function Select(props: TAlternativeSuperSelect) {
 
     useEffect(() => {
         if (props.value !== "") {
-            setSearchParams({...URLParams, sortPack: transformToURLOption(props.value)})
+            setSearchParams({...URLParams, sortPacks: transformToURLOption(props.value)})
         }
         if (props.value === "") {
             delete URLParams.sortPacks

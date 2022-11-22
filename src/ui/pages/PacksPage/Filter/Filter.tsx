@@ -31,7 +31,6 @@ const Filter: FC<TFilterProps> = (props) => {
 
     const options = ["Updated recently", "Updated long ago", "Few cards", "Lots of cards"];
     const currentOption = transformURLOption(searchParams.get("sortPacks"))
-
     const [option, setOption] = useState(currentOption || initialFilters.sorting);
     const [tabs, setTabs] = useState(["All", "My"]);
     const [activeTab, setActiveTab] = useState(initialFilters.activeTab);
