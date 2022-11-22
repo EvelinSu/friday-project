@@ -1,12 +1,12 @@
-import React, { FC } from "react";
-import { Box } from "../../components/Box/Box";
+import React, {FC} from "react";
+import {Box} from "../../components/Box/Box";
 import IconButton from "../../components/IconButton/IconButton";
 import MoonIcon from "../../assets/icons/MoonIcon";
-import SettingsIcon from "../../assets/icons/SettingsIcon";
-import { SText } from "../../components/Text/SText";
+import {SText} from "../../components/Text/SText";
 import Avatar from "../../components/Avatar/Avatar";
-import { useNavigate } from "react-router-dom";
-import { PATH } from "../../pages/Pages";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../pages/Pages";
+import {UsersIcon} from "../../assets/icons/UsersIcon";
 
 type THeaderPanelProps = {
     avatar: string | null | undefined;
@@ -20,11 +20,15 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
 
     return (
         <Box alignItems={"center"}>
-            <IconButton onClick={() => alert("In progress")} title={"Dark theme"} icon={<MoonIcon />} />
             <IconButton
-                title={"Settings"}
-                onClick={() => navigate(PATH.profile)}
-                icon={<SettingsIcon />}
+                onClick={() => alert("In progress")}
+                title={"Dark theme"}
+                icon={<MoonIcon />}
+            />
+            <IconButton
+                title={"Users"}
+                onClick={() => alert("In progress")}
+                icon={<UsersIcon />}
             />
             <Box
                 alignItems={"center"}
