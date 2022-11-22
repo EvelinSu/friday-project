@@ -33,14 +33,12 @@ const PacksList = () => {
     );
 
     const updatePackHandler = (values: TAddAndUpdatePackModalValues) => {
-        dispatch(updatePack({_id: currentId, values, paramURL: URLParams})).then(() => {
-            setIsPackModalOpen(false);
-        });
+        dispatch(updatePack({_id: currentId, values, paramURL: URLParams}))
+            .then(() => setIsPackModalOpen(false));
     };
     const deleteHandler = () => {
-        dispatch(deletePack(currentId, URLParams)).then(() => {
-            setIsPackModalOpen(false);
-        });
+        dispatch(deletePack(currentId, URLParams))
+            .then(() => setIsPackModalOpen(false));
     };
     const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cardPacks.length || 0)
         .map(el => (<SGridDefaultBlock key={el}></SGridDefaultBlock>))
