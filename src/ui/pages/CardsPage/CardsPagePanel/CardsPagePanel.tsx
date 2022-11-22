@@ -12,6 +12,8 @@ import AddAndUpdateCardModal, {TAddAndUpdateCardModalValues} from "../CardsModal
 import {addNewCard} from "../../../../bll/cardsReducer";
 import {PATH} from "../../Pages";
 import {SText} from "../../../components/Text/SText";
+import {AddIcon} from "../../../assets/icons/AddIcon";
+import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
@@ -20,6 +22,7 @@ const PacksPagePanel = () => {
     const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
+    const packsParams = useAppSelector(state => state.packsParams)
     const userId = useAppSelector(state => state.cards.cardsData.packUserId)
     const packName = useAppSelector(state => state.cards.cardsData.packName)
     const myId = useAppSelector(state => state.auth.userData.id)
@@ -29,6 +32,12 @@ const PacksPagePanel = () => {
             addNewCard({newCard: {...values, cardsPack_id: URLParams.cardsPack_id}, cardsParams: URLParams}))
             .then(() => setIsAddCardModalOpen(false));
     };
+
+    const onBackClickHandler = () => {
+        const params = Object.entries(packsParams).map(el => el !== undefined && el.join("="))
+        const validParams = params.join("&")
+        navigate(PATH.packsList + `?${validParams}`)
+    }
 
     // for select (in future)
     // const options: TFilterOptions[] = ["Updated recently", "Updated long ago"];
@@ -46,7 +55,7 @@ const PacksPagePanel = () => {
                     margin={"0 0 10px 0"}
                     alignItems={"center"}
                     cursor={"pointer"}
-                    onClick={() => navigate(PATH.packsList + `?page=1&pageCount=${URLParams.pageCount}`)}
+                    onClick={onBackClickHandler}
                 >
                     <IconButton icon={<LongArrowIcon />} isDark allowPropagation />
                     <SMainTitle isEllipsis>
@@ -59,12 +68,14 @@ const PacksPagePanel = () => {
                 {userId === myId
                     ? <Button
                         onClick={() => setIsAddCardModalOpen(true)}
-                        label={"Add new card"}
+                        label={"Add card"}
+                        icon={<AddIcon />}
                         withShadow
                     />
                     : <Button
                         onClick={() => alert('in progress')}
                         label={"Learn pack"}
+                        icon={<BookCheckIcon />}
                         withShadow
                     />
 

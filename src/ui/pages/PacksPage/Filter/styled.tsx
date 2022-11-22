@@ -6,6 +6,9 @@ export const FilterWrapper = styled(Box)`
     justify-content: center;
     position: relative;
 `;
+
+const windowWidth = window.innerWidth
+
 export const SFilterWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -14,9 +17,10 @@ export const SFilterWrapper = styled.div`
     gap: 20px;
     position: absolute;
     background-color: rgba(255, 255, 255, 0.71);
-    top: calc(100% + 20px);
+    top: ${windowWidth < 570 ? `calc(100% + 10px)` : 'calc(100% + 20px)'};
+    left: ${windowWidth < 570 ? `calc(100% - 255px)` : ''};
     padding: 20px;
-    border-radius: 15px;
+    border-radius: ${windowWidth < 570 ? `15px 0 15px 15px` : '15px'};
     backdrop-filter: blur(7.5px);
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
     width: 220px;
@@ -25,6 +29,7 @@ export const SFilterWrapper = styled.div`
     &:after {
         content: "";
         position: absolute;
+        display: ${windowWidth < 570 ? `none` : ''};
         top: -10px;
         width: 0;
         height: 0;

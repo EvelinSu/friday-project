@@ -1,5 +1,4 @@
 import React, {FC, useState} from "react";
-import CloseButton from "../../../components/CloseButton/CloseButton";
 import Input from "../../../components/Form/Input";
 import {Box} from "../../../components/Box/Box";
 import Button from "../../../components/Button/Button";
@@ -76,11 +75,6 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
     return (
         <SForm onSubmit={handleSubmit}>
             <Box flexDirection={"column"}>
-                <CloseButton
-                    onClick={() => props.onClose()}
-                    color={"rgba(0, 0, 0, 0.5)"}
-                    padding="10px"
-                />
                 {/*<Select*/}
                 {/*    title={"Choose a question format"}*/}
                 {/*    options={questionTypes}*/}

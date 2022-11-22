@@ -1,16 +1,15 @@
-import React, { FC } from "react";
-import CloseButton from "../../../components/CloseButton/CloseButton";
+import React, {FC} from "react";
 import Input from "../../../components/Form/Input";
 import Checkbox from "../../../components/Checkbox/Checkbox";
-import { Box } from "../../../components/Box/Box";
+import {Box} from "../../../components/Box/Box";
 import Button from "../../../components/Button/Button";
-import { useAppSelector } from "../../../../hooks/hooks";
-import { SForm } from "../../../components/Form/styled";
-import { useFormik } from "formik";
+import {useAppSelector} from "../../../../hooks/hooks";
+import {SForm} from "../../../components/Form/styled";
+import {useFormik} from "formik";
 import * as Yup from "yup";
-import { TPack } from "../../../../dal/ResponseTypes";
-import { SMegaShadow } from "../../../components/MegaShadow/styled";
-import { UiBox } from "../../../components/UiBox/UiBox";
+import {TPack} from "../../../../dal/ResponseTypes";
+import {SMegaShadow} from "../../../components/MegaShadow/styled";
+import {UiBox} from "../../../components/UiBox/UiBox";
 
 type TAddPackModalProps = {
     title: string;
@@ -53,9 +52,9 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
 };
 
 const AddPackForm: FC<TAddPackFormProps> = (props) => {
-    const { isButtonsDisabled } = useAppSelector((state) => state.packs);
+    const {isButtonsDisabled} = useAppSelector((state) => state.packs);
 
-    const { handleSubmit, handleChange, values } = useFormik({
+    const {handleSubmit, handleChange, values} = useFormik({
         initialValues: {
             name: props.currentPack?.name || "",
             deckCover: props.currentPack?.deckCover || "",
@@ -72,11 +71,6 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
     return (
         <SForm onSubmit={handleSubmit}>
             <Box flexDirection={"column"}>
-                <CloseButton
-                    onClick={() => props.onClose()}
-                    color={"rgba(0, 0, 0, 0.5)"}
-                    padding="10px"
-                />
                 <Input
                     title={"Name pack"}
                     value={values.name}

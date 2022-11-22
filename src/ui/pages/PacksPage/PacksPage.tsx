@@ -22,15 +22,10 @@ const PacksPage = () => {
     const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks);
     const packsParams = useAppSelector((state) => state.packsParams);
 
-    // do not delete this
     useEffect(() => {
-        if (JSON.stringify(packsParams) !== JSON.stringify(URLParams)) {
-            dispatch(setCardParams(URLParams));
-        }
-    }, [dispatch, URLParams]);
-
-    useEffect(() => {
+        dispatch(setCardParams(URLParams));
         dispatch(loadPacks(URLParams));
+        console.log(URLParams, packsParams)
     }, [URLParams]);
 
     return (

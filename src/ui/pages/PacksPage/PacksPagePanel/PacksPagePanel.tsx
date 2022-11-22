@@ -16,6 +16,7 @@ import {getUrlParams} from "../../../../common/utils/getUrlParams";
 import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "../PacksModals/AddAndUpdatePackModal";
 
 import {SearchPack} from "./SearchPack";
+import {AddIcon} from "../../../assets/icons/AddIcon";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
@@ -53,7 +54,8 @@ const PacksPagePanel = () => {
                 ) : (
                     <Button
                         onClick={() => setIsAddPackModalOpen(true)}
-                        label={"Add new pack"}
+                        label={"Add pack"}
+                        icon={<AddIcon />}
                         withShadow
                     />
                 )}
