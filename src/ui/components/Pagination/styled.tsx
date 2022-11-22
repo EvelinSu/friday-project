@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 export const MyPaginate = styled(ReactPaginate)`
     display: flex;
     align-items: center;
-    padding: 30px 0 20px 0;
+    padding: 20px 0 10px 0;
     gap: 15px;
     column-gap: 15px;
     row-gap: 15px;
@@ -40,10 +40,10 @@ export const MyPaginate = styled(ReactPaginate)`
     }
 
     .active {
-        background-color: ${({ theme }) => theme.colors.primary};
+        background-color: ${({theme}) => theme.colors.primary};
         pointer-events: none;
         border-radius: 50%;
-        color: ${({ theme }) => theme.colors.textOnPrimary};
+        color: ${({theme}) => theme.colors.textOnPrimary};
     }
 
     .arrow {

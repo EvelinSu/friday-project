@@ -14,14 +14,14 @@ import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
 import {SProfileButton, SProfileContent} from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
-import {getUrlPacksParams} from "../../../common/utils/getActualParams";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
 import {setAppMessage} from "../../../bll/appReducer";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
 const Profile = () => {
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     return (
         <SPageWrapper>
             <SPagePanel>

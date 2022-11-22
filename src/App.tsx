@@ -9,7 +9,7 @@ import Notification from "./ui/components/Notification/Notification";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
 import GlobalLoader from "./ui/components/Loaders/GlobalLoader";
 import {authMeTC} from "./bll/authReducer";
-import {getUrlPacksParams} from "./common/utils/getActualParams";
+import {getUrlParams} from "./common/utils/getUrlParams";
 
 function App() {
     const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ function App() {
     const location = useLocation();
     const [isLoading, setIsLoading] = useState(true);
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     useLayoutEffect(() => {
         setIsLoading(true);

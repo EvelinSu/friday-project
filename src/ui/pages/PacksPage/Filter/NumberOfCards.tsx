@@ -5,7 +5,7 @@ import {DoubleRangeValueWrapper} from "../../../components/DoubleRange/styled";
 import DoubleRange from "../../../components/DoubleRange/DoubleRange";
 import {useDebounce} from "usehooks-ts";
 import {useSearchParams} from "react-router-dom";
-import {getUrlPacksParams} from "../../../../common/utils/getActualParams";
+import {getUrlParams} from "../../../../common/utils/getUrlParams";
 import {useAppSelector} from "../../../../hooks/hooks";
 
 type TNumberOfCardsProps = {
@@ -15,7 +15,7 @@ type TNumberOfCardsProps = {
 };
 const NumberOfCards: FC<TNumberOfCardsProps> = ({...props}) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     const [isInactive, setIsInactive] = useState(true)
 
     const minCardsCount = useAppSelector((state) => state.packs.cardPacksData.minCardsCount);
@@ -27,7 +27,8 @@ const NumberOfCards: FC<TNumberOfCardsProps> = ({...props}) => {
 
     useEffect(() => {
         setValue1(Number(URLParams.min) || minCardsCount)
-        setValue2(Number(URLParams.max) > 10 ? Number(URLParams.max) : maxCardsCount > 10 ? maxCardsCount : 10)
+        setValue2(
+            Number(URLParams.max) > 10 ? Number(URLParams.max) : maxCardsCount > 10 ? maxCardsCount : 10)
     }, [maxCardsCount, minCardsCount])
 
     const onBlurHandler = (e: React.FocusEvent<HTMLDivElement>) => {
@@ -52,7 +53,7 @@ const NumberOfCards: FC<TNumberOfCardsProps> = ({...props}) => {
     }, [debounceValues]);
 
     return (
-        <Box flexDirection={"column"} gap={10}>
+        <Box flexDirection={"column"} width={"100%"} gap={10}>
             <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
                 Number of cards
             </SText>

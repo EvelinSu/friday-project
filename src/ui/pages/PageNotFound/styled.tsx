@@ -10,7 +10,7 @@ export const SPageNotFound = styled.div`
 
 export const SPageNotFoundTitle = styled.h1`
     font-size: 100px;
-    color: ${({ theme }) => theme.colors.primaryLightest};
+    color: ${({theme}) => theme.colors.primary};
     margin: 0;
     text-align: center;
 `;

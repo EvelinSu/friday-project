@@ -12,7 +12,7 @@ import {SText} from "../../../components/Text/SText";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {useSearchParams} from "react-router-dom";
 import {addNewPack} from "../../../../bll/packsReducer";
-import {getUrlPacksParams} from "../../../../common/utils/getActualParams";
+import {getUrlParams} from "../../../../common/utils/getUrlParams";
 import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "../PacksModals/AddAndUpdatePackModal";
 
 import {SearchPack} from "./SearchPack";
@@ -22,7 +22,7 @@ const PacksPagePanel = () => {
     const dispatch = useAppDispatch();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const userId = useAppSelector((state) => state.auth.userData.id);
     const otherUserData = useAppSelector((state) => state.user);
@@ -40,7 +40,9 @@ const PacksPagePanel = () => {
     return (
         <SPagePanel>
             <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
-                <SMainTitle>Packs list</SMainTitle>
+                <Box margin={"0 0 10px 0"}>
+                    <SMainTitle>Packs list</SMainTitle>
+                </Box>
                 {checkUserId ? (
                     <Box alignItems={"center"} gap={10}>
                         <SText maxWidth={"150px"} isEllipsis>
@@ -56,7 +58,7 @@ const PacksPagePanel = () => {
                     />
                 )}
             </Box>
-            <Box margin={"0 0 20px 0"} alignItems={"end"} justifyContent={"space-between"}>
+            <Box margin={"0 0 20px 0"} alignItems={"center"}>
                 <SearchPack />
                 <FilterWrapper
                     id={"filter"}

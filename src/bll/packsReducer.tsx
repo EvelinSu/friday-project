@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TAppDispatch} from "./store/store";
-import {packsAPI} from "../dal/cardsAPI";
+import {cardsAPI} from "../dal/cardsAPI";
 import {TPack, TPacksParams} from "../dal/ResponseTypes";
 import {setAppMessage, setIsFetching} from "./appReducer";
 import {getUser} from "./userReducer";
@@ -57,7 +57,7 @@ export const loadPacks = createAsyncThunk(
     async (param: TPacksParams, {dispatch}) => {
         dispatch(setIsFetching(true));
         try {
-            const res = await packsAPI.getPacks(param);
+            const res = await cardsAPI.getPacks(param);
             dispatch(setPacks(res.data));
             if (param.user_id) {
                 dispatch(getUser(param.user_id));
@@ -80,7 +80,7 @@ export const addNewPack =
             dispatch(setIsButtonsDisabled(true));
             const {name, deckCover, isPrivate} = newCardsPack;
             try {
-                await packsAPI.addPack({name, deckCover, private: isPrivate});
+                await cardsAPI.addPack({name, deckCover, private: isPrivate});
                 dispatch(loadPacks(param));
                 dispatch(setAppMessage({text: "New pack created", severity: "success"}));
             } catch (e) {
@@ -93,7 +93,7 @@ export const addNewPack =
 export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatch: TAppDispatch) => {
     dispatch(setIsButtonsDisabled(true));
     try {
-        await packsAPI.deletePack(id);
+        await cardsAPI.deletePack(id);
         dispatch(loadPacks(paramURL));
         dispatch(setAppMessage({text: "Done!", severity: "success"}));
     } catch (e) {
@@ -116,7 +116,7 @@ export const updatePack = createAsyncThunk(
         dispatch(setIsButtonsDisabled(true));
         try {
             const {name, deckCover, isPrivate} = param.values;
-            await packsAPI.updatePack({_id: param._id, name, deckCover, private: isPrivate});
+            await cardsAPI.updatePack({_id: param._id, name, deckCover, private: isPrivate});
             dispatch(loadPacks(param.paramURL));
             dispatch(setAppMessage({text: "Done!", severity: "success"}));
         } catch (e) {

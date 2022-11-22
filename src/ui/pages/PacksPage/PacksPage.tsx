@@ -4,18 +4,18 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import Pagination from "../../components/Pagination/Pagination";
 import {useSearchParams} from "react-router-dom";
 import LoaderIcon from "../../assets/loaders/loader";
-import {getUrlPacksParams} from "../../../common/utils/getActualParams";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
 import {loadPacks} from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
-import PacksNotFound from "./PacksNotFound/PacksNotFound";
 import {setCardParams} from "../../../bll/packsParamsReducer";
+import {PacksNotFound} from "./PacksNotFound/PacksNotFound";
 
 const PacksPage = () => {
     const dispatch = useAppDispatch();
 
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const cardPacksData = useAppSelector((state) => state.packs.cardPacksData);
     const isFetching = useAppSelector((state) => state.app.isFetching);

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, {css} from "styled-components";
 
 export const SForm = styled.form`
     display: flex;
@@ -18,54 +18,50 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
     align-items: center;
     gap: 15px;
     position: relative;
-    ${(props) =>
-        props.error &&
-        css`
+    ${(props) => props.error && css`
+        &:after {
+            content: "${props.error}";
+            position: absolute;
+            color: #fff;
+            left: calc(100% + 10px);
+            background-color: ${props.theme.colors.severity.error};
+            padding: 3px 10px;
+            font-size: 12px;
+            max-width: 160px;
+            width: max-content;
+            z-index: ${props.theme.orders.inputErrors};
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s;
+            @media all and (max-width: 800px) {
+                left: initial;
+                right: 10px;
+                margin: 0 auto;
+                bottom: 8px;
+            }
+        }
+
+        &:hover {
             &:after {
-                content: "${props.error}";
-                position: absolute;
-                color: #fff;
-                left: calc(100% + 10px);
-                background-color: ${props.theme.colors.severity.error};
-                padding: 3px 10px;
-                font-size: 12px;
-                max-width: 160px;
-                width: max-content;
-                z-index: ${props.theme.orders.inputErrors};
-                border-radius: 5px;
-                opacity: 0;
-                visibility: hidden;
-                transition: 0.2s;
-                @media all and (max-width: 800px) {
-                    left: initial;
-                    right: 10px;
-                    margin: 0 auto;
-                    bottom: 8px;
-                }
+                opacity: 1;
+                visibility: visible;
             }
+        }
+    `}
+    ${(props) => props.title && css`
+        margin-top: 25px;
 
-            &:hover {
-                &:after {
-                    opacity: 1;
-                    visibility: visible;
-                }
-            }
-        `}
-    ${(props) =>
-        props.title &&
-        css`
-            margin-top: 25px;
-
-            &:before {
-                content: "${props.title}";
-                position: absolute;
-                top: -25px;
-                left: 8px;
-                padding: 3px 10px;
-                font-size: 13px;
-                opacity: 0.4;
-            }
-        `}
+        &:before {
+            content: "${props.title}";
+            position: absolute;
+            top: -25px;
+            left: 8px;
+            padding: 3px 10px;
+            font-size: 13px;
+            opacity: 0.4;
+        }
+    `}
 `;
 
 interface TSInputProps {
@@ -77,7 +73,7 @@ interface TSInputProps {
 export const SInput = styled.input<TSInputProps>`
     padding: 10px 15px;
     border-radius: 15px;
-    background-color: ${({ theme }) => theme.colors.input.default};
+    background-color: ${({theme}) => theme.colors.input.default};
     border: 1px solid rgba(0, 0, 0, 0.2);
     width: 100%;
 
@@ -86,33 +82,27 @@ export const SInput = styled.input<TSInputProps>`
     }
 
     &:focus {
-        border: ${({ theme }) => `1px solid ${theme.colors.primary}`};
+        border: ${({theme}) => `1px solid ${theme.colors.primary}`};
         opacity: 1;
     }
 
-    ${(props) =>
-        props.isError &&
-        css`
-            border: 1px solid ${props.theme.colors.severity.error};
+    ${(props) => props.isError && css`
+        border: 1px solid ${props.theme.colors.severity.error};
 
-            &:focus {
-                border: 1px solid ${props.theme.colors.severity.error};
-            }
-        `}
+        &:focus {
+            border: 1px solid ${props.theme.colors.severity.error};
+        }
+    `}
     &::placeholder {
         opacity: 0.4;
     }
 
-    ${(props) =>
-        props.hasLeftIcon &&
-        css`
-            padding-left: 40px;
-        `}
-    ${(props) =>
-        props.hasRightIcon &&
-        css`
-            padding-right: 35px;
-        `}
+    ${(props) => props.hasLeftIcon && css`
+        padding-left: 40px;
+    `}
+    ${(props) => props.hasRightIcon && css`
+        padding-right: 35px;
+    `}
 `;
 
 export const SInputLeftIcon = styled.div`

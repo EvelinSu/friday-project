@@ -3,12 +3,12 @@ import Input from "../../../components/Form/Input";
 import SearchIcon from "../../../assets/icons/SearchIcon";
 import {SSearchInput} from "../styled";
 import {useSearchParams} from "react-router-dom";
-import {getUrlPacksParams} from "../../../../common/utils/getActualParams";
+import {getUrlParams} from "../../../../common/utils/getUrlParams";
 import {useDebounce} from "usehooks-ts";
 
 export const SearchPack = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     const [value, setValue] = useState(URLParams.packName || null);
     const debounceValue = useDebounce(value, 700);
 
@@ -18,10 +18,13 @@ export const SearchPack = () => {
 
     useEffect(() => {
         if (debounceValue) {
-            setSearchParams({...URLParams, packName: debounceValue});
+            URLParams.cardsPack_id
+                ? setSearchParams({...URLParams, cardQuestion: debounceValue})
+                : setSearchParams({...URLParams, packName: debounceValue});
         }
         if (debounceValue === "") {
             delete URLParams.packName;
+            delete URLParams.cardQuestion;
             setSearchParams(URLParams)
         }
     }, [debounceValue]);
@@ -29,7 +32,6 @@ export const SearchPack = () => {
     return (
         <SSearchInput>
             <Input
-                title={"Search"}
                 onChange={onChangeHandler}
                 value={value || ""}
                 placeholder={"Search by name"}

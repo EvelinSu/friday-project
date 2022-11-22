@@ -24,7 +24,7 @@ export const baseTheme = {
             neutral: "#a9b2cc",
         },
         cards: {
-            default: ["#3879B5", "rgba(56,121,181,0.53)"],
+            default: ["#7398CE", "rgba(115,152,206,0.62)"],
             text: "#fff",
         },
     },

@@ -83,7 +83,6 @@ export const authMeTC = () => async (dispatch: TAppDispatch) => {
         dispatch(setAppStatus("loading"));
         const me = await authAPI.authMe();
         const {name, email, avatar} = me.data;
-        console.log(me.data);
         const id = me.data._id;
         await dispatch(setUserData({id, name, email, avatar}));
         dispatch(setIsLoggedIn({value: true}));
@@ -108,6 +107,7 @@ export const loginTC = (data: TLoginData) => async (dispatch: TAppDispatch) => {
         .catch((e) => {
             const err = e.response ? e.response.data.error : e.message + ", more details in the console";
             dispatch(setAppMessage({text: err, severity: "error"}));
+            dispatch(setIsFetching(false));
         })
 };
 

@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { MyPaginate } from "./styled";
+import React, {useEffect, useMemo, useState} from "react";
+import {useSearchParams} from "react-router-dom";
+import {MyPaginate} from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
-import { useDebounce } from "usehooks-ts";
-import { useAppSelector } from "../../../hooks/hooks";
-import { getUrlPacksParams } from "../../../common/utils/getActualParams";
+import {useDebounce} from "usehooks-ts";
+import {useAppSelector} from "../../../hooks/hooks";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
 
 type TPaginationProps = {
     totalCount: number;
@@ -13,22 +13,22 @@ type TPaginationProps = {
     isFetching: boolean;
 };
 
-const Pagination: React.FC<TPaginationProps> = React.memo(({ totalCount, pageCount }) => {
+const Pagination: React.FC<TPaginationProps> = React.memo(({totalCount, pageCount}) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const [value, setValue] = useState(URLParams.page);
     const pageInState = useAppSelector((state) => state.packs.cardPacksData.page);
     const debounceValue = useDebounce(value, 500);
 
     const pageQuantity = Math.max(Math.ceil(totalCount / pageCount));
-    const handlePageChange = ({ selected }: { selected: number }) => {
+    const handlePageChange = ({selected}: { selected: number }) => {
         setValue(`${selected + 1}`);
     };
 
     useEffect(() => {
         if (URLParams.page !== value) {
-            setSearchParams({ ...URLParams, page: `${value}` });
+            setSearchParams({...URLParams, page: `${value}`});
         }
     }, [debounceValue]);
 

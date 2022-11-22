@@ -4,26 +4,24 @@ import {setUserCardParams} from "../../../bll/packsParamsReducer";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useSearchParams} from "react-router-dom";
 import {TInitialFilters} from "../../pages/PacksPage/Filter/Filter";
-import {getUrlPacksParams} from "../../../common/utils/getActualParams";
-
-export type TFilterTabs = "All" | "My" | "Other";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
 
 type TTabsProps = {
     initialFilters: TInitialFilters;
-    tabs: TFilterTabs[]
-    setTabs: (tabs: TFilterTabs[]) => void
-    setActiveTab: (tab: TFilterTabs) => void
-    activeTab: TFilterTabs
+    tabs: string[]
+    setTabs: (tabs: string[]) => void
+    setActiveTab: (tab: string) => void
+    activeTab: string
 };
 const Tabs: FC<TTabsProps> = ({setActiveTab, tabs, activeTab, setTabs}) => {
     const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const userId = useAppSelector((state) => state.auth.userData.id);
     const {isFetching} = useAppSelector((state) => state.app);
 
-    const onChangeTab = (tab: TFilterTabs) => {
+    const onChangeTab = (tab: string) => {
         if (userId) {
             dispatch(setUserCardParams({page: "1", pageCount: URLParams.pageCount, user_id: userId}));
             setSearchParams(

@@ -1,23 +1,23 @@
-import React, { useMemo } from "react";
-import { SHeader, SHeaderButton, SHeaderLogo } from "./styled";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import React, {useMemo} from "react";
+import {SHeader, SHeaderButton, SHeaderLogo} from "./styled";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import Logo from "../../assets/icons/Logo";
 import IconButton from "../../components/IconButton/IconButton";
 import SignInIcon from "../../assets/icons/SignInIcon";
-import { SText } from "../../components/Text/SText";
+import {SText} from "../../components/Text/SText";
 import HeaderPanel from "./HeaderPanel";
-import { PATH } from "../../pages/Pages";
-import { useAppSelector } from "../../../hooks/hooks";
+import {PATH} from "../../pages/Pages";
+import {useAppSelector} from "../../../hooks/hooks";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import { getUrlPacksParams } from "../../../common/utils/getActualParams";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
 
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
-    const { isLoggedIn, userData } = useAppSelector((state) => state.auth);
+    const {isLoggedIn, userData} = useAppSelector((state) => state.auth);
 
     return (
         <SHeader>
