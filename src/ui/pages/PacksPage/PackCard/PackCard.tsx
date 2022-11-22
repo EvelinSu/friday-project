@@ -1,18 +1,22 @@
-import React, { FC } from "react";
-import { SPackCardActions, SPackCardPrivateIcon, SPackCardWrapper } from "./styled";
-import { Box } from "../../../components/Box/Box";
-import { SText } from "../../../components/Text/SText";
+import React, {FC, useMemo} from "react";
+import {SPackCardActions, SPackCardPrivateIcon, SPackCardWrapper} from "./styled";
+import {Box} from "../../../components/Box/Box";
+import {SText} from "../../../components/Text/SText";
 import Avatar from "../../../components/Avatar/Avatar";
 import IconButton from "../../../components/IconButton/IconButton";
 import EditIcon from "../../../assets/icons/EditIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import DeleteIcon from "../../../assets/icons/DeleteIcon";
-import { transformDate } from "../../../../common/utils/tarnsformDate";
-import { TPack } from "../../../../dal/ResponseTypes";
-import { useAppSelector } from "../../../../hooks/hooks";
+import {transformDate} from "../../../../common/utils/tarnsformDate";
+import {TPack} from "../../../../dal/ResponseTypes";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import LockFillIcon from "../../../assets/icons/LockFillIcon";
 import defaultAvatar from "../../../assets/img/default-photo.png";
-import { TPackModals } from "../PacksList";
+import {TPackModals} from "../PacksList";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {getUrlParams} from "../../../../common/utils/getUrlParams";
+import {PATH} from "../../Pages";
+import {initialCardsData, setCards} from "../../../../bll/cardsReducer";
 
 type TPackProps = {
     pack: TPack;
@@ -23,18 +27,28 @@ type TPackProps = {
     ) => void;
     isFetching: boolean;
 };
-const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetching }) => {
-    const { id, avatar } = useAppSelector((state) => state.auth.userData);
+const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetching}) => {
+    const dispatch = useAppDispatch()
+    const myAvatar = useAppSelector((state) => state.auth.userData.avatar);
+    const myId = useAppSelector((state) => state.auth.userData.id);
+    const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
-    const user = {
-        name: "Ivan Ivanov",
-        avatar: pack.user_id === id ? avatar : defaultAvatar,
-    };
+    const avatar = pack.user_id === myId ? myAvatar : defaultAvatar
+
     // const { name, avatar } = useAppSelector((state) => state.user);
     const correctDate = transformDate(pack.updated);
 
+    const onPackClickHandler = () => {
+        dispatch(setCards(initialCardsData))
+        navigate(PATH.cardsList +
+            `?page=1&pageCount=${URLParams.pageCount}&cardsPack_id=${pack._id}`)
+    }
+
     return (
-        <SPackCardWrapper>
+        <SPackCardWrapper isFetching={isFetching} onClick={() => onPackClickHandler()}
+        >
             <Box
                 overflow={"hidden"}
                 height={"100%"}
@@ -67,7 +81,7 @@ const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetch
                     </Box>
                 </Box>
                 <Box gap={10} alignItems={"center"}>
-                    <Avatar img={user.avatar} size={"smallest"} />
+                    <Avatar img={avatar} size={"smallest"} />
                     <SText title={pack.user_name} isEllipsis>
                         {pack.user_name}
                     </SText>
@@ -78,10 +92,10 @@ const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetch
                     onClick={() => alert("In progress")}
                     color={"#fff"}
                     size={"sm"}
-                    isDisabled={isFetching}
+                    isDisabled={isFetching || pack.cardsCount === 0}
                     icon={<BookCheckIcon />}
                 />
-                {id === pack.user_id && (
+                {myId === pack.user_id && (
                     <>
                         <IconButton
                             onClick={(e) => onIconClickHandler(e, pack._id, "update")}

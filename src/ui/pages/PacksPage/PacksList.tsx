@@ -3,24 +3,24 @@ import PackCard from "./PackCard/PackCard";
 import {GridBox} from "../../components/GridBox/GridBox";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useSearchParams} from "react-router-dom";
-import {getUrlPacksParams} from "../../../common/utils/getActualParams";
-import {updatePack} from "../../../bll/packsReducer";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
+import {deletePack, updatePack} from "../../../bll/packsReducer";
 import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "./PacksModals/AddAndUpdatePackModal";
-import DeletePackModal from "./PacksModals/DeletePackModal";
+import DeleteModal from "../../components/Modals/DeleteModal";
 
 export type TPackModals = "delete" | "update" | false;
 
 const PacksList = () => {
     const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlPacksParams(searchParams), [searchParams]);
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     const isFetching = useAppSelector((state) => state.app.isFetching);
     const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks);
     const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModals>(false);
     const [currentId, setCurrentId] = useState<string>("");
 
     const windowWidth = window.innerWidth;
-    const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 5 : 4;
+    const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 4 : 4;
 
     const onIconClickHandler = useCallback(
         (e: React.MouseEvent<HTMLDivElement>, id: string, modalType: TPackModals) => {
@@ -36,13 +36,17 @@ const PacksList = () => {
             setIsPackModalOpen(false);
         });
     };
+    const deleteHandler = () => {
+        dispatch(deletePack(currentId, URLParams)).then(() => {
+            setIsPackModalOpen(false);
+        });
+    };
 
     return (
         <GridBox
-            padding={"20px 0 0 0"}
-            columns={"repeat(auto-fill, minmax(220px, 1fr))"}
+            columns={"repeat(auto-fill, minmax(250px, 1fr))"}
             style={{flexGrow: windowWidth > 540 ? 1 : ""}}
-            rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(125px, 200px))` : ``}
+            rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(145px, 200px))` : ``}
         >
             {cardPacks.map((pack) => (
                 <PackCard
@@ -53,7 +57,12 @@ const PacksList = () => {
                 />
             ))}
             {isPackModalOpen === "delete" && (
-                <DeletePackModal onClose={() => setIsPackModalOpen(false)} packId={currentId} />
+                <DeleteModal
+                    deleteHandler={deleteHandler}
+                    onClose={() => setIsPackModalOpen(false)}
+                    text={"Do you really want to remove this pack? All cards will be deleted."}
+                    title={"Delete pack"}
+                />
             )}
             {isPackModalOpen === "update" && (
                 <AddAndUpdatePackModal

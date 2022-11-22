@@ -1,20 +1,24 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
-export const SPackCardWrapper = styled.div`
+export const SPackCardWrapper = styled.div<{ isFetching: boolean }>`
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    padding: 15px 15px 5px;
-    background-color: ${({ theme }) => theme.colors.primary};
-    // background: ${({ theme }) =>
-        `linear-gradient(110deg, ${theme.colors.cards.default[0]}, ${theme.colors.cards.default[1]})`};
+    padding: 15px;
+    background-color: ${({theme}) => theme.colors.primary};
+        // background: ${({theme}) =>
+            `linear-gradient(110deg, ${theme.colors.cards.default[0]}, ${theme.colors.cards.default[1]})`};
     border-radius: 15px;
-    color: ${({ theme }) => theme.colors.cards.text};
+    color: ${({theme}) => theme.colors.cards.text};
     font-size: 12px;
-    min-height: 125px;
+    min-height: 145px;
     transition: 0.2s;
     cursor: pointer;
 
+    ${props => props.isFetching && css`
+        pointer-events: none;
+        opacity: 0.6;
+    `}
     &:hover {
         transform: scale(0.95);
     }
@@ -25,7 +29,6 @@ export const SPackCardActions = styled.div`
     justify-content: space-between;
     height: 100%;
     gap: 5px;
-    padding: 0 0 10px 0;
     flex-direction: column;
     max-height: 120px;
 `;
