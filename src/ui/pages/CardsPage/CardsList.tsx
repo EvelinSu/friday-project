@@ -46,7 +46,7 @@ const CardsList = () => {
     };
 
     const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cards.length || 0)
-        .map(el => (<SGridDefaultBlock key={el}></SGridDefaultBlock>))
+        .map(el => (<SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>))
 
     return (
         <GridBox

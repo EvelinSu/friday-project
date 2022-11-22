@@ -41,7 +41,7 @@ const PacksList = () => {
             .then(() => setIsPackModalOpen(false));
     };
     const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cardPacks.length || 0)
-        .map(el => (<SGridDefaultBlock key={el}></SGridDefaultBlock>))
+        .map(el => (<SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>))
 
     return (
         <GridBox

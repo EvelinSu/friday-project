@@ -16,10 +16,10 @@ export const GridBox = styled.div<TGridBoxProps>((props) => ({
     borderRadius: 15,
 }));
 
-export const SGridDefaultBlock = styled.div`
+export const SGridDefaultBlock = styled.div<{ minHeight: string }>`
     width: 100%;
     height: 100%;
     background-color: ${props => props.theme.colors.cards.skeleton};
     border-radius: 15px;
-
+    min-height: ${props => props.minHeight};
 `
