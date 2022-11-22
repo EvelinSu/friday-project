@@ -15,7 +15,7 @@ import {addNewPack} from "../../../../bll/packsReducer";
 import {getUrlParams, initialParams} from "../../../../common/utils/getUrlParams";
 import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "../PacksModals/AddAndUpdatePackModal";
 
-import {SearchPack} from "./SearchPack";
+import {Search} from "../../../components/Search/Search";
 import {AddIcon} from "../../../assets/icons/AddIcon";
 
 const PacksPagePanel = () => {
@@ -61,7 +61,7 @@ const PacksPagePanel = () => {
                 )}
             </Box>
             <Box margin={"0 0 20px 0"} alignItems={"center"}>
-                <SearchPack />
+                <Search />
                 <FilterWrapper
                     id={"filter"}
                     tabIndex={0}

@@ -27,6 +27,7 @@ export const baseTheme = {
         cards: {
             default: ["#7398CE", "rgba(115,152,206,0.62)"],
             text: "#fff",
+            skeleton: "rgba(115,152,206,0.05)"
         },
     },
     sizes: {

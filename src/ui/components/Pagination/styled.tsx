@@ -26,12 +26,14 @@ export const MyPaginate = styled(ReactPaginate)`
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: ${({theme}) => theme.colors.secondaryLight};
         cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.1);
 
         &:hover {
             transform: scale(0.9);
         }
+
     }
 
     .disabled {
@@ -44,11 +46,16 @@ export const MyPaginate = styled(ReactPaginate)`
         pointer-events: none;
         border-radius: 50%;
         color: ${({theme}) => theme.colors.textOnPrimary};
+
+        a {
+            background-color: transparent;
+        }
     }
 
     .arrow {
         background-color: transparent;
         cursor: pointer;
+        border: 1px solid transparent;
 
         &:hover {
             background-color: rgba(0, 0, 0, 0.05);

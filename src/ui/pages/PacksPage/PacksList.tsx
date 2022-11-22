@@ -1,12 +1,13 @@
 import React, {useCallback, useMemo, useState} from "react";
 import PackCard from "./PackCard/PackCard";
-import {GridBox} from "../../components/GridBox/GridBox";
+import {GridBox, SGridDefaultBlock} from "../../components/GridBox/GridBox";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useSearchParams} from "react-router-dom";
 import {getUrlParams} from "../../../common/utils/getUrlParams";
 import {deletePack, updatePack} from "../../../bll/packsReducer";
 import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "./PacksModals/AddAndUpdatePackModal";
 import DeleteModal from "../../components/Modals/DeleteModal";
+import {getCountArray} from "../../../common/utils/getCountArray";
 
 export type TPackModals = "delete" | "update" | false;
 
@@ -41,6 +42,8 @@ const PacksList = () => {
             setIsPackModalOpen(false);
         });
     };
+    const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cardPacks.length || 0)
+        .map(el => (<SGridDefaultBlock key={el}></SGridDefaultBlock>))
 
     return (
         <GridBox
@@ -56,6 +59,7 @@ const PacksList = () => {
                     isFetching={isFetching}
                 />
             ))}
+            {cardsSkeleton}
             {isPackModalOpen === "delete" && (
                 <DeleteModal
                     deleteHandler={deleteHandler}

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Property } from "csstype";
+import {Property} from "csstype";
 
 type TGridBoxProps = {
     columns?: Property.GridTemplateColumns;
@@ -15,3 +15,11 @@ export const GridBox = styled.div<TGridBoxProps>((props) => ({
     overflow: "auto",
     borderRadius: 15,
 }));
+
+export const SGridDefaultBlock = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: ${props => props.theme.colors.cards.skeleton};
+    border-radius: 15px;
+
+`

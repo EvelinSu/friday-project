@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo, useState} from "react";
-import {GridBox} from "../../components/GridBox/GridBox";
+import {GridBox, SGridDefaultBlock} from "../../components/GridBox/GridBox";
 import {useSearchParams} from "react-router-dom";
 import {getUrlParams} from "../../../common/utils/getUrlParams";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
@@ -8,6 +8,7 @@ import {TPackModals} from "../PacksPage/PacksList";
 import AddAndUpdateCardModal, {TAddAndUpdateCardModalValues} from "./CardsModals/AddAndUpdateCardModal";
 import {deleteCard, updateCard} from "../../../bll/cardsReducer";
 import DeleteModal from "../../components/Modals/DeleteModal";
+import {getCountArray} from "../../../common/utils/getCountArray";
 
 export type TCardsModals = "delete" | "update" | false;
 
@@ -44,6 +45,9 @@ const CardsList = () => {
         });
     };
 
+    const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cards.length || 0)
+        .map(el => (<SGridDefaultBlock key={el}></SGridDefaultBlock>))
+
     return (
         <GridBox
             columns={"repeat(auto-fill, minmax(250px, 1fr))"}
@@ -58,6 +62,7 @@ const CardsList = () => {
                     isFetching={isFetching}
                 />
             ))}
+            {cardsSkeleton}
             {isCardModalOpen === "delete" && (
                 <DeleteModal
                     onClose={() => setIsCardModalOpen(false)}

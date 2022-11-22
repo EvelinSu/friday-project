@@ -5,7 +5,7 @@ import Button from "../../../components/Button/Button";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {getUrlParams} from "../../../../common/utils/getUrlParams";
-import {SearchPack} from "../../PacksPage/PacksPagePanel/SearchPack";
+import {Search} from "../../../components/Search/Search";
 import LongArrowIcon from "../../../assets/icons/LongArrowIcon";
 import IconButton from "../../../components/IconButton/IconButton";
 import AddAndUpdateCardModal, {TAddAndUpdateCardModalValues} from "../CardsModals/AddAndUpdateCardModal";
@@ -85,7 +85,7 @@ const PacksPagePanel = () => {
                 margin={"0 0 20px 0"}
                 alignItems={"center"}
             >
-                <SearchPack />
+                <Search />
                 {/*<Box maxWidth={"200px"} width={"100%"}>*/}
                 {/*    <Select*/}
                 {/*        options={options}*/}
