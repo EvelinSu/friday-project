@@ -6,8 +6,6 @@ export const SPackCardWrapper = styled.div<{ isFetching: boolean }>`
     gap: 10px;
     padding: 15px;
     background-color: ${({theme}) => theme.colors.primary};
-        // background: ${({theme}) =>
-            `linear-gradient(110deg, ${theme.colors.cards.default[0]}, ${theme.colors.cards.default[1]})`};
     border-radius: 15px;
     color: ${({theme}) => theme.colors.cards.text};
     font-size: 12px;
