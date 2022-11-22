@@ -25,12 +25,10 @@ const ChangePassword = () => {
 
 export const ChangePasswordForm = () => {
     const navigate = useNavigate();
-
-    const { isFetching } = useAppSelector((state) => state.app);
     const dispatch = useAppDispatch();
-    const isTokenFromState = useAppSelector((state) => state.forgotPass.token);
     const { token } = useParams();
-    // console.log('token', token)
+    const isFetching = useAppSelector((state) => state.app.isFetching);
+    const isTokenFromState = useAppSelector((state) => state.forgotPass.token);
 
     const { handleBlur, touched, handleChange, handleSubmit, isValid, values, errors } = useFormik({
         initialValues: {
@@ -45,12 +43,8 @@ export const ChangePasswordForm = () => {
     });
 
     useEffect(() => {
-        if (!token || !isTokenFromState) {
-            // console.log('token', token)
-            navigate(PATH.profile);
-        } else if (token) {
-            token && dispatch(setTokenAC({ token }));
-        }
+        if (!token || !isTokenFromState) navigate(PATH.profile);
+        if (token) dispatch(setTokenAC({ token }));
     }, [isTokenFromState]);
 
     return (

@@ -34,8 +34,6 @@ const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetchi
     const navigate = useNavigate()
 
     const avatar = pack.user_id === myId ? myAvatar : defaultAvatar
-
-    // const { name, avatar } = useAppSelector((state) => state.user);
     const correctDate = transformDate(pack.updated);
 
     const onPackClickHandler = () => {
@@ -44,7 +42,9 @@ const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetchi
     }
 
     return (
-        <SPackCardWrapper isFetching={isFetching} onClick={() => onPackClickHandler()}
+        <SPackCardWrapper
+            isFetching={isFetching}
+            onClick={() => onPackClickHandler()}
         >
             <Box
                 overflow={"hidden"}
