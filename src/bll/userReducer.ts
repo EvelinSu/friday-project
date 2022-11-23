@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { userAPI } from "../dal/userAPI";
 import { setIsFetching } from "./appReducer";
 import { TUserData } from "../dal/ResponseTypes";
+import { handlerErrors } from "../common/utils/handlerErrors";
 
 const initialState: TUserData = {
     _id: "",
@@ -25,16 +26,22 @@ const slice = createSlice({
     },
 });
 
-export const getUser = createAsyncThunk("user/getUser", async (id: string, { dispatch }) => {
-    dispatch(setIsFetching(true));
-    try {
-        const res = await userAPI.getUser(id);
-        dispatch(setUser(res.data.user));
-        dispatch(setIsFetching(false));
-    } catch (e) {
-        dispatch(setIsFetching(false));
+export const getUser = createAsyncThunk(
+    "user/getUser",
+    async (id: string, { dispatch, rejectWithValue }) => {
+        dispatch(setIsFetching(true));
+        try {
+            const res = await userAPI.getUser(id);
+            dispatch(setUser(res.data.user));
+            dispatch(setIsFetching(false));
+        } catch (e) {
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
+        } finally {
+            dispatch(setIsFetching(false));
+        }
     }
-});
+);
 
 export const userReducer = slice.reducer;
 export const { setUser } = slice.actions;

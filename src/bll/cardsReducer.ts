@@ -28,7 +28,7 @@ export const initialCardsData = {
 
 export const loadCards = createAsyncThunk(
     "cards/loadCards",
-    async (param: TCardsParams, { dispatch }) => {
+    async (param: TCardsParams, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         try {
             const res = await cardsAPI.getCards(param);
@@ -39,6 +39,7 @@ export const loadCards = createAsyncThunk(
             //     ? e.response.data.error
             //     : e.message + ", more details in the console";
             // dispatch(setAppMessage({ text: err, severity: "error" }));
+            return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));
         }
@@ -47,7 +48,7 @@ export const loadCards = createAsyncThunk(
 
 export const addNewCard = createAsyncThunk(
     "cards/addNewCard",
-    async (param: { cardsParams: TCardsParams; newCard: TNewCard }, { dispatch }) => {
+    async (param: { cardsParams: TCardsParams; newCard: TNewCard }, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         dispatch(setIsButtonsDisabled(true));
         try {
@@ -55,6 +56,7 @@ export const addNewCard = createAsyncThunk(
             dispatch(loadCards(param.cardsParams));
         } catch (e) {
             handlerErrors(dispatch, e);
+            return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));
             dispatch(setIsButtonsDisabled(false));
@@ -66,7 +68,7 @@ export const updateCard = createAsyncThunk(
     "cards/updateCard",
     async (
         param: { values: TAddAndUpdateCardModalValues; _id: string; paramURL: TCardsParams },
-        { dispatch }
+        { dispatch, rejectWithValue }
     ) => {
         dispatch(setIsButtonsDisabled(true));
         try {
@@ -75,6 +77,7 @@ export const updateCard = createAsyncThunk(
             dispatch(setAppMessage({ text: "Done!", severity: "success" }));
         } catch (e) {
             handlerErrors(dispatch, e);
+            return rejectWithValue({});
         } finally {
             dispatch(setIsButtonsDisabled(false));
         }
@@ -83,7 +86,7 @@ export const updateCard = createAsyncThunk(
 
 export const deleteCard = createAsyncThunk(
     "cards/deleteCard",
-    async (param: { id: string; URLParams: TCardsParams }, { dispatch }) => {
+    async (param: { id: string; URLParams: TCardsParams }, { dispatch, rejectWithValue }) => {
         dispatch(setIsButtonsDisabled(true));
         try {
             await cardsAPI.deleteCard(param.id);
@@ -91,6 +94,7 @@ export const deleteCard = createAsyncThunk(
             dispatch(setAppMessage({ text: "Done!", severity: "success" }));
         } catch (e) {
             handlerErrors(dispatch, e);
+            return rejectWithValue({});
         } finally {
             dispatch(setIsButtonsDisabled(false));
         }

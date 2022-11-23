@@ -20,7 +20,7 @@ export type TAuth = {
 
 export const registerTC = createAsyncThunk(
     "auth/register",
-    async (param: TRegisterData, { dispatch }) => {
+    async (param: TRegisterData, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         try {
             await authAPI.register(param);
@@ -28,13 +28,14 @@ export const registerTC = createAsyncThunk(
             dispatch(setAppMessage({ text: "Registration was successful!", severity: "success" }));
         } catch (e) {
             handlerErrors(dispatch, e);
+            return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));
         }
     }
 );
 
-export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch }) => {
+export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch, rejectWithValue }) => {
     try {
         dispatch(setIsInitialized({ value: false }));
         dispatch(setAppStatus("loading"));
@@ -45,30 +46,34 @@ export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch
         dispatch(setIsLoggedIn({ value: true }));
     } catch (e) {
         dispatch(setIsLoggedIn({ value: false }));
-        // handlerErrors(dispatch, e);
+        return rejectWithValue({});
     } finally {
         dispatch(setIsInitialized({ value: true }));
     }
 });
 
-export const loginTC = createAsyncThunk("auth/loginTC", async (data: TLoginData, { dispatch }) => {
-    dispatch(setIsFetching(true));
+export const loginTC = createAsyncThunk(
+    "auth/loginTC",
+    async (data: TLoginData, { dispatch, rejectWithValue }) => {
+        dispatch(setIsFetching(true));
 
-    try {
-        const res = await authAPI.login(data);
-        const { name, email, avatar } = res.data;
-        const id = res.data._id;
-        dispatch(setUserData({ id, name, email, avatar }));
-        dispatch(setIsLoggedIn({ value: true }));
-        dispatch(setRegisterUserData({ email: "", password: "" }));
-    } catch (e) {
-        handlerErrors(dispatch, e);
-    } finally {
-        dispatch(setIsFetching(false));
+        try {
+            const res = await authAPI.login(data);
+            const { name, email, avatar } = res.data;
+            const id = res.data._id;
+            dispatch(setUserData({ id, name, email, avatar }));
+            dispatch(setIsLoggedIn({ value: true }));
+            dispatch(setRegisterUserData({ email: "", password: "" }));
+        } catch (e) {
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
+        } finally {
+            dispatch(setIsFetching(false));
+        }
     }
-});
+);
 
-export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch }) => {
+export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch, rejectWithValue }) => {
     dispatch(setIsFetching(true));
     try {
         await authAPI.logOut();
@@ -76,6 +81,7 @@ export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch
         dispatch(setIsLoggedIn({ value: false }));
     } catch (e) {
         handlerErrors(dispatch, e);
+        return rejectWithValue({});
     } finally {
         dispatch(setIsFetching(false));
     }
@@ -84,7 +90,7 @@ export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch
 export const changeUserProfileTC = createAsyncThunk(
     "auth/changeUserProfile",
 
-    async (data: TProfileData, { dispatch }) => {
+    async (data: TProfileData, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
 
         try {
@@ -97,6 +103,7 @@ export const changeUserProfileTC = createAsyncThunk(
             //     dispatch(setAppMessage({ text: e.response.statusText, severity: "error" }));
 
             handlerErrors(dispatch, e);
+            return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));
         }
