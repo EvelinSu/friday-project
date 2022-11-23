@@ -23,7 +23,7 @@ export const Search = () => {
                 ? setSearchParams({...URLParams, cardQuestion: debounceValue})
                 : setSearchParams({...URLParams, packName: debounceValue});
         }
-        if (debounceValue === "") {
+        if (debounceValue === "" && (URLParams.packName || URLParams.cardQuestion)) {
             delete URLParams.packName;
             delete URLParams.cardQuestion;
             setSearchParams(URLParams)
