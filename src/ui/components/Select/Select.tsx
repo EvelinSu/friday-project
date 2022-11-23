@@ -20,8 +20,8 @@ type TAlternativeSuperSelect = {
     placeholder?: string;
     id?: string;
     onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
-    padding?: string
-    color?: string
+    padding?: string;
+    color?: string;
 };
 
 function Select(props: TAlternativeSuperSelect) {
@@ -81,13 +81,12 @@ function Select(props: TAlternativeSuperSelect) {
 
     useEffect(() => {
         if (props.value !== "") {
-            setSearchParams({...URLParams, sortPacks: transformToURLOption(props.value)})
+            setSearchParams({ ...URLParams, sortPacks: transformToURLOption(props.value) });
         }
         if (props.value === "") {
-            delete URLParams.sortPacks
-            setSearchParams(URLParams)
+            delete URLParams.sortPacks;
+            setSearchParams(URLParams);
         }
-
     }, [props.value]);
 
     return (

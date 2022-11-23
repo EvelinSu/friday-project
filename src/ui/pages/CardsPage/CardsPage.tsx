@@ -1,12 +1,12 @@
-import React, {useEffect, useMemo} from "react";
-import {SPageWrapper} from "../styled";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {useSearchParams} from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { SPageWrapper } from "../styled";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { useSearchParams } from "react-router-dom";
 import LoaderIcon from "../../assets/loaders/loader";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
-import {CardsNotFound} from "./CardsNotFound/CardsNotFound";
+import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { CardsNotFound } from "./CardsNotFound/CardsNotFound";
 import CardsList from "./CardsList";
-import {loadCards} from "../../../bll/cardsReducer";
+import { loadCards } from "../../../bll/cardsReducer";
 import Pagination from "../../components/Pagination/Pagination";
 import CardsPagePanel from "./CardsPagePanel/CardsPagePanel";
 
@@ -38,4 +38,3 @@ export const CardsPage = () => {
         </SPageWrapper>
     );
 };
-

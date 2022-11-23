@@ -1,13 +1,15 @@
-import React, {useCallback, useMemo, useState} from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import PackCard from "./PackCard/PackCard";
-import {GridBox, SGridDefaultBlock} from "../../components/GridBox/GridBox";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {useSearchParams} from "react-router-dom";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
-import {deletePack, updatePack} from "../../../bll/packsReducer";
-import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "./PacksModals/AddAndUpdatePackModal";
+import { GridBox, SGridDefaultBlock } from "../../components/GridBox/GridBox";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { useSearchParams } from "react-router-dom";
+import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { deletePack, updatePack } from "../../../bll/packsReducer";
+import AddAndUpdatePackModal, {
+    TAddAndUpdatePackModalValues,
+} from "./PacksModals/AddAndUpdatePackModal";
 import DeleteModal from "../../components/Modals/DeleteModal";
-import {getCountArray} from "../../../common/utils/getCountArray";
+import { getCountArray } from "../../../common/utils/getCountArray";
 
 export type TPackModals = "delete" | "update" | false;
 
@@ -19,6 +21,9 @@ const PacksList = () => {
     const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks);
     const [isPackModalOpen, setIsPackModalOpen] = useState<TPackModals>(false);
     const [currentId, setCurrentId] = useState<string>("");
+
+    const state = useAppSelector((state) => state.packsParams);
+    console.log(state);
 
     const windowWidth = window.innerWidth;
     const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 4 : 4;
@@ -33,20 +38,21 @@ const PacksList = () => {
     );
 
     const updatePackHandler = (values: TAddAndUpdatePackModalValues) => {
-        dispatch(updatePack({_id: currentId, values, paramURL: URLParams}))
-            .then(() => setIsPackModalOpen(false));
+        dispatch(updatePack({ _id: currentId, values, paramURL: URLParams })).then(() =>
+            setIsPackModalOpen(false)
+        );
     };
     const deleteHandler = () => {
-        dispatch(deletePack(currentId, URLParams))
-            .then(() => setIsPackModalOpen(false));
+        dispatch(deletePack(currentId, URLParams)).then(() => setIsPackModalOpen(false));
     };
-    const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cardPacks.length || 0)
-        .map(el => (<SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>))
+    const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cardPacks.length || 0).map(
+        (el) => <SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>
+    );
 
     return (
         <GridBox
             columns={"repeat(auto-fill, minmax(250px, 1fr))"}
-            style={{flexGrow: windowWidth > 540 ? 1 : ""}}
+            style={{ flexGrow: windowWidth > 540 ? 1 : "" }}
             rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(145px, 200px))` : ``}
         >
             {cardPacks.map((pack) => (

@@ -1,11 +1,11 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TAppDispatch} from "./store/store";
-import {cardsAPI} from "../dal/cardsAPI";
-import {TPack, TPacksParams} from "../dal/ResponseTypes";
-import {setAppMessage, setIsFetching} from "./appReducer";
-import {getUser} from "./userReducer";
-import axios, {AxiosError} from "axios";
-import {TAddAndUpdatePackModalValues} from "../ui/pages/PacksPage/PacksModals/AddAndUpdatePackModal";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TAppDispatch } from "./store/store";
+import { cardsAPI } from "../dal/cardsAPI";
+import { TPack, TPacksParams } from "../dal/ResponseTypes";
+import { setAppMessage, setIsFetching } from "./appReducer";
+import { getUser } from "./userReducer";
+import axios, { AxiosError } from "axios";
+import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksPage/PacksModals/AddAndUpdatePackModal";
 
 export type TPacksData = {
     cardPacks: TPack[];
@@ -54,7 +54,7 @@ const slice = createSlice({
 
 export const loadPacks = createAsyncThunk(
     "packs/loadPacks",
-    async (param: TPacksParams, {dispatch}) => {
+    async (param: TPacksParams, { dispatch }) => {
         dispatch(setIsFetching(true));
         try {
             const res = await cardsAPI.getPacks(param);
@@ -76,31 +76,31 @@ export const loadPacks = createAsyncThunk(
 
 export const addNewPack =
     (newCardsPack: TAddAndUpdatePackModalValues, param: TPacksParams) =>
-        async (dispatch: TAppDispatch) => {
-            dispatch(setIsButtonsDisabled(true));
-            const {name, deckCover, isPrivate} = newCardsPack;
-            try {
-                await cardsAPI.addPack({name, deckCover, private: isPrivate});
-                dispatch(loadPacks(param));
-                dispatch(setAppMessage({text: "New pack created", severity: "success"}));
-            } catch (e) {
-                dispatch(setAppMessage({text: "something went wrong try again later", severity: "error"}));
-            } finally {
-                dispatch(setIsButtonsDisabled(false));
-            }
-        };
+    async (dispatch: TAppDispatch) => {
+        dispatch(setIsButtonsDisabled(true));
+        const { name, deckCover, isPrivate } = newCardsPack;
+        try {
+            await cardsAPI.addPack({ name, deckCover, private: isPrivate });
+            dispatch(loadPacks(param));
+            dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
+        } catch (e) {
+            dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
+        } finally {
+            dispatch(setIsButtonsDisabled(false));
+        }
+    };
 
 export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatch: TAppDispatch) => {
     dispatch(setIsButtonsDisabled(true));
     try {
         await cardsAPI.deletePack(id);
         dispatch(loadPacks(paramURL));
-        dispatch(setAppMessage({text: "Done!", severity: "success"}));
+        dispatch(setAppMessage({ text: "Done!", severity: "success" }));
     } catch (e) {
         const err = e as Error | AxiosError;
         if (axios.isAxiosError(err)) {
             const errorMessage = err.response?.data ? err.response.data : err;
-            dispatch(setAppMessage({text: errorMessage.error, severity: "error"}));
+            dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
         }
     } finally {
         dispatch(setIsButtonsDisabled(false));
@@ -111,19 +111,19 @@ export const updatePack = createAsyncThunk(
     "packs/updatePack",
     async (
         param: { values: TAddAndUpdatePackModalValues; _id: string; paramURL: TPacksParams },
-        {dispatch}
+        { dispatch }
     ) => {
         dispatch(setIsButtonsDisabled(true));
         try {
-            const {name, deckCover, isPrivate} = param.values;
-            await cardsAPI.updatePack({_id: param._id, name, deckCover, private: isPrivate});
+            const { name, deckCover, isPrivate } = param.values;
+            await cardsAPI.updatePack({ _id: param._id, name, deckCover, private: isPrivate });
             dispatch(loadPacks(param.paramURL));
-            dispatch(setAppMessage({text: "Done!", severity: "success"}));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
         } catch (e) {
             const err = e as Error | AxiosError;
             if (axios.isAxiosError(err)) {
-                const errorMessage = err.response?.data ? err.response.data : err;
-                dispatch(setAppMessage({text: errorMessage.error, severity: "error"}));
+                const errorMessage = err.response?.data ? err.response.data : err.message;
+                dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
             }
         } finally {
             dispatch(setIsButtonsDisabled(false));
@@ -132,4 +132,4 @@ export const updatePack = createAsyncThunk(
 );
 
 export const packsReducer = slice.reducer;
-export const {setPacks, clearStatePacks, setIsButtonsDisabled} = slice.actions;
+export const { setPacks, clearStatePacks, setIsButtonsDisabled } = slice.actions;

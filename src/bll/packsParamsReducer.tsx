@@ -1,6 +1,6 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import {TPacksParams} from "../dal/ResponseTypes";
+import { TPacksParams } from "../dal/ResponseTypes";
 
 //
 const initialState: TPacksParams = {
