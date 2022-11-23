@@ -4,12 +4,13 @@ import Checkbox from "../../../components/Checkbox/Checkbox";
 import {Box} from "../../../components/Box/Box";
 import Button from "../../../components/Button/Button";
 import {useAppSelector} from "../../../../hooks/hooks";
-import {SForm} from "../../../components/Form/styled";
+import {SForm, WithFormTitle} from "../../../components/Form/styled";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {TPack} from "../../../../dal/ResponseTypes";
 import {SMegaShadow} from "../../../components/MegaShadow/styled";
 import {UiBox} from "../../../components/UiBox/UiBox";
+import {FileUploadArea} from "../../../components/FileUploadArea/FileUploadArea";
 
 type TAddPackModalProps = {
     title: string;
@@ -71,14 +72,18 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
     return (
         <SForm onSubmit={handleSubmit}>
             <Box flexDirection={"column"}>
-                <Input
-                    title={"Name pack"}
-                    value={values.name}
-                    onChange={handleChange}
-                    name={"name"}
-                    type={"name"}
-                    autoFocus={true}
-                />
+                <WithFormTitle title={"Pack name"}>
+                    <Input
+                        value={values.name}
+                        onChange={handleChange}
+                        name={"name"}
+                        type={"name"}
+                        autoFocus={true}
+                    />
+                </WithFormTitle>
+                <WithFormTitle title={"Pack image"}>
+                    <FileUploadArea />
+                </WithFormTitle>
                 <Box>
                     <Checkbox
                         type={"checkbox"}
