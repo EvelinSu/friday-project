@@ -1,53 +1,49 @@
-import React, { FC, useRef } from "react";
-import { SAvatar, SAvatarDeleteIcon, SAvatarShadow } from "./styled";
+import React, {FC, useRef} from "react";
+import {SAvatar, SAvatarDeleteIcon, SAvatarShadow} from "./styled";
 import PhotoIcon from "../../assets/icons/PhotoIcon";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { changeUserProfileTC } from "../../../bll/authReducer";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
 
 type TAvatarProps = {
     img: string;
     size?: "large" | "small" | "smallest";
     isEditable?: boolean;
-    onClick?: () => void;
+    onClick?: (newImage: string) => void;
+    deleteImageHandler?: (e: React.MouseEvent<HTMLDivElement>) => void;
+    isFetching?: boolean
 };
 
-const Avatar: FC<TAvatarProps> = ({ size, img, isEditable }) => {
-    const dispatch = useAppDispatch();
+const Avatar: FC<TAvatarProps> = ({size, img, isEditable, isFetching, ...props}) => {
 
     const inputFile = useRef<HTMLInputElement | null>(null);
-    const { avatar } = useAppSelector((state) => state.auth.userData);
-    const onButtonClick = () => {
-        console.log(inputFile.current?.click());
+    const onClickHandler = () => {
+        inputFile.current?.click();
     };
 
-    const encodeImageFileAsURL = (event: any) => {
-        let file = event.target.files[0];
+    const encodeImageFileAsURL = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let file = event.target.files && event.target.files[0]
         let reader = new FileReader();
         reader.onloadend = function () {
-            dispatch(changeUserProfileTC({ avatar: String(reader.result) }));
+            props.onClick && props.onClick(String(reader.result))
         };
-        reader.readAsDataURL(file);
-    };
-
-    const deleteImage = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        dispatch(changeUserProfileTC({ avatar: "https://i.imgur.com/lqN6w1t.png" }));
+        reader.readAsDataURL(file as Blob);
     };
 
     return (
         <SAvatar size={size} img={img}>
-            {isEditable && (
-                <SAvatarShadow onClick={onButtonClick}>
+            {isEditable && !isFetching && (
+                <SAvatarShadow onClick={onClickHandler}>
                     <input
                         type="file"
                         ref={inputFile}
                         onChange={encodeImageFileAsURL}
-                        style={{ display: "none" }}
+                        style={{display: "none"}}
                     />
                     <PhotoIcon />
-                    {avatar && avatar !== "https://i.imgur.com/lqN6w1t.png" && (
-                        <SAvatarDeleteIcon onClick={deleteImage} title={"Delete avatar"}>
+                    {img && img !== "https://i.imgur.com/lqN6w1t.png" && (
+                        <SAvatarDeleteIcon
+                            onClick={(e) => props.deleteImageHandler && props.deleteImageHandler(e)}
+                            title={"Delete avatar"}
+                        >
                             <DeleteIcon />
                         </SAvatarDeleteIcon>
                     )}

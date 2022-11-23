@@ -15,6 +15,7 @@ import {SProfileButton, SProfileContent} from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import {initialParams} from "../../../common/utils/getUrlParams";
 import {setAppMessage} from "../../../bll/appReducer";
+import Loader from "../../assets/loaders/loader";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
@@ -59,13 +60,25 @@ const ProfileUiBoxBody = () => {
         setValue(e.currentTarget.value);
     };
 
+    const changeAvatarHandler = (newImage: string) => {
+        dispatch(changeUserProfileTC({avatar: newImage}));
+    }
+
+    const deleteImageHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        dispatch(changeUserProfileTC({avatar: "https://i.imgur.com/lqN6w1t.png"}));
+    };
+
     return (
         <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
             <SProfileContent>
+                {isFetching && <Loader absolute />}
                 <Avatar
                     size={"large"}
                     img={avatar || defaultPhoto}
-                    onClick={() => alert("In progress")}
+                    deleteImageHandler={deleteImageHandler}
+                    onClick={changeAvatarHandler}
+                    isFetching={isFetching}
                     isEditable
                 />
                 <Box width={"100%"} flexDirection={"column"} overflow={"hidden"}>

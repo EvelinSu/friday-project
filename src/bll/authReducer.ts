@@ -127,6 +127,7 @@ export const logOutTC = () => (dispatch: TAppDispatch) => {
 };
 
 export const changeUserProfileTC = (data: TProfileData) => (dispatch: TAppDispatch) => {
+    dispatch(setIsFetching(true))
     authAPI
         .changeUserProfile(data)
         .then(() => {
@@ -142,7 +143,10 @@ export const changeUserProfileTC = (data: TProfileData) => (dispatch: TAppDispat
                     : e.message + ", more details in the console";
                 dispatch(setAppMessage({text: err, severity: "error"}));
             }
-        });
+        })
+        .finally(() => {
+            dispatch(setIsFetching(false))
+        })
 };
 
 export const {setIsLoggedIn, setUserData, setUserProfile, setRegisterUserData} = slice.actions;

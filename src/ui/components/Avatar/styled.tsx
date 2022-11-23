@@ -18,6 +18,9 @@ const imgSizes = (size: TSizes) => {
 };
 
 export const SAvatar = styled.div<TSAvatarProps>((props) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: "50%",
     overflow: "hidden",
     position: "relative",
