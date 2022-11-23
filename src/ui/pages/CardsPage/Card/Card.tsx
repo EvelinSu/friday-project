@@ -28,7 +28,7 @@ export const Card: FC<TCardProps> = (props) => {
     return (
         <SCardWrapper>
             <SCardShadow>
-                <SCardText title={props.card.answer}>
+                <SCardText title={props.card.answer} lineClamp={userId !== myId ? 5 : 3}>
                     {props.card.answer}
                 </SCardText>
                 {userId === myId && (

@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const SCardWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    row-gap: 10px;
+    gap: 7px;
+    row-gap: 7px;
     justify-content: space-between;
     align-items: center;
     background: ${({theme}) => `linear-gradient(112deg, ` + theme.colors.cards.default[0] + ` 0%, ` + theme.colors.cards.default[1] + `100%)`};
@@ -48,9 +48,9 @@ export const SCardIcons = styled.div`
     right: 10px;
 `
 
-export const SCardText = styled.div`
+export const SCardText = styled.div<{ lineClamp?: number }>`
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: ${props => props.lineClamp || 3};
     -webkit-box-orient: vertical;
     overflow: hidden;
 `
