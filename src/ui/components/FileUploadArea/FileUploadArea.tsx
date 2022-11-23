@@ -11,8 +11,13 @@ type TFileUploadAreaProps = {
     onChange: (file: string) => void
     value: string
     size?: number
+    fileType?: 'image' | 'document'
 }
 export const FileUploadArea: FC<TFileUploadAreaProps> = ({size = 4000000, ...props}) => {
+    const inputAccept = {
+        "image": '.png, .jpg, .jpeg, .gif',
+        "document": ".doc, .pdf"
+    }
     const dispatch = useAppDispatch()
     const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -46,6 +51,7 @@ export const FileUploadArea: FC<TFileUploadAreaProps> = ({size = 4000000, ...pro
         <SFileUploadArea onClick={onClickHandler}>
             <SFileUploadAreaImage img={props.value}></SFileUploadAreaImage>
             <input
+                accept={props.fileType && inputAccept[props.fileType]}
                 name={props.name}
                 type="file"
                 ref={inputFile}

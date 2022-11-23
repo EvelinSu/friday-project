@@ -90,6 +90,7 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
                 </WithFormTitle>
                 <WithFormTitle title={"Pack image"}>
                     <FileUploadArea
+                        fileType={'image'}
                         onChange={onChangePackImage}
                         value={values.deckCover}
                     />

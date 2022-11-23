@@ -131,6 +131,7 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
                     <>
                         <WithFormTitle title={"Question"}>
                             <FileUploadArea
+                                fileType={'image'}
                                 placeholder={"Choose image"}
                                 onChange={(file: string) => onChangeImage("question", file)}
                                 value={values.questionImg !== null ? values.questionImg : ""}
@@ -139,6 +140,7 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
                         </WithFormTitle>
                         <WithFormTitle title={"Answer"}>
                             <FileUploadArea
+                                fileType={'image'}
                                 name={"answerImg"}
                                 onChange={(file: string) => onChangeImage("answer", file)}
                                 placeholder={"Choose image"}

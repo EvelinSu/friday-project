@@ -33,18 +33,19 @@ const Avatar: FC<TAvatarProps> = ({size, img, isEditable, isFetching, ...props})
             {isEditable && !isFetching && (
                 <SAvatarShadow onClick={onClickHandler}>
                     <input
+                        accept=".png, .jpg, .jpeg, .gif"
                         type="file"
                         ref={inputFile}
                         onChange={encodeImageFileAsURL}
                         style={{display: "none"}}
                     />
-                    <PhotoIcon />
+                    <PhotoIcon/>
                     {img && img !== "https://i.imgur.com/lqN6w1t.png" && (
                         <SAvatarDeleteIcon
                             onClick={(e) => props.deleteImageHandler && props.deleteImageHandler(e)}
                             title={"Delete avatar"}
                         >
-                            <DeleteIcon />
+                            <DeleteIcon/>
                         </SAvatarDeleteIcon>
                     )}
                 </SAvatarShadow>
