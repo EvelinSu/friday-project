@@ -57,6 +57,10 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
     const questionTypes = ["Text", "Image"]
     const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg || "")
     const [answerImage, setAnswerImage] = useState(props.currentCard?.answerImg || "")
+    const [questionType, setQuestionType] = useState(
+        ((questionImage && questionImage !== "null")
+            || (answerImage && answerImage !== "null"))
+            ? questionTypes[1] : questionTypes[0])
 
     const {handleSubmit, handleChange, values} = useFormik({
         initialValues: {
@@ -69,11 +73,15 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
             name: Yup.string(),
         }),
         onSubmit: (values: TAddAndUpdateCardModalValues) => {
+            if (questionType === "Text") {
+                values = {...values, questionImg: undefined, answerImg: undefined}
+                setAnswerImage("null")
+                setQuestionImage("null")
+            }
+            if (questionType === "Image") values = {...values, question: "", answer: ""}
             props.onSubmitHandler(values);
         },
     });
-
-    const [questionType, setQuestionType] = useState(values.questionImg ? questionTypes[1] : questionTypes[0])
 
     const onChangeImage = (type: "question" | "answer", file: string) => {
         if (type === "question") {
@@ -125,7 +133,7 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
                             <FileUploadArea
                                 placeholder={"Choose image"}
                                 onChange={(file: string) => onChangeImage("question", file)}
-                                value={values.questionImg}
+                                value={values.questionImg !== null ? values.questionImg : ""}
                                 name={"questionImg"}
                             />
                         </WithFormTitle>
@@ -134,7 +142,7 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
                                 name={"answerImg"}
                                 onChange={(file: string) => onChangeImage("answer", file)}
                                 placeholder={"Choose image"}
-                                value={values.answerImg}
+                                value={values.answerImg !== null ? values.answerImg : ""}
                             />
                         </WithFormTitle>
                     </>
