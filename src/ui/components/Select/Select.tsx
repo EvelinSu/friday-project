@@ -21,7 +21,6 @@ type TAlternativeSuperSelect = {
     id?: string;
     onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
     padding?: string
-    title?: string
     color?: string
 };
 
@@ -96,7 +95,6 @@ function Select(props: TAlternativeSuperSelect) {
             id={props.id}
             onFocus={arrowPreventDefault}
             onKeyUp={onKeyHandler}
-            title={props.title}
             tabIndex={0}
             onBlur={onBlurHandler}
         >

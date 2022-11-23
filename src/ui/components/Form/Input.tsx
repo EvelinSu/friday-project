@@ -1,19 +1,16 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
-import { SInput, SInputLeftIcon, SInputRightIcon, SInputWrapper } from "./styled";
+import React, {DetailedHTMLProps, InputHTMLAttributes} from "react";
+import {SInput, SInputLeftIcon, SInputRightIcon, SInputWrapper} from "./styled";
 
-export type TDefaultInputProps = DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
->;
+export type TDefaultInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement>;
 export type TInputProps = TDefaultInputProps & {
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
     error?: string;
-    title?: string;
     ref?: string;
 };
 
-const Input: React.FC<TInputProps> = ({ ...props }) => {
+const Input: React.FC<TInputProps> = ({...props}) => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         props.onChange && props.onChange(e);
     };
@@ -25,7 +22,7 @@ const Input: React.FC<TInputProps> = ({ ...props }) => {
     };
 
     return (
-        <SInputWrapper error={props.error} title={props.title}>
+        <SInputWrapper error={props.error}>
             {props.leftIcon && <SInputLeftIcon>{props.leftIcon}</SInputLeftIcon>}
             <SInput
                 placeholder={props.placeholder || ""}

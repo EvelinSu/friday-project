@@ -9,7 +9,6 @@ export const SForm = styled.form`
 
 interface TSInputWrapperProps {
     error?: string;
-    title?: string;
 }
 
 export const SInputWrapper = styled.div<TSInputWrapperProps>`
@@ -47,19 +46,6 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
                 opacity: 1;
                 visibility: visible;
             }
-        }
-    `}
-    ${(props) => props.title && css`
-        margin-top: 25px;
-
-        &:before {
-            content: "${props.title}";
-            position: absolute;
-            top: -25px;
-            left: 8px;
-            padding: 3px 10px;
-            font-size: 13px;
-            opacity: 0.4;
         }
     `}
 `;
@@ -121,3 +107,18 @@ export const SInputRightIcon = styled(SInputLeftIcon)`
     pointer-events: initial;
     cursor: pointer;
 `;
+
+export const WithFormTitle = styled.div<{ title: string }>`
+    position: relative;
+    margin-top: 20px;
+
+    &:before {
+        content: "${props => props.title}";
+        position: absolute;
+        top: -25px;
+        left: 8px;
+        padding: 3px 10px;
+        font-size: 13px;
+        opacity: 0.4;
+    }
+`

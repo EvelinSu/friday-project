@@ -1,6 +1,6 @@
 import styled, {css} from "styled-components";
 
-export const SSuperSelectWrapper = styled.div<{ title?: string }>`
+export const SSuperSelectWrapper = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
@@ -8,21 +8,6 @@ export const SSuperSelectWrapper = styled.div<{ title?: string }>`
     outline: none;
     border: none;
     width: 100%;
-
-    ${(props) => props.title && css`
-        margin-top: 25px;
-
-        &:before {
-            content: "${props.title}";
-            position: absolute;
-            top: -25px;
-            left: 8px;
-            padding: 3px 10px;
-            font-size: 13px;
-            opacity: 0.4;
-        }
-    `}
-
 `;
 
 export const SSuperSelectInputWrapper = styled.div<{ padding?: string, color?: string }>`

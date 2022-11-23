@@ -8,7 +8,7 @@ import {SText} from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../Pages";
-import {SForm} from "../../../components/Form/styled";
+import {SForm, WithFormTitle} from "../../../components/Form/styled";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {loginTC} from "../../../../bll/authReducer";
@@ -57,31 +57,33 @@ const SignInForm = () => {
     return (
         <SForm onSubmit={handleSubmit}>
             <Box flexDirection={"column"}>
-                <Input
-                    title={"Email"}
-                    placeholder={"example@gmail.com"}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    type={"email"}
-                    value={values.email}
-                    name="email"
-                    error={touched.email ? errors.email : ""}
-                    required
-                />
-                <Input
-                    title={"Password"}
-                    onBlur={handleBlur}
-                    placeholder={"⁎⁎⁎⁎⁎⁎⁎⁎"}
-                    onChange={handleChange}
-                    type={!isPasswordVisible ? "password" : "text"}
-                    value={values.password}
-                    name="password"
-                    error={touched.password ? errors.password : ""}
-                    rightIcon={
-                        <ViewInputIcon isVisible={isPasswordVisible} onClick={onViewClickHandler} />
-                    }
-                    required
-                />
+                <WithFormTitle title={"Email"}>
+                    <Input
+                        placeholder={"example@gmail.com"}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        type={"email"}
+                        value={values.email}
+                        name="email"
+                        error={touched.email ? errors.email : ""}
+                        required
+                    />
+                </WithFormTitle>
+                <WithFormTitle title={"Password"}>
+                    <Input
+                        onBlur={handleBlur}
+                        placeholder={"⁎⁎⁎⁎⁎⁎⁎⁎"}
+                        onChange={handleChange}
+                        type={!isPasswordVisible ? "password" : "text"}
+                        value={values.password}
+                        name="password"
+                        error={touched.password ? errors.password : ""}
+                        rightIcon={
+                            <ViewInputIcon isVisible={isPasswordVisible} onClick={onViewClickHandler} />
+                        }
+                        required
+                    />
+                </WithFormTitle>
             </Box>
             <Box flexWrap={"wrap"} alignItems={"center"}>
                 <Checkbox
