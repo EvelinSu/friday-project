@@ -98,7 +98,6 @@ export const changeUserProfileTC = createAsyncThunk(
             dispatch(setAppMessage({ text: "Successfully!", severity: "success" }));
             return data;
         } catch (e) {
-            // Add check size img
             // if (e.request.status === 413) {
             //     dispatch(setAppMessage({ text: e.response.statusText, severity: "error" }));
 
