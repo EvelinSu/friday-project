@@ -10,7 +10,6 @@ import * as Yup from "yup";
 import {TPack} from "../../../../dal/ResponseTypes";
 import {SMegaShadow} from "../../../components/MegaShadow/styled";
 import {UiBox} from "../../../components/UiBox/UiBox";
-import {FileUploadArea} from "../../../components/FileUploadArea/FileUploadArea";
 
 type TAddPackModalProps = {
     title: string;
@@ -82,7 +81,7 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
                     />
                 </WithFormTitle>
                 <WithFormTitle title={"Pack image"}>
-                    <FileUploadArea />
+                    {/*<FileUploadArea />*/}
                 </WithFormTitle>
                 <Box>
                     <Checkbox
