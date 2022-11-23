@@ -1,16 +1,16 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-import { TPacksParams } from "../dal/ResponseTypes";
+import {TPacksParams} from "../dal/ResponseTypes";
 
 //
 const initialState: TPacksParams = {
-    packName: undefined,
-    min: undefined,
-    max: undefined,
-    sortPacks: undefined,
+    packName: "",
+    min: "",
+    max: "",
+    sortPacks: "",
     page: "1",
     pageCount: "12",
-    user_id: undefined,
+    user_id: "",
 };
 
 const slice = createSlice({
@@ -27,4 +27,4 @@ const slice = createSlice({
 });
 
 export const packsParamsReducer = slice.reducer;
-export const { setCardParams, setUserCardParams } = slice.actions;
+export const {setCardParams, setUserCardParams} = slice.actions;

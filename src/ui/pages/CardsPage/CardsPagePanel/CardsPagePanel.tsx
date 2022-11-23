@@ -34,7 +34,8 @@ const PacksPagePanel = () => {
     };
 
     const onBackClickHandler = () => {
-        const params = Object.entries(packsParams).map(el => el !== undefined && el.join("="))
+        let params: string[] = []
+        Object.entries(packsParams).forEach(el => el[1] !== "" && params.push(el.join("=")))
         const validParams = params.join("&")
         navigate(PATH.packsList + `?${validParams}`)
     }
