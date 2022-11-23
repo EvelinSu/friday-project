@@ -52,11 +52,10 @@ export const FileUploadArea: FC<TFileUploadAreaProps> = ({size = 4000000, ...pro
                 onChange={uploadHandler}
                 style={{display: "none"}}
             />
-            {(!props.value || (props.value === "null")) && (
-                <SText opacity={0.4}>
-                    {props.placeholder || "Choose file"}
-                </SText>
-            )}
+            <SText opacity={0.4}>
+                {props.placeholder
+                || (!props.value || (props.value === "null")) ? "Choose file" : "Change file"}
+            </SText>
         </SFileUploadArea>
     );
 };

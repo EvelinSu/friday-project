@@ -22,6 +22,7 @@ export const SFileUploadAreaImage = styled.div<{ img: string }>`
     position: absolute;
     width: 100%;
     border-radius: inherit;
+    opacity: 0.3;
     height: 100%;
     background: url(${props => props.img}) center;
     background-size: cover;
