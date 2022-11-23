@@ -18,11 +18,15 @@ export type TPack = {
 
 export type TCard = {
     answer: string,
+    answerImg: string,
+    answerVideo: string,
     cardPacks_id: string,
     comments: string,
     created: string,
     grade: number,
     question: string,
+    questionImg: string,
+    questionVideo: string,
     rating: number,
     shots: number,
     updated: string,

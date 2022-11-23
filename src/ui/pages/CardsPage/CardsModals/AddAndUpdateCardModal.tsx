@@ -3,12 +3,14 @@ import Input from "../../../components/Form/Input";
 import {Box} from "../../../components/Box/Box";
 import Button from "../../../components/Button/Button";
 import {useAppSelector} from "../../../../hooks/hooks";
-import {SForm} from "../../../components/Form/styled";
+import {SForm, WithFormTitle} from "../../../components/Form/styled";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import {TCard} from "../../../../dal/ResponseTypes";
 import {SMegaShadow} from "../../../components/MegaShadow/styled";
 import {UiBox} from "../../../components/UiBox/UiBox";
+import Select from "../../../components/Select/Select";
+import {FileUploadArea} from "../../../components/FileUploadArea/FileUploadArea";
 
 export type TAddAndUpdateCardModalValues = {
     question: string;
@@ -54,15 +56,14 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
     const {isButtonsDisabled} = useAppSelector((state) => state.packs);
 
     const questionTypes = ["Text", "Image"]
-    const [questionType, setQuestionType] = useState(questionTypes[0])
 
+    const [questionType, setQuestionType] = useState(questionTypes[0])
     const {handleSubmit, handleChange, values} = useFormik({
         initialValues: {
             question: props.currentCard?.question || "",
             answer: props.currentCard?.answer || "",
-            // answerImg: props.currentCard?.answerImg || "",
-            // questionImg: props.currentCard?.questionImg || "",
-
+            answerImg: props.currentCard?.answerImg || "",
+            questionImg: props.currentCard?.questionImg || "",
         },
         validationSchema: Yup.object({
             name: Yup.string(),
@@ -72,32 +73,61 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
         },
     });
 
+    console.log(values.questionImg)
+
     return (
         <SForm onSubmit={handleSubmit}>
             <Box flexDirection={"column"}>
-                {/*<Select*/}
-                {/*    title={"Choose a question format"}*/}
-                {/*    options={questionTypes}*/}
-                {/*    onChangeOption={setQuestionType}*/}
-                {/*    placeholder={""}*/}
-                {/*    value={questionType}*/}
-                {/*    padding={"11px 12px"}*/}
-                {/*/>*/}
-                <Input
-                    title={"Question"}
-                    value={values.question}
-                    onChange={handleChange}
-                    name={"question"}
-                    type={"text"}
-                    autoFocus={true}
-                />
-                <Input
-                    title={"Answer"}
-                    value={values.answer}
-                    onChange={handleChange}
-                    name={"answer"}
-                    type={"text"}
-                />
+                <WithFormTitle title={"Choose a question format"}>
+                    <Select
+                        options={questionTypes}
+                        onChangeOption={setQuestionType}
+                        placeholder={""}
+                        value={questionType}
+                        padding={"11px 12px"}
+                    />
+                </WithFormTitle>
+                {questionType === "Text" && (
+                    <>
+                        <WithFormTitle title={"Question"}>
+                            <Input
+                                value={values.question}
+                                onChange={handleChange}
+                                name={"question"}
+                                type={"text"}
+                                autoFocus={true}
+                            />
+                        </WithFormTitle>
+                        <WithFormTitle title={"Answer"}>
+                            <Input
+                                value={values.answer}
+                                onChange={handleChange}
+                                name={"answer"}
+                                type={"text"}
+                            />
+                        </WithFormTitle>
+                    </>
+                )}
+                {questionType === "Image" && (
+                    <>
+                        <WithFormTitle title={"Question"}>
+                            <FileUploadArea
+                                placeholder={"Choose image"}
+                                onChange={handleChange}
+                                name={"questionImg"}
+                                currentFile={values.questionImg}
+                            />
+                        </WithFormTitle>
+                        <WithFormTitle title={"Answer"}>
+                            <FileUploadArea
+                                name={"answerImg"}
+                                onChange={handleChange}
+                                placeholder={"Choose image"}
+                                currentFile={values.answerImg}
+                            />
+                        </WithFormTitle>
+                    </>
+                )}
                 <Box justifyContent={"center"}>
                     <Button
                         type="submit"
