@@ -43,7 +43,9 @@ const PacksList = () => {
         );
     };
     const deleteHandler = () => {
-        dispatch(deletePack(currentId, URLParams)).then(() => setIsPackModalOpen(false));
+        dispatch(deletePack({ id: currentId, paramURL: URLParams })).then(() =>
+            setIsPackModalOpen(false)
+        );
     };
     const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cardPacks.length || 0).map(
         (el) => <SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>

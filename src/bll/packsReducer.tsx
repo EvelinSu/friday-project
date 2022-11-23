@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TAppDispatch } from "./store/store";
 import { cardsAPI } from "../dal/cardsAPI";
 import { TPack, TPacksParams } from "../dal/ResponseTypes";
 import { setAppMessage, setIsFetching } from "./appReducer";
 import { getUser } from "./userReducer";
-import axios, { AxiosError } from "axios";
 import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksPage/PacksModals/AddAndUpdatePackModal";
+import { handlerErrors } from "../common/utils/handlerErrors";
 
 export type TPacksData = {
     cardPacks: TPack[];
@@ -36,6 +35,87 @@ const initialState: TPacks = {
     },
 };
 
+export const loadPacks = createAsyncThunk(
+    "packs/loadPacks",
+    async (param: TPacksParams, { dispatch, rejectWithValue }) => {
+        dispatch(setIsFetching(true));
+        try {
+            const res = await cardsAPI.getPacks(param);
+            dispatch(setPacks(res.data));
+            if (param.user_id) {
+                dispatch(getUser(param.user_id));
+            }
+        } catch (e) {
+            // Incorrect error. Must be 429, but is 401.
+            // const err = e.response
+            //     ? e.response.data.error
+            //     : e.message + ", more details in the console";
+            // dispatch(setAppMessage({ text: err, severity: "error" }));
+            return rejectWithValue({});
+        } finally {
+            dispatch(setIsFetching(false));
+        }
+    }
+);
+
+export const addNewPack = createAsyncThunk(
+    "packs/addNewPack",
+    async (
+        param: { newCardsPack: TAddAndUpdatePackModalValues; paramURL: TPacksParams },
+        { dispatch, rejectWithValue }
+    ) => {
+        dispatch(setIsButtonsDisabled(true));
+        const { name, deckCover, isPrivate } = param.newCardsPack;
+        try {
+            await cardsAPI.addPack({ name, deckCover, private: isPrivate });
+            dispatch(loadPacks(param.paramURL));
+            dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
+        } catch (e) {
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
+        } finally {
+            dispatch(setIsButtonsDisabled(false));
+        }
+    }
+);
+
+export const deletePack = createAsyncThunk(
+    "packs/deletePack",
+    async (param: { id: string; paramURL: TPacksParams }, { dispatch, rejectWithValue }) => {
+        dispatch(setIsButtonsDisabled(true));
+        try {
+            await cardsAPI.deletePack(param.id);
+            dispatch(loadPacks(param.paramURL));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
+        } catch (e) {
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
+        } finally {
+            dispatch(setIsButtonsDisabled(false));
+        }
+    }
+);
+
+export const updatePack = createAsyncThunk(
+    "packs/updatePack",
+    async (
+        param: { values: TAddAndUpdatePackModalValues; _id: string; paramURL: TPacksParams },
+        { dispatch }
+    ) => {
+        dispatch(setIsButtonsDisabled(true));
+        try {
+            const { name, deckCover, isPrivate } = param.values;
+            await cardsAPI.updatePack({ _id: param._id, name, deckCover, private: isPrivate });
+            dispatch(loadPacks(param.paramURL));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
+        } catch (e) {
+            handlerErrors(dispatch, e);
+        } finally {
+            dispatch(setIsButtonsDisabled(false));
+        }
+    }
+);
+
 const slice = createSlice({
     name: "packs",
     initialState: initialState,
@@ -51,85 +131,6 @@ const slice = createSlice({
         },
     },
 });
-
-export const loadPacks = createAsyncThunk(
-    "packs/loadPacks",
-    async (param: TPacksParams, { dispatch }) => {
-        dispatch(setIsFetching(true));
-        try {
-            const res = await cardsAPI.getPacks(param);
-            dispatch(setPacks(res.data));
-            if (param.user_id) {
-                dispatch(getUser(param.user_id));
-            }
-        } catch (e) {
-            // Incorrect error. Must be 429, but is 401.
-            // const err = e.response
-            //     ? e.response.data.error
-            //     : e.message + ", more details in the console";
-            // dispatch(setAppMessage({ text: err, severity: "error" }));
-        } finally {
-            dispatch(setIsFetching(false));
-        }
-    }
-);
-
-export const addNewPack =
-    (newCardsPack: TAddAndUpdatePackModalValues, param: TPacksParams) =>
-    async (dispatch: TAppDispatch) => {
-        dispatch(setIsButtonsDisabled(true));
-        const { name, deckCover, isPrivate } = newCardsPack;
-        try {
-            await cardsAPI.addPack({ name, deckCover, private: isPrivate });
-            dispatch(loadPacks(param));
-            dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
-        } catch (e) {
-            dispatch(setAppMessage({ text: "something went wrong try again later", severity: "error" }));
-        } finally {
-            dispatch(setIsButtonsDisabled(false));
-        }
-    };
-
-export const deletePack = (id: string, paramURL: TPacksParams) => async (dispatch: TAppDispatch) => {
-    dispatch(setIsButtonsDisabled(true));
-    try {
-        await cardsAPI.deletePack(id);
-        dispatch(loadPacks(paramURL));
-        dispatch(setAppMessage({ text: "Done!", severity: "success" }));
-    } catch (e) {
-        const err = e as Error | AxiosError;
-        if (axios.isAxiosError(err)) {
-            const errorMessage = err.response?.data ? err.response.data : err;
-            dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
-        }
-    } finally {
-        dispatch(setIsButtonsDisabled(false));
-    }
-};
-
-export const updatePack = createAsyncThunk(
-    "packs/updatePack",
-    async (
-        param: { values: TAddAndUpdatePackModalValues; _id: string; paramURL: TPacksParams },
-        { dispatch }
-    ) => {
-        dispatch(setIsButtonsDisabled(true));
-        try {
-            const { name, deckCover, isPrivate } = param.values;
-            await cardsAPI.updatePack({ _id: param._id, name, deckCover, private: isPrivate });
-            dispatch(loadPacks(param.paramURL));
-            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
-        } catch (e) {
-            const err = e as Error | AxiosError;
-            if (axios.isAxiosError(err)) {
-                const errorMessage = err.response?.data ? err.response.data : err.message;
-                dispatch(setAppMessage({ text: errorMessage.error, severity: "error" }));
-            }
-        } finally {
-            dispatch(setIsButtonsDisabled(false));
-        }
-    }
-);
 
 export const packsReducer = slice.reducer;
 export const { setPacks, clearStatePacks, setIsButtonsDisabled } = slice.actions;
