@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
     SSuperOption,
     SSuperOptionsList,
@@ -8,10 +8,10 @@ import {
     SSuperSelectWrapper,
 } from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
-import {SText} from "../Text/SText";
-import {useSearchParams} from "react-router-dom";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
-import {transformToURLOption} from "../../../common/utils/transformURLOption";
+import { SText } from "../Text/SText";
+import { useSearchParams } from "react-router-dom";
+import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { transformToURLOption } from "../../../common/utils/transformURLOption";
 
 type TAlternativeSuperSelect = {
     options: string[];
@@ -20,9 +20,9 @@ type TAlternativeSuperSelect = {
     placeholder?: string;
     id?: string;
     onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
-    padding?: string
-    title?: string
-    color?: string
+    padding?: string;
+    title?: string;
+    color?: string;
 };
 
 function Select(props: TAlternativeSuperSelect) {
@@ -52,15 +52,15 @@ function Select(props: TAlternativeSuperSelect) {
 
     const mappedOptions = props.options
         ? props.options.map((el, i) => (
-            <SSuperOption
-                onClick={() => onClickHandler(el)}
-                onMouseEnter={() => setHoveredElement(el)}
-                isHovered={hoveredElement === el}
-                key={i}
-            >
-                {el}
-            </SSuperOption>
-        ))
+              <SSuperOption
+                  onClick={() => onClickHandler(el)}
+                  onMouseEnter={() => setHoveredElement(el)}
+                  isHovered={hoveredElement === el}
+                  key={i}
+              >
+                  {el}
+              </SSuperOption>
+          ))
         : []; // map
 
     const onClickHandler = (el: any) => {
@@ -82,13 +82,12 @@ function Select(props: TAlternativeSuperSelect) {
 
     useEffect(() => {
         if (props.value !== "") {
-            setSearchParams({...URLParams, sortPacks: transformToURLOption(props.value)})
+            setSearchParams({ ...URLParams, sortPacks: transformToURLOption(props.value) });
         }
         if (props.value === "") {
-            delete URLParams.sortPacks
-            setSearchParams(URLParams)
+            delete URLParams.sortPacks;
+            setSearchParams(URLParams);
         }
-
     }, [props.value]);
 
     return (

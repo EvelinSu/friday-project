@@ -1,20 +1,21 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {SPagePanel, SPageWrapper} from "../styled";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import { SPagePanel, SPageWrapper } from "../styled";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import {UiBox} from "../../components/UiBox/UiBox";
-import {Box} from "../../components/Box/Box";
+import { UiBox } from "../../components/UiBox/UiBox";
+import { Box } from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import {SText} from "../../components/Text/SText";
-import {PATH} from "../Pages";
-import {changeUserProfileTC, logOutTC} from "../../../bll/authReducer";
+import { SText } from "../../components/Text/SText";
+import { PATH } from "../Pages";
+import { changeUserProfileTC, logOutTC } from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
-import {SProfileButton, SProfileContent} from "./styled";
+import { SProfileButton, SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
-import {initialParams} from "../../../common/utils/getUrlParams";
-import {setAppMessage} from "../../../bll/appReducer";
+import { initialParams } from "../../../common/utils/getUrlParams";
+import { setAppMessage } from "../../../bll/appReducer";
+import LoaderIcon from "../../assets/loaders/loader";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
@@ -47,11 +48,11 @@ const ProfileUiBoxBody = () => {
         const newName = value?.trim();
         if (newName === name) return;
         if (!newName || newName.length < 1) {
-            dispatch(setAppMessage({text: "Invalid nickname", severity: "error"}));
+            dispatch(setAppMessage({ text: "Invalid nickname", severity: "error" }));
             setValue(name);
             return;
         } else {
-            dispatch(changeUserProfileTC({name: newName}));
+            dispatch(changeUserProfileTC({ name: newName }));
         }
     };
 
@@ -62,6 +63,7 @@ const ProfileUiBoxBody = () => {
     return (
         <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
             <SProfileContent>
+                {isFetching && <LoaderIcon absolute />}
                 <Avatar
                     size={"large"}
                     img={avatar || defaultPhoto}

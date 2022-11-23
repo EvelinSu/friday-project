@@ -30,7 +30,6 @@ export const ChangePasswordForm = () => {
     const dispatch = useAppDispatch();
     const isTokenFromState = useAppSelector((state) => state.forgotPass.token);
     const { token } = useParams();
-    // console.log('token', token)
 
     const { handleBlur, touched, handleChange, handleSubmit, isValid, values, errors } = useFormik({
         initialValues: {
@@ -46,8 +45,7 @@ export const ChangePasswordForm = () => {
 
     useEffect(() => {
         if (!token || !isTokenFromState) {
-            // console.log('token', token)
-            navigate(PATH.profile);
+            navigate(PATH.profile); //?
         } else if (token) {
             token && dispatch(setTokenAC({ token }));
         }
