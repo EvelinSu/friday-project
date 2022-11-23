@@ -1,10 +1,6 @@
 import styled, {css} from "styled-components";
 
-export const SPackCardWrapper = styled.div<{ isFetching: boolean }>`
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 15px;
+export const SPackCardWrapper = styled.div<{ isFetching: boolean, img: string }>`
     background-color: ${({theme}) => theme.colors.primary};
     border-radius: 15px;
     color: ${({theme}) => theme.colors.cards.text};
@@ -20,7 +16,27 @@ export const SPackCardWrapper = styled.div<{ isFetching: boolean }>`
     &:hover {
         transform: scale(0.95);
     }
+
+    ${props => props.img && css`
+        text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+        background: url(${props.img}) center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    `}
 `;
+
+export const SPackCardShadow = styled.div<{ img: string }>`
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    gap: 10px;
+    justify-content: space-between;
+    border-radius: inherit;
+    ${props => props.img && css`
+        background-color: ${props.theme.colors.cards.shadow};
+    `}
+`
 
 export const SPackCardActions = styled.div`
     display: flex;

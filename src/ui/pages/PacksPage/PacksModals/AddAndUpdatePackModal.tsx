@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import Input from "../../../components/Form/Input";
 import Checkbox from "../../../components/Checkbox/Checkbox";
 import {Box} from "../../../components/Box/Box";
@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import {TPack} from "../../../../dal/ResponseTypes";
 import {SMegaShadow} from "../../../components/MegaShadow/styled";
 import {UiBox} from "../../../components/UiBox/UiBox";
+import {FileUploadArea} from "../../../components/FileUploadArea/FileUploadArea";
 
 type TAddPackModalProps = {
     title: string;
@@ -54,10 +55,12 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
 const AddPackForm: FC<TAddPackFormProps> = (props) => {
     const {isButtonsDisabled} = useAppSelector((state) => state.packs);
 
+    const [packImage, setPackImage] = useState(props.currentPack?.deckCover || "")
+
     const {handleSubmit, handleChange, values} = useFormik({
         initialValues: {
             name: props.currentPack?.name || "",
-            deckCover: props.currentPack?.deckCover || "",
+            deckCover: packImage,
             isPrivate: props.currentPack?.private || false,
         },
         validationSchema: Yup.object({
@@ -67,6 +70,11 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
             props.onSubmitHandler(values);
         },
     });
+
+    const onChangePackImage = (file: string) => {
+        setPackImage(file)
+        values.deckCover = file
+    }
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -81,7 +89,10 @@ const AddPackForm: FC<TAddPackFormProps> = (props) => {
                     />
                 </WithFormTitle>
                 <WithFormTitle title={"Pack image"}>
-                    {/*<FileUploadArea />*/}
+                    <FileUploadArea
+                        onChange={onChangePackImage}
+                        value={values.deckCover}
+                    />
                 </WithFormTitle>
                 <Box>
                     <Checkbox

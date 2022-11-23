@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {SPackCardActions, SPackCardPrivateIcon, SPackCardWrapper} from "./styled";
+import {SPackCardActions, SPackCardPrivateIcon, SPackCardShadow, SPackCardWrapper} from "./styled";
 import {Box} from "../../../components/Box/Box";
 import {SText} from "../../../components/Text/SText";
 import Avatar from "../../../components/Avatar/Avatar";
@@ -45,72 +45,75 @@ const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetchi
         <SPackCardWrapper
             isFetching={isFetching}
             onClick={() => onPackClickHandler()}
+            img={pack.deckCover}
         >
-            <Box
-                overflow={"hidden"}
-                height={"100%"}
-                gap={10}
-                flexDirection={"column"}
-                justifyContent={"space-between"}
-            >
-                <Box alignItems={"center"} gap={"5px"}>
-                    {pack.private && (
-                        <SPackCardPrivateIcon title={"Private pack"}>
-                            <LockFillIcon />
-                        </SPackCardPrivateIcon>
+            <SPackCardShadow img={pack.deckCover}>
+                <Box
+                    overflow={"hidden"}
+                    height={"100%"}
+                    gap={10}
+                    flexDirection={"column"}
+                    justifyContent={"space-between"}
+                >
+                    <Box alignItems={"center"} gap={"5px"}>
+                        {pack.private && (
+                            <SPackCardPrivateIcon title={"Private pack"}>
+                                <LockFillIcon />
+                            </SPackCardPrivateIcon>
+                        )}
+                        <SText title={pack.name} isEllipsis>
+                            {pack.name}
+                        </SText>
+                    </Box>
+                    <Box gap={5} flexDirection={"column"}>
+                        <Box gap={5}>
+                            <SText opacity={0.4} whiteSpace={"nowrap"}>
+                                Last updated:
+                            </SText>
+                            <SText isEllipsis>{correctDate}</SText>
+                        </Box>
+                        <Box gap={5}>
+                            <SText opacity={0.4} whiteSpace={"nowrap"}>
+                                Total cards:
+                            </SText>
+                            <SText isEllipsis>{pack.cardsCount}</SText>
+                        </Box>
+                    </Box>
+                    <Box gap={10} alignItems={"center"}>
+                        <Avatar img={avatar} size={"smallest"} />
+                        <SText title={pack.user_name} isEllipsis>
+                            {pack.user_name}
+                        </SText>
+                    </Box>
+                </Box>
+                <SPackCardActions>
+                    <IconButton
+                        onClick={() => alert("In progress")}
+                        color={"#fff"}
+                        size={"sm"}
+                        isDisabled={isFetching || pack.cardsCount === 0}
+                        icon={<BookCheckIcon />}
+                    />
+                    {myId === pack.user_id && (
+                        <>
+                            <IconButton
+                                onClick={(e) => onIconClickHandler(e, pack._id, "update")}
+                                color={"#fff"}
+                                size={"sm"}
+                                isDisabled={isFetching}
+                                icon={<EditIcon />}
+                            />
+                            <IconButton
+                                onClick={(e) => onIconClickHandler(e, pack._id, "delete")}
+                                color={"#fff"}
+                                size={"sm"}
+                                isDisabled={isFetching}
+                                icon={<DeleteIcon />}
+                            />
+                        </>
                     )}
-                    <SText title={pack.name} isEllipsis>
-                        {pack.name}
-                    </SText>
-                </Box>
-                <Box gap={5} flexDirection={"column"}>
-                    <Box gap={5}>
-                        <SText opacity={0.4} whiteSpace={"nowrap"}>
-                            Last updated:
-                        </SText>
-                        <SText isEllipsis>{correctDate}</SText>
-                    </Box>
-                    <Box gap={5}>
-                        <SText opacity={0.4} whiteSpace={"nowrap"}>
-                            Total cards:
-                        </SText>
-                        <SText isEllipsis>{pack.cardsCount}</SText>
-                    </Box>
-                </Box>
-                <Box gap={10} alignItems={"center"}>
-                    <Avatar img={avatar} size={"smallest"} />
-                    <SText title={pack.user_name} isEllipsis>
-                        {pack.user_name}
-                    </SText>
-                </Box>
-            </Box>
-            <SPackCardActions>
-                <IconButton
-                    onClick={() => alert("In progress")}
-                    color={"#fff"}
-                    size={"sm"}
-                    isDisabled={isFetching || pack.cardsCount === 0}
-                    icon={<BookCheckIcon />}
-                />
-                {myId === pack.user_id && (
-                    <>
-                        <IconButton
-                            onClick={(e) => onIconClickHandler(e, pack._id, "update")}
-                            color={"#fff"}
-                            size={"sm"}
-                            isDisabled={isFetching}
-                            icon={<EditIcon />}
-                        />
-                        <IconButton
-                            onClick={(e) => onIconClickHandler(e, pack._id, "delete")}
-                            color={"#fff"}
-                            size={"sm"}
-                            isDisabled={isFetching}
-                            icon={<DeleteIcon />}
-                        />
-                    </>
-                )}
-            </SPackCardActions>
+                </SPackCardActions>
+            </SPackCardShadow>
         </SPackCardWrapper>
     );
 });

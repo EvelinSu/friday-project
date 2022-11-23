@@ -28,6 +28,7 @@ export const baseTheme = {
             default: ["#7398CE", "rgba(115,152,206,0.62)"],
             text: "#fff",
             skeleton: "rgba(115,152,206,0.06)",
+            shadow: "rgba(115,152,206,0.8)"
         },
     },
     sizes: {
