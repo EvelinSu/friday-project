@@ -55,15 +55,15 @@ const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
 const AddCardForm: FC<TAddPackFormProps> = (props) => {
     const {isButtonsDisabled} = useAppSelector((state) => state.packs);
     const questionTypes = ["Text", "Image"]
-    const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg)
-    const [answerImage, setAnswerImage] = useState(props.currentCard?.answerImg)
+    const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg || "")
+    const [answerImage, setAnswerImage] = useState(props.currentCard?.answerImg || "")
 
     const {handleSubmit, handleChange, values} = useFormik({
         initialValues: {
             question: props.currentCard?.question || "",
             answer: props.currentCard?.answer || "",
-            questionImg: props.currentCard?.questionImg || "",
-            answerImg: props.currentCard?.answerImg || "",
+            questionImg: questionImage,
+            answerImg: answerImage,
         },
         validationSchema: Yup.object({
             name: Yup.string(),
@@ -74,7 +74,6 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
     });
 
     const [questionType, setQuestionType] = useState(values.questionImg ? questionTypes[1] : questionTypes[0])
-    console.log(questionImage)
 
     const onChangeImage = (type: "question" | "answer", file: string) => {
         if (type === "question") {
