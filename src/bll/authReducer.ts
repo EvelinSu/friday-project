@@ -89,9 +89,7 @@ export const changeUserProfileTC = createAsyncThunk(
 
         try {
             await authAPI.changeUserProfile(data);
-            // dispatch(setUserProfile(data));
             dispatch(setAppMessage({ text: "Successfully!", severity: "success" }));
-
             return data;
         } catch (e) {
             // Add check size img
