@@ -14,16 +14,15 @@ export type TApp = {
     messages: TAppMessage[];
     isFetching: boolean;
 };
-const initialState: TApp = {
-    isInitialized: false,
-    status: "idle",
-    messages: [],
-    isFetching: false,
-};
 
 const slice = createSlice({
     name: "app",
-    initialState: initialState,
+    initialState: {
+        isInitialized: false,
+        status: "idle",
+        messages: [],
+        isFetching: false,
+    } as TApp,
     reducers: {
         setIsInitialized(state, action: PayloadAction<{ value: boolean }>) {
             state.isInitialized = action.payload.value;
