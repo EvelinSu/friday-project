@@ -1,19 +1,21 @@
-import React, {useCallback, useMemo, useState} from "react";
-import {GridBox, SGridDefaultBlock} from "../../components/GridBox/GridBox";
-import {useSearchParams} from "react-router-dom";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {Card} from "./Card/Card";
-import {TPackModals} from "../PacksPage/PacksList";
-import AddAndUpdateCardModal, {TAddAndUpdateCardModalValues} from "./CardsModals/AddAndUpdateCardModal";
-import {deleteCard, updateCard} from "../../../bll/cardsReducer";
+import React, { useCallback, useMemo, useState } from "react";
+import { GridBox, SGridDefaultBlock } from "../../components/GridBox/GridBox";
+import { useSearchParams } from "react-router-dom";
+import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { Card } from "./Card/Card";
+import { TPackModals } from "../PacksPage/PacksList";
+import AddAndUpdateCardModal, {
+    TAddAndUpdateCardModalValues,
+} from "./CardsModals/AddAndUpdateCardModal";
+import { deleteCard, updateCard } from "../../../bll/cardsReducer";
 import DeleteModal from "../../components/Modals/DeleteModal";
-import {getCountArray} from "../../../common/utils/getCountArray";
+import { getCountArray } from "../../../common/utils/getCountArray";
 
 export type TCardsModals = "delete" | "update" | false;
 
 const CardsList = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     const cards = useAppSelector((state) => state.cards.cardsData.cards);
@@ -35,23 +37,24 @@ const CardsList = () => {
     );
 
     const updateCardHandler = (values: TAddAndUpdateCardModalValues) => {
-        dispatch(updateCard({_id: currentId, values, paramURL: URLParams})).then(() => {
+        dispatch(updateCard({ _id: currentId, values, paramURL: URLParams })).then(() => {
             setIsCardModalOpen(false);
         });
     };
     const deleteHandler = () => {
-        dispatch(deleteCard(currentId, URLParams)).then(() => {
+        dispatch(deleteCard({ id: currentId, URLParams })).then(() => {
             setIsCardModalOpen(false);
         });
     };
 
-    const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cards.length || 0)
-        .map(el => (<SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>))
+    const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cards.length || 0).map((el) => (
+        <SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>
+    ));
 
     return (
         <GridBox
             columns={"repeat(auto-fill, minmax(250px, 1fr))"}
-            style={{flexGrow: windowWidth > 540 ? 1 : ""}}
+            style={{ flexGrow: windowWidth > 540 ? 1 : "" }}
             rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(145px, 200px))` : ``}
         >
             {cards.map((card) => (

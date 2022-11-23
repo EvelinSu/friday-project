@@ -38,7 +38,7 @@ export const ChangePasswordForm = () => {
             password: Yup.string().required("Required"),
         }),
         onSubmit: (values: { password: string }) => {
-            token && dispatch(sendNewPassTC(values.password, token));
+            token && dispatch(sendNewPassTC({ password: values.password, resetPasswordToken: token }));
         },
     });
 

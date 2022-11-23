@@ -1,11 +1,10 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TCardsParams, TNewCard, TResponseCard} from "../dal/ResponseTypes";
-import {setAppMessage, setIsFetching} from "./appReducer";
-import {cardsAPI} from "../dal/cardsAPI";
-import axios, {AxiosError} from "axios";
-import {setIsButtonsDisabled} from "./packsReducer";
-import {TAppDispatch} from "./store/store";
-import {TAddAndUpdateCardModalValues} from "../ui/pages/CardsPage/CardsModals/AddAndUpdateCardModal";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TCardsParams, TNewCard, TResponseCard } from "../dal/ResponseTypes";
+import { setAppMessage, setIsFetching } from "./appReducer";
+import { cardsAPI } from "../dal/cardsAPI";
+import { setIsButtonsDisabled } from "./packsReducer";
+import { TAddAndUpdateCardModalValues } from "../ui/pages/CardsPage/CardsModals/AddAndUpdateCardModal";
+import { handlerErrors } from "../common/utils/handlerErrors";
 
 export type TCards = {
     isButtonsDisabled: boolean;
@@ -25,27 +24,11 @@ export const initialCardsData = {
     packUserId: "",
     page: 1,
     pageCount: 12,
-}
-
-const initialState: TCards = {
-    isButtonsDisabled: false,
-    cardsData: initialCardsData,
 };
-
-const slice = createSlice({
-    name: "cards",
-    initialState: initialState,
-    reducers: {
-        setCards(state, action: PayloadAction<TResponseCard>) {
-            state.cardsData = action.payload;
-        },
-
-    },
-});
 
 export const loadCards = createAsyncThunk(
     "cards/loadCards",
-    async (param: TCardsParams, {dispatch}) => {
+    async (param: TCardsParams, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         try {
             const res = await cardsAPI.getCards(param);
@@ -56,6 +39,7 @@ export const loadCards = createAsyncThunk(
             //     ? e.response.data.error
             //     : e.message + ", more details in the console";
             // dispatch(setAppMessage({ text: err, severity: "error" }));
+            return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));
         }
@@ -64,25 +48,18 @@ export const loadCards = createAsyncThunk(
 
 export const addNewCard = createAsyncThunk(
     "cards/addNewCard",
-    async (param: { cardsParams: TCardsParams, newCard: TNewCard, }, {dispatch}) => {
+    async (param: { cardsParams: TCardsParams; newCard: TNewCard }, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         dispatch(setIsButtonsDisabled(true));
         try {
             await cardsAPI.addCard(param.newCard);
             dispatch(loadCards(param.cardsParams));
-        } catch (e: unknown) {
-            const err = e as Error | AxiosError<{ e: string }>;
-            if (axios.isAxiosError(err)) {
-                const error = err.response?.data
-                    ? err.response.data.error
-                    : err.message + ", more details in the console";
-                dispatch(setAppMessage({text: error, severity: "error"}));
-            }
-            return false;
+        } catch (e) {
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));
             dispatch(setIsButtonsDisabled(false));
-
         }
     }
 );
@@ -91,41 +68,51 @@ export const updateCard = createAsyncThunk(
     "cards/updateCard",
     async (
         param: { values: TAddAndUpdateCardModalValues; _id: string; paramURL: TCardsParams },
-        {dispatch}
+        { dispatch, rejectWithValue }
     ) => {
         dispatch(setIsButtonsDisabled(true));
         try {
-            await cardsAPI.updateCard({...param.values, _id: param._id});
+            await cardsAPI.updateCard({ ...param.values, _id: param._id });
             dispatch(loadCards(param.paramURL));
-            dispatch(setAppMessage({text: "Done!", severity: "success"}));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
         } catch (e) {
-            const err = e as Error | AxiosError;
-            if (axios.isAxiosError(err)) {
-                const errorMessage = err.response?.data ? err.response.data : err;
-                dispatch(setAppMessage({text: errorMessage.error, severity: "error"}));
-            }
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
         } finally {
             dispatch(setIsButtonsDisabled(false));
         }
     }
 );
 
-export const deleteCard = (id: string, paramURL: TCardsParams) => async (dispatch: TAppDispatch) => {
-    dispatch(setIsButtonsDisabled(true));
-    try {
-        await cardsAPI.deleteCard(id);
-        dispatch(loadCards(paramURL));
-        dispatch(setAppMessage({text: "Done!", severity: "success"}));
-    } catch (e) {
-        const err = e as Error | AxiosError;
-        if (axios.isAxiosError(err)) {
-            const errorMessage = err.response?.data ? err.response.data : err;
-            dispatch(setAppMessage({text: errorMessage.error, severity: "error"}));
+export const deleteCard = createAsyncThunk(
+    "cards/deleteCard",
+    async (param: { id: string; URLParams: TCardsParams }, { dispatch, rejectWithValue }) => {
+        dispatch(setIsButtonsDisabled(true));
+        try {
+            await cardsAPI.deleteCard(param.id);
+            dispatch(loadCards(param.URLParams));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
+        } catch (e) {
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
+        } finally {
+            dispatch(setIsButtonsDisabled(false));
         }
-    } finally {
-        dispatch(setIsButtonsDisabled(false));
     }
-};
+);
 
-export const {setCards} = slice.actions
-export const cardsReducer = slice.reducer
+const slice = createSlice({
+    name: "cards",
+    initialState: {
+        isButtonsDisabled: false,
+        cardsData: initialCardsData,
+    } as TCards,
+    reducers: {
+        setCards(state, action: PayloadAction<TResponseCard>) {
+            state.cardsData = action.payload;
+        },
+    },
+});
+
+export const { setCards } = slice.actions;
+export const cardsReducer = slice.reducer;
