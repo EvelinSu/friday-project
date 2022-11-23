@@ -48,7 +48,6 @@ const slice = createSlice({
         setIsFetching(state, action: PayloadAction<boolean>) {
             state.isFetching = action.payload;
         },
-        //clearFullState crateActon
     },
 });
 

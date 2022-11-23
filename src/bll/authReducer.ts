@@ -45,7 +45,7 @@ export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch
         dispatch(setIsLoggedIn({ value: true }));
     } catch (e) {
         dispatch(setIsLoggedIn({ value: false }));
-        handlerErrors(dispatch, e);
+        // handlerErrors(dispatch, e);
     } finally {
         dispatch(setIsInitialized({ value: true }));
     }
