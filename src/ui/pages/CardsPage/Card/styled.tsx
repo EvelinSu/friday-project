@@ -54,3 +54,11 @@ export const SCardText = styled.div<{ lineClamp?: number }>`
     -webkit-box-orient: vertical;
     overflow: hidden;
 `
+
+export const SCardImage = styled.img`
+    object-fit: cover;
+    object-position: center;
+    max-width: 100%;
+    max-height: calc(100% - 60px);
+    border-radius: inherit;
+`

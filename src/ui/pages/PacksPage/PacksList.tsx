@@ -9,7 +9,7 @@ import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "./PacksModal
 import DeleteModal from "../../components/Modals/DeleteModal";
 import {getCountArray} from "../../../common/utils/getCountArray";
 
-export type TPackModals = "delete" | "update" | false;
+export type TPackModals = "delete" | "update" | "view" | false;
 
 const PacksList = () => {
     const dispatch = useAppDispatch();

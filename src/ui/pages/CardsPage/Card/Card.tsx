@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {TCard} from "../../../../dal/ResponseTypes";
-import {SCardIcons, SCardShadow, SCardText, SCardWrapper} from "./styled";
+import {SCardIcons, SCardImage, SCardShadow, SCardText, SCardWrapper} from "./styled";
 import {SText} from "../../../components/Text/SText";
 import IconButton from "../../../components/IconButton/IconButton";
 import EditIcon from "../../../assets/icons/EditIcon";
@@ -9,7 +9,7 @@ import {Box} from "../../../components/Box/Box";
 import {transformDate} from "../../../../common/utils/tarnsformDate";
 import {Stars} from "../../../components/Stars/Stars";
 import {useAppSelector} from "../../../../hooks/hooks";
-import {TPackModals} from "../../PacksPage/PacksList";
+import {TCardModals} from "../CardsList";
 
 type TCardProps = {
     card: TCard
@@ -17,7 +17,7 @@ type TCardProps = {
     onIconClickHandler: (
         e: React.MouseEvent<HTMLDivElement>,
         id: string,
-        modalType: TPackModals
+        modalType: TCardModals
     ) => void;
 }
 export const Card: FC<TCardProps> = (props) => {
@@ -25,12 +25,17 @@ export const Card: FC<TCardProps> = (props) => {
     const myId = useAppSelector(state => state.auth.userData.id)
     const userId = useAppSelector(state => state.cards.cardsData.packUserId)
 
+    const answerImg = props.card.answerImg
+    const questionImg = props.card.questionImg
+
     return (
-        <SCardWrapper>
+        <SCardWrapper onClick={(e) => props.onIconClickHandler(e, props.card._id, "view")}>
             <SCardShadow>
-                <SCardText title={props.card.answer} lineClamp={userId !== myId ? 5 : 3}>
-                    {props.card.answer}
-                </SCardText>
+                {answerImg && answerImg !== "null"
+                    ? <SCardImage src={answerImg} />
+                    : <SCardText title={props.card.answer} lineClamp={userId !== myId ? 5 : 3}>
+                        {props.card.answer}
+                    </SCardText>}
                 {userId === myId && (
                     <SCardIcons>
                         <IconButton
@@ -57,9 +62,9 @@ export const Card: FC<TCardProps> = (props) => {
                     {correctDate}
                 </SText>
             </Box>
-            <SCardText title={props.card.question}>
-                {props.card.question}
-            </SCardText>
+            {questionImg && questionImg !== "null"
+                ? <SCardImage src={questionImg} />
+                : <SCardText title={props.card.question}>{props.card.question}</SCardText>}
             <Stars isEditable={false} current={props.card.grade} maxCount={5} />
         </SCardWrapper>
     );
