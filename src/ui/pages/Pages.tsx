@@ -2,7 +2,6 @@ import React from "react";
 import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 import SignIn from "./Login/SignIn/SignIn";
 import SignUp from "./Login/SignUp/SignUp";
-import Profile from "./Profile/Profile";
 import PageNotFound from "./PageNotFound/NotFound";
 import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
@@ -11,6 +10,7 @@ import PacksPage from "./PacksPage/PacksPage";
 import {CardsPage} from "./CardsPage/CardsPage";
 import {useAppSelector} from "../../hooks/hooks";
 import {initialParams} from "../../common/utils/getUrlParams";
+import ProfilePage from "./ProfilePage/ProfilePage";
 
 export const PATH = {
     profile: "/profile",
@@ -41,7 +41,7 @@ const Pages = () => {
         <Routes>
             <Route path={"/"} element={<Navigate to={PATH.signIn} />} />
             <Route element={<RequireAuth />}>
-                <Route path={PATH.profile} element={<Profile />} />
+                <Route path={PATH.profile} element={<ProfilePage />} />
                 <Route path={PATH.packsList} element={<PacksPage />} />
                 <Route path={PATH.cardsList} element={<CardsPage />} />
             </Route>

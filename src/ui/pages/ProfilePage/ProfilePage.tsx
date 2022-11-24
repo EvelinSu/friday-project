@@ -19,7 +19,7 @@ import Loader from "../../assets/loaders/loader";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
-const Profile = () => {
+const ProfilePage = () => {
     return (
         <SPageWrapper>
             <SPagePanel>
@@ -108,4 +108,4 @@ const ProfileUiBoxBody = () => {
     );
 };
 
-export default Profile;
+export default ProfilePage;

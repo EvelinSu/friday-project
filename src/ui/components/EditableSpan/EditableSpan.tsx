@@ -1,14 +1,12 @@
-import React, { DetailedHTMLProps, FC, InputHTMLAttributes, useState } from "react";
+import React, {DetailedHTMLProps, FC, InputHTMLAttributes, useState} from "react";
 import EditIcon from "../../assets/icons/EditIcon";
-import { SEditableSpanInput, SEditableSpanInputWrapper, SEditableSpanText } from "./styled";
+import {SEditableSpanInput, SEditableSpanInputWrapper, SEditableSpanText} from "./styled";
 import CircleDoneIcon from "../../assets/icons/CircleDoneIcon";
-import { SText } from "../Text/SText";
-import { TEventInput } from "../../pages/Profile/Profile";
+import {SText} from "../Text/SText";
+import {TEventInput} from "../../pages/ProfilePage/ProfilePage";
 
-export type TDefaultInputProps = DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
->;
+export type TDefaultInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement>;
 
 type TEditableSpanProps = TDefaultInputProps & {
     value?: string | null;
