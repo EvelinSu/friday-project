@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import styled, { css } from "styled-components";
+import React, {FC} from "react";
+import styled, {css} from "styled-components";
 
 const SLoader = styled.div<TLoaderIcon>`
     flex-grow: 1;
@@ -10,13 +10,14 @@ const SLoader = styled.div<TLoaderIcon>`
     justify-content: center;
     align-items: center;
     pointer-events: none;
+    z-index: 1;
 
     ${(props) =>
-        props.absolute &&
-        css`
-            position: absolute;
-            max-width: calc(100% - 40px);
-        `}
+            props.absolute &&
+            css`
+                position: absolute;
+                max-width: calc(100% - 40px);
+            `}
     svg {
         width: 80px;
         height: 80px;

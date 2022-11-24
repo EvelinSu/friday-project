@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authAPI } from "../dal/authAPI";
-import { setAppMessage, setAppStatus, setIsFetching, setIsInitialized } from "./appReducer";
-import { TLoginData, TProfileData, TRegisterData } from "../dal/ResponseTypes";
-import { clearStatePacks } from "./packsReducer";
-import { handlerErrors } from "../common/utils/handlerErrors";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {authAPI} from "../dal/authAPI";
+import {setAppMessage, setAppStatus, setIsFetching, setIsInitialized} from "./appReducer";
+import {TLoginData, TProfileData, TRegisterData} from "../dal/ResponseTypes";
+import {clearStatePacks} from "./packsReducer";
+import {handlerErrors} from "../common/utils/handlerErrors";
 
 type TUserData = {
     id: string | null;
@@ -20,50 +20,49 @@ export type TAuth = {
 
 export const registerTC = createAsyncThunk(
     "auth/register",
-    async (param: TRegisterData, { dispatch, rejectWithValue }) => {
+    async (param: TRegisterData, {dispatch, rejectWithValue}) => {
         dispatch(setIsFetching(true));
         try {
             await authAPI.register(param);
             dispatch(setRegisterUserData(param));
-            dispatch(setAppMessage({ text: "Registration was successful!", severity: "success" }));
+            dispatch(setAppMessage({text: "Registration was successful!", severity: "success"}));
         } catch (e) {
             handlerErrors(dispatch, e);
-            return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));
         }
     }
 );
 
-export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch, rejectWithValue }) => {
+export const authMeTC = createAsyncThunk("auth/authMe", async (param, {dispatch, rejectWithValue}) => {
     try {
-        dispatch(setIsInitialized({ value: false }));
+        dispatch(setIsInitialized({value: false}));
         dispatch(setAppStatus("loading"));
         const me = await authAPI.authMe();
-        const { name, email, avatar } = me.data;
+        const {name, email, avatar} = me.data;
         const id = me.data._id;
-        await dispatch(setUserData({ id, name, email, avatar }));
-        dispatch(setIsLoggedIn({ value: true }));
+        await dispatch(setUserData({id, name, email, avatar}));
+        dispatch(setIsLoggedIn({value: true}));
     } catch (e) {
-        dispatch(setIsLoggedIn({ value: false }));
+        dispatch(setIsLoggedIn({value: false}));
         return rejectWithValue({});
     } finally {
-        dispatch(setIsInitialized({ value: true }));
+        dispatch(setIsInitialized({value: true}));
     }
 });
 
 export const loginTC = createAsyncThunk(
     "auth/loginTC",
-    async (data: TLoginData, { dispatch, rejectWithValue }) => {
+    async (data: TLoginData, {dispatch, rejectWithValue}) => {
         dispatch(setIsFetching(true));
 
         try {
             const res = await authAPI.login(data);
-            const { name, email, avatar } = res.data;
+            const {name, email, avatar} = res.data;
             const id = res.data._id;
-            dispatch(setUserData({ id, name, email, avatar }));
-            dispatch(setIsLoggedIn({ value: true }));
-            dispatch(setRegisterUserData({ email: "", password: "" }));
+            dispatch(setUserData({id, name, email, avatar}));
+            dispatch(setIsLoggedIn({value: true}));
+            dispatch(setRegisterUserData({email: "", password: ""}));
         } catch (e) {
             handlerErrors(dispatch, e);
             return rejectWithValue({});
@@ -73,12 +72,12 @@ export const loginTC = createAsyncThunk(
     }
 );
 
-export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch, rejectWithValue }) => {
+export const logOutTC = createAsyncThunk("auth,logOut", async (param, {dispatch, rejectWithValue}) => {
     dispatch(setIsFetching(true));
     try {
         await authAPI.logOut();
         dispatch(clearStatePacks());
-        dispatch(setIsLoggedIn({ value: false }));
+        dispatch(setIsLoggedIn({value: false}));
     } catch (e) {
         handlerErrors(dispatch, e);
         return rejectWithValue({});
@@ -90,17 +89,14 @@ export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch
 export const changeUserProfileTC = createAsyncThunk(
     "auth/changeUserProfile",
 
-    async (data: TProfileData, { dispatch, rejectWithValue }) => {
+    async (data: TProfileData, {dispatch, rejectWithValue}) => {
         dispatch(setIsFetching(true));
 
         try {
             await authAPI.changeUserProfile(data);
-            dispatch(setAppMessage({ text: "Successfully!", severity: "success" }));
+            dispatch(setAppMessage({text: "Successfully!", severity: "success"}));
             return data;
         } catch (e) {
-            // if (e.request.status === 413) {
-            //     dispatch(setAppMessage({ text: e.response.statusText, severity: "error" }));
-
             handlerErrors(dispatch, e);
             return rejectWithValue({});
         } finally {
@@ -143,6 +139,6 @@ const slice = createSlice({
     },
 });
 
-export const { setIsLoggedIn, setUserData, setRegisterUserData } = slice.actions;
+export const {setIsLoggedIn, setUserData, setRegisterUserData} = slice.actions;
 
 export const authReducer = slice.reducer;

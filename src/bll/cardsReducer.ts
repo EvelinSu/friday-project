@@ -54,6 +54,7 @@ export const addNewCard = createAsyncThunk(
         try {
             await cardsAPI.addCard(param.newCard);
             dispatch(loadCards(param.cardsParams));
+            dispatch(setAppMessage({text: "Card successfully added!", severity: "success"}));
         } catch (e) {
             handlerErrors(dispatch, e);
             return rejectWithValue({});
