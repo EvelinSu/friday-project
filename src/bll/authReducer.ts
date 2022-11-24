@@ -26,8 +26,10 @@ export const registerTC = createAsyncThunk(
             await authAPI.register(param);
             dispatch(setRegisterUserData(param));
             dispatch(setAppMessage({text: "Registration was successful!", severity: "success"}));
+            return true
         } catch (e) {
             handlerErrors(dispatch, e);
+            return false
         } finally {
             dispatch(setIsFetching(false));
         }
