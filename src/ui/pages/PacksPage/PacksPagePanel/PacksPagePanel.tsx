@@ -56,12 +56,14 @@ const PacksPagePanel = () => {
                     )}
                     <SMainTitle isEllipsis>{checkUserId ? "My packs" : "Packs list"}</SMainTitle>
                 </Box>
-                {checkUserId && <Button
-                    onClick={() => setIsAddPackModalOpen(true)}
-                    label={"Add pack"}
-                    icon={<AddIcon />}
-                    withShadow
-                />}
+                {(!URLParams.user_id || checkUserId) && (
+                    <Button
+                        onClick={() => setIsAddPackModalOpen(true)}
+                        label={"Add pack"}
+                        icon={<AddIcon />}
+                        withShadow
+                    />
+                )}
             </Box>
             <Box margin={"0 0 20px 0"} alignItems={"center"}>
                 <Search />
