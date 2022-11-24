@@ -13,7 +13,7 @@ type TFileUploadAreaProps = {
     size?: number;
     fileType?: "image" | "document";
 };
-export const FileUploadArea: FC<TFileUploadAreaProps> = ({ size = 4000000, ...props }) => {
+export const FileUploadArea: FC<TFileUploadAreaProps> = ({ size = 775000, ...props }) => {
     const inputAccept = {
         image: ".png, .jpg, .jpeg, .gif",
         document: ".doc, .pdf",
@@ -45,7 +45,7 @@ export const FileUploadArea: FC<TFileUploadAreaProps> = ({ size = 4000000, ...pr
                 dispatch(
                     setAppMessage({
                         severity: "error",
-                        text: "The file size should be less than 4 megabytes",
+                        text: "The file size should be less than 775 KB",
                     })
                 );
             }
