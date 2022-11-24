@@ -53,6 +53,15 @@ const SignInForm = () => {
     const onViewClickHandler = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
+    
+    const onLazyClick = () => {
+        const demo = {
+            email: "demo57@gmail.com",
+            password: "demo57demo",
+            rememberMe: true
+        }
+        if (!isFetching) dispatch(loginTC(demo));
+    }
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -99,6 +108,10 @@ const SignInForm = () => {
                     </SText>
                 </Box>
             </Box>
+            <SText textAlign={"center"}>
+                <SText margin={"0 5px 0 0"} onClick={onLazyClick} isLink>Click</SText>
+                if you are too lazy to register
+            </SText>
             <Box flexDirection={"column"} alignItems={"center"}>
                 <Button
                     type="submit"
