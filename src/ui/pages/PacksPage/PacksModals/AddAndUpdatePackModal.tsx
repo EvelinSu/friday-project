@@ -12,13 +12,6 @@ import {SMegaShadow} from "../../../components/MegaShadow/styled";
 import {UiBox} from "../../../components/UiBox/UiBox";
 import {FileUploadArea} from "../../../components/FileUploadArea/FileUploadArea";
 
-type TAddPackModalProps = {
-    title: string;
-    onClose: () => void;
-    onSubmitHandler: (values: TAddAndUpdatePackModalValues) => void;
-    currentPack?: TPack;
-};
-
 export type TAddAndUpdatePackModalValues = {
     name: string;
     deckCover: string;
@@ -27,6 +20,13 @@ export type TAddAndUpdatePackModalValues = {
 };
 
 type TAddPackFormProps = {
+    onClose: () => void;
+    onSubmitHandler: (values: TAddAndUpdatePackModalValues) => void;
+    currentPack?: TPack;
+};
+
+type TAddPackModalProps = {
+    title: string;
     onClose: () => void;
     onSubmitHandler: (values: TAddAndUpdatePackModalValues) => void;
     currentPack?: TPack;

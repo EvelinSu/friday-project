@@ -38,6 +38,18 @@ export const SPackCardShadow = styled.div<{ img: string }>`
     `}
 `
 
+export const SPackCardUser = styled.div`
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+    }
+`;
+
 export const SPackCardActions = styled.div`
     display: flex;
     justify-content: space-between;

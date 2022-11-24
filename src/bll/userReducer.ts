@@ -1,19 +1,29 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { userAPI } from "../dal/userAPI";
-import { setIsFetching } from "./appReducer";
-import { TUserData } from "../dal/ResponseTypes";
-import { handlerErrors } from "../common/utils/handlerErrors";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {userAPI} from "../dal/userAPI";
+import {setIsFetching} from "./appReducer";
+import {TUserData} from "../dal/ResponseTypes";
+import {handlerErrors} from "../common/utils/handlerErrors";
 
-const initialState: TUserData = {
-    _id: "",
-    email: "",
-    isAdmin: false,
-    name: "",
-    verified: false,
-    publicCardPacksCount: 0,
-    created: "",
-    updated: "",
-    avatar: "",
+type TInitialState = {
+    isUserProfileOpen: boolean,
+    isUserFetching: boolean
+    userData: TUserData,
+}
+
+const initialState: TInitialState = {
+    isUserProfileOpen: false,
+    isUserFetching: false,
+    userData: {
+        _id: "",
+        email: "",
+        isAdmin: false,
+        name: "",
+        verified: false,
+        publicCardPacksCount: 0,
+        created: "",
+        updated: "",
+        avatar: "",
+    }
 };
 
 const slice = createSlice({
@@ -21,15 +31,21 @@ const slice = createSlice({
     initialState,
     reducers: {
         setUser(state, action: PayloadAction<TUserData>) {
-            return action.payload;
+            state.userData = action.payload;
         },
+        setIsUserProfileOpen(state, action: PayloadAction<boolean>) {
+            state.isUserProfileOpen = action.payload
+        },
+        setIsUserFetching(state, action: PayloadAction<boolean>) {
+            state.isUserFetching = action.payload
+        }
     },
 });
 
 export const getUser = createAsyncThunk(
     "user/getUser",
-    async (id: string, { dispatch, rejectWithValue }) => {
-        dispatch(setIsFetching(true));
+    async (id: string, {dispatch, rejectWithValue}) => {
+        dispatch(setIsUserFetching(true));
         try {
             const res = await userAPI.getUser(id);
             dispatch(setUser(res.data.user));
@@ -38,10 +54,10 @@ export const getUser = createAsyncThunk(
             handlerErrors(dispatch, e);
             return rejectWithValue({});
         } finally {
-            dispatch(setIsFetching(false));
+            dispatch(setIsUserFetching(false));
         }
     }
 );
 
 export const userReducer = slice.reducer;
-export const { setUser } = slice.actions;
+export const {setUser, setIsUserProfileOpen, setIsUserFetching} = slice.actions;

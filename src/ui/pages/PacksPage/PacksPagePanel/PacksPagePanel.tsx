@@ -14,6 +14,7 @@ import AddAndUpdatePackModal, {TAddAndUpdatePackModalValues,} from "../PacksModa
 import {Search} from "../../../components/Search/Search";
 import {AddIcon} from "../../../assets/icons/AddIcon";
 import Avatar from "../../../components/Avatar/Avatar";
+import defaultAvatar from "../../../assets/img/default-photo.png"
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
@@ -22,9 +23,10 @@ const PacksPagePanel = () => {
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
-    const userId = useAppSelector((state) => state.auth.userData.id);
-    const otherUserData = useAppSelector((state) => state.user);
-    const checkUserId = URLParams.user_id && URLParams.user_id === userId;
+    const myId = useAppSelector((state) => state.auth.userData.id);
+    const otherUserData = useAppSelector((state) => state.user.userData);
+    const checkUserId = URLParams.user_id && URLParams.user_id === myId;
+    const isFetching = useAppSelector(state => state.app.isFetching)
 
     const addNewPackHandler = (values: TAddAndUpdatePackModalValues) => {
         dispatch(addNewPack({newCardsPack: values, paramURL: URLParams})).then(() =>
@@ -44,15 +46,15 @@ const PacksPagePanel = () => {
                 justifyContent={"space-between"}
             >
                 <Box margin={"0 0 10px 0"} alignItems={"center"} gap={10}>
-                    {!checkUserId && (
+                    {URLParams.user_id && !checkUserId && !isFetching && (
                         <Box gap={10} alignItems={"center"}>
-                            <Avatar size={"small"} img={otherUserData.avatar ? otherUserData.avatar : ""} />
+                            <Avatar size={"small"} img={otherUserData.avatar ? otherUserData.avatar : defaultAvatar} />
                             <SMainTitle isEllipsis>
                                 {otherUserData.name}'s
                             </SMainTitle>
                         </Box>
                     )}
-                    <SMainTitle isEllipsis>Packs list</SMainTitle>
+                    <SMainTitle isEllipsis>{checkUserId ? "My packs" : "Packs list"}</SMainTitle>
                 </Box>
                 {checkUserId && <Button
                     onClick={() => setIsAddPackModalOpen(true)}

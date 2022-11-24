@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { SUiBoxBody, SUiBoxContainer, SUiBoxFooter, SUiBoxHeader } from "./styled";
+import React, {FC} from "react";
+import {SUiBoxBody, SUiBoxContainer, SUiBoxFooter, SUiBoxHeader} from "./styled";
 
 type TUiBoxProps = {
     title: string;
@@ -11,7 +11,7 @@ type TUiBoxProps = {
 export const UiBox: FC<TUiBoxProps> = (props) => {
     return (
         <SUiBoxContainer width={props.width} onClick={(e) => e.stopPropagation()}>
-            <SUiBoxHeader>{props.title}</SUiBoxHeader>
+            <SUiBoxHeader lineClamp={2}>{props.title}</SUiBoxHeader>
             <SUiBoxBody>{props.body}</SUiBoxBody>
             {props.footer && <SUiBoxFooter>{props.footer}</SUiBoxFooter>}
         </SUiBoxContainer>

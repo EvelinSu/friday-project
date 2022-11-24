@@ -2,7 +2,6 @@ import React, {FC} from "react";
 import {SPackCardActions, SPackCardPrivateIcon, SPackCardShadow, SPackCardWrapper} from "./styled";
 import {Box} from "../../../components/Box/Box";
 import {SText} from "../../../components/Text/SText";
-import Avatar from "../../../components/Avatar/Avatar";
 import IconButton from "../../../components/IconButton/IconButton";
 import EditIcon from "../../../assets/icons/EditIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
@@ -11,12 +10,12 @@ import {transformDate} from "../../../../common/utils/tarnsformDate";
 import {TPack} from "../../../../dal/ResponseTypes";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import LockFillIcon from "../../../assets/icons/LockFillIcon";
-import defaultAvatar from "../../../assets/img/default-photo.png";
 import {TPackModals} from "../PacksList";
 import {useNavigate} from "react-router-dom";
 import {initialParams} from "../../../../common/utils/getUrlParams";
 import {PATH} from "../../Pages";
 import {initialCardsData, setCards} from "../../../../bll/cardsReducer";
+import {PackCardUser} from "./PackCardUser";
 
 type TPackProps = {
     pack: TPack;
@@ -29,11 +28,9 @@ type TPackProps = {
 };
 const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetching}) => {
     const dispatch = useAppDispatch()
-    const myAvatar = useAppSelector((state) => state.auth.userData.avatar);
     const myId = useAppSelector((state) => state.auth.userData.id);
     const navigate = useNavigate()
 
-    const avatar = pack.user_id === myId ? myAvatar : defaultAvatar
     const correctDate = transformDate(pack.updated);
 
     const onPackClickHandler = () => {
@@ -79,12 +76,11 @@ const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetchi
                             <SText isEllipsis>{pack.cardsCount}</SText>
                         </Box>
                     </Box>
-                    <Box gap={10} alignItems={"center"}>
-                        <Avatar img={avatar} size={"smallest"} />
-                        <SText title={pack.user_name} isEllipsis>
-                            {pack.user_name}
-                        </SText>
-                    </Box>
+                    <PackCardUser
+                        userName={pack.user_name}
+                        myId={myId}
+                        userId={pack.user_id}
+                    />
                 </Box>
                 <SPackCardActions>
                     <IconButton
