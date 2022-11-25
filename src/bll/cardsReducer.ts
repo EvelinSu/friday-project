@@ -1,10 +1,10 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TCardsParams, TNewCard, TResponseCard} from "../dal/ResponseTypes";
-import {setAppMessage, setIsFetching} from "./appReducer";
-import {cardsAPI} from "../dal/cardsAPI";
-import {setIsButtonsDisabled} from "./packsReducer";
-import {TAddAndUpdateCardModalValues} from "../ui/pages/CardsPage/CardsModals/AddAndUpdateCardModal";
-import {handlerErrors} from "../common/utils/handlerErrors";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TCardsParams, TNewCard, TResponseCard, TUploadGrate } from "../dal/ResponseTypes";
+import { setAppMessage, setIsFetching } from "./appReducer";
+import { cardsAPI, gradeAPI } from "../dal/cardsAPI";
+import { setIsButtonsDisabled } from "./packsReducer";
+import { TAddAndUpdateCardModalValues } from "../ui/pages/CardsPage/CardsModals/AddAndUpdateCardModal";
+import { handlerErrors } from "../common/utils/handlerErrors";
 
 export type TCards = {
     isButtonsDisabled: boolean;
@@ -28,7 +28,7 @@ export const initialCardsData = {
 
 export const loadCards = createAsyncThunk(
     "cards/loadCards",
-    async (param: TCardsParams, {dispatch, rejectWithValue}) => {
+    async (param: TCardsParams, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         try {
             const res = await cardsAPI.getCards(param);
@@ -48,13 +48,13 @@ export const loadCards = createAsyncThunk(
 
 export const addNewCard = createAsyncThunk(
     "cards/addNewCard",
-    async (param: { cardsParams: TCardsParams; newCard: TNewCard }, {dispatch, rejectWithValue}) => {
+    async (param: { cardsParams: TCardsParams; newCard: TNewCard }, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         dispatch(setIsButtonsDisabled(true));
         try {
             await cardsAPI.addCard(param.newCard);
             dispatch(loadCards(param.cardsParams));
-            dispatch(setAppMessage({text: "Card successfully added!", severity: "success"}));
+            dispatch(setAppMessage({ text: "Card successfully added!", severity: "success" }));
         } catch (e) {
             handlerErrors(dispatch, e);
             return rejectWithValue({});
@@ -69,13 +69,13 @@ export const updateCard = createAsyncThunk(
     "cards/updateCard",
     async (
         param: { values: TAddAndUpdateCardModalValues; _id: string; paramURL: TCardsParams },
-        {dispatch, rejectWithValue}
+        { dispatch, rejectWithValue }
     ) => {
         dispatch(setIsButtonsDisabled(true));
         try {
-            await cardsAPI.updateCard({...param.values, _id: param._id});
+            await cardsAPI.updateCard({ ...param.values, _id: param._id });
             dispatch(loadCards(param.paramURL));
-            dispatch(setAppMessage({text: "Done!", severity: "success"}));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
         } catch (e) {
             handlerErrors(dispatch, e);
             return rejectWithValue({});
@@ -87,17 +87,32 @@ export const updateCard = createAsyncThunk(
 
 export const deleteCard = createAsyncThunk(
     "cards/deleteCard",
-    async (param: { id: string; URLParams: TCardsParams }, {dispatch, rejectWithValue}) => {
+    async (param: { id: string; URLParams: TCardsParams }, { dispatch, rejectWithValue }) => {
         dispatch(setIsButtonsDisabled(true));
         try {
             await cardsAPI.deleteCard(param.id);
             dispatch(loadCards(param.URLParams));
-            dispatch(setAppMessage({text: "Done!", severity: "success"}));
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
         } catch (e) {
             handlerErrors(dispatch, e);
             return rejectWithValue({});
         } finally {
             dispatch(setIsButtonsDisabled(false));
+        }
+    }
+);
+
+export const uploadGrate = createAsyncThunk(
+    "cards/uploadGrate",
+    async (data: TUploadGrate, { dispatch, rejectWithValue }) => {
+        dispatch(setIsFetching(true));
+        try {
+            const res = await gradeAPI.updateGrade(data);
+            dispatch(setAppMessage({ text: "Done!", severity: "success" }));
+            return res.data.updatedGrade;
+        } catch (e) {
+            handlerErrors(dispatch, e);
+            return rejectWithValue({});
         }
     }
 );
@@ -113,7 +128,10 @@ const slice = createSlice({
             state.cardsData = action.payload;
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase(uploadGrate.fulfilled, (state, action) => {});
+    },
 });
 
-export const {setCards} = slice.actions;
+export const { setCards } = slice.actions;
 export const cardsReducer = slice.reducer;
