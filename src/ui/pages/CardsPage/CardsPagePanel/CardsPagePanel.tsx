@@ -28,6 +28,7 @@ const PacksPagePanel = () => {
     const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
     const packName = useAppSelector((state) => state.cards.cardsData.packName);
     const myId = useAppSelector((state) => state.auth.userData.id);
+    const windowWidth = window.innerWidth;
 
     const addNewCardHandler = (values: TAddAndUpdateCardModalValues) => {
         dispatch(
@@ -51,10 +52,9 @@ const PacksPagePanel = () => {
 
     return (
         <SPagePanel>
-            <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
+            <Box margin={"0 0 20px 0"} alignItems={"center"} justifyContent={"space-between"}>
                 <Box
                     overflow={"hidden"}
-                    margin={"0 0 10px 0"}
                     alignItems={"center"}
                     cursor={"pointer"}
                     onClick={onBackClickHandler}
@@ -64,21 +64,22 @@ const PacksPagePanel = () => {
                         {userId === myId ? "My pack" : packName || <SText opacity={0.2}>Pack</SText>}
                     </SMainTitle>
                 </Box>
-                {userId === myId ? (
-                    <Button
-                        onClick={() => setIsAddCardModalOpen(true)}
-                        label={"Add card"}
-                        icon={<AddIcon />}
-                        withShadow
-                    />
-                ) : (
+                <Box>
+                    {userId === myId && (
+                        <Button
+                            onClick={() => setIsAddCardModalOpen(true)}
+                            label={windowWidth > 570 ? "Add card" : ""}
+                            icon={<AddIcon />}
+                            withShadow
+                        />
+                    )}
                     <Button
                         onClick={() => alert("in progress")}
-                        label={"Learn pack"}
+                        label={windowWidth > 570 ? "Learn pack" : ""}
                         icon={<BookCheckIcon />}
                         withShadow
                     />
-                )}
+                </Box>
             </Box>
             <Box alignItems={"center"}>
                 <Search />

@@ -42,8 +42,8 @@ const PacksPagePanel = () => {
 
     return (
         <SPagePanel>
-            <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
-                <Box margin={"0 0 10px 0"} alignItems={"center"} gap={10}>
+            <Box margin={"0 0 20px 0"} alignItems={"center"} justifyContent={"space-between"}>
+                <Box alignItems={"center"} gap={10}>
                     {URLParams.user_id && !checkUserId && !isFetching && (
                         <Box gap={10} alignItems={"center"}>
                             <Avatar
