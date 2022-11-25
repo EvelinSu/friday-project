@@ -4,7 +4,7 @@ import { setUserCardParams } from "../../../bll/packsParamsReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
 import { TInitialFilters } from "../../pages/PacksPage/Filter/Filter";
-import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { getUrlParams, initialParams } from "../../../common/utils/getUrlParams";
 
 type TTabsProps = {
     initialFilters: TInitialFilters;
@@ -21,18 +21,15 @@ const Tabs: FC<TTabsProps> = ({ setActiveTab, tabs, activeTab, setTabs }) => {
     const userId = useAppSelector((state) => state.auth.userData.id);
     const isFetching = useAppSelector((state) => state.app.isFetching);
 
-    const onChangeTab = (tab: string) => {
+    const onClickTabHandler = (tab: string) => {
+        const otherPackParams: any = {
+            page: "1",
+            pageCount: `${URLParams.pageCount}`,
+            user_id: userId,
+        };
         if (userId) {
-            dispatch(setUserCardParams({ page: "1", pageCount: URLParams.pageCount, user_id: userId }));
-            setSearchParams(
-                tab === "My"
-                    ? {
-                          page: `1`,
-                          pageCount: `${URLParams.pageCount}`,
-                          user_id: userId,
-                      }
-                    : { page: `1`, pageCount: `${URLParams.pageCount}` }
-            );
+            dispatch(setUserCardParams(otherPackParams));
+            setSearchParams(tab === "My" ? otherPackParams : initialParams);
         }
         if (tabs.includes("Other")) setTabs(["All", "My"]);
     };
@@ -55,7 +52,7 @@ const Tabs: FC<TTabsProps> = ({ setActiveTab, tabs, activeTab, setTabs }) => {
             {tabs.map((el) => (
                 <STab
                     key={el}
-                    onClick={() => onChangeTab(el)}
+                    onClick={() => onClickTabHandler(el)}
                     isActive={activeTab === el}
                     isDisabled={isFetching}
                 >

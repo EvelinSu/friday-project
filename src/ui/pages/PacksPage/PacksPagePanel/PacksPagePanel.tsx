@@ -42,7 +42,7 @@ const PacksPagePanel = () => {
 
     return (
         <SPagePanel>
-            <Box margin={"0 0 20px 0"} alignItems={"center"} justifyContent={"space-between"}>
+            <Box alignItems={"center"} justifyContent={"space-between"}>
                 <Box alignItems={"center"} gap={10}>
                     {URLParams.user_id && !checkUserId && !isFetching && (
                         <Box gap={10} alignItems={"center"}>
@@ -50,7 +50,9 @@ const PacksPagePanel = () => {
                                 size={"small"}
                                 img={otherUserData.avatar ? otherUserData.avatar : defaultAvatar}
                             />
-                            <SMainTitle isEllipsis>{otherUserData.name}'s</SMainTitle>
+                            <SMainTitle maxWidth={"300px"} isEllipsis>
+                                {otherUserData.name}'s
+                            </SMainTitle>
                         </Box>
                     )}
                     <SMainTitle isEllipsis>{checkUserId ? "My packs" : "Packs list"}</SMainTitle>

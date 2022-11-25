@@ -15,6 +15,8 @@ export const SPageWrapper = styled.div`
 
 export const SPagePanel = styled.div`
     display: flex;
+    gap: 20px;
+    row-gap: 20px;
     flex-direction: column;
 `;
 

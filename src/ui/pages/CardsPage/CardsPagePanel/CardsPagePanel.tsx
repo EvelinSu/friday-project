@@ -54,7 +54,7 @@ const PacksPagePanel = () => {
 
     return (
         <SPagePanel>
-            <Box margin={"0 0 20px 0"} alignItems={"center"} justifyContent={"space-between"}>
+            <Box alignItems={"center"} justifyContent={"space-between"}>
                 <Box
                     overflow={"hidden"}
                     alignItems={"center"}
