@@ -180,3 +180,17 @@ export type TSendPassData = {
     password: string;
     resetPasswordToken: string;
 };
+
+export type TUploadGrate = {
+    grade: 1 | 2 | 3 | 4 | 5;
+    card_id: string;
+};
+
+// export type TResponseUploadGrate = {
+//     _id: string;
+//     cardsPack_id: string;
+//     card_id: string;
+//     user_id: string;
+//     grade: number;
+//     shots: number;
+// };
