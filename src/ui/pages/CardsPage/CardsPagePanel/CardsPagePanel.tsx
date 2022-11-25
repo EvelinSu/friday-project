@@ -1,44 +1,49 @@
-import React, {useMemo, useState} from "react";
-import {Box} from "../../../components/Box/Box";
-import {SMainTitle, SPagePanel} from "../../styled";
+import React, { useMemo, useState } from "react";
+import { Box } from "../../../components/Box/Box";
+import { SMainTitle, SPagePanel } from "../../styled";
 import Button from "../../../components/Button/Button";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {getUrlParams} from "../../../../common/utils/getUrlParams";
-import {Search} from "../../../components/Search/Search";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getUrlParams } from "../../../../common/utils/getUrlParams";
+import { Search } from "../../../components/Search/Search";
 import LongArrowIcon from "../../../assets/icons/LongArrowIcon";
 import IconButton from "../../../components/IconButton/IconButton";
-import AddAndUpdateCardModal, {TAddAndUpdateCardModalValues} from "../CardsModals/AddAndUpdateCardModal";
-import {addNewCard} from "../../../../bll/cardsReducer";
-import {PATH} from "../../Pages";
-import {SText} from "../../../components/Text/SText";
-import {AddIcon} from "../../../assets/icons/AddIcon";
+import AddAndUpdateCardModal, {
+    TAddAndUpdateCardModalValues,
+} from "../CardsModals/AddAndUpdateCardModal";
+import { addNewCard } from "../../../../bll/cardsReducer";
+import { PATH } from "../../Pages";
+import { SText } from "../../../components/Text/SText";
+import { AddIcon } from "../../../assets/icons/AddIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
-    const packsParams = useAppSelector(state => state.packsParams)
-    const userId = useAppSelector(state => state.cards.cardsData.packUserId)
-    const packName = useAppSelector(state => state.cards.cardsData.packName)
-    const myId = useAppSelector(state => state.auth.userData.id)
+    const packsParams = useAppSelector((state) => state.packsParams);
+    const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
+    const packName = useAppSelector((state) => state.cards.cardsData.packName);
+    const myId = useAppSelector((state) => state.auth.userData.id);
 
     const addNewCardHandler = (values: TAddAndUpdateCardModalValues) => {
         dispatch(
-            addNewCard({newCard: {...values, cardsPack_id: URLParams.cardsPack_id}, cardsParams: URLParams}))
-            .then(() => setIsAddCardModalOpen(false));
+            addNewCard({
+                newCard: { ...values, cardsPack_id: URLParams.cardsPack_id },
+                cardsParams: URLParams,
+            })
+        ).then(() => setIsAddCardModalOpen(false));
     };
 
     const onBackClickHandler = () => {
-        let params: string[] = []
-        Object.entries(packsParams).forEach(el => el[1] !== "" && params.push(el.join("=")))
-        const validParams = params.join("&")
-        navigate(PATH.packsList + `?${validParams}`)
-    }
+        let params: string[] = [];
+        Object.entries(packsParams).forEach((el) => el[1] !== "" && params.push(el.join("=")));
+        const validParams = params.join("&");
+        navigate(PATH.packsList + `?${validParams}`);
+    };
 
     // for select (in future)
     // const options: TFilterOptions[] = ["Updated recently", "Updated long ago"];
@@ -46,11 +51,7 @@ const PacksPagePanel = () => {
 
     return (
         <SPagePanel>
-            <Box
-                margin={"0 0 10px 0"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-            >
+            <Box margin={"0 0 10px 0"} alignItems={"center"} justifyContent={"space-between"}>
                 <Box
                     overflow={"hidden"}
                     margin={"0 0 10px 0"}
@@ -60,32 +61,26 @@ const PacksPagePanel = () => {
                 >
                     <IconButton icon={<LongArrowIcon />} isDark allowPropagation />
                     <SMainTitle isEllipsis>
-                        {userId === myId
-                            ? 'My pack'
-                            : packName || <SText opacity={0.2}>Pack</SText>
-                        }
+                        {userId === myId ? "My pack" : packName || <SText opacity={0.2}>Pack</SText>}
                     </SMainTitle>
                 </Box>
-                {userId === myId
-                    ? <Button
+                {userId === myId ? (
+                    <Button
                         onClick={() => setIsAddCardModalOpen(true)}
                         label={"Add card"}
                         icon={<AddIcon />}
                         withShadow
                     />
-                    : <Button
-                        onClick={() => alert('in progress')}
+                ) : (
+                    <Button
+                        onClick={() => alert("in progress")}
                         label={"Learn pack"}
                         icon={<BookCheckIcon />}
                         withShadow
                     />
-
-                }
+                )}
             </Box>
-            <Box
-                margin={"0 0 20px 0"}
-                alignItems={"center"}
-            >
+            <Box alignItems={"center"}>
                 <Search />
                 {/*<Box maxWidth={"200px"} width={"100%"}>*/}
                 {/*    <Select*/}

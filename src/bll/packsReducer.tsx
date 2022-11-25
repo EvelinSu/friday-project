@@ -26,7 +26,7 @@ const initialState: TPacks = {
     cardPacksData: {
         cardPacks: [],
         user_id: "",
-        page: 0,
+        page: 1,
         pageCount: 12,
         cardPacksTotalCount: 0,
         minCardsCount: 0,
@@ -133,4 +133,4 @@ const slice = createSlice({
 });
 
 export const packsReducer = slice.reducer;
-export const { setPacks, clearStatePacks, setIsButtonsDisabled } = slice.actions;
+export const {setPacks, clearStatePacks, setIsButtonsDisabled} = slice.actions;

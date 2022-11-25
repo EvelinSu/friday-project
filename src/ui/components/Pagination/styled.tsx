@@ -4,7 +4,6 @@ import ReactPaginate from "react-paginate";
 export const MyPaginate = styled(ReactPaginate)`
     display: flex;
     align-items: center;
-    padding: 20px 0 10px 0;
     gap: 15px;
     column-gap: 15px;
     row-gap: 15px;

@@ -1,11 +1,11 @@
-import React, {useEffect, useMemo, useState} from "react";
-import {useSearchParams} from "react-router-dom";
-import {MyPaginate} from "./styled";
+import React, { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { MyPaginate } from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
-import {useDebounce} from "usehooks-ts";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
-import {setIsFetching} from "../../../bll/appReducer";
+import { useDebounce } from "usehooks-ts";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { setIsFetching } from "../../../bll/appReducer";
 
 type TPaginationProps = {
     totalCount: number;
@@ -14,8 +14,8 @@ type TPaginationProps = {
     isFetching: boolean;
 };
 
-const Pagination: React.FC<TPaginationProps> = React.memo(({totalCount, pageCount}) => {
-    const dispatch = useAppDispatch()
+const Pagination: React.FC<TPaginationProps> = React.memo(({ totalCount, pageCount }) => {
+    const dispatch = useAppDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
@@ -25,20 +25,20 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({totalCount, pageCoun
 
     const pageQuantity = Math.max(Math.ceil(totalCount / pageCount));
 
-    const handlePageChange = ({selected}: { selected: number }) => {
-        dispatch(setIsFetching(true))
+    const handlePageChange = ({ selected }: { selected: number }) => {
+        dispatch(setIsFetching(true));
         setValue(`${selected + 1}`);
     };
 
     useEffect(() => {
         if (URLParams.page !== value) {
-            setSearchParams({...URLParams, page: `${value}`});
+            setSearchParams({ ...URLParams, page: `${value}` });
         }
     }, [debounceValue]);
     return (
         <MyPaginate
             forcePage={pageInState > -1 ? pageInState - 1 : 0}
-            pageCount={pageQuantity}
+            pageCount={pageQuantity < 1 ? 1 : pageQuantity}
             pageRangeDisplayed={3}
             renderOnZeroPageCount={() => null}
             marginPagesDisplayed={1}
