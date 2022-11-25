@@ -27,6 +27,7 @@ const PacksPagePanel = () => {
     const packsParams = useAppSelector((state) => state.packsParams);
     const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
     const packName = useAppSelector((state) => state.cards.cardsData.packName);
+    const isFetching = useAppSelector((state) => state.app.isFetching);
     const cardsTotalCount = useAppSelector((state) => state.cards.cardsData.cardsTotalCount);
     const myId = useAppSelector((state) => state.auth.userData.id);
     const windowWidth = window.innerWidth;
@@ -78,7 +79,7 @@ const PacksPagePanel = () => {
                         onClick={() => alert("in progress")}
                         label={windowWidth > 570 ? "Learn pack" : ""}
                         icon={<BookCheckIcon />}
-                        isDisabled={cardsTotalCount < 1}
+                        isDisabled={cardsTotalCount < 1 || isFetching}
                         withShadow
                     />
                 </Box>
