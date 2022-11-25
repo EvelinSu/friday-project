@@ -11,7 +11,7 @@ import IconButton from "../../../components/IconButton/IconButton";
 import AddAndUpdateCardModal, {
     TAddAndUpdateCardModalValues,
 } from "../CardsModals/AddAndUpdateCardModal";
-import { addNewCard } from "../../../../bll/cardsReducer";
+import { addNewCard, loadCards } from "../../../../bll/cardsReducer";
 import { PATH } from "../../Pages";
 import { SText } from "../../../components/Text/SText";
 import { AddIcon } from "../../../assets/icons/AddIcon";
@@ -45,6 +45,13 @@ const PacksPagePanel = () => {
         navigate(PATH.packsList + `?${validParams}`);
     };
 
+    const learnPackHandler = async () => {
+        await dispatch(
+            loadCards({ cardsPack_id: URLParams.cardsPack_id, pageCount: URLParams.pageCount })
+        );
+        navigate(PATH.learning);
+    };
+
     // for select (in future)
     // const options: TFilterOptions[] = ["Updated recently", "Updated long ago"];
     // const [option, setOption] = useState('');
@@ -73,7 +80,7 @@ const PacksPagePanel = () => {
                     />
                 ) : (
                     <Button
-                        onClick={() => alert("in progress")}
+                        onClick={learnPackHandler}
                         label={"Learn pack"}
                         icon={<BookCheckIcon />}
                         withShadow
