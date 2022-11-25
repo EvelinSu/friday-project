@@ -11,11 +11,13 @@ import {CardsPage} from "./CardsPage/CardsPage";
 import {useAppSelector} from "../../hooks/hooks";
 import {initialParams} from "../../common/utils/getUrlParams";
 import ProfilePage from "./ProfilePage/ProfilePage";
+import {LearningPage} from "./LearningPage/LearningPage";
 
 export const PATH = {
     profile: "/profile",
     packsList: "/packsList",
     cardsList: "/cardsList",
+    learning: "/learning",
     signIn: "/login/signIn",
     signUp: "/login/signUp",
     changePassword: "/login/changePassword",
@@ -44,6 +46,7 @@ const Pages = () => {
                 <Route path={PATH.profile} element={<ProfilePage />} />
                 <Route path={PATH.packsList} element={<PacksPage />} />
                 <Route path={PATH.cardsList} element={<CardsPage />} />
+                <Route path={PATH.learning} element={<LearningPage />} />
             </Route>
             <Route element={<LoginRoute />}>
                 <Route path={PATH.signIn} element={<SignIn />} />
