@@ -3,8 +3,9 @@ import {useSearchParams} from "react-router-dom";
 import {MyPaginate} from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
 import {useDebounce} from "usehooks-ts";
-import {useAppSelector} from "../../../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {getUrlParams} from "../../../common/utils/getUrlParams";
+import {setIsFetching} from "../../../bll/appReducer";
 
 type TPaginationProps = {
     totalCount: number;
@@ -14,15 +15,18 @@ type TPaginationProps = {
 };
 
 const Pagination: React.FC<TPaginationProps> = React.memo(({totalCount, pageCount}) => {
+    const dispatch = useAppDispatch()
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const [value, setValue] = useState(URLParams.page);
     const pageInState = useAppSelector((state) => state.packs.cardPacksData.page);
-    const debounceValue = useDebounce(value, 500);
+    const debounceValue = useDebounce(value, 750);
 
     const pageQuantity = Math.max(Math.ceil(totalCount / pageCount));
+
     const handlePageChange = ({selected}: { selected: number }) => {
+        dispatch(setIsFetching(true))
         setValue(`${selected + 1}`);
     };
 
@@ -31,12 +35,12 @@ const Pagination: React.FC<TPaginationProps> = React.memo(({totalCount, pageCoun
             setSearchParams({...URLParams, page: `${value}`});
         }
     }, [debounceValue]);
-
     return (
         <MyPaginate
             forcePage={pageInState > -1 ? pageInState - 1 : 0}
             pageCount={pageQuantity}
             pageRangeDisplayed={3}
+            renderOnZeroPageCount={() => null}
             marginPagesDisplayed={1}
             onPageChange={handlePageChange}
             previousLabel={<SmallArrowIcon rotate={"90deg"} />}

@@ -26,12 +26,11 @@ export const MyPaginate = styled(ReactPaginate)`
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background-color: ${({theme}) => theme.colors.secondaryLight};
         cursor: pointer;
-        border: 1px solid rgba(0, 0, 0, 0.1);
 
         &:hover {
-            transform: scale(0.9);
+            background-color: rgba(0, 0, 0, 0.05);
+
         }
 
     }

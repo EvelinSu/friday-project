@@ -46,11 +46,19 @@ const LearnPackContainer = () => {
             </SText>
             {!isAnswerOpen && (
                 <Box justifyContent={"center"} margin={"20px 0 0 0"}>
-                    <Button label={"Show answer"} onClick={() => setIsAnswerOpen(true)} withShadow />
+                    <Button
+                        label={"Show answer"}
+                        onClick={() => setIsAnswerOpen(true)}
+                        withShadow
+                    />
                 </Box>
             )}
             {isAnswerOpen && (
-                <Box margin={"20px 0 0 0"} flexDirection={"column"} width={"100%"}>
+                <Box
+                    margin={"20px 0 0 0"}
+                    flexDirection={"column"}
+                    width={"100%"}
+                >
                     <SText fontSize={"16px"}>
                         <SText fontWeight={600}>Answer: </SText>
                         {pack.cards[0].answer}
