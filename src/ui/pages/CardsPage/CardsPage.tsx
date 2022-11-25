@@ -17,12 +17,15 @@ export const CardsPage = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
+    const [pageCount, setPageCount] = useState(+(URLParams.pageCount || 0));
 
     const isFetching = useAppSelector((state) => state.app.isFetching);
     const cards = useAppSelector((state) => state.cards.cardsData.cards);
     const cardsTotalCount = useAppSelector((state) => state.cards.cardsData.cardsTotalCount);
 
-    const [pageCount, setPageCount] = useState(+(URLParams.pageCount || 0));
+    const onChangePageCountHandler = (count: number) => {
+        setSearchParams({ ...URLParams, pageCount: `${count}` });
+    };
 
     useEffect(() => {
         setPageCount(+(URLParams.pageCount || 0));
@@ -31,9 +34,6 @@ export const CardsPage = () => {
 
     const pageCounts = [12, 16, 20, 24, 28, 32, 36, 40, 44, 48];
 
-    const onChangePageCountHandler = (count: number) => {
-        setSearchParams({ ...URLParams, pageCount: `${count}` });
-    };
     return (
         <SPageWrapper>
             {isFetching && <LoaderIcon absolute />}

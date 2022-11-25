@@ -1,5 +1,5 @@
-import styled, {css} from "styled-components";
-import {Box} from "../../../components/Box/Box";
+import styled, { css } from "styled-components";
+import { Box } from "../../../components/Box/Box";
 
 export const FilterWrapper = styled(Box)<{ isActive?: boolean }>`
     align-items: center;
@@ -11,35 +11,36 @@ export const FilterWrapper = styled(Box)<{ isActive?: boolean }>`
         min-width: 39px;
         border-radius: 15px;
         position: relative;
-        ${props => props.isActive && css`
-            &:after {
-                content: "";
-                width: 8px;
-                height: 8px;
-                background-color: ${props.theme.colors.severity.notification};
-                position: absolute;
-                top: 0;
-                right: 0;
-                border-radius: 50px;
-            }
-        `}
+        ${(props) =>
+            props.isActive &&
+            css`
+                &:after {
+                    content: "";
+                    width: 8px;
+                    height: 8px;
+                    background-color: ${props.theme.colors.severity.notification};
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    border-radius: 50px;
+                }
+            `}
     }
 `;
 
-const windowWidth = window.innerWidth
+const windowWidth = window.innerWidth;
 
 export const SFilterWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     position: absolute;
     background-color: rgba(255, 255, 255, 0.71);
-    top: ${windowWidth < 570 ? `calc(100% + 10px)` : 'calc(100% + 20px)'};
-    left: ${windowWidth < 570 ? `calc(100% - 255px)` : ''};
+    top: ${windowWidth < 570 ? `calc(100% + 10px)` : "calc(100% + 20px)"};
+    left: ${windowWidth < 570 ? `calc(100% - 255px)` : ""};
     padding: 20px;
-    border-radius: ${windowWidth < 570 ? `15px 0 15px 15px` : '15px'};
+    border-radius: ${windowWidth < 570 ? `15px 0 15px 15px` : "15px"};
     backdrop-filter: blur(7.5px);
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
     width: 220px;
@@ -48,7 +49,7 @@ export const SFilterWrapper = styled.div`
     &:after {
         content: "";
         position: absolute;
-        display: ${windowWidth < 570 ? `none` : ''};
+        display: ${windowWidth < 570 ? `none` : ""};
         top: -10px;
         width: 0;
         height: 0;
@@ -61,4 +62,5 @@ export const SFilterWrapper = styled.div`
 export const SFilterReset = styled.div`
     margin-left: auto;
     margin-bottom: -10px;
+    margin-top: -20px;
 `;

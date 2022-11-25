@@ -1,16 +1,16 @@
-import React, {FC, useState} from "react";
+import React, { FC, useState } from "react";
 import Input from "../../../components/Form/Input";
-import {Box} from "../../../components/Box/Box";
+import { Box } from "../../../components/Box/Box";
 import Button from "../../../components/Button/Button";
-import {useAppSelector} from "../../../../hooks/hooks";
-import {SForm, WithFormTitle} from "../../../components/Form/styled";
-import {useFormik} from "formik";
+import { useAppSelector } from "../../../../hooks/hooks";
+import { SForm, WithFormTitle } from "../../../components/Form/styled";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import {TCard} from "../../../../dal/ResponseTypes";
-import {SMegaShadow} from "../../../components/MegaShadow/styled";
-import {UiBox} from "../../../components/UiBox/UiBox";
+import { TCard } from "../../../../dal/ResponseTypes";
+import { SMegaShadow } from "../../../components/MegaShadow/styled";
+import { UiBox } from "../../../components/UiBox/UiBox";
 import Select from "../../../components/Select/Select";
-import {FileUploadArea} from "../../../components/FileUploadArea/FileUploadArea";
+import { FileUploadArea } from "../../../components/FileUploadArea/FileUploadArea";
 
 export type TAddAndUpdateCardModalValues = {
     question: string;
@@ -53,16 +53,17 @@ const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
 };
 
 const AddCardForm: FC<TAddPackFormProps> = (props) => {
-    const {isButtonsDisabled} = useAppSelector((state) => state.packs);
-    const questionTypes = ["Text", "Image"]
-    const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg || "")
-    const [answerImage, setAnswerImage] = useState(props.currentCard?.answerImg || "")
+    const { isButtonsDisabled } = useAppSelector((state) => state.packs);
+    const questionTypes = ["Text", "Image"];
+    const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg || "");
+    const [answerImage, setAnswerImage] = useState(props.currentCard?.answerImg || "");
     const [questionType, setQuestionType] = useState(
-        ((questionImage && questionImage !== "null")
-            || (answerImage && answerImage !== "null"))
-            ? questionTypes[1] : questionTypes[0])
+        (questionImage && questionImage !== "null") || (answerImage && answerImage !== "null")
+            ? questionTypes[1]
+            : questionTypes[0]
+    );
 
-    const {handleSubmit, handleChange, values} = useFormik({
+    const { handleSubmit, handleChange, values } = useFormik({
         initialValues: {
             question: props.currentCard?.question || "",
             answer: props.currentCard?.answer || "",
@@ -74,25 +75,25 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
         }),
         onSubmit: (values: TAddAndUpdateCardModalValues) => {
             if (questionType === "Text") {
-                values = {...values, questionImg: undefined, answerImg: undefined}
-                setAnswerImage("null")
-                setQuestionImage("null")
+                values = { ...values, questionImg: "null", answerImg: "null" };
+                setAnswerImage("null");
+                setQuestionImage("null");
             }
-            if (questionType === "Image") values = {...values, question: "", answer: ""}
+            if (questionType === "Image") values = { ...values, question: "", answer: "" };
             props.onSubmitHandler(values);
         },
     });
 
     const onChangeImage = (type: "question" | "answer", file: string) => {
         if (type === "question") {
-            setQuestionImage(file)
-            values.questionImg = file
+            setQuestionImage(file);
+            values.questionImg = file;
         }
         if (type === "answer") {
-            setAnswerImage(file)
-            values.answerImg = file
+            setAnswerImage(file);
+            values.answerImg = file;
         }
-    }
+    };
 
     return (
         <SForm onSubmit={handleSubmit}>
@@ -131,7 +132,7 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
                     <>
                         <WithFormTitle title={"Question"}>
                             <FileUploadArea
-                                fileType={'image'}
+                                fileType={"image"}
                                 placeholder={"Choose image"}
                                 onChange={(file: string) => onChangeImage("question", file)}
                                 value={values.questionImg !== null ? values.questionImg : ""}
@@ -140,7 +141,7 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
                         </WithFormTitle>
                         <WithFormTitle title={"Answer"}>
                             <FileUploadArea
-                                fileType={'image'}
+                                fileType={"image"}
                                 name={"answerImg"}
                                 onChange={(file: string) => onChangeImage("answer", file)}
                                 placeholder={"Choose image"}

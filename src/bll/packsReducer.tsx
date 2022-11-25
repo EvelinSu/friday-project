@@ -133,4 +133,4 @@ const slice = createSlice({
 });
 
 export const packsReducer = slice.reducer;
-export const {setPacks, clearStatePacks, setIsButtonsDisabled} = slice.actions;
+export const { setPacks, clearStatePacks, setIsButtonsDisabled } = slice.actions;

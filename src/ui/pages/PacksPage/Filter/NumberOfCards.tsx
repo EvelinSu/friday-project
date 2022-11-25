@@ -1,12 +1,12 @@
-import React, {FC, useEffect, useMemo, useState} from "react";
-import {SText} from "../../../components/Text/SText";
-import {Box} from "../../../components/Box/Box";
-import {DoubleRangeValueWrapper} from "../../../components/DoubleRange/styled";
+import React, { FC, useEffect, useMemo, useState } from "react";
+import { Box } from "../../../components/Box/Box";
+import { DoubleRangeValueWrapper } from "../../../components/DoubleRange/styled";
 import DoubleRange from "../../../components/DoubleRange/DoubleRange";
-import {useDebounce} from "usehooks-ts";
-import {useSearchParams} from "react-router-dom";
-import {getUrlParams} from "../../../../common/utils/getUrlParams";
-import {useAppSelector} from "../../../../hooks/hooks";
+import { useDebounce } from "usehooks-ts";
+import { useSearchParams } from "react-router-dom";
+import { getUrlParams } from "../../../../common/utils/getUrlParams";
+import { useAppSelector } from "../../../../hooks/hooks";
+import { WithFormTitle } from "../../../components/Form/styled";
 
 type TNumberOfCardsProps = {
     id?: string;
@@ -57,21 +57,24 @@ const NumberOfCards: FC<TNumberOfCardsProps> = ({...props}) => {
     }, [debounceValues]);
 
     return (
-        <Box flexDirection={"column"} width={"100%"} gap={10}>
-            <SText fontSize={"12px"} margin={"0 0 0 10px"} opacity={0.5}>
-                Number of cards
-            </SText>
-            <Box gap={10} alignItems={"center"}>
-                <DoubleRangeValueWrapper onBlur={onBlurHandler}>{value1}</DoubleRangeValueWrapper>
-                <DoubleRange
-                    id={props.id}
-                    setValue1={(min: number) => onChangeHandler("min", min)}
-                    setValue2={(max: number) => onChangeHandler("max", max)}
-                    values={[value1, value2]}
-                    minmax={[minCardsCount, maxCardsCount < 10 ? 10 : maxCardsCount]}
-                />
-                <DoubleRangeValueWrapper onBlur={onBlurHandler}>{value2}</DoubleRangeValueWrapper>
-            </Box>
+        <Box
+            flexDirection={"column"}
+            width={"100%"}
+            gap={10}
+        >
+            <WithFormTitle title={"Number of cards"}>
+                <Box gap={10} alignItems={"center"}>
+                    <DoubleRangeValueWrapper onBlur={onBlurHandler}>{value1}</DoubleRangeValueWrapper>
+                    <DoubleRange
+                        id={props.id}
+                        setValue1={(min: number) => onChangeHandler("min", min)}
+                        setValue2={(max: number) => onChangeHandler("max", max)}
+                        values={[value1, value2]}
+                        minmax={[minCardsCount, maxCardsCount < 10 ? 10 : maxCardsCount]}
+                    />
+                    <DoubleRangeValueWrapper onBlur={onBlurHandler}>{value2}</DoubleRangeValueWrapper>
+                </Box>
+            </WithFormTitle>
         </Box>
     );
 };
