@@ -5,6 +5,7 @@ export const MyPaginate = styled(ReactPaginate)`
     display: flex;
     align-items: center;
     gap: 15px;
+    padding: 0;
     column-gap: 15px;
     row-gap: 15px;
     margin-top: auto;
@@ -29,9 +30,7 @@ export const MyPaginate = styled(ReactPaginate)`
 
         &:hover {
             background-color: rgba(0, 0, 0, 0.05);
-
         }
-
     }
 
     .disabled {
@@ -40,10 +39,10 @@ export const MyPaginate = styled(ReactPaginate)`
     }
 
     .active {
-        background-color: ${({theme}) => theme.colors.primary};
+        background-color: ${({ theme }) => theme.colors.primary};
         pointer-events: none;
         border-radius: 50%;
-        color: ${({theme}) => theme.colors.textOnPrimary};
+        color: ${({ theme }) => theme.colors.textOnPrimary};
 
         a {
             background-color: transparent;
