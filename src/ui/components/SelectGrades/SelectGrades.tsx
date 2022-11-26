@@ -2,37 +2,36 @@ import React, { ChangeEvent } from "react";
 import { TDefaultInputProps } from "../Form/Input";
 import { SText } from "../Text/SText";
 import { SCheckbox, SLabel } from "./styled";
-import { grade } from "../../pages/LearningPage/Grades";
 
 type TCheckboxProps = TDefaultInputProps & {
     onChangeOption?: (value: string) => void;
     onChange?: (value: number) => void;
-    grades?: grade[];
+    options?: any[];
     value?: number;
 };
 
-const SelectGrades: React.FC<TCheckboxProps> = ({ grades, ...props }) => {
+const SelectGrades: React.FC<TCheckboxProps> = ({ options, ...props }) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         props.onChangeOption && props.onChangeOption(e.currentTarget.value);
         props.onChange && props.onChange(e);
     };
 
-    const mappedOptions: any[] = grades
-        ? grades.map((grade) => (
-              <SLabel key={grade.id}>
+    const mappedOptions: any[] = options
+        ? options.map((option) => (
+              <SLabel key={option.id}>
                   <SCheckbox
                       type={"radio"}
-                      name={grade.label}
-                      checked={props.value === grade.value}
-                      value={grade.value}
+                      name={option.label}
+                      checked={props.value === option.value}
+                      value={option.value}
                       onChange={onChangeCallback}
                   />
-                  {grade.label && <SText>{grade.label}</SText>}
+                  {option.label && <SText>{option.label}</SText>}
               </SLabel>
           ))
         : [];
 
-    return <>{mappedOptions};</>;
+    return <>{mappedOptions}</>;
 };
 
 export default SelectGrades;

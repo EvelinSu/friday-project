@@ -9,12 +9,6 @@ const grades = [
     { id: "5", value: 5, label: "Knew the answer" },
 ];
 
-export type grade = {
-    id: string;
-    value: number;
-    label: string;
-};
-
 type TGradesProps = {
     setGrade: (value: number) => void;
     grade: number;
@@ -25,5 +19,5 @@ export const Grades = ({ setGrade, grade }: TGradesProps) => {
         setGrade(+value);
     };
 
-    return <SelectGrades onChangeOption={onChangeOption} grades={grades} value={grade} />;
+    return <SelectGrades options={grades} value={grade} onChangeOption={onChangeOption} />;
 };

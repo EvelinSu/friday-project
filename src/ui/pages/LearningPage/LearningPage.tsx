@@ -8,6 +8,9 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { getCard } from "../../../common/utils/getCards";
 import { Grades } from "./Grades";
 import { uploadGrate } from "../../../bll/cardsReducer";
+import { Navigate } from "react-router-dom";
+import { PATH } from "../Pages";
+import LoaderIcon from "../../assets/loaders/loader";
 
 export const LearningPage = () => {
     const name = useAppSelector((state) => state.cards.cardsData.packName);
@@ -24,50 +27,65 @@ export const LearningPage = () => {
 const LearnPackContainer = () => {
     const dispatch = useAppDispatch();
     const cards = useAppSelector((state) => state.cards.cardsData.cards);
+    const isFetching = useAppSelector((state) => state.app.isFetching);
+
     const [card, setCars] = useState(getCard(cards));
     const [isAnswerOpen, setIsAnswerOpen] = useState(false);
     const [grade, setGrade] = useState(1);
-    console.log(grade);
-    console.log(card);
-    const onNextHandler = () => {
-        dispatch(uploadGrate({ grade, card_id: card._id }));
+
+    const onNextHandler = async () => {
+        await dispatch(uploadGrate({ grade, card_id: card._id }));
         setCars(getCard(cards));
+        setGrade(1);
+        setIsAnswerOpen(false);
     };
 
+    if (!cards.length) {
+        return <Navigate to={PATH.packsList} />;
+    }
+
     return (
-        <Box flexDirection={"column"} gap={"10px"}>
-            <SText fontSize={"16px"}>
-                <SText fontWeight={600}>Question: </SText>
-                {card.question}
-            </SText>
-            <SText>
-                <SText opacity={0.3} margin={"0 5px 0 0"}>
-                    Количество попыток ответов на вопрос:
+        <>
+            {isFetching && <LoaderIcon absolute />}
+            <Box flexDirection={"column"} gap={"10px"}>
+                <SText fontSize={"16px"}>
+                    <SText fontWeight={600}>Question: </SText>
+                    {card.question}
                 </SText>
-                {card.shots}
-            </SText>
-            {!isAnswerOpen && (
-                <Box justifyContent={"center"} margin={"20px 0 0 0"}>
-                    <Button label={"Show answer"} onClick={() => setIsAnswerOpen(true)} withShadow />
-                </Box>
-            )}
-            {isAnswerOpen && (
-                <Box margin={"20px 0 0 0"} flexDirection={"column"} width={"100%"}>
-                    <SText fontSize={"16px"}>
-                        <SText fontWeight={600}>Answer: </SText>
-                        {card.answer}
+                <SText>
+                    <SText opacity={0.3} margin={"0 5px 0 0"}>
+                        Количество попыток ответов на вопрос:
                     </SText>
-                    <SText margin={"10px 0 0 0"} fontSize={"16px"}>
-                        Rate yourself:
-                    </SText>
-                    <Box gap={"10px"} flexDirection={"column"}>
-                        <Grades setGrade={setGrade} grade={grade} />
+                    {card.shots}
+                </SText>
+                {!isAnswerOpen && (
+                    <Box justifyContent={"center"} margin={"20px 0 0 0"}>
+                        <Button label={"Show answer"} onClick={() => setIsAnswerOpen(true)} withShadow />
                     </Box>
-                    <Box justifyContent={"center"}>
-                        <Button label={"Next"} withShadow onClick={onNextHandler} />
+                )}
+                {isAnswerOpen && (
+                    <Box margin={"20px 0 0 0"} flexDirection={"column"} width={"100%"}>
+                        <SText fontSize={"16px"}>
+                            <SText fontWeight={600}>Answer: </SText>
+                            {card.answer}
+                        </SText>
+                        <SText margin={"10px 0 0 0"} fontSize={"16px"}>
+                            Rate yourself:
+                        </SText>
+                        <Box gap={"10px"} flexDirection={"column"}>
+                            <Grades setGrade={setGrade} grade={grade} />
+                        </Box>
+                        <Box justifyContent={"center"}>
+                            <Button
+                                label={"Next"}
+                                isLoading={isFetching}
+                                withShadow
+                                onClick={onNextHandler}
+                            />
+                        </Box>
                     </Box>
-                </Box>
-            )}
-        </Box>
+                )}
+            </Box>
+        </>
     );
 };
