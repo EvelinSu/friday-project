@@ -7,6 +7,7 @@ import Button from "../../components/Button/Button";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { getCard } from "../../../common/utils/getCards";
 import { Grades } from "./Grades";
+import { uploadGrate } from "../../../bll/cardsReducer";
 
 export const LearningPage = () => {
     const name = useAppSelector((state) => state.cards.cardsData.packName);
@@ -28,7 +29,10 @@ const LearnPackContainer = () => {
     const [grade, setGrade] = useState(1);
     console.log(grade);
     console.log(card);
-    const onNextHandler = () => {};
+    const onNextHandler = () => {
+        dispatch(uploadGrate({ grade, card_id: card._id }));
+        setCars(getCard(cards));
+    };
 
     return (
         <Box flexDirection={"column"} gap={"10px"}>

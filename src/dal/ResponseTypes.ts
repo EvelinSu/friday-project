@@ -181,16 +181,20 @@ export type TSendPassData = {
     resetPasswordToken: string;
 };
 
-export type TUploadGrate = {
-    grade: 1 | 2 | 3 | 4 | 5;
+export type TUploadGrade = {
+    grade: number;
     card_id: string;
 };
 
-// export type TResponseUploadGrate = {
-//     _id: string;
-//     cardsPack_id: string;
-//     card_id: string;
-//     user_id: string;
-//     grade: number;
-//     shots: number;
-// };
+export type TUpdateGrade = {
+    _id: string;
+    cardsPack_id: string;
+    card_id: string;
+    user_id: string;
+    grade: number;
+    shots: number;
+};
+
+export type TUploadGradeResponse = {
+    updatedGrade: TUpdateGrade;
+};

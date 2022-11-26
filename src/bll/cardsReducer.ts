@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TCardsParams, TNewCard, TResponseCard, TUploadGrate } from "../dal/ResponseTypes";
+import { TCardsParams, TNewCard, TResponseCard, TUploadGrade } from "../dal/ResponseTypes";
 import { setAppMessage, setIsFetching } from "./appReducer";
 import { cardsAPI, gradeAPI } from "../dal/cardsAPI";
 import { setIsButtonsDisabled } from "./packsReducer";
@@ -104,7 +104,7 @@ export const deleteCard = createAsyncThunk(
 
 export const uploadGrate = createAsyncThunk(
     "cards/uploadGrate",
-    async (data: TUploadGrate, { dispatch, rejectWithValue }) => {
+    async (data: TUploadGrade, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         try {
             const res = await gradeAPI.updateGrade(data);
@@ -129,7 +129,17 @@ const slice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(uploadGrate.fulfilled, (state, action) => {});
+        builder.addCase(uploadGrate.fulfilled, (state, action) => {
+            state.cardsData.cards.map((card) =>
+                card._id === action.payload.card_id
+                    ? {
+                          ...card,
+                          grade: action.payload.grade,
+                          shorts: action.payload.shots,
+                      }
+                    : card
+            );
+        });
     },
 });
 

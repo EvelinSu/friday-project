@@ -11,7 +11,8 @@ import {
     TResponseCard,
     TResponsePack,
     // TResponseUploadGrate,
-    TUploadGrate,
+    TUploadGrade,
+    TUploadGradeResponse,
 } from "./ResponseTypes";
 import { AxiosResponse } from "axios";
 
@@ -43,7 +44,7 @@ export const cardsAPI = {
 };
 
 export const gradeAPI = {
-    updateGrade(data: TUploadGrate) {
-        return instance.put("/cards/grade", data);
+    updateGrade(data: TUploadGrade) {
+        return instance.put<TUploadGrade, AxiosResponse<TUploadGradeResponse>>("/cards/grade", data);
     },
 };
