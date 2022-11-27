@@ -17,11 +17,12 @@ import { PATH } from "../Pages";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getUrlParams } from "../../../common/utils/getUrlParams";
-import { LearningImage, SLearningBoxTitle, SLearningContainer, SLearningContent } from "./styled";
 import { GridBox } from "../../components/GridBox/GridBox";
 import { Grades } from "./Grades";
 import LoaderIcon from "../../assets/loaders/loader";
 import { TCard } from "../../../dal/ResponseTypes";
+import { Answer } from "./Answer";
+import { Question } from "./Question";
 
 export const LearningPage = () => {
     const dispatch = useAppDispatch();
@@ -99,30 +100,13 @@ const LearnPackContainer = () => {
         <Box flexDirection={"column"} position={"relative"}>
             {isFetching && <LoaderIcon absolute />}
             <GridBox columns={"repeat(auto-fill, minmax(220px, 1fr))"}>
-                <SLearningContainer>
-                    <SLearningBoxTitle>Question</SLearningBoxTitle>
-                    <SLearningContent>
-                        <Box margin={"auto 0"}>
-                            {checkQuestion || <LearningImage src={card?.questionImg} alt={"question"} />}
-                        </Box>
-                    </SLearningContent>
-                </SLearningContainer>
-                <SLearningContainer>
-                    <SLearningBoxTitle>Answer</SLearningBoxTitle>
-                    <SLearningContent>
-                        <Box margin={"auto 0"}>
-                            {!isAnswerOpen ? (
-                                <Button
-                                    label={"Show answer"}
-                                    onClick={() => setIsAnswerOpen(true)}
-                                    withShadow
-                                />
-                            ) : (
-                                checkAnswer || <LearningImage src={card?.answerImg} alt={"answer"} />
-                            )}
-                        </Box>
-                    </SLearningContent>
-                </SLearningContainer>
+                <Question checkQuestion={checkQuestion} questionImg={card?.questionImg} />
+                <Answer
+                    checkAnswer={checkAnswer}
+                    setIsAnswerOpen={setIsAnswerOpen}
+                    isAnswerOpen={isAnswerOpen}
+                    answerImg={card?.answerImg}
+                />
             </GridBox>
             <Box flexDirection={"column"} gap={10}>
                 <SText>
@@ -138,13 +122,11 @@ const LearnPackContainer = () => {
                     {questionCount}
                 </SText>
             </Box>
-            <SText textAlign={"center"} fontSize={"16px"}>
-                Rate yourself
-            </SText>
-            <Box gap={"10px"} flexDirection={"column"}>
+            <Box flexDirection={"column"} alignItems={"center"}>
+                <SText textAlign={"center"} fontSize={"16px"}>
+                    Rate yourself
+                </SText>
                 <Grades setGrade={setGrade} grade={grade} />
-            </Box>
-            <Box justifyContent={"center"}>
                 <Button isLoading={isFetching} label={"Next"} onClick={onNextHandler} withShadow />
             </Box>
         </Box>
