@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TCardsParams, TNewCard, TResponseCard, TUploadGrade } from "../dal/ResponseTypes";
+import { TCard, TCardsParams, TNewCard, TResponseCard, TUploadGrade } from "../dal/ResponseTypes";
 import { setAppMessage, setIsFetching } from "./appReducer";
 import { cardsAPI, gradeAPI } from "../dal/cardsAPI";
 import { setIsButtonsDisabled } from "./packsReducer";
@@ -9,9 +9,12 @@ import { handlerErrors } from "../common/utils/handlerErrors";
 export type TCards = {
     isButtonsDisabled: boolean;
     cardsData: TResponseCard;
+    currentCard: TCard;
+    questionCount: number;
+    isLearning: boolean;
 };
 
-export const initialCardsData = {
+export const initialCardsData: TResponseCard = {
     cards: [],
     cardsTotalCount: 12,
     maxGrade: 0,
@@ -102,8 +105,8 @@ export const deleteCard = createAsyncThunk(
     }
 );
 
-export const uploadGrate = createAsyncThunk(
-    "cards/uploadGrate",
+export const uploadGrade = createAsyncThunk(
+    "cards/uploadGrade",
     async (data: TUploadGrade, { dispatch, rejectWithValue }) => {
         dispatch(setIsFetching(true));
         try {
@@ -124,14 +127,23 @@ const slice = createSlice({
     initialState: {
         isButtonsDisabled: false,
         cardsData: initialCardsData,
+        currentCard: {},
+        questionCount: 0,
+        isLearning: false,
     } as TCards,
     reducers: {
         setCards(state, action: PayloadAction<TResponseCard>) {
             state.cardsData = action.payload;
         },
+        setIsLearning(state, action: PayloadAction<boolean>) {
+            state.isLearning = action.payload;
+        },
+        setCurrentCard(state, action: PayloadAction<TCard>) {
+            state.currentCard = action.payload;
+        },
     },
     extraReducers: (builder) => {
-        builder.addCase(uploadGrate.fulfilled, (state, action) => {
+        builder.addCase(uploadGrade.fulfilled, (state, action) => {
             state.cardsData.cards.map((card) =>
                 card._id === action.payload.card_id
                     ? {
@@ -145,5 +157,5 @@ const slice = createSlice({
     },
 });
 
-export const { setCards } = slice.actions;
+export const { setCards, setIsLearning, setCurrentCard } = slice.actions;
 export const cardsReducer = slice.reducer;

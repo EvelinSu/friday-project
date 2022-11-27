@@ -1,21 +1,19 @@
 import React, { useMemo, useState } from "react";
 import { Box } from "../../../components/Box/Box";
-import { SMainTitle, SPagePanel } from "../../styled";
+import { SPagePanel } from "../../styled";
 import Button from "../../../components/Button/Button";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getUrlParams } from "../../../../common/utils/getUrlParams";
 import { Search } from "../../../components/Search/Search";
-import LongArrowIcon from "../../../assets/icons/LongArrowIcon";
-import IconButton from "../../../components/IconButton/IconButton";
 import AddAndUpdateCardModal, {
     TAddAndUpdateCardModalValues,
 } from "../CardsModals/AddAndUpdateCardModal";
-import { addNewCard, loadCards } from "../../../../bll/cardsReducer";
+import { addNewCard, loadCards, setIsLearning } from "../../../../bll/cardsReducer";
 import { PATH } from "../../Pages";
-import { SText } from "../../../components/Text/SText";
 import { AddIcon } from "../../../assets/icons/AddIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
+import BackPageButton from "../../../components/BackPageButton/BackPageButton";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
@@ -24,7 +22,7 @@ const PacksPagePanel = () => {
     const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
-    const packsParams = useAppSelector((state) => state.packsParams);
+    const packsParams = useAppSelector((state) => state.URLParams.packsParams);
     const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
     const packName = useAppSelector((state) => state.cards.cardsData.packName);
     const isFetching = useAppSelector((state) => state.app.isFetching);
@@ -41,18 +39,10 @@ const PacksPagePanel = () => {
         ).then(() => setIsAddCardModalOpen(false));
     };
 
-    const onBackClickHandler = () => {
-        let params: string[] = [];
-        Object.entries(packsParams).forEach((el) => el[1] !== "" && params.push(el.join("=")));
-        const validParams = params.join("&");
-        navigate(PATH.packsList + `?${validParams}`);
-    };
-
     const learnPackHandler = async () => {
-        await dispatch(
-            loadCards({ cardsPack_id: URLParams.cardsPack_id, pageCount: URLParams.pageCount })
-        );
-        navigate(PATH.learning);
+        await dispatch(loadCards(URLParams));
+        navigate(PATH.learning + `?cardsPack_id=${URLParams.cardsPack_id}`);
+        dispatch(setIsLearning(true));
     };
 
     // for select (in future)
@@ -62,17 +52,12 @@ const PacksPagePanel = () => {
     return (
         <SPagePanel>
             <Box alignItems={"center"} justifyContent={"space-between"}>
-                <Box
-                    overflow={"hidden"}
-                    alignItems={"center"}
-                    cursor={"pointer"}
-                    onClick={onBackClickHandler}
-                >
-                    <IconButton icon={<LongArrowIcon />} isDark allowPropagation />
-                    <SMainTitle isEllipsis>
-                        {userId === myId ? "My pack" : packName || <SText opacity={0.2}>Pack</SText>}
-                    </SMainTitle>
-                </Box>
+                <BackPageButton
+                    params={packsParams}
+                    label={"Exit " + (userId === myId ? "my pack" : packName ? `«${packName}»` : "pack")}
+                    to={PATH.packsList}
+                    onClick={() => dispatch(setIsLearning(false))}
+                />
                 <Box>
                     {userId === myId && (
                         <Button

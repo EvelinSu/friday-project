@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useMemo } from "react";
 import { STab, STabs } from "./styled";
-import { setUserCardParams } from "../../../bll/packsParamsReducer";
+import { setUserCardParams } from "../../../bll/paramsReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
 import { TInitialFilters } from "../../pages/PacksPage/Filter/Filter";
@@ -28,7 +28,7 @@ const Tabs: FC<TTabsProps> = ({ setActiveTab, tabs, activeTab, setTabs }) => {
             user_id: userId,
         };
         if (userId) {
-            dispatch(setUserCardParams(otherPackParams));
+            dispatch(setUserCardParams(otherPackParams.user_id));
             setSearchParams(tab === "My" ? otherPackParams : initialParams);
         }
         if (tabs.includes("Other")) setTabs(["All", "My"]);

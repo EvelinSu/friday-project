@@ -149,6 +149,11 @@ export type TRegisterData = {
     password: string;
 };
 
+export type TSendPassData = {
+    password: string;
+    resetPasswordToken: string;
+};
+
 // Data that is sent to the server when the user logged in
 export type TLoginData = {
     email: string;
@@ -169,17 +174,7 @@ export type TResponseChangeUserProfile = {
     tokenDeathTime: number;
 };
 
-export type TResponseSendEmail = {
-    info: string;
-    success: boolean;
-    answer: boolean;
-    html: boolean;
-};
-
-export type TSendPassData = {
-    password: string;
-    resetPasswordToken: string;
-};
+// learning types
 
 export type TUploadGrade = {
     grade: number;
@@ -197,4 +192,11 @@ export type TUpdateGrade = {
 
 export type TUploadGradeResponse = {
     updatedGrade: TUpdateGrade;
+};
+
+export type TResponseSendEmail = {
+    info: string;
+    success: boolean;
+    answer: boolean;
+    html: boolean;
 };

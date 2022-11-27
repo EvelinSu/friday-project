@@ -11,10 +11,10 @@ import Pagination from "../../components/Pagination/Pagination";
 import CardsPagePanel from "./CardsPagePanel/CardsPagePanel";
 import { Box } from "../../components/Box/Box";
 import { PageCountDropdown } from "../../components/PageCountDropdown/PageCountDropdown";
+import { setCardsParams } from "../../../bll/paramsReducer";
 
 export const CardsPage = () => {
     const dispatch = useAppDispatch();
-
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     const [pageCount, setPageCount] = useState(+(URLParams.pageCount || 0));
@@ -29,6 +29,7 @@ export const CardsPage = () => {
 
     useEffect(() => {
         setPageCount(+(URLParams.pageCount || 0));
+        dispatch(setCardsParams(URLParams));
         dispatch(loadCards(URLParams));
     }, [URLParams]);
 

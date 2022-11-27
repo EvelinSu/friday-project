@@ -1,12 +1,12 @@
-import {configureStore} from "@reduxjs/toolkit";
-import {authReducer} from "../authReducer";
-import {appReducer} from "../appReducer";
-import {forgotPassReducer} from "../forgotPassReducer";
-import {packsReducer} from "../packsReducer";
-import {packsParamsReducer} from "../packsParamsReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { authReducer } from "../authReducer";
+import { appReducer } from "../appReducer";
+import { forgotPassReducer } from "../forgotPassReducer";
+import { packsReducer } from "../packsReducer";
+import { paramsReducer } from "../paramsReducer";
 import thunkMiddleware from "redux-thunk";
-import {userReducer} from "../userReducer";
-import {cardsReducer} from "../cardsReducer";
+import { userReducer } from "../userReducer";
+import { cardsReducer } from "../cardsReducer";
 
 export const store = configureStore({
     reducer: {
@@ -14,7 +14,7 @@ export const store = configureStore({
         app: appReducer,
         packs: packsReducer,
         cards: cardsReducer,
-        packsParams: packsParamsReducer,
+        URLParams: paramsReducer,
         forgotPass: forgotPassReducer,
         user: userReducer,
     },

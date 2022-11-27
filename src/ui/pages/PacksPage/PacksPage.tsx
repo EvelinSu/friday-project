@@ -7,7 +7,7 @@ import LoaderIcon from "../../assets/loaders/loader";
 import { loadPacks } from "../../../bll/packsReducer";
 import PacksList from "./PacksList";
 import PacksPagePanel from "./PacksPagePanel/PacksPagePanel";
-import { setCardParams } from "../../../bll/packsParamsReducer";
+import { setPacksParams } from "../../../bll/paramsReducer";
 import { PacksNotFound } from "./PacksNotFound/PacksNotFound";
 import { getUrlParams } from "../../../common/utils/getUrlParams";
 import { Box } from "../../components/Box/Box";
@@ -30,7 +30,7 @@ const PacksPage = () => {
 
     useEffect(() => {
         setPageCount(+(URLParams.pageCount || 0));
-        dispatch(setCardParams(URLParams));
+        dispatch(setPacksParams(URLParams));
         dispatch(loadPacks(URLParams));
     }, [URLParams]);
 

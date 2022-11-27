@@ -4,20 +4,33 @@ import LongArrowIcon from "../../assets/icons/LongArrowIcon";
 import { SText } from "../Text/SText";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { TCardsParams, TPacksParams } from "../../../dal/ResponseTypes";
 
 type TBackPageButtonProps = {
-    to: string;
+    to?: string | -1;
+    onClick?: () => void;
+    params?: TPacksParams | TCardsParams | "";
+    label?: string;
 };
 const BackPageButton: FC<TBackPageButtonProps> = (props) => {
     const navigate = useNavigate();
+
     const onClickHandler = () => {
-        navigate(props.to);
+        let params: string[] = [];
+        if (props.params) {
+            Object.entries(props.params).forEach((el) => el[1] !== "" && params.push(el.join("=")));
+            const validParams = params.join("&");
+            navigate(props.to + `?${validParams}`);
+        }
+        if (props.to === -1) {
+            navigate(props.to);
+        }
     };
 
     return (
         <SBackPageButton onClick={onClickHandler}>
             <IconButton icon={<LongArrowIcon />} isDark />
-            <SText opacity={0.5}>Back to Packs List</SText>
+            {props.label && <SText opacity={0.5}>{props.label}</SText>}
         </SBackPageButton>
     );
 };

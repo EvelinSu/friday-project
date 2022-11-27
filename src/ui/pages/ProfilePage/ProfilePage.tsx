@@ -1,20 +1,18 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {SPagePanel, SPageWrapper} from "../styled";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import { SPagePanel, SPageWrapper } from "../styled";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import Button from "../../components/Button/Button";
-import {UiBox} from "../../components/UiBox/UiBox";
-import {Box} from "../../components/Box/Box";
+import { UiBox } from "../../components/UiBox/UiBox";
+import { Box } from "../../components/Box/Box";
 import Avatar from "../../components/Avatar/Avatar";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import {SText} from "../../components/Text/SText";
-import {PATH} from "../Pages";
-import {changeUserProfileTC, logOutTC} from "../../../bll/authReducer";
+import { SText } from "../../components/Text/SText";
+import { changeUserProfileTC, logOutTC } from "../../../bll/authReducer";
 import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import SignOutIcon from "../../assets/icons/SignOutIcon";
-import {SProfileButton, SProfileContent} from "./styled";
+import { SProfileButton, SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
-import {initialParams} from "../../../common/utils/getUrlParams";
-import {setAppMessage} from "../../../bll/appReducer";
+import { setAppMessage } from "../../../bll/appReducer";
 import Loader from "../../assets/loaders/loader";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
@@ -23,7 +21,7 @@ const ProfilePage = () => {
     return (
         <SPageWrapper>
             <SPagePanel>
-                <BackPageButton to={PATH.packsList + initialParams} />
+                <BackPageButton to={-1} label={"Go back"} />
             </SPagePanel>
             <Box justifyContent={"center"} padding={"10vh 0 0"}>
                 <UiBox title={"Personal Information"} body={<ProfileUiBoxBody />} width={"400px"} />
@@ -48,11 +46,11 @@ const ProfileUiBoxBody = () => {
         const newName = value?.trim();
         if (newName === name) return;
         if (!newName || newName.length < 1) {
-            dispatch(setAppMessage({text: "Invalid nickname", severity: "error"}));
+            dispatch(setAppMessage({ text: "Invalid nickname", severity: "error" }));
             setValue(name);
             return;
         } else {
-            dispatch(changeUserProfileTC({name: newName}));
+            dispatch(changeUserProfileTC({ name: newName }));
         }
     };
 
@@ -61,12 +59,12 @@ const ProfileUiBoxBody = () => {
     };
 
     const changeAvatarHandler = (newImage: string) => {
-        dispatch(changeUserProfileTC({avatar: newImage}));
-    }
+        dispatch(changeUserProfileTC({ avatar: newImage }));
+    };
 
     const deleteImageHandler = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
-        dispatch(changeUserProfileTC({avatar: "https://i.imgur.com/lqN6w1t.png"}));
+        dispatch(changeUserProfileTC({ avatar: "https://i.imgur.com/lqN6w1t.png" }));
     };
 
     return (
