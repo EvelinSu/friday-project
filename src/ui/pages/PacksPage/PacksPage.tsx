@@ -53,6 +53,7 @@ const PacksPage = () => {
                     pageCounts={pageCounts}
                     onClick={onChangePageCountHandler}
                     activeCount={pageCount}
+                    isDisabled={isFetching}
                 />
             </Box>
         </SPageWrapper>

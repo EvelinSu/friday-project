@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { SSuperOption, SSuperOptionsList } from "../Select/styled";
 
 export const SPageCountDropdownWrapper = styled.div`
@@ -47,24 +47,30 @@ export const SPageCountDropdown = styled(SSuperOptionsList)`
     top: initial;
     z-index: ${(props) => props.theme.orders.dropdown};
 `;
-export const SPageCountDropdownItem = styled(SSuperOption)<{ isActive: boolean }>`
-    display: flex;
-    height: max-content;
-    padding: 5px;
-    text-align: center;
-    justify-content: center;
-    border-radius: inherit;
-    cursor: pointer;
 
-    ${(props) =>
-        props.isActive &&
-        css`
-            pointer-events: none;
-            transform: scale(0.8);
-            background-color: rgba(0, 0, 0, 0.05);
-        `}
-    &:hover {
-        transform: scale(0.8);
-        background-color: rgba(0, 0, 0, 0.05);
-    }
-`;
+type TSPageCountDropdownItemProps = {
+    isActive?: boolean;
+    isDisabled?: boolean;
+};
+export const SPageCountDropdownItem = styled(SSuperOption)<TSPageCountDropdownItemProps>((props) => ({
+    display: "flex",
+    height: "max-content",
+    padding: "5px",
+    textAlign: "center",
+    justifyContent: "center",
+    borderRadius: "inherit",
+    cursor: "pointer",
+    ...(props.isActive && {
+        pointerEvents: "none",
+        transform: "scale(0.8)",
+        backgroundColor: "rgba(0, 0, 0, 0.05)",
+    }),
+    ...(props.isDisabled && {
+        pointerEvents: "none",
+        opacity: 0.4,
+    }),
+    "&:hover": {
+        transform: "scale(0.8)",
+        backgroundColor: "rgba(0, 0, 0, 0.05)",
+    },
+}));

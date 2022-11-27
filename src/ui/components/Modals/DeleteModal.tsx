@@ -13,24 +13,6 @@ type TDeleteModalProps = {
     title: string;
 };
 const DeleteModal: FC<TDeleteModalProps> = (props) => {
-    return (
-        <SMegaShadow onClick={() => props.onClose()}>
-            <UiBox
-                title={props.title}
-                body={
-                    <DeleteModalBody
-                        text={props.text}
-                        title={props.title}
-                        deleteHandler={props.deleteHandler}
-                        onClose={props.onClose}
-                    />
-                }
-            />
-        </SMegaShadow>
-    );
-};
-
-const DeleteModalBody: FC<TDeleteModalProps> = (props) => {
     const isPacksButtonsDisabled = useAppSelector((state) => state.packs.isButtonsDisabled);
     const isCardsButtonsDisabled = useAppSelector((state) => state.cards.isButtonsDisabled);
 
@@ -39,26 +21,30 @@ const DeleteModalBody: FC<TDeleteModalProps> = (props) => {
     };
 
     return (
-        <Box flexDirection={"column"} justifyContent="center">
-            <SText textAlign={"center"} opacity={0.6} lineHeight={"24px"}>
-                {props.text}
-            </SText>
-            <Box justifyContent="center">
-                <Button
-                    label={"Delete"}
-                    onClick={deleteHandler}
-                    size="lg"
-                    isLoading={isPacksButtonsDisabled || isCardsButtonsDisabled}
-                />
-                <Button
-                    label={"Cancel"}
-                    severity={"neutral"}
-                    size="lg"
-                    onClick={props.onClose}
-                    isLoading={isPacksButtonsDisabled || isCardsButtonsDisabled}
-                />
-            </Box>
-        </Box>
+        <SMegaShadow onClick={() => props.onClose()}>
+            <UiBox title={props.title}>
+                <Box flexDirection={"column"} justifyContent="center">
+                    <SText textAlign={"center"} opacity={0.6} lineHeight={"24px"}>
+                        {props.text}
+                    </SText>
+                    <Box justifyContent="center">
+                        <Button
+                            label={"Delete"}
+                            onClick={deleteHandler}
+                            size="lg"
+                            isLoading={isPacksButtonsDisabled || isCardsButtonsDisabled}
+                        />
+                        <Button
+                            label={"Cancel"}
+                            severity={"neutral"}
+                            size="lg"
+                            onClick={props.onClose}
+                            isLoading={isPacksButtonsDisabled || isCardsButtonsDisabled}
+                        />
+                    </Box>
+                </Box>
+            </UiBox>
+        </SMegaShadow>
     );
 };
 

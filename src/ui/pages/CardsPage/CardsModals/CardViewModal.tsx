@@ -1,24 +1,20 @@
-import React, {FC} from 'react';
-import {TCard} from "../../../../dal/ResponseTypes";
-import {SMegaShadow} from "../../../components/MegaShadow/styled";
-import {UiBox} from "../../../components/UiBox/UiBox";
+import React, { FC } from "react";
+import { TCard } from "../../../../dal/ResponseTypes";
+import { SMegaShadow } from "../../../components/MegaShadow/styled";
+import { UiBox } from "../../../components/UiBox/UiBox";
 
 type TCardViewModal = {
-    title: string
-    onClose: () => void
-    currentCard?: TCard
-}
+    title: string;
+    onClose: () => void;
+    currentCard?: TCard;
+};
 export const CardViewModal: FC<TCardViewModal> = (props) => {
     return (
         <SMegaShadow>
-            <UiBox title={""} body={<CardView />} />
+            <UiBox title={""}>
+                <></>
+            </UiBox>
         </SMegaShadow>
     );
 };
-
-const CardView = () => {
-    return (
-        <></>
-    )
-}
 

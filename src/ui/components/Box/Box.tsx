@@ -13,6 +13,7 @@ type TBoxProps = {
     width?: string | number;
     color?: Property.Color;
     height?: Property.Height;
+    maxHeight?: Property.MaxHeight;
     opacity?: Property.Opacity;
     overflow?: Property.OverflowY | Property.OverflowX;
     flexWrap?: Property.FlexWrap;
@@ -36,6 +37,7 @@ export const Box = styled.div<TBoxProps>((props) => ({
     color: props.color,
     width: props.width,
     height: props.height,
+    maxHeight: props.maxHeight,
     opacity: props.opacity,
     overflow: props.overflow,
     flexWrap: props.flexWrap,

@@ -11,6 +11,7 @@ type TPageCountDropdownProps = {
     pageCounts: number[];
     activeCount: number;
     onClick: (pageCount: number) => void;
+    isDisabled?: boolean;
 };
 export const PageCountDropdown: FC<TPageCountDropdownProps> = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +36,7 @@ export const PageCountDropdown: FC<TPageCountDropdownProps> = (props) => {
                     {props.pageCounts.map((el) => (
                         <SPageCountDropdownItem
                             key={el}
+                            isDisabled={props.isDisabled}
                             onClick={() => onItemClickHandler(el)}
                             isActive={props.activeCount === el}
                         >

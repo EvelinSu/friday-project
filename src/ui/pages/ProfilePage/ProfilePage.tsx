@@ -18,19 +18,6 @@ import Loader from "../../assets/loaders/loader";
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
 const ProfilePage = () => {
-    return (
-        <SPageWrapper>
-            <SPagePanel>
-                <BackPageButton to={-1} label={"Go back"} />
-            </SPagePanel>
-            <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <UiBox title={"Personal Information"} body={<ProfileUiBoxBody />} width={"400px"} />
-            </Box>
-        </SPageWrapper>
-    );
-};
-
-const ProfileUiBoxBody = () => {
     const dispatch = useAppDispatch();
     const name = useAppSelector((state) => state.auth.userData.name);
     const email = useAppSelector((state) => state.auth.userData.email);
@@ -68,41 +55,53 @@ const ProfileUiBoxBody = () => {
     };
 
     return (
-        <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
-            <SProfileContent>
-                {isFetching && <Loader absolute />}
-                <Avatar
-                    size={"large"}
-                    img={avatar || defaultPhoto}
-                    deleteImageHandler={deleteImageHandler}
-                    onClick={changeAvatarHandler}
-                    isFetching={isFetching}
-                    isEditable
-                />
-                <Box width={"100%"} flexDirection={"column"} overflow={"hidden"}>
-                    <EditableSpan
-                        value={value || ""}
-                        fontSize={"20px"}
-                        onKeyDown={onChangeNameHandler}
-                        onChange={onChangeNameHandler}
-                        onSave={onSaveNameHandler}
-                        placeholder={"Nickname"}
-                    />
-                    <SText title={email ? email : ""} isEllipsis fontSize={"14px"} fontWeight={300}>
-                        {email}
-                    </SText>
+        <SPageWrapper>
+            <SPagePanel>
+                <BackPageButton to={-1} label={"Go back"} />
+            </SPagePanel>
+            <UiBox title={"Personal Information"} maxWidth={"430px"} margin={"5vh auto 0 auto"}>
+                <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
+                    <SProfileContent>
+                        {isFetching && <Loader absolute />}
+                        <Avatar
+                            size={"large"}
+                            img={avatar || defaultPhoto}
+                            deleteImageHandler={deleteImageHandler}
+                            onClick={changeAvatarHandler}
+                            isFetching={isFetching}
+                            isEditable
+                        />
+                        <Box width={"100%"} flexDirection={"column"} overflow={"hidden"}>
+                            <EditableSpan
+                                value={value || ""}
+                                fontSize={"20px"}
+                                onKeyDown={onChangeNameHandler}
+                                onChange={onChangeNameHandler}
+                                onSave={onSaveNameHandler}
+                                placeholder={"Nickname"}
+                            />
+                            <SText
+                                title={email ? email : ""}
+                                isEllipsis
+                                fontSize={"14px"}
+                                fontWeight={300}
+                            >
+                                {email}
+                            </SText>
+                        </Box>
+                    </SProfileContent>
+                    <SProfileButton>
+                        <Button
+                            label={"Log out"}
+                            onClick={onLogoutHandler}
+                            icon={<SignOutIcon />}
+                            isLoading={isFetching}
+                            withBorder
+                        />
+                    </SProfileButton>
                 </Box>
-            </SProfileContent>
-            <SProfileButton>
-                <Button
-                    label={"Log out"}
-                    onClick={onLogoutHandler}
-                    icon={<SignOutIcon />}
-                    isLoading={isFetching}
-                    withBorder
-                />
-            </SProfileButton>
-        </Box>
+            </UiBox>
+        </SPageWrapper>
     );
 };
 

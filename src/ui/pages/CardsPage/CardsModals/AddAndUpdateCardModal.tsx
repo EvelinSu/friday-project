@@ -32,27 +32,6 @@ type TAddCardModalProps = {
     currentCard?: TCard;
 };
 const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
-    const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.stopPropagation();
-        props.onClose();
-    };
-    return (
-        <SMegaShadow onClick={onClickHandler}>
-            <UiBox
-                title={props.title}
-                body={
-                    <AddCardForm
-                        onSubmitHandler={props.onSubmitHandler}
-                        onClose={props.onClose}
-                        currentCard={props.currentCard}
-                    />
-                }
-            />
-        </SMegaShadow>
-    );
-};
-
-const AddCardForm: FC<TAddPackFormProps> = (props) => {
     const { isButtonsDisabled } = useAppSelector((state) => state.packs);
     const questionTypes = ["Text", "Image"];
     const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg || "");
@@ -95,79 +74,88 @@ const AddCardForm: FC<TAddPackFormProps> = (props) => {
         }
     };
 
+    const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        props.onClose();
+    };
+
     return (
-        <SForm onSubmit={handleSubmit}>
-            <Box flexDirection={"column"}>
-                <WithFormTitle title={"Choose a question format"}>
-                    <Select
-                        options={questionTypes}
-                        onChangeOption={setQuestionType}
-                        placeholder={""}
-                        value={questionType}
-                        padding={"11px 12px"}
-                    />
-                </WithFormTitle>
-                {questionType === "Text" && (
-                    <>
-                        <WithFormTitle title={"Question"}>
-                            <Input
-                                value={values.question}
-                                onChange={handleChange}
-                                name={"question"}
-                                type={"text"}
-                                autoFocus={true}
+        <SMegaShadow onClick={onClickHandler}>
+            <UiBox title={props.title}>
+                <SForm onSubmit={handleSubmit}>
+                    <Box flexDirection={"column"}>
+                        <WithFormTitle title={"Choose a question format"}>
+                            <Select
+                                options={questionTypes}
+                                onChangeOption={setQuestionType}
+                                placeholder={""}
+                                value={questionType}
+                                padding={"11px 12px"}
                             />
                         </WithFormTitle>
-                        <WithFormTitle title={"Answer"}>
-                            <Input
-                                value={values.answer}
-                                onChange={handleChange}
-                                name={"answer"}
-                                type={"text"}
+                        {questionType === "Text" && (
+                            <>
+                                <WithFormTitle title={"Question"}>
+                                    <Input
+                                        value={values.question}
+                                        onChange={handleChange}
+                                        name={"question"}
+                                        type={"text"}
+                                        autoFocus={true}
+                                    />
+                                </WithFormTitle>
+                                <WithFormTitle title={"Answer"}>
+                                    <Input
+                                        value={values.answer}
+                                        onChange={handleChange}
+                                        name={"answer"}
+                                        type={"text"}
+                                    />
+                                </WithFormTitle>
+                            </>
+                        )}
+                        {questionType === "Image" && (
+                            <>
+                                <WithFormTitle title={"Question"}>
+                                    <FileUploadArea
+                                        fileType={"image"}
+                                        placeholder={"Choose image"}
+                                        onChange={(file: string) => onChangeImage("question", file)}
+                                        value={values.questionImg !== null ? values.questionImg : ""}
+                                        name={"questionImg"}
+                                    />
+                                </WithFormTitle>
+                                <WithFormTitle title={"Answer"}>
+                                    <FileUploadArea
+                                        fileType={"image"}
+                                        name={"answerImg"}
+                                        onChange={(file: string) => onChangeImage("answer", file)}
+                                        placeholder={"Choose image"}
+                                        value={values.answerImg !== null ? values.answerImg : ""}
+                                    />
+                                </WithFormTitle>
+                            </>
+                        )}
+                        <Box justifyContent={"center"}>
+                            <Button
+                                type="submit"
+                                isLoading={isButtonsDisabled}
+                                label={"Save"}
+                                severity={"success"}
+                                size={"lg"}
                             />
-                        </WithFormTitle>
-                    </>
-                )}
-                {questionType === "Image" && (
-                    <>
-                        <WithFormTitle title={"Question"}>
-                            <FileUploadArea
-                                fileType={"image"}
-                                placeholder={"Choose image"}
-                                onChange={(file: string) => onChangeImage("question", file)}
-                                value={values.questionImg !== null ? values.questionImg : ""}
-                                name={"questionImg"}
+                            <Button
+                                isLoading={isButtonsDisabled}
+                                onClick={() => props.onClose()}
+                                label={"Cancel"}
+                                severity={"neutral"}
+                                size={"lg"}
                             />
-                        </WithFormTitle>
-                        <WithFormTitle title={"Answer"}>
-                            <FileUploadArea
-                                fileType={"image"}
-                                name={"answerImg"}
-                                onChange={(file: string) => onChangeImage("answer", file)}
-                                placeholder={"Choose image"}
-                                value={values.answerImg !== null ? values.answerImg : ""}
-                            />
-                        </WithFormTitle>
-                    </>
-                )}
-                <Box justifyContent={"center"}>
-                    <Button
-                        type="submit"
-                        isLoading={isButtonsDisabled}
-                        label={"Save"}
-                        severity={"success"}
-                        size={"lg"}
-                    />
-                    <Button
-                        isLoading={isButtonsDisabled}
-                        onClick={() => props.onClose()}
-                        label={"Cancel"}
-                        severity={"neutral"}
-                        size={"lg"}
-                    />
-                </Box>
-            </Box>
-        </SForm>
+                        </Box>
+                    </Box>
+                </SForm>
+            </UiBox>
+        </SMegaShadow>
     );
 };
 

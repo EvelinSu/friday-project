@@ -54,6 +54,7 @@ const PacksPagePanel = () => {
             <Box alignItems={"center"} justifyContent={"space-between"}>
                 <BackPageButton
                     params={packsParams}
+                    isDisabled={isFetching}
                     label={"Exit " + (userId === myId ? "my pack" : packName ? `«${packName}»` : "pack")}
                     to={PATH.packsList}
                     onClick={() => dispatch(setIsLearning(false))}
