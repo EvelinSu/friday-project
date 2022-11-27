@@ -20,10 +20,6 @@ export const SPagePanel = styled.div`
     flex-direction: column;
 `;
 
-export const SPageContent = styled.div`
-    background-color: black;
-`;
-
 export const SMainTitle = styled(SText)`
     font-size: 22px;
     font-weight: 600;

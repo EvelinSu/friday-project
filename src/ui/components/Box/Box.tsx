@@ -18,6 +18,7 @@ type TBoxProps = {
     flexWrap?: Property.FlexWrap;
     flexGrow?: Property.FlexGrow;
     cursor?: Property.Cursor;
+    position?: Property.Position;
     disabled?: boolean;
 };
 
@@ -39,6 +40,7 @@ export const Box = styled.div<TBoxProps>((props) => ({
     overflow: props.overflow,
     flexWrap: props.flexWrap,
     flexGrow: props.flexGrow,
+    position: props.position,
     cursor: props.cursor,
     ...(props.cursor === "pointer" && {
         "&:hover": {

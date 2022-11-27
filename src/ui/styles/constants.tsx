@@ -1,5 +1,7 @@
 export const baseTheme = {
     colors: {
+        primaryAlpha01: "rgba(115,152,206,0.1)",
+        primaryLightest: "#e7ecfa",
         primaryLighter: "#8facd3",
         primary: "#7398CE",
         primaryDark: "#4F659E",
@@ -28,7 +30,7 @@ export const baseTheme = {
             default: ["#7398CE", "rgba(115,152,206,0.62)"],
             text: "#fff",
             skeleton: "rgba(115,152,206,0.06)",
-            shadow: "rgba(115,152,206,0.8)"
+            shadow: "rgba(115,152,206,0.8)",
         },
     },
     sizes: {

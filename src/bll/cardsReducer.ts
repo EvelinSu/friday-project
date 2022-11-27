@@ -136,10 +136,17 @@ const slice = createSlice({
             state.cardsData = action.payload;
         },
         setIsLearning(state, action: PayloadAction<boolean>) {
+            if (!action.payload && state.currentCard?._id) {
+                state.currentCard._id = "";
+                state.questionCount = 0;
+            }
             state.isLearning = action.payload;
         },
         setCurrentCard(state, action: PayloadAction<TCard>) {
             state.currentCard = action.payload;
+        },
+        incQuestionCount(state) {
+            state.questionCount = state.questionCount + 1;
         },
     },
     extraReducers: (builder) => {
@@ -157,5 +164,5 @@ const slice = createSlice({
     },
 });
 
-export const { setCards, setIsLearning, setCurrentCard } = slice.actions;
+export const { setCards, setIsLearning, setCurrentCard, incQuestionCount } = slice.actions;
 export const cardsReducer = slice.reducer;

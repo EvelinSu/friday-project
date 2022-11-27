@@ -1,21 +1,21 @@
-import React, {FC} from "react";
-import {SPackCardActions, SPackCardPrivateIcon, SPackCardShadow, SPackCardWrapper} from "./styled";
-import {Box} from "../../../components/Box/Box";
-import {SText} from "../../../components/Text/SText";
+import React, { FC } from "react";
+import { SPackCardActions, SPackCardPrivateIcon, SPackCardShadow, SPackCardWrapper } from "./styled";
+import { Box } from "../../../components/Box/Box";
+import { SText } from "../../../components/Text/SText";
 import IconButton from "../../../components/IconButton/IconButton";
 import EditIcon from "../../../assets/icons/EditIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import DeleteIcon from "../../../assets/icons/DeleteIcon";
-import {transformDate} from "../../../../common/utils/tarnsformDate";
-import {TPack} from "../../../../dal/ResponseTypes";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
+import { transformDate } from "../../../../common/utils/tarnsformDate";
+import { TPack } from "../../../../dal/ResponseTypes";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import LockFillIcon from "../../../assets/icons/LockFillIcon";
-import {TPackModals} from "../PacksList";
-import {useNavigate} from "react-router-dom";
-import {initialParams} from "../../../../common/utils/getUrlParams";
-import {PATH} from "../../Pages";
-import {initialCardsData, setCards} from "../../../../bll/cardsReducer";
-import {PackCardUser} from "./PackCardUser";
+import { TPackModals } from "../PacksList";
+import { useNavigate } from "react-router-dom";
+import { initialParams } from "../../../../common/utils/getUrlParams";
+import { PATH } from "../../Pages";
+import { initialCardsData, loadCards, setCards, setIsLearning } from "../../../../bll/cardsReducer";
+import { PackCardUser } from "./PackCardUser";
 
 type TPackProps = {
     pack: TPack;
@@ -26,17 +26,23 @@ type TPackProps = {
     ) => void;
     isFetching: boolean;
 };
-const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetching}) => {
-    const dispatch = useAppDispatch()
+const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetching }) => {
+    const dispatch = useAppDispatch();
     const myId = useAppSelector((state) => state.auth.userData.id);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const correctDate = transformDate(pack.updated);
 
     const onPackClickHandler = () => {
-        dispatch(setCards(initialCardsData))
-        navigate(PATH.cardsList + initialParams + `&cardsPack_id=${pack._id}`)
-    }
+        dispatch(setCards(initialCardsData));
+        navigate(PATH.cardsList + initialParams + `&cardsPack_id=${pack._id}`);
+    };
+
+    const learnPackHandler = async () => {
+        await dispatch(loadCards({ cardsPack_id: pack._id }));
+        navigate(PATH.learning + `?cardsPack_id=${pack._id}`);
+        dispatch(setIsLearning(true));
+    };
 
     return (
         <SPackCardWrapper
@@ -76,15 +82,11 @@ const PackCard: FC<TPackProps> = React.memo(({pack, onIconClickHandler, isFetchi
                             <SText isEllipsis>{pack.cardsCount}</SText>
                         </Box>
                     </Box>
-                    <PackCardUser
-                        userName={pack.user_name}
-                        myId={myId}
-                        userId={pack.user_id}
-                    />
+                    <PackCardUser userName={pack.user_name} myId={myId} userId={pack.user_id} />
                 </Box>
                 <SPackCardActions>
                     <IconButton
-                        onClick={() => alert("In progress")}
+                        onClick={learnPackHandler}
                         color={"#fff"}
                         size={"sm"}
                         isDisabled={isFetching || pack.cardsCount === 0}

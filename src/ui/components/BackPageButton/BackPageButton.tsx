@@ -25,6 +25,7 @@ const BackPageButton: FC<TBackPageButtonProps> = (props) => {
         if (props.to === -1) {
             navigate(props.to);
         }
+        props.onClick && props.onClick();
     };
 
     return (

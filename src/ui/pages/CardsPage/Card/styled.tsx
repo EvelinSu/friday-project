@@ -7,7 +7,12 @@ export const SCardWrapper = styled.div`
     row-gap: 7px;
     justify-content: space-between;
     align-items: center;
-    background: ${({theme}) => `linear-gradient(112deg, ` + theme.colors.cards.default[0] + ` 0%, ` + theme.colors.cards.default[1] + `100%)`};
+    background: ${({ theme }) =>
+        `linear-gradient(112deg, ` +
+        theme.colors.cards.default[0] +
+        ` 0%, ` +
+        theme.colors.cards.default[1] +
+        `100%)`};
     padding: 15px;
     min-height: 145px;
     border-radius: 15px;
@@ -15,7 +20,7 @@ export const SCardWrapper = styled.div`
     color: #fff;
     overflow: hidden;
     text-align: center;
-`
+`;
 export const SCardShadow = styled.div`
     display: flex;
     align-items: center;
@@ -38,7 +43,7 @@ export const SCardShadow = styled.div`
     &:hover {
         opacity: 1;
     }
-`
+`;
 export const SCardIcons = styled.div`
     display: flex;
     gap: 10px;
@@ -46,14 +51,15 @@ export const SCardIcons = styled.div`
     position: absolute;
     bottom: 10px;
     right: 10px;
-`
+`;
 
 export const SCardText = styled.div<{ lineClamp?: number }>`
     display: -webkit-box;
-    -webkit-line-clamp: ${props => props.lineClamp || 3};
+    -webkit-line-clamp: ${(props) => props.lineClamp || 3};
     -webkit-box-orient: vertical;
     overflow: hidden;
-`
+    word-break: break-word;
+`;
 
 export const SCardImage = styled.img`
     object-fit: cover;
@@ -61,4 +67,4 @@ export const SCardImage = styled.img`
     max-width: 100%;
     max-height: calc(100% - 60px);
     border-radius: inherit;
-`
+`;

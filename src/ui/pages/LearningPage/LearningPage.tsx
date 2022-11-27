@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { UiBox } from "../../components/UiBox/UiBox";
 import { SPageWrapper } from "../styled";
 import { Box } from "../../components/Box/Box";
@@ -6,19 +6,50 @@ import { SText } from "../../components/Text/SText";
 import Button from "../../components/Button/Button";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { getCard } from "../../../common/utils/getCards";
-import { Grades } from "./Grades";
-import { uploadGrate } from "../../../bll/cardsReducer";
-import { Navigate } from "react-router-dom";
+import {
+    incQuestionCount,
+    initialCardsData,
+    setCurrentCard,
+    setIsLearning,
+    uploadGrade,
+} from "../../../bll/cardsReducer";
 import { PATH } from "../Pages";
+import BackPageButton from "../../components/BackPageButton/BackPageButton";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { LearningImage, SLearningBoxTitle, SLearningContainer, SLearningContent } from "./styled";
+import { GridBox } from "../../components/GridBox/GridBox";
+import { Grades } from "./Grades";
 import LoaderIcon from "../../assets/loaders/loader";
+import { TCard } from "../../../dal/ResponseTypes";
 
 export const LearningPage = () => {
+    const dispatch = useAppDispatch();
     const name = useAppSelector((state) => state.cards.cardsData.packName);
+    const cardsParams = useAppSelector((state) => state.URLParams.cardsParams);
+    const finishLearnHandler = () => {
+        dispatch(setIsLearning(false));
+        dispatch(setCurrentCard(initialCardsData.cards[0]));
+    };
 
     return (
         <SPageWrapper>
-            <Box justifyContent={"center"} padding={"10vh 0 0"}>
-                <UiBox title={`Learn "${name}"`} body={<LearnPackContainer />} width={"500px"} />
+            <BackPageButton
+                to={PATH.cardsList}
+                params={cardsParams}
+                label={"Finish and back to cards"}
+                onClick={finishLearnHandler}
+            />
+            <Box justifyContent={"center"}>
+                <Box
+                    margin={"0 0 20px 0"}
+                    width={"100%"}
+                    maxWidth={"700px"}
+                    overflow={"hidden"}
+                    height={"100%"}
+                >
+                    <UiBox width={"100%"} title={`Learn "${name}"`} body={<LearnPackContainer />} />
+                </Box>
             </Box>
         </SPageWrapper>
     );
@@ -26,66 +57,96 @@ export const LearningPage = () => {
 
 const LearnPackContainer = () => {
     const dispatch = useAppDispatch();
+    const [searchParams] = useSearchParams();
+    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
     const cards = useAppSelector((state) => state.cards.cardsData.cards);
+    const currentCard = useAppSelector((state) => state.cards.currentCard);
+    const questionCount = useAppSelector((state) => state.cards.questionCount);
     const isFetching = useAppSelector((state) => state.app.isFetching);
+    const isLearning = useAppSelector((state) => state.cards.isLearning);
+    const navigate = useNavigate();
 
-    const [card, setCars] = useState(getCard(cards));
+    const [card, setCard] = useState<TCard>(currentCard);
     const [isAnswerOpen, setIsAnswerOpen] = useState(false);
     const [grade, setGrade] = useState(1);
 
     const onNextHandler = async () => {
-        await dispatch(uploadGrate({ grade, card_id: card._id }));
-        setCars(getCard(cards));
+        const newCard = await getCard(cards);
+        await dispatch(uploadGrade({ grade, card_id: card._id }));
+        dispatch(setCurrentCard(newCard));
+        dispatch(incQuestionCount());
+        setCard(newCard);
         setGrade(1);
         setIsAnswerOpen(false);
     };
 
-    if (!cards.length) {
-        return <Navigate to={PATH.packsList} />;
+    useEffect(() => {
+        if (!card?._id) {
+            const newCard = getCard(cards);
+            dispatch(setCurrentCard(newCard));
+            setCard(newCard);
+        }
+    }, []);
+
+    if (!cards.length || !isLearning) {
+        navigate(PATH.cardsList + `?cardsPack_id=${URLParams.cardsPack_id}`);
     }
 
+    const checkQuestion = card?.question && card.question !== "no question" ? card.question : "";
+    const checkAnswer = card?.answer && card.answer !== "no answer" ? card.answer : "";
+
     return (
-        <>
+        <Box flexDirection={"column"} position={"relative"}>
             {isFetching && <LoaderIcon absolute />}
-            <Box flexDirection={"column"} gap={"10px"}>
-                <SText fontSize={"16px"}>
-                    <SText fontWeight={600}>Question: </SText>
-                    {card.question}
+            <GridBox columns={"repeat(auto-fill, minmax(220px, 1fr))"}>
+                <SLearningContainer>
+                    <SLearningBoxTitle>Question</SLearningBoxTitle>
+                    <SLearningContent>
+                        <Box margin={"auto 0"}>
+                            {checkQuestion || <LearningImage src={card?.questionImg} alt={"question"} />}
+                        </Box>
+                    </SLearningContent>
+                </SLearningContainer>
+                <SLearningContainer>
+                    <SLearningBoxTitle>Answer</SLearningBoxTitle>
+                    <SLearningContent>
+                        <Box margin={"auto 0"}>
+                            {!isAnswerOpen ? (
+                                <Button
+                                    label={"Show answer"}
+                                    onClick={() => setIsAnswerOpen(true)}
+                                    withShadow
+                                />
+                            ) : (
+                                checkAnswer || <LearningImage src={card?.answerImg} alt={"answer"} />
+                            )}
+                        </Box>
+                    </SLearningContent>
+                </SLearningContainer>
+            </GridBox>
+            <Box flexDirection={"column"} gap={10}>
+                <SText>
+                    <SText opacity={0.3} margin={"0 5px 0 0"}>
+                        Total answers to this question:
+                    </SText>
+                    {card?.shots}
                 </SText>
                 <SText>
                     <SText opacity={0.3} margin={"0 5px 0 0"}>
-                        Количество попыток ответов на вопрос:
+                        Total answers in this session:
                     </SText>
-                    {card.shots}
+                    {questionCount}
                 </SText>
-                {!isAnswerOpen && (
-                    <Box justifyContent={"center"} margin={"20px 0 0 0"}>
-                        <Button label={"Show answer"} onClick={() => setIsAnswerOpen(true)} withShadow />
-                    </Box>
-                )}
-                {isAnswerOpen && (
-                    <Box margin={"20px 0 0 0"} flexDirection={"column"} width={"100%"}>
-                        <SText fontSize={"16px"}>
-                            <SText fontWeight={600}>Answer: </SText>
-                            {card.answer}
-                        </SText>
-                        <SText margin={"10px 0 0 0"} fontSize={"16px"}>
-                            Rate yourself:
-                        </SText>
-                        <Box gap={"10px"} flexDirection={"column"}>
-                            <Grades setGrade={setGrade} grade={grade} />
-                        </Box>
-                        <Box justifyContent={"center"}>
-                            <Button
-                                label={"Next"}
-                                isLoading={isFetching}
-                                withShadow
-                                onClick={onNextHandler}
-                            />
-                        </Box>
-                    </Box>
-                )}
             </Box>
-        </>
+            <SText textAlign={"center"} fontSize={"16px"}>
+                Rate yourself
+            </SText>
+            <Box gap={"10px"} flexDirection={"column"}>
+                <Grades setGrade={setGrade} grade={grade} />
+            </Box>
+            <Box justifyContent={"center"}>
+                <Button isLoading={isFetching} label={"Next"} onClick={onNextHandler} withShadow />
+            </Box>
+        </Box>
     );
 };

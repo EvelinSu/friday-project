@@ -64,6 +64,7 @@ const PacksPagePanel = () => {
                             onClick={() => setIsAddCardModalOpen(true)}
                             label={windowWidth > 570 ? "Add card" : ""}
                             icon={<AddIcon />}
+                            isDisabled={isFetching}
                             withShadow
                         />
                     )}
