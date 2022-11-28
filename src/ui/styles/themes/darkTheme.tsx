@@ -22,7 +22,7 @@ export const darkTheme = {
             UiBox: "#7275ad",
         },
         loader: {
-            alphaBg: "rgba(0, 0, 0, 0.1)",
+            alphaBg: "rgba(0, 0, 0, 0.2)",
         },
         input: {
             default: "rgba(255, 255, 255, 0.1)",
