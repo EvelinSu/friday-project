@@ -38,9 +38,9 @@ const PacksPage = () => {
 
     return (
         <SPageWrapper>
-            {isFetching && <LoaderIcon borderRadius={"20px"} absolute />}
             <PacksPagePanel />
-            <Box position={"relative"} overflow={"hidden"}>
+            <Box flexGrow={1} position={"relative"} overflow={"hidden"}>
+                {isFetching && <LoaderIcon borderRadius={"20px"} absolute />}
                 {cardPacks.length > 0 ? <PacksList /> : <PacksNotFound isPacksFetching={isFetching} />}
             </Box>
             <Box alignItems={"center"} margin="auto 0 10px 0">

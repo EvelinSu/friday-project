@@ -38,7 +38,7 @@ export const CardsPage = () => {
     return (
         <SPageWrapper>
             <CardsPagePanel />
-            <Box position={"relative"} overflow={"hidden"}>
+            <Box flexGrow={1} position={"relative"} overflow={"hidden"}>
                 {isFetching && <LoaderIcon absolute />}
                 {cards.length > 0 ? <CardsList /> : <CardsNotFound isCardsFetching={isFetching} />}
             </Box>
