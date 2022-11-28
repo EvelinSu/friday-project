@@ -31,7 +31,7 @@ export const SUiBoxHeader = styled(SText)`
     word-break: break-word;
     font-weight: 600;
     text-align: center;
-    color: ${({ theme }) => theme.colors.titles.UiBox};
+    color: ${({ theme }) => theme.colors.button.success};
 `;
 
 export const SUiBoxBody = styled.div`

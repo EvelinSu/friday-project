@@ -41,7 +41,7 @@ export const SRangeTrack = styled.div<TSRangeProps>(({ theme, value1, value2 }) 
     left: 0,
     right: 0,
     background: `linear-gradient(to right, rgba(0, 0, 0, 0.1) ${value1}%, 
-                                           ${theme.colors.primary} ${value1}% ${value2}%, 
+                                           ${theme.colors.button.success} ${value1}% ${value2}%, 
                                            rgba(0, 0, 0, 0.1) ${value2}%)`,
 }));
 
@@ -70,15 +70,15 @@ export const SDoubleRange = styled.input(({ theme }) => ({
         ...rangeStyles.track,
     },
     '&[type="range"]::-webkit-slider-thumb': {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.button.success,
         ...rangeStyles.thumb,
     },
     '&[type="range"]::-moz-range-thumb': {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.button.success,
         ...rangeStyles.thumb,
     },
     '&[type="range"]::-ms-thumb': {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.button.success,
         ...rangeStyles.thumb,
     },
 }));

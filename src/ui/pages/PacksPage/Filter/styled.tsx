@@ -36,7 +36,7 @@ export const SFilterWrapper = styled.div`
     align-items: center;
     gap: 15px;
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.71);
+    background-color: ${(props) => props.theme.colors.secondaryLightAlpha07};
     top: ${windowWidth < 570 ? `calc(100% + 10px)` : "calc(100% + 20px)"};
     left: ${windowWidth < 570 ? `calc(100% - 255px)` : ""};
     padding: 20px;
@@ -53,7 +53,7 @@ export const SFilterWrapper = styled.div`
         top: -10px;
         width: 0;
         height: 0;
-        border-top: 20px solid rgba(255, 255, 255, 0.71);
+        border-top: 20px solid ${(props) => props.theme.colors.secondaryLightAlpha07};
         border-right: 20px solid transparent;
         transform: rotate(45deg);
     }

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { SStar } from "../../components/Stars/styled";
 
-export const LearningImage = styled.img(({ theme }) => ({
+export const LearningImage = styled.img(() => ({
     maxWidth: "100%",
 }));
 
-export const SLearningContainer = styled.div(({ theme }) => ({
+export const SLearningContainer = styled.div((props) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -29,7 +29,7 @@ export const SLearningContent = styled.div(({ theme }) => ({
     maxHeight: 200,
 }));
 
-export const SLearningBoxTitle = styled.div(({ theme }) => ({
+export const SLearningBoxTitle = styled.div((props) => ({
     textAlign: "center",
     fontWeight: 600,
     fontSize: 16,
@@ -73,9 +73,9 @@ export const SLearningStar = styled(SStar)(({ theme, title }) => ({
     },
     ".isFill": {
         path: {
-            fill: theme.colors.primary,
+            fill: theme.colors.button.success,
             boxShadow: "0 0 1px 10px rgba(255, 255, 255, 0.5)",
-            stroke: theme.colors.primary,
+            stroke: theme.colors.button.success,
         },
     },
 }));

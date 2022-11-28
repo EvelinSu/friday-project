@@ -32,7 +32,7 @@ export const Card: FC<TCardProps> = (props) => {
     };
 
     return (
-        <SCardWrapper onClick={(e) => onClickHandler(e, "view")}>
+        <SCardWrapper isFetching={props.isFetching} onClick={(e) => onClickHandler(e, "view")}>
             <SCardShadow>
                 {answerImg && answerImg !== "null" ? (
                     <SCardImage src={answerImg} />

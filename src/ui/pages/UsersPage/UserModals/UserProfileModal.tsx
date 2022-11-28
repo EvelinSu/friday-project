@@ -39,7 +39,7 @@ export const UserProfileModal = () => {
         <SMegaShadow onClick={onShadowClickHandler}>
             <UiBox title={!isUserFetching ? userName : ""}>
                 {isUserFetching ? (
-                    <LoaderIcon />
+                    <LoaderIcon shadow />
                 ) : (
                     <Box flexDirection={"column"} gap={30}>
                         <Box width={"100%"} justifyContent={"center"}>

@@ -12,6 +12,7 @@ export const SPackCardWrapper = styled.div<{ isFetching: boolean; img: string }>
     ${(props) =>
         props.isFetching &&
         css`
+            opacity: 0.6;
             pointer-events: none;
         `}
     &:hover {

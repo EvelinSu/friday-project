@@ -9,11 +9,9 @@ export const baseTheme = {
 
         secondary: "#ECECEC",
         secondaryLight: "#FFFFFF",
+        secondaryLightAlpha07: "rgba(236,236,236,0.7)",
         textOnSecondary: "#000",
-
-        titles: {
-            UiBox: "#4F659E",
-        },
+        
         severity: {
             error: "#ce5252",
             success: "#74b460",

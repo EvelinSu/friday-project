@@ -8,8 +8,8 @@ import Notification from "./ui/components/Notification/Notification";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { UserProfileModal } from "./ui/pages/UsersPage/UserModals/UserProfileModal";
 import { darkTheme } from "./ui/styles/themes/darkTheme";
-import { authMeTC } from "./bll/authReducer";
 import GlobalLoader from "./ui/components/Loaders/GlobalLoader";
+import { authMeTC } from "./bll/authReducer";
 
 const themes = {
     light: baseTheme,

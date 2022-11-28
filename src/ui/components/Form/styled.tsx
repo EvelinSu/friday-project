@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SForm = styled.form`
     display: flex;
@@ -17,37 +17,39 @@ export const SInputWrapper = styled.div<TSInputWrapperProps>`
     align-items: center;
     gap: 15px;
     position: relative;
-    ${(props) => props.error && css`
-        &:after {
-            content: "${props.error}";
-            position: absolute;
-            color: #fff;
-            left: calc(100% + 10px);
-            background-color: ${props.theme.colors.severity.error};
-            padding: 3px 10px;
-            font-size: 12px;
-            max-width: 160px;
-            width: max-content;
-            z-index: ${props.theme.orders.inputErrors};
-            border-radius: 5px;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.2s;
-            @media all and (max-width: 800px) {
-                left: initial;
-                right: 10px;
-                margin: 0 auto;
-                bottom: 8px;
-            }
-        }
-
-        &:hover {
+    ${(props) =>
+        props.error &&
+        css`
             &:after {
-                opacity: 1;
-                visibility: visible;
+                content: "${props.error}";
+                position: absolute;
+                color: #fff;
+                left: calc(100% + 10px);
+                background-color: ${props.theme.colors.severity.error};
+                padding: 3px 10px;
+                font-size: 12px;
+                max-width: 160px;
+                width: max-content;
+                z-index: ${props.theme.orders.inputErrors};
+                border-radius: 5px;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.2s;
+                @media all and (max-width: 800px) {
+                    left: initial;
+                    right: 10px;
+                    margin: 0 auto;
+                    bottom: 8px;
+                }
             }
-        }
-    `}
+
+            &:hover {
+                &:after {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        `}
 `;
 
 interface TSInputProps {
@@ -59,36 +61,44 @@ interface TSInputProps {
 export const SInput = styled.input<TSInputProps>`
     padding: 10px 15px;
     border-radius: 15px;
-    background-color: ${({theme}) => theme.colors.input.default};
+    background-color: ${({ theme }) => theme.colors.input.default};
     border: 1px solid rgba(0, 0, 0, 0.2);
     width: 100%;
+    transition-property: background-color;
+    transition: 0.2s;
 
     &:hover {
         opacity: 0.8;
     }
 
     &:focus {
-        border: ${({theme}) => `1px solid ${theme.colors.primary}`};
+        border: ${({ theme }) => `1px solid ${theme.colors.primary}`};
         opacity: 1;
     }
 
-    ${(props) => props.isError && css`
-        border: 1px solid ${props.theme.colors.severity.error};
-
-        &:focus {
+    ${(props) =>
+        props.isError &&
+        css`
             border: 1px solid ${props.theme.colors.severity.error};
-        }
-    `}
+
+            &:focus {
+                border: 1px solid ${props.theme.colors.severity.error};
+            }
+        `}
     &::placeholder {
         opacity: 0.4;
     }
 
-    ${(props) => props.hasLeftIcon && css`
-        padding-left: 40px;
-    `}
-    ${(props) => props.hasRightIcon && css`
-        padding-right: 35px;
-    `}
+    ${(props) =>
+        props.hasLeftIcon &&
+        css`
+            padding-left: 40px;
+        `}
+    ${(props) =>
+        props.hasRightIcon &&
+        css`
+            padding-right: 35px;
+        `}
 `;
 
 export const SInputLeftIcon = styled.div`
@@ -113,7 +123,7 @@ export const WithFormTitle = styled.div<{ title: string }>`
     margin-top: 20px;
 
     &:before {
-        content: "${props => props.title}";
+        content: "${(props) => props.title}";
         position: absolute;
         top: -25px;
         left: 8px;
@@ -121,4 +131,4 @@ export const WithFormTitle = styled.div<{ title: string }>`
         font-size: 13px;
         opacity: 0.4;
     }
-`
+`;

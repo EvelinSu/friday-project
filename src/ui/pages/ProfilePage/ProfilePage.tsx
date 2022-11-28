@@ -13,7 +13,7 @@ import SignOutIcon from "../../assets/icons/SignOutIcon";
 import { SProfileButton, SProfileContent } from "./styled";
 import BackPageButton from "../../components/BackPageButton/BackPageButton";
 import { setAppMessage } from "../../../bll/appReducer";
-import Loader from "../../assets/loaders/loader";
+import LoaderIcon from "../../assets/loaders/loader";
 
 export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInputElement>;
 
@@ -60,7 +60,7 @@ const ProfilePage = () => {
                 <BackPageButton to={-1} label={"Go back"} />
             </SPagePanel>
             <UiBox title={"Personal Information"} maxWidth={"430px"} margin={"5vh auto 0 auto"}>
-                {isFetching && <Loader absolute />}
+                {isFetching && <LoaderIcon shadow absolute />}
                 <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
                     <SProfileContent>
                         <Avatar

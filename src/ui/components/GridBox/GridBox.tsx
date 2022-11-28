@@ -12,8 +12,12 @@ export const GridBox = styled.div<TGridBoxProps>((props) => ({
     gridTemplateColumns: props.columns,
     gridTemplateRows: props.rows,
     gap: 20,
+    width: "100%",
     overflow: "auto",
     borderRadius: 15,
+    "@media all and (max-width: 540px)": {
+        overflow: "initial",
+    },
 }));
 
 export const SGridDefaultBlock = styled.div<{ minHeight: string }>((props) => ({

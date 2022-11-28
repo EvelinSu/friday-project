@@ -1,63 +1,40 @@
 import React, { FC } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const SLoader = styled.div<TLoaderIcon>`
-    flex-grow: 1;
-    height: 100%;
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    border-radius: inherit;
-    z-index: 1;
-
-    ${(props) =>
-        props.absolute &&
-        css`
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            border-radius: ${props.borderRadius};
-            right: 0;
-            background-color: ${props.theme.colors.loader.alphaBg};
-        `}
-    svg {
-        width: 80px;
-        height: 80px;
-    }
-`;
-
-export const SLoaderWrapper = styled.div`
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    pointer-events: none;
-
-    div {
-        flex-grow: initial;
-        border-radius: 50px;
-
-        svg {
-        }
-    }
-`;
+const SLoader = styled.div<TLoaderIcon>((props) => ({
+    flexGrow: 1,
+    height: "100%",
+    width: "100%",
+    maxWidth: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    pointerEvents: "none",
+    borderRadius: "inherit",
+    zIndex: 1,
+    ...(props.absolute && {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        borderRadius: props.borderRadius,
+        right: 0,
+        backgroundColor: props.shadow ? props.theme.colors.loader.alphaBg : "",
+    }),
+    svg: {
+        width: 80,
+        height: 80,
+    },
+}));
 
 type TLoaderIcon = {
     absolute?: boolean;
     borderRadius?: string;
+    shadow?: boolean;
 };
 const LoaderIcon: FC<TLoaderIcon> = (props) => {
     return (
-        <SLoader borderRadius={props.borderRadius} absolute={props.absolute}>
+        <SLoader shadow={props.shadow} borderRadius={props.borderRadius} absolute={props.absolute}>
             <svg version="1.0" width="64px" height="64px" viewBox="0 0 128 128">
                 <g>
                     <circle cx="16" cy="64" r="16" fill="#222744" fillOpacity="1" />

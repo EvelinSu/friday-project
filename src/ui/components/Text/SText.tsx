@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Property } from "csstype";
 
 interface TSTextProps {
@@ -15,39 +15,32 @@ interface TSTextProps {
     whiteSpace?: Property.WhiteSpace;
 }
 
-export const SText = styled.span<TSTextProps>`
-    opacity: ${(props) => props.opacity};
-    font-weight: ${(props) => props.fontWeight};
-    margin: ${(props) => props.margin};
-    max-width: ${(props) => props.maxWidth};
-    font-size: ${(props) => props.fontSize};
-    line-height: ${(props) => props.lineHeight};
-    text-align: ${(props) => props.textAlign};
-    white-space: ${(props) => props.whiteSpace};
-    ${(props) =>
-        props.lineClamp &&
-        css`
-            display: -webkit-box;
-            -webkit-line-clamp: ${props.lineClamp};
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        `}
-    ${(props) =>
-        props.isEllipsis &&
-        css`
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        `}
-    ${({ isLink, theme }) =>
-        isLink &&
-        css`
-            text-decoration: underline;
-            color: ${theme.colors.primary};
-            cursor: pointer;
-
-            &:hover {
-                text-decoration: none;
-            }
-        `}
-`;
+export const SText = styled.span<TSTextProps>((props) => ({
+    opacity: props.opacity,
+    fontWeight: props.fontWeight,
+    margin: props.margin,
+    maxWidth: props.maxWidth,
+    fontSize: props.fontSize,
+    lineHeight: props.lineHeight,
+    textAlign: props.textAlign,
+    whiteSpace: props.whiteSpace,
+    ...(props.lineClamp && {
+        display: "-webkit-box",
+        webkitLineClamp: props.lineClamp,
+        "-webkit-box-orient": "vertical",
+        overflow: "hidden",
+    }),
+    ...(props.isEllipsis && {
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+    }),
+    ...(props.isLink && {
+        textDecoration: "underline",
+        color: props.theme.colors.button.success,
+        cursor: "pointer",
+        "&:hover": {
+            textDecoration: "none",
+        },
+    }),
+}));

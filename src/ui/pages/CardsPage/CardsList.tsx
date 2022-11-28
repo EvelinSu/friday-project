@@ -10,6 +10,7 @@ import AddAndUpdateCardModal, {
 import { deleteCard, updateCard } from "../../../bll/cardsReducer";
 import DeleteModal from "../../components/Modals/DeleteModal";
 import { getCountArray } from "../../../common/utils/getCountArray";
+import { baseTheme } from "../../styles/themes/baseTheme";
 
 export type TCardModals = "delete" | "update" | "view" | false;
 
@@ -55,11 +56,17 @@ const CardsList = () => {
         <SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>
     ));
 
+    const smallScreen = baseTheme.media.small;
+
     return (
         <GridBox
             columns={"repeat(auto-fill, minmax(250px, 1fr))"}
-            style={{ flexGrow: windowWidth > 540 ? 1 : "" }}
-            rows={windowWidth > 540 ? `repeat(${rowsCount}, minmax(145px, 200px))` : ``}
+            style={{ flexGrow: windowWidth > smallScreen ? 1 : "" }}
+            rows={
+                windowWidth > smallScreen
+                    ? `repeat(${rowsCount}, minmax(145px, 200px))`
+                    : `repeat(auto-fit, 160px)`
+            }
         >
             {cards.map((card) => (
                 <Card
@@ -69,7 +76,7 @@ const CardsList = () => {
                     isFetching={isFetching}
                 />
             ))}
-            {windowWidth > 540 && cardsSkeleton}
+            {windowWidth > smallScreen && cardsSkeleton}
             {isCardModalOpen === "delete" && (
                 <DeleteModal
                     onClose={() => setIsCardModalOpen(false)}

@@ -24,7 +24,7 @@ export const SAvatar = styled.div<TSAvatarProps>((props) => ({
     borderRadius: "50%",
     overflow: "hidden",
     position: "relative",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
     backgroundImage: `url(${props.img})`,
     backgroundPosition: "center",
     backgroundSize: "cover",
@@ -72,7 +72,7 @@ export const SAvatarDeleteIcon = styled.div`
     }
 
     svg path {
-        fill: ${({theme}) => theme.colors.severity.error};
-        stroke: ${({theme}) => theme.colors.severity.error};
+        fill: ${({ theme }) => theme.colors.severity.error};
+        stroke: ${({ theme }) => theme.colors.severity.error};
     }
 `;

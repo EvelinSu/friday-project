@@ -18,13 +18,13 @@ export const STab = styled.div<TSTabProps>`
     border: 1px solid transparent;
 
     &:hover {
-        border: 1px solid ${({ theme }) => theme.colors.primary};
+        border: 1px solid ${({ theme }) => theme.colors.button.success};
     }
 
     ${(props) =>
         props.isActive &&
         css`
-            background-color: ${props.theme.colors.primary};
+            background-color: ${props.theme.colors.button.success};
             color: ${props.theme.colors.textOnPrimary};
             pointer-events: none;
         `}

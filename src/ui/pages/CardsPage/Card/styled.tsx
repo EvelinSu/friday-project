@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const SCardWrapper = styled.div`
+export const SCardWrapper = styled.div<{ isFetching: boolean }>`
     display: flex;
     flex-direction: column;
     gap: 7px;
@@ -20,6 +20,12 @@ export const SCardWrapper = styled.div`
     color: #fff;
     overflow: hidden;
     text-align: center;
+    ${(props) =>
+        props.isFetching &&
+        css`
+            opacity: 0.6;
+            pointer-events: none;
+        `}
 `;
 export const SCardShadow = styled.div`
     display: flex;
