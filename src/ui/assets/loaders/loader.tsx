@@ -1,5 +1,5 @@
-import React, {FC} from "react";
-import styled, {css} from "styled-components";
+import React, { FC } from "react";
+import styled, { css } from "styled-components";
 
 const SLoader = styled.div<TLoaderIcon>`
     flex-grow: 1;
@@ -10,14 +10,20 @@ const SLoader = styled.div<TLoaderIcon>`
     justify-content: center;
     align-items: center;
     pointer-events: none;
+    border-radius: inherit;
     z-index: 1;
 
     ${(props) =>
-            props.absolute &&
-            css`
-                position: absolute;
-                max-width: calc(100% - 40px);
-            `}
+        props.absolute &&
+        css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            border-radius: ${props.borderRadius};
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.4);
+        `}
     svg {
         width: 80px;
         height: 80px;
@@ -47,10 +53,11 @@ export const SLoaderWrapper = styled.div`
 
 type TLoaderIcon = {
     absolute?: boolean;
+    borderRadius?: string;
 };
 const LoaderIcon: FC<TLoaderIcon> = (props) => {
     return (
-        <SLoader absolute={props.absolute}>
+        <SLoader borderRadius={props.borderRadius} absolute={props.absolute}>
             <svg version="1.0" width="64px" height="64px" viewBox="0 0 128 128">
                 <g>
                     <circle cx="16" cy="64" r="16" fill="#222744" fillOpacity="1" />

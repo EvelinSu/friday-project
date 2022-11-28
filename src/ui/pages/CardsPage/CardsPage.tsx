@@ -37,9 +37,11 @@ export const CardsPage = () => {
 
     return (
         <SPageWrapper>
-            {isFetching && <LoaderIcon absolute />}
             <CardsPagePanel />
-            {cards.length > 0 ? <CardsList /> : <CardsNotFound isCardsFetching={isFetching} />}
+            <Box position={"relative"} overflow={"hidden"}>
+                {isFetching && <LoaderIcon absolute />}
+                {cards.length > 0 ? <CardsList /> : <CardsNotFound isCardsFetching={isFetching} />}
+            </Box>
             <Box alignItems={"center"} margin="auto 0 10px 0">
                 <Box overflow={"auto"}>
                     <Pagination

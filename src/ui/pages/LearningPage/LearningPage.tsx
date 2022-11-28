@@ -81,8 +81,8 @@ export const LearningPage = () => {
                 onClick={finishLearnHandler}
             />
             <UiBox title={`Learn "${name}"`} maxWidth={"700px"} margin={"5vh auto 0 auto"}>
-                <Box flexDirection={"column"} position={"relative"}>
-                    {isFetching && <LoaderIcon absolute />}
+                {isFetching && <LoaderIcon absolute />}
+                <Box flexDirection={"column"}>
                     <GridBox columns={"repeat(auto-fill, minmax(220px, 1fr))"}>
                         <Question checkQuestion={checkQuestion} questionImg={card?.questionImg} />
                         <Answer

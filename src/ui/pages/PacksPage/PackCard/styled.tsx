@@ -1,28 +1,31 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
-export const SPackCardWrapper = styled.div<{ isFetching: boolean, img: string }>`
-    background-color: ${({theme}) => theme.colors.primary};
+export const SPackCardWrapper = styled.div<{ isFetching: boolean; img: string }>`
+    background-color: ${({ theme }) => theme.colors.primary};
     border-radius: 15px;
-    color: ${({theme}) => theme.colors.cards.text};
+    color: ${({ theme }) => theme.colors.cards.text};
     font-size: 12px;
     min-height: 145px;
     transition: 0.2s;
     cursor: pointer;
 
-    ${props => props.isFetching && css`
-        pointer-events: none;
-        opacity: 0.6;
-    `}
+    ${(props) =>
+        props.isFetching &&
+        css`
+            pointer-events: none;
+        `}
     &:hover {
         transform: scale(0.95);
     }
 
-    ${props => props.img && css`
-        text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
-        background: url(${props.img}) center;
-        background-size: cover;
-        background-repeat: no-repeat;
-    `}
+    ${(props) =>
+        props.img &&
+        css`
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+            background: url(${props.img}) center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        `}
 `;
 
 export const SPackCardShadow = styled.div<{ img: string }>`
@@ -33,10 +36,12 @@ export const SPackCardShadow = styled.div<{ img: string }>`
     gap: 10px;
     justify-content: space-between;
     border-radius: inherit;
-    ${props => props.img && css`
-        background-color: ${props.theme.colors.cards.shadow};
-    `}
-`
+    ${(props) =>
+        props.img &&
+        css`
+            background-color: ${props.theme.colors.cards.shadow};
+        `}
+`;
 
 export const SPackCardUser = styled.div`
     display: flex;

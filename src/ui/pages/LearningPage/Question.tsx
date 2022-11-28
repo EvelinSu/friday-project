@@ -12,7 +12,12 @@ export const Question: FC<TQuestionProps> = (props) => {
             <SLearningBoxTitle>Question</SLearningBoxTitle>
             <SLearningContent>
                 <Box margin={"auto 0"}>
-                    {props.checkQuestion || <LearningImage src={props.questionImg} alt={"question"} />}
+                    {props.checkQuestion
+                        ? props.checkQuestion
+                        : props.questionImg
+                            ? <LearningImage src={props.questionImg} alt={"question"} />
+                            : "no question"
+                    }
                 </Box>
             </SLearningContent>
         </SLearningContainer>

@@ -15,15 +15,18 @@ export const Answer: FC<TAnswerProps> = (props) => {
             <SLearningBoxTitle>Answer</SLearningBoxTitle>
             <SLearningContent>
                 <Box margin={"auto 0"}>
-                    {!props.isAnswerOpen ? (
-                        <Button
+                    {!props.isAnswerOpen
+                        ? <Button
                             label={"Show answer"}
                             onClick={() => props.setIsAnswerOpen(true)}
                             withShadow
                         />
-                    ) : (
-                        props.checkAnswer || <LearningImage src={props.answerImg} alt={"answer"} />
-                    )}
+                        : props.checkAnswer
+                            ? props.checkAnswer
+                            : props.answerImg
+                                ? <LearningImage src={props.answerImg} alt={"answer"} />
+                                : "no answer"
+                    }
                 </Box>
             </SLearningContent>
         </SLearningContainer>
