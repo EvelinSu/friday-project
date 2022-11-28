@@ -111,7 +111,6 @@ export const uploadGrade = createAsyncThunk(
         dispatch(setIsFetching(true));
         try {
             const res = await gradeAPI.updateGrade(data);
-            // dispatch(setAppMessage({ text: "Done!", severity: "success" }));
             return res.data.updatedGrade;
         } catch (e) {
             handlerErrors(dispatch, e);

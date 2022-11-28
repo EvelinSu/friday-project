@@ -9,6 +9,7 @@ import { getCard } from "../../../common/utils/getCards";
 import {
     incQuestionCount,
     initialCardsData,
+    loadCards,
     setCurrentCard,
     setIsLearning,
     uploadGrade,
@@ -58,11 +59,15 @@ export const LearningPage = () => {
     };
 
     useEffect(() => {
-        if (!card?._id) {
-            const newCard = getCard(cards);
-            dispatch(setCurrentCard(newCard));
-            setCard(newCard);
-        }
+        debugger;
+        dispatch(loadCards(URLParams)).then(() => {
+            debugger;
+            if (!card?._id) {
+                const newCard = getCard(cards);
+                dispatch(setCurrentCard(newCard));
+                setCard(newCard);
+            }
+        });
     }, []);
 
     if (!cards.length || !isLearning) {

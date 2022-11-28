@@ -9,7 +9,7 @@ import { Search } from "../../../components/Search/Search";
 import AddAndUpdateCardModal, {
     TAddAndUpdateCardModalValues,
 } from "../CardsModals/AddAndUpdateCardModal";
-import { addNewCard, loadCards, setIsLearning } from "../../../../bll/cardsReducer";
+import { addNewCard, setIsLearning } from "../../../../bll/cardsReducer";
 import { PATH } from "../../Pages";
 import { AddIcon } from "../../../assets/icons/AddIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
@@ -39,10 +39,9 @@ const PacksPagePanel = () => {
         ).then(() => setIsAddCardModalOpen(false));
     };
 
-    const learnPackHandler = async () => {
-        await dispatch(loadCards(URLParams));
-        navigate(PATH.learning + `?cardsPack_id=${URLParams.cardsPack_id}`);
+    const learnPackHandler = () => {
         dispatch(setIsLearning(true));
+        navigate(PATH.learning + `?cardsPack_id=${URLParams.cardsPack_id}`);
     };
 
     // for select (in future)
