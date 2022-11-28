@@ -32,7 +32,11 @@ const BackPageButton: FC<TBackPageButtonProps> = (props) => {
     return (
         <SBackPageButton onClick={onClickHandler} isDisabled={props.isDisabled}>
             <IconButton icon={<LongArrowIcon />} allowPropagation isDark />
-            {props.label && <SText opacity={0.5}>{props.label}</SText>}
+            {props.label && (
+                <SText isEllipsis opacity={0.5}>
+                    {props.label}
+                </SText>
+            )}
         </SBackPageButton>
     );
 };
@@ -44,6 +48,7 @@ const SBackPageButton = styled.div<{ isDisabled?: boolean }>((props) => ({
     color: props.theme.colors.textOnSecondary,
     transition: "0.2s",
     cursor: "pointer",
+    overflow: "hidden",
     "&:hover": {
         transform: "translateX(-5px)",
         opacity: 0.7,

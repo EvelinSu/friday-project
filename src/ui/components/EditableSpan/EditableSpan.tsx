@@ -1,12 +1,15 @@
-import React, {DetailedHTMLProps, FC, InputHTMLAttributes, useState} from "react";
+import React, { DetailedHTMLProps, FC, InputHTMLAttributes, useState } from "react";
 import EditIcon from "../../assets/icons/EditIcon";
-import {SEditableSpanInput, SEditableSpanInputWrapper, SEditableSpanText} from "./styled";
+import { SEditableSpanInput, SEditableSpanInputWrapper, SEditableSpanText } from "./styled";
 import CircleDoneIcon from "../../assets/icons/CircleDoneIcon";
-import {SText} from "../Text/SText";
-import {TEventInput} from "../../pages/ProfilePage/ProfilePage";
+import { SText } from "../Text/SText";
+import { TEventInput } from "../../pages/ProfilePage/ProfilePage";
+import { Box } from "../Box/Box";
 
-export type TDefaultInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement>;
+export type TDefaultInputProps = DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+>;
 
 type TEditableSpanProps = TDefaultInputProps & {
     value?: string | null;
@@ -45,7 +48,9 @@ const EditableSpan: FC<TEditableSpanProps> = (props) => {
                     {props.placeholder}
                 </SText>
             )}
-            <EditIcon />
+            <Box margin={"0 0 0 auto"}>
+                <EditIcon />
+            </Box>
         </SEditableSpanText>
     ) : (
         <SEditableSpanInputWrapper disabled={isDisabled}>

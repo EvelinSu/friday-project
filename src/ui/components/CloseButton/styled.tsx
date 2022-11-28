@@ -14,6 +14,8 @@ export const SCloseButton = styled.div<{ padding?: string }>`
     svg {
         width: 18px;
         height: 18px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
     }
 
     svg path {

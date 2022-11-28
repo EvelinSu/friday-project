@@ -17,6 +17,7 @@ export const GridBox = styled.div<TGridBoxProps>((props) => ({
     borderRadius: 15,
     "@media all and (max-width: 540px)": {
         overflow: "initial",
+        height: "min-content",
     },
 }));
 

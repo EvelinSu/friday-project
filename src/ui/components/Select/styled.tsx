@@ -16,7 +16,7 @@ export const SSuperSelectInputWrapper = styled.div<{ padding?: string; color?: s
     gap: 5px;
     position: relative;
     border-radius: 15px;
-    background-color: ${({ theme, color }) => color || theme.colors.primaryDark};
+    background-color: ${({ theme, color }) => color || theme.colors.button.success};
     color: ${({ theme }) => theme.colors.textOnPrimary};
     padding: ${(props) => props.padding || "8px 12px"};
     cursor: pointer;

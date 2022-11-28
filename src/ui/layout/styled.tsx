@@ -13,7 +13,7 @@ export const SSiteWrapper = styled.div`
     transition: 0.2s;
     ${({ theme }) => css`
         @media all and (max-width: ${theme.media.small + "px"}) {
-            padding: 0;
+            padding: 0 0 20px 0;
             max-height: initial;
         }
     `};

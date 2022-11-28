@@ -20,6 +20,9 @@ const SLoader = styled.div<TLoaderIcon>((props) => ({
         borderRadius: props.borderRadius,
         right: 0,
         backgroundColor: props.shadow ? props.theme.colors.loader.alphaBg : "",
+        "@media all and (max-width: 540px)": {
+            position: "fixed",
+        },
     }),
     svg: {
         width: 80,
