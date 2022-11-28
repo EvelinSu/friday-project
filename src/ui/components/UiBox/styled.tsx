@@ -23,6 +23,7 @@ export const SUiBoxContainer = styled.div<TSUiBoxContainerProps>`
     position: relative;
     max-height: 100%;
     overflow: auto;
+    color: ${(props) => props.theme.colors.textOnSecondary};
 `;
 
 export const SUiBoxHeader = styled(SText)`
@@ -30,7 +31,7 @@ export const SUiBoxHeader = styled(SText)`
     word-break: break-word;
     font-weight: 600;
     text-align: center;
-    color: ${({ theme }) => theme.colors.primaryDark};
+    color: ${({ theme }) => theme.colors.titles.UiBox};
 `;
 
 export const SUiBoxBody = styled.div`

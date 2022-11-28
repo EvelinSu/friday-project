@@ -20,7 +20,8 @@ export const SPagePanel = styled.div`
     flex-direction: column;
 `;
 
-export const SMainTitle = styled(SText)`
-    font-size: 22px;
-    font-weight: 600;
-`;
+export const SMainTitle = styled(SText)((props) => ({
+    fontSize: 22,
+    fontWeight: 600,
+    color: props.theme.colors.textOnSecondary,
+}));

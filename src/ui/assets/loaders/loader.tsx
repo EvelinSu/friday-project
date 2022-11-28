@@ -22,7 +22,7 @@ const SLoader = styled.div<TLoaderIcon>`
             bottom: 0;
             border-radius: ${props.borderRadius};
             right: 0;
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: ${props.theme.colors.loader.alphaBg};
         `}
     svg {
         width: 80px;

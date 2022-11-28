@@ -74,6 +74,7 @@ export const SLearningStar = styled(SStar)(({ theme, title }) => ({
     ".isFill": {
         path: {
             fill: theme.colors.primary,
+            boxShadow: "0 0 1px 10px rgba(255, 255, 255, 0.5)",
             stroke: theme.colors.primary,
         },
     },

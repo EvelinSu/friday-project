@@ -41,6 +41,7 @@ const SBackPageButton = styled.div<{ isDisabled?: boolean }>((props) => ({
     display: "flex",
     gap: "15px",
     alignItems: "center",
+    color: props.theme.colors.textOnSecondary,
     transition: "0.2s",
     cursor: "pointer",
     "&:hover": {

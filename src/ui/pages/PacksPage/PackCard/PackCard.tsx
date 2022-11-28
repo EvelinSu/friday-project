@@ -86,6 +86,7 @@ const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetch
                 </Box>
                 <SPackCardActions>
                     <IconButton
+                        title={"Learn"}
                         onClick={learnPackHandler}
                         color={"#fff"}
                         size={"sm"}
@@ -95,6 +96,7 @@ const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetch
                     {myId === pack.user_id && (
                         <>
                             <IconButton
+                                title={"Update"}
                                 onClick={(e) => onIconClickHandler(e, pack._id, "update")}
                                 color={"#fff"}
                                 size={"sm"}
@@ -102,6 +104,7 @@ const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetch
                                 icon={<EditIcon />}
                             />
                             <IconButton
+                                title={"Delete"}
                                 onClick={(e) => onIconClickHandler(e, pack._id, "delete")}
                                 color={"#fff"}
                                 size={"sm"}

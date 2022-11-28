@@ -59,9 +59,7 @@ export const LearningPage = () => {
     };
 
     useEffect(() => {
-        debugger;
         dispatch(loadCards(URLParams)).then(() => {
-            debugger;
             if (!card?._id) {
                 const newCard = getCard(cards);
                 dispatch(setCurrentCard(newCard));

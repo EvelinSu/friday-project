@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type TRequestStatus = "idle" | "loading" | "succeeded" | "failed";
+export type TThemes = "light" | "dark";
 
 type TAppMessage = {
     id: string;
@@ -13,8 +14,8 @@ export type TApp = {
     status: TRequestStatus;
     messages: TAppMessage[];
     isFetching: boolean;
+    currentTheme: TThemes;
 };
-
 const slice = createSlice({
     name: "app",
     initialState: {
@@ -22,6 +23,7 @@ const slice = createSlice({
         status: "idle",
         messages: [],
         isFetching: false,
+        currentTheme: "light",
     } as TApp,
     reducers: {
         setIsInitialized(state, action: PayloadAction<{ value: boolean }>) {
@@ -47,6 +49,9 @@ const slice = createSlice({
         setIsFetching(state, action: PayloadAction<boolean>) {
             state.isFetching = action.payload;
         },
+        setCurrentTheme(state, action: PayloadAction<TThemes>) {
+            state.currentTheme = action.payload;
+        },
     },
 });
 
@@ -58,4 +63,5 @@ export const {
     setAppLastMessage,
     hideAppMessage,
     setAppStatus,
+    setCurrentTheme,
 } = slice.actions;

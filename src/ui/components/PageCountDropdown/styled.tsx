@@ -59,6 +59,7 @@ export const SPageCountDropdownItem = styled(SSuperOption)<TSPageCountDropdownIt
     textAlign: "center",
     justifyContent: "center",
     borderRadius: "inherit",
+    color: props.theme.colors.textOnPrimary,
     cursor: "pointer",
     ...(props.isActive && {
         pointerEvents: "none",

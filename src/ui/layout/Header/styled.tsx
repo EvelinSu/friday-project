@@ -27,6 +27,7 @@ export const SHeaderLogo = styled.div`
     margin-left: 10%;
     cursor: pointer;
     transition: 0.2s;
+
     ${({ theme }) => css`
         @media all and (max-width: ${theme.media.small + "px"}) {
             margin-left: 0;
@@ -36,6 +37,7 @@ export const SHeaderLogo = styled.div`
     &:hover {
         opacity: 0.8;
     }
+
     &:active {
         transform: scale(1.03);
     }
@@ -51,9 +53,11 @@ export const SHeaderButton = styled.button<TSHeaderButtonProps>`
     align-items: center;
     background-color: transparent;
     transition: 0.2s;
+
     &:hover {
         transform: translateX(3px);
     }
+
     ${(props) =>
         props.disabled &&
         css`

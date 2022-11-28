@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SSuperSelectWrapper = styled.div`
     position: relative;
@@ -10,26 +10,28 @@ export const SSuperSelectWrapper = styled.div`
     width: 100%;
 `;
 
-export const SSuperSelectInputWrapper = styled.div<{ padding?: string, color?: string }>`
+export const SSuperSelectInputWrapper = styled.div<{ padding?: string; color?: string }>`
     display: flex;
     justify-content: space-between;
     gap: 5px;
     position: relative;
     border-radius: 15px;
-    background-color: ${({theme, color}) => color || theme.colors.primaryDark};
-    color: ${({theme}) => theme.colors.textOnPrimary};
-    padding: ${(props) => props.padding || '8px 12px'};
+    background-color: ${({ theme, color }) => color || theme.colors.primaryDark};
+    color: ${({ theme }) => theme.colors.textOnPrimary};
+    padding: ${(props) => props.padding || "8px 12px"};
     cursor: pointer;
     width: 100%;
     transition: 0.2s;
 
-    ${props => props.color === "#fff" && css`
-        color: black;
+    ${(props) =>
+        props.color === "#fff" &&
+        css`
+            color: black;
 
-        svg path {
-            fill: #a6a6a6 !important;
-        }
-    `}
+            svg path {
+                fill: #a6a6a6 !important;
+            }
+        `}
     &:hover {
         opacity: 0.7;
     }
@@ -74,13 +76,14 @@ export const SSuperOptionsList = styled.div`
     top: 40px;
     max-width: 100%;
     width: calc(100% - 20px);
+    color: ${({ theme }) => theme.colors.textOnPrimary};
     border-radius: 10px;
-    background-color: ${({theme}) => theme.colors.secondaryLight};
+    background-color: ${({ theme }) => theme.colors.secondaryLight};
     max-height: 160px;
     padding: 5px 0;
     overflow: auto;
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
-    z-index: ${({theme}) => theme.orders.dropdown};
+    z-index: ${({ theme }) => theme.orders.dropdown};
 `;
 
 export const SSuperOption = styled.div<TInputProps>`
@@ -97,10 +100,10 @@ export const SSuperOption = styled.div<TInputProps>`
     }
 
     ${(props) =>
-            props.isHovered &&
-            css`
-                transform: scale(0.9);
-                background-color: ${props.theme.colors.input.default};
-                padding: 5px 10px;
-            `},
+        props.isHovered &&
+        css`
+            transform: scale(0.9);
+            background-color: ${props.theme.colors.input.default};
+            padding: 5px 10px;
+        `},
 `;

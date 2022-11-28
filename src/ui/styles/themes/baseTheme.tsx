@@ -11,6 +11,9 @@ export const baseTheme = {
         secondaryLight: "#FFFFFF",
         textOnSecondary: "#000",
 
+        titles: {
+            UiBox: "#4F659E",
+        },
         severity: {
             error: "#ce5252",
             success: "#74b460",
@@ -18,6 +21,7 @@ export const baseTheme = {
         },
         input: {
             default: "rgba(76,85,154,0.09)",
+            onSecondary: "rgba(76,85,154,0.09)",
         },
         button: {
             success: "#7398CE",
@@ -31,6 +35,9 @@ export const baseTheme = {
             text: "#fff",
             skeleton: "rgba(115,152,206,0.06)",
             shadow: "rgba(115,152,206,0.8)",
+        },
+        loader: {
+            alphaBg: "rgba(255, 255, 255, 0.4)",
         },
     },
     sizes: {

@@ -4,6 +4,11 @@ export const SSearchInput = styled.div`
     width: 100%;
     max-width: 350px;
 
+    svg circle,
+    path {
+        stroke: ${({ theme }) => theme.colors.textOnSecondary};
+    }
+
     input {
         background-color: ${({ theme }) => theme.colors.secondaryLight};
         border: 1px solid rgba(0, 0, 0, 0.1);

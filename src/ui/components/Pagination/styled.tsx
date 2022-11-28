@@ -26,6 +26,7 @@ export const MyPaginate = styled(ReactPaginate)`
         width: 32px;
         height: 32px;
         border-radius: 50%;
+        color: ${(props) => props.theme.colors.textOnSecondary};
         cursor: pointer;
 
         &:hover {
@@ -46,6 +47,7 @@ export const MyPaginate = styled(ReactPaginate)`
 
         a {
             background-color: transparent;
+            color: ${({ theme }) => theme.colors.textOnPrimary};
         }
     }
 
