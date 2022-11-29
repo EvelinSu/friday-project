@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { PATH } from "../../pages/Pages";
 import { UsersIcon } from "../../assets/icons/UsersIcon";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { setCurrentTheme } from "../../../bll/appReducer";
+import {setThemeFromLS} from "../../../bll/appReducer";
 import { SunIcon } from "../../assets/icons/SunIcon";
 
 type THeaderPanelProps = {
@@ -21,9 +21,8 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const theme = useAppSelector((state) => state.app.currentTheme);
-
     const onChangeThemeHandler = () => {
-        dispatch(setCurrentTheme(theme === "light" ? "dark" : "light"));
+        dispatch(setThemeFromLS(theme === "light" ? "dark" : "light"));
     };
 
     const windowWidth = window.innerWidth;
