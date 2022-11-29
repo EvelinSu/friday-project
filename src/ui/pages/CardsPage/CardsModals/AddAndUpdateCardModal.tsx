@@ -19,11 +19,7 @@ export type TAddAndUpdateCardModalValues = {
     questionImg?: string;
 };
 
-type TAddPackFormProps = {
-    onClose: () => void;
-    onSubmitHandler: (values: TAddAndUpdateCardModalValues) => void;
-    currentCard?: TCard;
-};
+export type TQuestionTypes = "Text" | "Image" | "";
 
 type TAddCardModalProps = {
     title: string;
@@ -33,10 +29,10 @@ type TAddCardModalProps = {
 };
 const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
     const { isButtonsDisabled } = useAppSelector((state) => state.packs);
-    const questionTypes = ["Text", "Image"];
+    const questionTypes: TQuestionTypes[] = ["Text", "Image"];
     const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg || "");
     const [answerImage, setAnswerImage] = useState(props.currentCard?.answerImg || "");
-    const [questionType, setQuestionType] = useState(
+    const [questionType, setQuestionType] = useState<TQuestionTypes>(
         (questionImage && questionImage !== "null") || (answerImage && answerImage !== "null")
             ? questionTypes[1]
             : questionTypes[0]
@@ -98,6 +94,7 @@ const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
                                 <WithFormTitle title={"Question"}>
                                     <Input
                                         value={values.question}
+                                        placeholder={"no question"}
                                         onChange={handleChange}
                                         name={"question"}
                                         type={"text"}
@@ -107,6 +104,7 @@ const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
                                 <WithFormTitle title={"Answer"}>
                                     <Input
                                         value={values.answer}
+                                        placeholder={"no answer"}
                                         onChange={handleChange}
                                         name={"answer"}
                                         type={"text"}

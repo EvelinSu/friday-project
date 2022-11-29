@@ -70,13 +70,13 @@ export const SSuperSelectInputIcon = styled.div<TInputProps>`
     }
 `;
 
-export const SSuperOptionsList = styled.div`
+export const SSuperOptionsList = styled.div<{ isDisabled?: boolean }>`
     justify-self: center;
     position: absolute;
     top: 40px;
     max-width: 100%;
     width: calc(100% - 20px);
-    color: ${({ theme }) => theme.colors.textOnPrimary};
+    color: ${({ theme }) => theme.colors.textOnSecondary};
     border-radius: 10px;
     background-color: ${({ theme }) => theme.colors.secondaryLight};
     max-height: 160px;
@@ -84,6 +84,11 @@ export const SSuperOptionsList = styled.div`
     overflow: auto;
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
     z-index: ${({ theme }) => theme.orders.dropdown};
+    ${(props) =>
+        props.isDisabled &&
+        css`
+            pointer-events: none;
+        `}
 `;
 
 export const SSuperOption = styled.div<TInputProps>`

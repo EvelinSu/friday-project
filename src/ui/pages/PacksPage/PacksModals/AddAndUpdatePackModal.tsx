@@ -61,6 +61,7 @@ const AddAndUpdatePackModal: FC<TAddPackModalProps> = (props) => {
                         <WithFormTitle title={"Pack name"}>
                             <Input
                                 value={values.name}
+                                placeholder={"no name"}
                                 onChange={handleChange}
                                 name={"name"}
                                 type={"name"}

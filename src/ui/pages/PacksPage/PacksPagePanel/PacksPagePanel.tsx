@@ -2,14 +2,10 @@ import React, { useMemo, useState } from "react";
 import { Box } from "../../../components/Box/Box";
 import { SMainTitle, SPagePanel } from "../../styled";
 import Button from "../../../components/Button/Button";
-import { FilterWrapper } from "../Filter/styled";
-import IconButton from "../../../components/IconButton/IconButton";
-import FilterIcon from "../../../assets/icons/FilterIcon";
-import Filter from "../Filter/Filter";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { useSearchParams } from "react-router-dom";
 import { addNewPack } from "../../../../bll/packsReducer";
-import { getUrlParams, initialParams } from "../../../../common/utils/getUrlParams";
+import { getUrlParams } from "../../../../common/utils/getUrlParams";
 import AddAndUpdatePackModal, {
     TAddAndUpdatePackModalValues,
 } from "../PacksModals/AddAndUpdatePackModal";
@@ -17,11 +13,11 @@ import { Search } from "../../../components/Search/Search";
 import { AddIcon } from "../../../assets/icons/AddIcon";
 import Avatar from "../../../components/Avatar/Avatar";
 import defaultAvatar from "../../../assets/img/default-photo.png";
+import { PacksFilter } from "../Filter/PacksFilter";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
@@ -34,10 +30,6 @@ const PacksPagePanel = () => {
         dispatch(addNewPack({ newCardsPack: values, paramURL: URLParams })).then(() =>
             setIsAddPackModalOpen(false)
         );
-    };
-    const onFilterBlurHandler = (e: React.FocusEvent<HTMLDivElement>) => {
-        if (e.relatedTarget?.id.includes("filter")) return;
-        setIsFilterOpen(false);
     };
 
     return (
@@ -68,21 +60,7 @@ const PacksPagePanel = () => {
             </Box>
             <Box alignItems={"center"}>
                 <Search />
-                <FilterWrapper
-                    id={"filter"}
-                    tabIndex={0}
-                    onBlur={onFilterBlurHandler}
-                    margin={"0 0 3px 0"}
-                    isActive={`?${searchParams}`.length > initialParams.length + 5}
-                >
-                    <IconButton
-                        onClick={() => setIsFilterOpen(!isFilterOpen)}
-                        icon={<FilterIcon />}
-                        title={"Filter"}
-                        isLightest
-                    />
-                    {isFilterOpen && <Filter setIsOpen={setIsFilterOpen} />}
-                </FilterWrapper>
+                <PacksFilter />
             </Box>
             {isAddPackModalOpen && (
                 <AddAndUpdatePackModal

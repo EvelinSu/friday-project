@@ -1,5 +1,5 @@
 import React from "react";
-import {SDoubleRange, SDoubleRangeWrapper, SRangeTrack} from "./styled";
+import { SDoubleRange, SDoubleRangeWrapper, SRangeTrack } from "./styled";
 
 type TSuperDoubleRangeProps = {
     setValue1: (value: number) => void;
@@ -8,6 +8,8 @@ type TSuperDoubleRangeProps = {
     minmax: Array<number>;
     step?: number;
     id?: string;
+    isDisabled?: boolean;
+    onBlurHandler: (e: React.FocusEvent<HTMLInputElement>) => void;
 };
 
 const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
@@ -17,6 +19,7 @@ const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
     step = 1,
     minmax,
     id,
+    ...props
 }) => {
     let gap = minmax[1] / 6;
 
@@ -31,7 +34,7 @@ const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
     };
 
     return (
-        <SDoubleRangeWrapper>
+        <SDoubleRangeWrapper isDisabled={props.isDisabled}>
             <SRangeTrack value1={getPercent(values[0])} value2={getPercent(values[1])}></SRangeTrack>
             <SDoubleRange
                 id={id}
@@ -41,6 +44,8 @@ const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
                 step={step}
                 min={minmax[0]}
                 max={minmax[1]}
+                onBlur={(e) => props.onBlurHandler(e)}
+                disabled={props.isDisabled}
             />
             <SDoubleRange
                 id={id}
@@ -50,6 +55,8 @@ const DoubleRange: React.FC<TSuperDoubleRangeProps> = ({
                 step={step}
                 min={minmax[0]}
                 max={minmax[1]}
+                onBlur={(e) => props.onBlurHandler(e)}
+                disabled={props.isDisabled}
             />
         </SDoubleRangeWrapper>
     );

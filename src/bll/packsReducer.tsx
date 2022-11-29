@@ -30,7 +30,7 @@ const initialState: TPacks = {
         pageCount: 12,
         cardPacksTotalCount: 0,
         minCardsCount: 0,
-        maxCardsCount: 10,
+        maxCardsCount: 5,
         token: "",
     },
 };
@@ -50,7 +50,12 @@ export const loadPacks = createAsyncThunk(
             // const err = e.response
             //     ? e.response.data.error
             //     : e.message + ", more details in the console";
-            // dispatch(setAppMessage({ text: err, severity: "error" }));
+            dispatch(
+                setAppMessage({
+                    text: "Too many requests. The server may have logged you out (sorry)",
+                    severity: "error",
+                })
+            );
             return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));

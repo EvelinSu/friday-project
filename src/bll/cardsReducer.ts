@@ -17,7 +17,7 @@ export type TCards = {
 export const initialCardsData: TResponseCard = {
     cards: [],
     cardsTotalCount: 12,
-    maxGrade: 0,
+    maxGrade: 5,
     minGrade: 0,
     packCreated: "",
     packDeckCover: "",
@@ -41,7 +41,7 @@ export const loadCards = createAsyncThunk(
             // const err = e.response
             //     ? e.response.data.error
             //     : e.message + ", more details in the console";
-            // dispatch(setAppMessage({ text: err, severity: "error" }));
+            dispatch(setAppMessage({ text: "Something went wrong", severity: "error" }));
             return rejectWithValue({});
         } finally {
             dispatch(setIsFetching(false));

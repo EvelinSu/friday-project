@@ -21,14 +21,14 @@ const rangeStyles: any = {
     },
 };
 
-export const SDoubleRangeWrapper = styled.div`
-    position: relative;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: ${rangeStyles.thumb.height};
-`;
+export const SDoubleRangeWrapper = styled.div<{ isDisabled?: boolean }>((props) => ({
+    position: "relative",
+    userSelect: "none",
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    height: rangeStyles.thumb.height,
+}));
 
 type TSRangeProps = {
     value1: number;
@@ -80,6 +80,12 @@ export const SDoubleRange = styled.input(({ theme }) => ({
     '&[type="range"]::-ms-thumb': {
         backgroundColor: theme.colors.button.success,
         ...rangeStyles.thumb,
+    },
+    ":disabled": {
+        pointerEvents: "none",
+        '&[type="range"]::-webkit-slider-thumb': {
+            pointerEvents: "none",
+        },
     },
 }));
 

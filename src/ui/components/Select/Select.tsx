@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useState } from "react";
 import {
     SSuperOption,
     SSuperOptionsList,
@@ -8,28 +8,23 @@ import {
     SSuperSelectWrapper,
 } from "./styled";
 import SmallArrowIcon from "../../assets/icons/SmallArrowIcon";
-import {SText} from "../Text/SText";
-import {useSearchParams} from "react-router-dom";
-import {getUrlParams} from "../../../common/utils/getUrlParams";
-import {transformToURLOption} from "../../../common/utils/transformURLOption";
+import { SText } from "../Text/SText";
 
 type TAlternativeSuperSelect = {
-    options: string[];
-    onChangeOption: (option: string) => void;
-    value: string;
+    options: any;
+    onChangeOption: (option: any) => void;
+    value: any;
     placeholder?: string;
     id?: string;
     onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
     padding?: string;
     color?: string;
+    isDisabled?: boolean;
 };
 
 function Select(props: TAlternativeSuperSelect) {
     const [opened, setOpened] = useState(false);
     const [hoveredElement, setHoveredElement] = useState(props.value);
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const onKeyHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
         for (let i = 0; i < props.options.length; i++) {
@@ -50,16 +45,16 @@ function Select(props: TAlternativeSuperSelect) {
     };
 
     const mappedOptions = props.options
-        ? props.options.map((el, i) => (
-            <SSuperOption
-                onClick={() => onClickHandler(el)}
-                onMouseEnter={() => setHoveredElement(el)}
-                isHovered={hoveredElement === el}
-                key={i}
-            >
-                {el}
-            </SSuperOption>
-        ))
+        ? props.options.map((el: string, i: number) => (
+              <SSuperOption
+                  onClick={() => onClickHandler(el)}
+                  onMouseEnter={() => setHoveredElement(el)}
+                  isHovered={hoveredElement === el}
+                  key={i}
+              >
+                  {el}
+              </SSuperOption>
+          ))
         : []; // map
 
     const onClickHandler = (el: any) => {
@@ -78,16 +73,6 @@ function Select(props: TAlternativeSuperSelect) {
         setOpened(false);
         props.onBlur && props.onBlur(e);
     };
-
-    useEffect(() => {
-        if (props.value !== "") {
-            setSearchParams({ ...URLParams, sortPacks: transformToURLOption(props.value) });
-        }
-        if (props.value === "") {
-            delete URLParams.sortPacks;
-            setSearchParams(URLParams);
-        }
-    }, [props.value]);
 
     return (
         <SSuperSelectWrapper
@@ -109,7 +94,11 @@ function Select(props: TAlternativeSuperSelect) {
                     <SmallArrowIcon />
                 </SSuperSelectInputIcon>
             </SSuperSelectInputWrapper>
-            {opened && <SSuperOptionsList>{mappedOptions || "empty"}</SSuperOptionsList>}
+            {opened && (
+                <SSuperOptionsList isDisabled={props.isDisabled}>
+                    {mappedOptions || "empty"}
+                </SSuperOptionsList>
+            )}
         </SSuperSelectWrapper>
     );
 }

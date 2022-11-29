@@ -14,6 +14,7 @@ import { PATH } from "../../Pages";
 import { AddIcon } from "../../../assets/icons/AddIcon";
 import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import BackPageButton from "../../../components/BackPageButton/BackPageButton";
+import { CardsFilter } from "../Filter/CardsFilter";
 
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
@@ -43,10 +44,6 @@ const PacksPagePanel = () => {
         dispatch(setIsLearning(true));
         navigate(PATH.learning + `?cardsPack_id=${URLParams.cardsPack_id}`);
     };
-
-    // for select (in future)
-    // const options: TFilterOptions[] = ["Updated recently", "Updated long ago"];
-    // const [option, setOption] = useState('');
 
     return (
         <SPagePanel>
@@ -78,17 +75,8 @@ const PacksPagePanel = () => {
                 </Box>
             </Box>
             <Box alignItems={"center"}>
-                <Search />
-                {/*<Box maxWidth={"200px"} width={"100%"}>*/}
-                {/*    <Select*/}
-                {/*        options={options}*/}
-                {/*        onChangeOption={setOption}*/}
-                {/*        value={option}*/}
-                {/*        placeholder={"Sort by"}*/}
-                {/*        padding={"10px 12px"}*/}
-                {/*        color={"#fff"}*/}
-                {/*    />*/}
-                {/*</Box>*/}
+                <Search placeholder={"Search by question"} />
+                <CardsFilter />
             </Box>
             {isAddCardModalOpen && (
                 <AddAndUpdateCardModal
