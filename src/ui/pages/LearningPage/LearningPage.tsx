@@ -83,7 +83,12 @@ export const LearningPage = () => {
                 label={"Finish and back to cards"}
                 onClick={finishLearnHandler}
             />
-            <UiBox title={`Learn "${name}"`} maxWidth={"700px"} margin={"5vh auto 0 auto"}>
+            <UiBox
+                overflow={"auto"}
+                title={`Learn "${name}"`}
+                maxWidth={"700px"}
+                margin={"5vh auto 0 auto"}
+            >
                 {isFetching && <LoaderIcon shadow absolute />}
                 <Box flexDirection={"column"}>
                     <GridBox columns={"repeat(auto-fill, minmax(220px, 1fr))"}>

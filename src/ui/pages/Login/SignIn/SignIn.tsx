@@ -55,7 +55,7 @@ export const SignIn = () => {
 
     return (
         <SPageWrapper>
-            <UiBox title={"Sign In"} margin={"10vh auto 0 auto"}>
+            <UiBox title={"Sign In"} margin={"10vh auto"}>
                 <SForm onSubmit={handleSubmit}>
                     <Box flexDirection={"column"}>
                         <WithFormTitle title={"Email"}>

@@ -13,7 +13,7 @@ const CheckEmail = () => {
 
     return (
         <SPageWrapper>
-            <Box justifyContent={"center"} padding={"10vh 0 0"}>
+            <Box justifyContent={"center"} padding={"10vh 0"}>
                 <UiBox title={"Check email"} width={"390px"}>
                     <Box margin={"0 0 15px 0"} flexDirection={"column"} alignItems={"center"}>
                         <MainEmailIcon />

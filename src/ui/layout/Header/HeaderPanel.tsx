@@ -14,6 +14,7 @@ import { SunIcon } from "../../assets/icons/SunIcon";
 type THeaderPanelProps = {
     avatar: string | null | undefined;
     name: string | null;
+    isLoggedIn: boolean;
 };
 
 const HeaderPanel: FC<THeaderPanelProps> = (props) => {
@@ -28,26 +29,34 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
     const windowWidth = window.innerWidth;
 
     return (
-        <Box alignItems={"center"}>
+        <Box margin={"0 0 0 auto"} alignItems={"center"}>
             <IconButton
                 onClick={onChangeThemeHandler}
                 title={theme === "light" ? "Dark theme" : "Light theme"}
                 icon={theme === "light" ? <MoonIcon /> : <SunIcon />}
             />
-            <IconButton title={"Users"} onClick={() => alert("In progress")} icon={<UsersIcon />} />
-            <Box
-                alignItems={"center"}
-                gap={10}
-                onClick={() => navigate(PATH.profile)}
-                cursor={"pointer"}
-            >
-                {windowWidth > 400 && (
-                    <SText maxWidth={"150px"} isEllipsis>
-                        {props.name}
-                    </SText>
-                )}
-                <Avatar size={"small"} img={props.avatar ? props.avatar : ""} />
-            </Box>
+            {props.isLoggedIn && (
+                <>
+                    <IconButton
+                        title={"Users"}
+                        onClick={() => alert("In progress")}
+                        icon={<UsersIcon />}
+                    />
+                    <Box
+                        alignItems={"center"}
+                        gap={10}
+                        onClick={() => navigate(PATH.profile)}
+                        cursor={"pointer"}
+                    >
+                        {windowWidth > 400 && (
+                            <SText maxWidth={"150px"} isEllipsis>
+                                {props.name}
+                            </SText>
+                        )}
+                        <Avatar size={"small"} img={props.avatar ? props.avatar : ""} />
+                    </Box>
+                </>
+            )}
         </Box>
     );
 };

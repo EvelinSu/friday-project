@@ -39,7 +39,7 @@ const ChangePassword = () => {
 
     return (
         <SPageWrapper>
-            <UiBox title={"Create new password"} width={"390px"} margin={"10vh auto 0 auto"}>
+            <UiBox title={"Create new password"} width={"390px"} margin={"10vh auto"}>
                 <SForm onSubmit={handleSubmit}>
                     <Box padding={"0 20px"} flexDirection={"column"}>
                         <SText lineHeight={"24px"} opacity={0.5} textAlign={"center"}>

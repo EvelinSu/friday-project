@@ -39,7 +39,7 @@ const RecoverPassword = () => {
 
     return (
         <SPageWrapper>
-            <Box justifyContent={"center"} padding={"10vh 0 0"}>
+            <Box justifyContent={"center"} padding={"10vh 0"}>
                 <UiBox title={"Forgot your password?"} width={"390px"}>
                     <SForm onSubmit={handleSubmit}>
                         <Box padding={"0 20px"} flexDirection={"column"}>

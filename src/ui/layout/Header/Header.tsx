@@ -22,12 +22,12 @@ const Header = () => {
             <SHeaderLogo onClick={() => navigate(PATH.packsList + initialParams)}>
                 <Logo />
             </SHeaderLogo>
-            {isLoggedIn ? (
-                <HeaderPanel
-                    name={userData.name || userData.email}
-                    avatar={userData.avatar || defaultPhoto}
-                />
-            ) : (
+            <HeaderPanel
+                isLoggedIn={isLoggedIn}
+                name={userData.name || userData.email}
+                avatar={userData.avatar || defaultPhoto}
+            />
+            {!isLoggedIn && (
                 <SHeaderButton
                     disabled={location.pathname.includes(PATH.signIn)}
                     onClick={() => navigate(PATH.signIn)}

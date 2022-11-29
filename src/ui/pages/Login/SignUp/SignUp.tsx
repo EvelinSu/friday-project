@@ -48,7 +48,7 @@ const SignUp = () => {
 
     return (
         <SPageWrapper>
-            <UiBox title={"Sign Up"} margin={"10vh auto 0 auto"}>
+            <UiBox title={"Sign Up"} margin={"10vh auto"}>
                 <SForm onSubmit={handleSubmit}>
                     <Box flexDirection={"column"}>
                         <WithFormTitle title={"Email"}>

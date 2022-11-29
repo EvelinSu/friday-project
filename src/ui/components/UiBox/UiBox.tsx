@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { SUiBoxBody, SUiBoxContainer, SUiBoxHeader } from "./styled";
 import { Box } from "../Box/Box";
+import { Property } from "csstype";
 
 type TUiBoxProps = {
     title: string;
@@ -9,6 +10,7 @@ type TUiBoxProps = {
     margin?: string;
     height?: string;
     children: React.ReactNode;
+    overflow?: Property.Overflow;
 };
 
 export const UiBox: FC<TUiBoxProps> = (props) => {
@@ -18,6 +20,7 @@ export const UiBox: FC<TUiBoxProps> = (props) => {
             margin={props.margin}
             width={props.width}
             maxWidth={props.maxWidth}
+            overflow={props.overflow}
             onClick={(e) => e.stopPropagation()}
         >
             <Box>

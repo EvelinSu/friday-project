@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { SText } from "../Text/SText";
+import { Property } from "csstype";
 
 type TSUiBoxContainerProps = {
     maxWidth?: string;
     width?: string;
     height?: string;
     margin?: string;
+    overflow?: Property.Overflow;
 };
 export const SUiBoxContainer = styled.div<TSUiBoxContainerProps>`
     display: flex;
@@ -22,7 +24,7 @@ export const SUiBoxContainer = styled.div<TSUiBoxContainerProps>`
     max-width: ${(props) => props.maxWidth || "380px"};
     position: relative;
     max-height: 100%;
-    overflow: auto;
+    overflow: ${(props) => props.overflow};
     color: ${(props) => props.theme.colors.textOnSecondary};
 `;
 

@@ -9,8 +9,8 @@ export const SSiteWrapper = styled.div`
     max-height: 100vh;
     padding: 15px;
     color: ${({ theme }) => theme.colors.textOnSecondary};
-    transition-property: background-color;
     transition: 0.2s;
+    transition-property: background-color;
     ${({ theme }) => css`
         @media all and (max-width: ${theme.media.small + "px"}) {
             padding: 0 0 20px 0;
