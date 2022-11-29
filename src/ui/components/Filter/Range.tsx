@@ -19,11 +19,16 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
+    const URLMin = URLParams.min ? Number(URLParams.min) : undefined;
+    const URLMax = URLParams.max ? Number(URLParams.max) : undefined;
+
     const [isInactive, setIsInactive] = useState(true);
 
-    const [value1, setValue1] = useState(Number(URLParams.min) || minCardsCount);
-    const [value2, setValue2] = useState(Number(URLParams.max) || maxCardsCount);
-    const debounceValues = useDebounce([value1, value2], 500);
+    const [value1, setValue1] = useState(URLMin || minCardsCount);
+    const [value2, setValue2] = useState(URLMax || maxCardsCount);
+
+    const debounceValues1 = useDebounce(value1, 500);
+    const debounceValues2 = useDebounce(value2, 500);
 
     const onBlurHandler = (e: React.FocusEvent<HTMLDivElement>) => {
         props.onBlur && props.onBlur(e);
@@ -34,28 +39,23 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
         if (valueName === "max") setValue2(value);
         setIsInactive(false);
     };
-    useEffect(() => {
-        setValue1(Number(URLParams.min) || minCardsCount);
-        setValue2(
-            Number(URLParams.max) > 5 ? Number(URLParams.max) : maxCardsCount > 5 ? maxCardsCount : 5
-        );
-    }, [maxCardsCount, minCardsCount]);
 
     useEffect(() => {
-        if (!isInactive && (value1 !== Number(URLParams.min) || value2 !== Number(URLParams.max))) {
+        if (!isInactive && (+value1 !== URLMin || +value2 !== URLMax)) {
             setSearchParams({
                 ...URLParams,
                 min: `${value1}`,
                 max: `${value2}`,
             });
         }
+
         setIsInactive(true);
-        if (Number(URLParams.max) === maxCardsCount && Number(URLParams.min) === minCardsCount) {
+        if (URLMax === maxCardsCount && URLMin === minCardsCount) {
             delete URLParams.min;
             delete URLParams.max;
             setSearchParams(URLParams);
         }
-    }, [debounceValues]);
+    }, [debounceValues1, debounceValues2]);
 
     return (
         <Box flexDirection={"column"} width={"100%"} gap={10}>

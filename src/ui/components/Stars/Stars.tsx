@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { StarIcon } from "../../assets/icons/StarIcon";
 import { SStar, SStarsWrapper } from "./styled";
 import { getCountArray } from "../../../common/utils/getCountArray";
@@ -11,12 +11,18 @@ type TStarsProps = {
     render?: (num: number, icon: React.ReactNode, onClick: () => void) => React.ReactNode;
     gap?: string;
 };
-export const Stars: FC<TStarsProps> = ({ current = 1, ...props }) => {
+export const Stars: FC<TStarsProps> = ({ current = 0, ...props }) => {
+    const [currentGrade, setCurrentGrade] = useState(current);
+
     const onClickHandler = (el: number) => {
-        props.onChange && props.onChange(el);
+        if (el !== current) props.onChange && props.onChange(el);
     };
 
-    const icon = (el: number) => <StarIcon className={el <= current ? "isFill" : ""} />;
+    useEffect(() => {
+        setCurrentGrade(current);
+    }, [current]);
+
+    const icon = (el: number) => <StarIcon className={el <= currentGrade ? "isFill" : ""} />;
     return (
         <SStarsWrapper gap={props.gap} isEditable={props.isEditable}>
             {getCountArray(props.maxCount).map((el) =>

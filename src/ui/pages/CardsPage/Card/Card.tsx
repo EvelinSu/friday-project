@@ -22,7 +22,7 @@ type TCardProps = {
 };
 export const Card: FC<TCardProps> = (props) => {
     const cardId = props.card._id;
-    const { updated, answerImg, questionImg, answer, question, grade } = props.card;
+    const {updated, answerImg, questionImg, answer, question, grade} = props.card;
     const correctDate = transformDate(updated);
     const myId = useAppSelector((state) => state.auth.userData.id);
     const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
@@ -34,13 +34,15 @@ export const Card: FC<TCardProps> = (props) => {
     return (
         <SCardWrapper isFetching={props.isFetching} onClick={(e) => onClickHandler(e, "view")}>
             <SCardShadow>
-                {answerImg && answerImg !== "null" ? (
-                    <SCardImage src={answerImg} />
-                ) : (
-                    <SCardText title={answer} lineClamp={userId !== myId ? 5 : 3}>
+                {answerImg && answerImg !== "null"
+                    ? <SCardImage src={answerImg} />
+                    : <SCardText
+                        title={answer}
+                        lineClamp={userId !== myId ? 5 : 3}
+                    >
                         {answer}
                     </SCardText>
-                )}
+                }
                 {userId === myId && (
                     <SCardIcons>
                         <IconButton
@@ -63,11 +65,10 @@ export const Card: FC<TCardProps> = (props) => {
                 <SText opacity={0.4}>Last updated</SText>
                 <SText>{correctDate}</SText>
             </Box>
-            {questionImg && questionImg !== "null" ? (
-                <SCardImage src={questionImg} />
-            ) : (
-                <SCardText title={question}>{question}</SCardText>
-            )}
+            {questionImg && questionImg !== "null"
+                ? <SCardImage src={questionImg} />
+                : <SCardText title={question}>{question}</SCardText>
+            }
             <Stars isEditable={false} current={grade} maxCount={5} />
         </SCardWrapper>
     );

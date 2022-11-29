@@ -55,9 +55,7 @@ const Filter: FC<TFilterProps> = (props) => {
     };
 
     useEffect(() => {
-        if (option !== "") {
-            props.addSortToURL(option);
-        }
+        if (option !== "") props.addSortToURL(option);
         if (option === "") {
             delete URLParams.sortPacks;
             delete URLParams.sortCards;
