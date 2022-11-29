@@ -38,18 +38,18 @@ export const registerTC = createAsyncThunk(
 
 export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch, rejectWithValue }) => {
     try {
-        dispatch(setIsInitialized({ value: false }));
+        dispatch(setIsInitialized(false));
         dispatch(setAppStatus("loading"));
         const me = await authAPI.authMe();
         const { name, email, avatar } = me.data;
         const id = me.data._id;
         await dispatch(setUserData({ id, name, email, avatar }));
-        dispatch(setIsLoggedIn({ value: true }));
+        dispatch(setIsLoggedIn(true));
     } catch (e) {
-        dispatch(setIsLoggedIn({ value: false }));
+        dispatch(setIsLoggedIn(false));
         return rejectWithValue({});
     } finally {
-        dispatch(setIsInitialized({ value: true }));
+        dispatch(setIsInitialized(true));
     }
 });
 
@@ -62,7 +62,7 @@ export const loginTC = createAsyncThunk(
             const { name, email, avatar } = res.data;
             const id = res.data._id;
             dispatch(setUserData({ id, name, email, avatar }));
-            dispatch(setIsLoggedIn({ value: true }));
+            dispatch(setIsLoggedIn(true));
             dispatch(setRegisterUserData({ email: "", password: "" }));
         } catch (e) {
             handlerErrors(dispatch, e);
@@ -78,7 +78,7 @@ export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch
     try {
         await authAPI.logOut();
         dispatch(clearStatePacks());
-        dispatch(setIsLoggedIn({ value: false }));
+        dispatch(setIsLoggedIn(false));
     } catch (e) {
         handlerErrors(dispatch, e);
         return rejectWithValue({});
@@ -120,8 +120,8 @@ const slice = createSlice({
         isLoggedIn: false,
     } as TAuth,
     reducers: {
-        setIsLoggedIn(state, action: PayloadAction<{ value: boolean }>) {
-            state.isLoggedIn = action.payload.value;
+        setIsLoggedIn(state, action: PayloadAction<boolean>) {
+            state.isLoggedIn = action.payload;
         },
         setUserData(state, action: PayloadAction<TUserData>) {
             state.userData = action.payload;

@@ -10,12 +10,13 @@ import { UserProfileModal } from "./ui/pages/UsersPage/UserModals/UserProfileMod
 import { darkTheme } from "./ui/styles/themes/darkTheme";
 import GlobalLoader from "./ui/components/Loaders/GlobalLoader";
 import { authMeTC } from "./bll/authReducer";
-import {setCurrentTheme, TThemes} from "./bll/appReducer";
+import { setCurrentTheme, TThemes } from "./bll/appReducer";
 
 const themes = {
     light: baseTheme,
     dark: darkTheme,
 };
+const appTheme = localStorage.getItem("app-theme") as TThemes;
 
 function App() {
     const dispatch = useAppDispatch();
@@ -26,11 +27,9 @@ function App() {
     useLayoutEffect(() => {
         setIsLoading(true);
         dispatch(authMeTC()).then(() => setIsLoading(false));
-        const appTheme = localStorage.getItem("app-theme") as TThemes
-        if(appTheme) {
-            dispatch(setCurrentTheme(appTheme))
-        }
-    }, [dispatch]);
+        if (appTheme) dispatch(setCurrentTheme(appTheme));
+    }, []);
+
     return (
         <ThemeProvider theme={themes[currentTheme]}>
             {isLoading && <GlobalLoader />}
