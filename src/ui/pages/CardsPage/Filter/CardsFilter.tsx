@@ -44,7 +44,7 @@ export const CardsFilter = () => {
             currentOption={currentOption}
             onTabClickHandler={onTabClickHandler}
             initialParams={initialCardParams}
-            minmax={[minGrade + 1, maxGrade - 1]}
+            minmax={[minGrade, maxGrade - 1]}
             rangeText={"Rating"}
             addSortToURL={addSortToURL}
         />
