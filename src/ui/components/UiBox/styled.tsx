@@ -40,6 +40,7 @@ export const SUiBoxBody = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    border-radius: inherit;
 `;
 
 export const SUiBoxFooter = styled.div`

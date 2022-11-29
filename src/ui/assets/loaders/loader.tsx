@@ -17,7 +17,7 @@ const SLoader = styled.div<TLoaderIcon>((props) => ({
         top: 0,
         left: 0,
         bottom: 0,
-        borderRadius: props.borderRadius,
+        borderRadius: props.borderRadius || "inherit",
         right: 0,
         backgroundColor: props.shadow ? props.theme.colors.loader.alphaBg : "",
         "@media all and (max-width: 540px)": {

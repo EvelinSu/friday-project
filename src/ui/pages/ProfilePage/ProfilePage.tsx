@@ -60,7 +60,7 @@ const ProfilePage = () => {
                 <BackPageButton to={-1} label={"Go back"} />
             </SPagePanel>
             <UiBox title={"Personal Information"} maxWidth={"430px"} margin={"5vh auto 0 auto"}>
-                {isFetching && <LoaderIcon shadow absolute />}
+                {true && <LoaderIcon shadow absolute />}
                 <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
                     <SProfileContent>
                         <Avatar
