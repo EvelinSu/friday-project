@@ -37,7 +37,7 @@ test("isFetching should be changed on true", () => {
 });
 
 test("isInitialized should be changed on true", () => {
-    const action = setIsInitialized({ value: true });
+    const action = setIsInitialized(true);
     const endState = appReducer(startState, action);
 
     expect(endState.isInitialized).toBe(true);
