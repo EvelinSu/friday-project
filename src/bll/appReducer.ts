@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type TRequestStatus = "idle" | "loading" | "succeeded" | "failed";
 export type TThemes = "light" | "dark";
@@ -55,21 +55,16 @@ const slice = createSlice({
     },
 });
 
-export const setThemeFromLS = createAsyncThunk(
-    "app/setTheme",
-    async (param: TThemes, {dispatch}) => {
-        try {
-            localStorage.setItem("app-theme", param)
-            dispatch(setCurrentTheme(param))
-        }
-        catch (e) {
-            // dispatch(setCurrentTheme("light"))
-        }
+export const setThemeFromLS = createAsyncThunk("app/setTheme", async (param: TThemes, { dispatch }) => {
+    try {
+        localStorage.setItem("app-theme", param);
+        dispatch(setCurrentTheme(param));
+    } catch (e) {
+        // dispatch(setCurrentTheme("light"))
     }
-)
+});
 
 export const appReducer = slice.reducer;
-
 
 export const {
     setIsFetching,
