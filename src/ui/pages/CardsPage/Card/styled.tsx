@@ -20,6 +20,7 @@ export const SCardWrapper = styled.div<{ isFetching: boolean }>`
     color: #fff;
     overflow: hidden;
     text-align: center;
+    cursor: pointer;
     ${(props) =>
         props.isFetching &&
         css`

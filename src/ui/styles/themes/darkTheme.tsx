@@ -30,7 +30,8 @@ export const darkTheme = {
             successShadow: "rgba(79,101,158,0.55)",
             error: "#e16f6f",
             errorShadow: "rgba(255,54,54,0.35)",
-            neutral: "#3b4b64",
+            neutral: "#506483",
+            neutralShadow: "#546785",
         },
     },
 };

@@ -91,10 +91,14 @@ export const SButton = styled.button<TSButton>`
             border-radius: 25px;
             font-size: 16px;
         `}
-    ${({ severity, theme }) =>
+    ${({ severity, withShadow, theme }) =>
         severity &&
         css`
             background-color: ${theme.colors.button[severity || "success"]};
+            ${withShadow &&
+            css`
+                box-shadow: 0 4px 18px ${theme.colors.button[severity + "Shadow" || "successShadow"]};
+            `}
         `}
     ${(props) =>
         props.hasIcon &&

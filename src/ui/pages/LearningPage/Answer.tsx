@@ -7,9 +7,12 @@ type TAnswerProps = {
     isAnswerOpen: boolean;
     setIsAnswerOpen: (isOpen: boolean) => void;
     checkAnswer: string;
-    answerImg: string;
+    answerImg?: string;
 };
 export const Answer: FC<TAnswerProps> = (props) => {
+
+    const checkAnswer = props.checkAnswer ? props.checkAnswer : props.answerImg && props.answerImg !== "null"
+
     return (
         <SLearningContainer>
             <SLearningBoxTitle>Answer</SLearningBoxTitle>
@@ -21,11 +24,9 @@ export const Answer: FC<TAnswerProps> = (props) => {
                             onClick={() => props.setIsAnswerOpen(true)}
                             withShadow
                         />
-                        : props.checkAnswer
-                            ? props.checkAnswer
-                            : props.answerImg
-                                ? <LearningImage src={props.answerImg} alt={"answer"} />
-                                : "no answer"
+                        : checkAnswer
+                            ? <LearningImage src={props.answerImg} alt={"answer"} />
+                            : "no answer"
                     }
                 </Box>
             </SLearningContent>

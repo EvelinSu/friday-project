@@ -12,6 +12,7 @@ import { PacksNotFound } from "./PacksNotFound/PacksNotFound";
 import { getUrlParams } from "../../../common/utils/getUrlParams";
 import { Box } from "../../components/Box/Box";
 import { PageCountDropdown } from "../../components/PageCountDropdown/PageCountDropdown";
+import { shallowEqual } from "react-redux";
 
 const PacksPage = () => {
     const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ const PacksPage = () => {
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
     const isFetching = useAppSelector((state) => state.app.isFetching);
-    const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks);
+    const cardPacks = useAppSelector((state) => state.packs.cardPacksData.cardPacks, shallowEqual);
     const cardPacksTotalCount = useAppSelector((state) => state.packs.cardPacksData.cardPacksTotalCount);
     const [pageCount, setPageCount] = useState(+(URLParams.pageCount || 0));
 

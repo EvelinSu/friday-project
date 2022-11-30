@@ -11,6 +11,7 @@ import { deleteCard, updateCard } from "../../../bll/cardsReducer";
 import DeleteModal from "../../components/Modals/DeleteModal";
 import { getCountArray } from "../../../common/utils/getCountArray";
 import { baseTheme } from "../../styles/themes/baseTheme";
+import { CardViewModal } from "./CardsModals/CardViewModal";
 
 export type TCardModals = "delete" | "update" | "view" | false;
 
@@ -93,13 +94,13 @@ const CardsList = () => {
                     currentCard={cards.find((el) => el._id === currentId)}
                 />
             )}
-            {/*{isCardModalOpen === "view" && (*/}
-            {/*    <CardViewModal*/}
-            {/*        title={"Update card"}*/}
-            {/*        onClose={() => setIsCardModalOpen(false)}*/}
-            {/*        currentCard={cards.find((el) => el._id === currentId)}*/}
-            {/*    />*/}
-            {/*)}*/}
+            {isCardModalOpen === "view" && (
+                <CardViewModal
+                    title={"Update card"}
+                    onClose={() => setIsCardModalOpen(false)}
+                    currentCard={cards.find((el) => el._id === currentId)}
+                />
+            )}
         </GridBox>
     );
 };

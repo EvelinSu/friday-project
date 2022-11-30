@@ -11,7 +11,7 @@ export const baseTheme = {
         secondaryLight: "#FFFFFF",
         secondaryLightAlpha07: "rgba(236,236,236,0.7)",
         textOnSecondary: "#000",
-        
+
         severity: {
             error: "#ce5252",
             success: "#74b460",
@@ -26,7 +26,8 @@ export const baseTheme = {
             successShadow: "rgba(54, 110, 255, 0.35)",
             error: "#e16f6f",
             errorShadow: "rgba(255,54,54,0.35)",
-            neutral: "#a9b2cc",
+            neutral: "#4d5c74",
+            neutralShadow: "#415269",
         },
         cards: {
             default: ["#7398CE", "rgba(115,152,206,0.62)"],

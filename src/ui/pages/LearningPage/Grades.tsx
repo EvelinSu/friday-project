@@ -5,11 +5,12 @@ import { Stars } from "../../components/Stars/Stars";
 const grades = ["Did not know", "Forgot", "A lot of thought", "Confused", "Knew the answer"];
 
 type TGradesProps = {
-    setGrade: (num: number) => void;
+    setGrade?: (num: number) => void;
     grade: number;
+    isEditable?: boolean;
 };
 
-export const Grades = ({ setGrade, grade }: TGradesProps) => {
+export const Grades = ({ setGrade, grade, isEditable = true }: TGradesProps) => {
     return (
         <Stars
             current={grade}
@@ -21,7 +22,7 @@ export const Grades = ({ setGrade, grade }: TGradesProps) => {
                     {icon}
                 </SLearningStar>
             )}
-            isEditable
+            isEditable={isEditable}
         />
     );
 };

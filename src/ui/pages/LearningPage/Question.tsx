@@ -4,7 +4,7 @@ import { Box } from "../../components/Box/Box";
 
 type TQuestionProps = {
     checkQuestion: string;
-    questionImg: string;
+    questionImg?: string;
 };
 export const Question: FC<TQuestionProps> = (props) => {
     return (
@@ -12,15 +12,15 @@ export const Question: FC<TQuestionProps> = (props) => {
             <SLearningBoxTitle>Question</SLearningBoxTitle>
             <SLearningContent>
                 <Box margin={"auto 0"}>
-                    {props.checkQuestion
-                        ? props.checkQuestion
-                        : props.questionImg
-                            ? <LearningImage src={props.questionImg} alt={"question"} />
-                            : "no question"
-                    }
+                    {props.checkQuestion ? (
+                        props.checkQuestion
+                    ) : props.questionImg ? (
+                        <LearningImage src={props.questionImg} alt={"question"} />
+                    ) : (
+                        "no question"
+                    )}
                 </Box>
             </SLearningContent>
         </SLearningContainer>
     );
 };
-
