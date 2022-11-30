@@ -9,7 +9,7 @@ import HeaderPanel from "./HeaderPanel";
 import { PATH } from "../../pages/Pages";
 import { useAppSelector } from "../../../hooks/hooks";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import { initialParams } from "../../../common/utils/getUrlParams";
+import { initialStringParams } from "../../../common/utils/getUrlParams";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Header = () => {
 
     return (
         <SHeader>
-            <SHeaderLogo onClick={() => navigate(PATH.packsList + initialParams)}>
+            <SHeaderLogo onClick={() => navigate(PATH.packsList + initialStringParams)}>
                 <Logo />
             </SHeaderLogo>
             <HeaderPanel

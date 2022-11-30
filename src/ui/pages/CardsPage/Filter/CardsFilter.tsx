@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Filter from "../../../components/Filter/Filter";
 import { transformToURLOption, transformURLOption } from "../../../../common/utils/transformURLOption";
 import { useSearchParams } from "react-router-dom";
-import { getUrlParams, initialParams } from "../../../../common/utils/getUrlParams";
+import { getUrlParams, initialObjectParams } from "../../../../common/utils/getUrlParams";
 import { useAppSelector } from "../../../../hooks/hooks";
 
 export type TCardsFilterOptions =
@@ -30,13 +30,13 @@ export const CardsFilter = () => {
     const maxGrade = useAppSelector((state) => state.cards.cardsData.maxGrade);
 
     const onTabClickHandler = (tab: string) => {
-        setSearchParams({ initialParams, tab });
+        setSearchParams({ ...initialObjectParams, tab });
     };
 
     const addSortToURL = (option: TCardsFilterOptions) => {
         setSearchParams({ ...URLParams, sortCards: transformToURLOption(option) });
     };
-    const initialCardParams = `${initialParams}&cardsPack_id=${URLParams.cardsPack_id}`;
+    const initialCardParams = { ...initialObjectParams, cardsPack_id: URLParams.cardsPack_id };
 
     return (
         <Filter

@@ -11,7 +11,7 @@ import { transformDate } from "../../../../common/utils/tarnsformDate";
 import { SText } from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
 import { useSearchParams } from "react-router-dom";
-import { initialParams } from "../../../../common/utils/getUrlParams";
+import { initialObjectParams } from "../../../../common/utils/getUrlParams";
 
 export const UserProfileModal = () => {
     const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ export const UserProfileModal = () => {
     const lastActivityDate = transformDate(userData.updated, true);
 
     const onClickHandler = () => {
-        setSearchParams(`${initialParams}&user_id=${userData._id}`);
+        setSearchParams({ ...initialObjectParams, user_id: userData._id });
         dispatch(setIsUserProfileOpen(false));
     };
 

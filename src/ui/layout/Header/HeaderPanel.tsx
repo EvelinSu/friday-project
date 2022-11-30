@@ -10,6 +10,8 @@ import { UsersIcon } from "../../assets/icons/UsersIcon";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { setThemeFromLS } from "../../../bll/appReducer";
 import { SunIcon } from "../../assets/icons/SunIcon";
+import { initialStringParams } from "../../../common/utils/getUrlParams";
+import { FolderFileFillIcon } from "../../assets/icons/FolderFileFillIcon";
 
 type THeaderPanelProps = {
     avatar: string | null | undefined;
@@ -22,12 +24,14 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
     const dispatch = useAppDispatch();
 
     const theme = useAppSelector((state) => state.app.currentTheme);
-    
+    const myId = useAppSelector((state) => state.auth.userData.id);
+
     const onChangeThemeHandler = () => {
         dispatch(setThemeFromLS(theme === "light" ? "dark" : "light"));
     };
 
     const windowWidth = window.innerWidth;
+    const myPacksFilter = initialStringParams + "&user_id=" + myId;
 
     return (
         <Box margin={"0 0 0 auto"} alignItems={"center"}>
@@ -42,6 +46,11 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
                         title={"Users"}
                         onClick={() => alert("In progress")}
                         icon={<UsersIcon />}
+                    />
+                    <IconButton
+                        title={"My packs"}
+                        onClick={() => navigate(myPacksFilter)}
+                        icon={<FolderFileFillIcon />}
                     />
                     <Box
                         alignItems={"center"}

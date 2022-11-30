@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Filter from "../../../components/Filter/Filter";
 import { useSearchParams } from "react-router-dom";
 import { setUserCardParams } from "../../../../bll/paramsReducer";
-import { getUrlParams, initialParams } from "../../../../common/utils/getUrlParams";
+import { getUrlParams, initialObjectParams } from "../../../../common/utils/getUrlParams";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { transformToURLOption, transformURLOption } from "../../../../common/utils/transformURLOption";
 
@@ -36,20 +36,21 @@ export const PacksFilter = () => {
     const currentOption = transformURLOption(searchParams.get("sortPacks"));
 
     const onTabClickHandler = (tab: string) => {
-        const otherPackParams: any = {
-            initialParams,
+        const userPackParams: any = {
+            page: 1,
+            pageCount: URLParams.pageCount,
             user_id: userId,
         };
         if (userId) {
-            dispatch(setUserCardParams(otherPackParams.user_id));
-            setSearchParams(tab === "My" ? otherPackParams : initialParams);
+            dispatch(setUserCardParams(userPackParams.user_id));
+            setSearchParams(tab === "My" ? userPackParams : { page: 1, pageCount: URLParams.pageCount });
         }
-        if (tabs.includes("Other") && setTabs) setTabs(["All", "My"]);
+        if (tabs.includes("Other")) setTabs(["All", "My"]);
     };
 
     const isOtherUserId = () => {
         setActiveTab("Other");
-        setTabs && setTabs(["All", "My", "Other"]);
+        setTabs(["All", "My", "Other"]);
     };
 
     const addSortToURL = (option: TPacksFilterOptions) => {
@@ -71,7 +72,7 @@ export const PacksFilter = () => {
             onTabClickHandler={onTabClickHandler}
             activeTab={activeTab}
             currentOption={currentOption}
-            initialParams={initialParams}
+            initialParams={initialObjectParams}
             minmax={[minCardsCount, maxCardsCount]}
             rangeText={"Number of cards"}
             addSortToURL={addSortToURL}

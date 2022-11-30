@@ -12,10 +12,10 @@ import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import LockFillIcon from "../../../assets/icons/LockFillIcon";
 import { TPackModals } from "../PacksList";
 import { useNavigate } from "react-router-dom";
-import { initialParams } from "../../../../common/utils/getUrlParams";
 import { PATH } from "../../Pages";
 import { initialCardsData, loadCards, setCards, setIsLearning } from "../../../../bll/cardsReducer";
 import { PackCardUser } from "./PackCardUser";
+import { initialStringParams } from "../../../../common/utils/getUrlParams";
 
 type TPackProps = {
     pack: TPack;
@@ -35,7 +35,7 @@ const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetch
 
     const onPackClickHandler = () => {
         dispatch(setCards(initialCardsData));
-        navigate(PATH.cardsList + initialParams + `&cardsPack_id=${pack._id}`);
+        navigate(PATH.cardsList + initialStringParams + `&cardsPack_id=${pack._id}`);
     };
 
     const learnPackHandler = async () => {

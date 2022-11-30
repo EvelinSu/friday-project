@@ -13,7 +13,7 @@ import IconButton from "../IconButton/IconButton";
 import { TCardsFilterOptions, TCardsFilterTabs } from "../../pages/CardsPage/Filter/CardsFilter";
 import { TPacksFilterOptions, TPacksFilterTabs } from "../../pages/PacksPage/Filter/PacksFilter";
 import { useAppSelector } from "../../../hooks/hooks";
-import { getUrlParams } from "../../../common/utils/getUrlParams";
+import { getUrlParams, initialStringParams } from "../../../common/utils/getUrlParams";
 
 export type TInitialFilters = {
     activeTab: string;
@@ -31,7 +31,7 @@ type TFilterProps = {
     tabs?: TCommonFilterTabs[];
     activeTab?: TCommonFilterTabs;
     onTabClickHandler: (tab: TCommonFilterTabs) => void;
-    initialParams: string;
+    initialParams: { [key: string]: string };
     minmax: [number, number];
     rangeText: string;
     addSortToURL: (option: any) => void;
@@ -69,7 +69,7 @@ const Filter: FC<TFilterProps> = (props) => {
             tabIndex={0}
             onBlur={onFilterBlurHandler}
             margin={"0 0 3px 0"}
-            isActive={`?${searchParams}`.length > props.initialParams.length + 5}
+            isActive={`?${searchParams}`.length > initialStringParams.length + 5}
         >
             <IconButton
                 onClick={() => setIsFilterOpen(!isFilterOpen)}

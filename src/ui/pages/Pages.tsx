@@ -1,5 +1,5 @@
 import React from "react";
-import {Navigate, Outlet, Route, Routes} from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import SignIn from "./Login/SignIn/SignIn";
 import SignUp from "./Login/SignUp/SignUp";
 import PageNotFound from "./PageNotFound/NotFound";
@@ -7,11 +7,11 @@ import CheckEmail from "./Login/CheckEmail/CheckEmail";
 import ChangePassword from "./Login/ChangePassword/ChangePassword";
 import RecoverPassword from "./Login/RecoverPassword/RecoverPassword";
 import PacksPage from "./PacksPage/PacksPage";
-import {CardsPage} from "./CardsPage/CardsPage";
-import {useAppSelector} from "../../hooks/hooks";
-import {initialParams} from "../../common/utils/getUrlParams";
+import { CardsPage } from "./CardsPage/CardsPage";
+import { useAppSelector } from "../../hooks/hooks";
 import ProfilePage from "./ProfilePage/ProfilePage";
-import {LearningPage} from "./LearningPage/LearningPage";
+import { LearningPage } from "./LearningPage/LearningPage";
+import { initialStringParams } from "../../common/utils/getUrlParams";
 
 export const PATH = {
     profile: "/profile",
@@ -25,13 +25,13 @@ export const PATH = {
     checkEmail: "/login/checkEmail",
 };
 
-const RequireAuth = ({redirectPath = PATH.signIn}) => {
+const RequireAuth = ({ redirectPath = PATH.signIn }) => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
     if (!isLoggedIn) return <Navigate to={redirectPath} replace />;
     return <Outlet />;
 };
-const LoginRoute = ({redirectPath = PATH.packsList + initialParams}) => {
+const LoginRoute = ({ redirectPath = PATH.packsList + initialStringParams }) => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
     if (isLoggedIn) return <Navigate to={redirectPath} replace />;
