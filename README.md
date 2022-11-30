@@ -4,6 +4,6 @@ Technology stack: React / Redux / Redux toolkit / For mike / stylized components
 
 View the project: https://evelinsu.github.io/friday-project/
 
-Installation:  ### `yarn install`
+Installation: `yarn install`
 
-Start: ### `yarn start`
+Start: `yarn start`
