@@ -11,7 +11,7 @@ let startState = {} as TAuth;
 
 beforeEach(() => {
     startState = {
-        userData: {
+        myData: {
             id: null,
             name: null,
             email: null,
@@ -37,9 +37,9 @@ test("userData should be added", () => {
 
     const endState = authReducer(startState, action);
 
-    expect(endState.userData.id).toBe("1");
-    expect(endState.userData.name).toBe("test");
-    expect(endState.userData.email).toBe("emailTest");
+    expect(endState.myData.id).toBe("1");
+    expect(endState.myData.name).toBe("test");
+    expect(endState.myData.email).toBe("emailTest");
 });
 
 test("registerData should be added", () => {
@@ -57,6 +57,6 @@ test("userProfileData should be changed", () => {
 
     const endState = authReducer(startState, action);
 
-    expect(endState.userData.name).toBe("myTestName");
-    expect(endState.userData.avatar).toBe("newAvatar");
+    expect(endState.myData.name).toBe("myTestName");
+    expect(endState.myData.avatar).toBe("newAvatar");
 });
