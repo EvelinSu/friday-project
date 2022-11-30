@@ -114,7 +114,7 @@ export type TResponseCard = {
 
 // user types
 
-export type TUserData = {
+export type TResponseUserData = {
     _id: string;
     email: string;
     isAdmin: boolean;
@@ -126,7 +126,27 @@ export type TUserData = {
     avatar: string;
 };
 
-export type TResponseUserData = {
+export type TResponseUsersData = {
+    maxPublicCardPacksCount: number;
+    minPublicCardPacksCount: number;
+    page: number;
+    pageCount: number;
+    users: TResponseUserData[];
+    usersTotalCount: number;
+};
+
+export type TUsersParams = {
+    page?: string;
+    pageCount?: string;
+    sortUsers?: string;
+    userName?: string;
+    min?: string;
+    max?: string;
+};
+
+// auth types
+
+export type TResponseAuthData = {
     _id: string;
     email: string;
     rememberMe: boolean;
@@ -136,13 +156,9 @@ export type TResponseUserData = {
     publicCardPacksCount: number;
     created: string;
     updated: string;
-    __v: number;
     token?: string;
-    tokenDeathTime?: number;
     avatar?: string;
 };
-
-// auth types
 
 export type TRegisterData = {
     email: string;
@@ -169,9 +185,8 @@ export type TProfileData = {
 };
 
 export type TResponseChangeUserProfile = {
-    updatedUser: TResponseUserData;
+    updatedUser: TResponseAuthData;
     token: string;
-    tokenDeathTime: number;
 };
 
 // learning types

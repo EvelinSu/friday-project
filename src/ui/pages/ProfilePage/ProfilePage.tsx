@@ -19,9 +19,9 @@ export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInpu
 
 const ProfilePage = () => {
     const dispatch = useAppDispatch();
-    const name = useAppSelector((state) => state.auth.userData.name);
-    const email = useAppSelector((state) => state.auth.userData.email);
-    const avatar = useAppSelector((state) => state.auth.userData.avatar);
+    const name = useAppSelector((state) => state.auth.myData.name);
+    const email = useAppSelector((state) => state.auth.myData.email);
+    const avatar = useAppSelector((state) => state.auth.myData.avatar);
     const isFetching = useAppSelector((state) => state.app.isFetching);
     const [value, setValue] = useState(name);
 

@@ -5,7 +5,7 @@ import { forgotPassReducer } from "../forgotPassReducer";
 import { packsReducer } from "../packsReducer";
 import { paramsReducer } from "../paramsReducer";
 import thunkMiddleware from "redux-thunk";
-import { userReducer } from "../userReducer";
+import { usersReducer } from "../usersReducer";
 import { cardsReducer } from "../cardsReducer";
 
 export const store = configureStore({
@@ -16,7 +16,7 @@ export const store = configureStore({
         cards: cardsReducer,
         URLParams: paramsReducer,
         forgotPass: forgotPassReducer,
-        user: userReducer,
+        users: usersReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware),
 });

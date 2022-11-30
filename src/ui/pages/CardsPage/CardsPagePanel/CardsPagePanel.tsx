@@ -28,7 +28,7 @@ const PacksPagePanel = () => {
     const packName = useAppSelector((state) => state.cards.cardsData.packName);
     const isFetching = useAppSelector((state) => state.app.isFetching);
     const cardsTotalCount = useAppSelector((state) => state.cards.cardsData.cardsTotalCount);
-    const myId = useAppSelector((state) => state.auth.userData.id);
+    const myId = useAppSelector((state) => state.auth.myData.id);
     const windowWidth = window.innerWidth;
 
     const addNewCardHandler = (values: TAddAndUpdateCardModalValues) => {
@@ -75,7 +75,7 @@ const PacksPagePanel = () => {
                 </Box>
             </Box>
             <Box alignItems={"center"}>
-                <Search placeholder={"Search by question"} />
+                <Search placeholder={"Search by question"} addParamToUrl={"cardQuestion"} />
                 <CardsFilter />
             </Box>
             {isAddCardModalOpen && (

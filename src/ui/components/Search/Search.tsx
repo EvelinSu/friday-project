@@ -8,6 +8,7 @@ import { useDebounce } from "usehooks-ts";
 
 type TSearchProps = {
     placeholder?: string;
+    addParamToUrl: "userName" | "packName" | "cardQuestion";
 };
 export const Search: FC<TSearchProps> = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -22,19 +23,16 @@ export const Search: FC<TSearchProps> = (props) => {
 
     useEffect(() => {
         if (debounceValue) {
-            URLParams.cardsPack_id
-                ? setSearchParams({ ...URLParams, cardQuestion: debounceValue })
-                : setSearchParams({ ...URLParams, packName: debounceValue });
+            setSearchParams({ ...URLParams, [props.addParamToUrl]: debounceValue });
         }
-        if (debounceValue === "" && (URLParams.packName || URLParams.cardQuestion)) {
-            delete URLParams.packName;
-            delete URLParams.cardQuestion;
+        if (debounceValue === "" && URLParams[props.addParamToUrl]) {
+            delete URLParams[props.addParamToUrl];
             setSearchParams(URLParams);
         }
     }, [debounceValue]);
 
     useEffect(() => {
-        if (!URLParams.cardQuestion && !URLParams.packName) {
+        if (!URLParams[props.addParamToUrl]) {
             setValue("");
         }
     }, [URLParams]);

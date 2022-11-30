@@ -21,8 +21,8 @@ const PacksPagePanel = () => {
     const [isAddPackModalOpen, setIsAddPackModalOpen] = useState(false);
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
-    const myId = useAppSelector((state) => state.auth.userData.id);
-    const otherUserData = useAppSelector((state) => state.user.userData);
+    const myId = useAppSelector((state) => state.auth.myData.id);
+    const otherUserData = useAppSelector((state) => state.users.userData);
     const checkUserId = URLParams.user_id && URLParams.user_id === myId;
     const isFetching = useAppSelector((state) => state.app.isFetching);
 
@@ -59,7 +59,7 @@ const PacksPagePanel = () => {
                 )}
             </Box>
             <Box alignItems={"center"}>
-                <Search />
+                <Search addParamToUrl={"packName"} />
                 <PacksFilter />
             </Box>
             {isAddPackModalOpen && (

@@ -48,6 +48,7 @@ export const SNotificationContainer = styled.div<TSNotificationContainerProps>`
     gap: 20px;
     border-radius: 10px;
     color: #fff;
+    overflow: hidden;
     font-size: 12px;
     line-height: 20px;
     width: 330px;

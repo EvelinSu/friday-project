@@ -28,6 +28,7 @@ export const SAvatar = styled.div<TSAvatarProps>((props) => ({
     backgroundImage: `url(${props.img})`,
     backgroundPosition: "center",
     backgroundSize: "cover",
+    border: `1px solid ${props.theme.colors.secondary}`,
     backgroundRepeat: "no-repeat",
     img: {
         objectFit: "cover",

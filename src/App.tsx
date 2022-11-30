@@ -21,7 +21,7 @@ const appTheme = localStorage.getItem("app-theme") as TThemes;
 function App() {
     const dispatch = useAppDispatch();
     const [isLoading, setIsLoading] = useState(true);
-    const isUserProfileOpen = useAppSelector((state) => state.user.isUserProfileOpen);
+    const isUserProfileOpen = useAppSelector((state) => state.users.isUserProfileOpen);
     const currentTheme = useAppSelector((state) => state.app.currentTheme);
 
     useLayoutEffect(() => {

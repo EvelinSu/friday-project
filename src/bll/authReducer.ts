@@ -5,7 +5,7 @@ import { TLoginData, TProfileData, TRegisterData } from "../dal/ResponseTypes";
 import { clearStatePacks } from "./packsReducer";
 import { handlerErrors } from "../common/utils/handlerErrors";
 
-type TUserData = {
+type TMyData = {
     id: string | null;
     name: string | null;
     email: string | null;
@@ -13,7 +13,7 @@ type TUserData = {
 };
 
 export type TAuth = {
-    userData: TUserData;
+    myData: TMyData;
     registerData: TRegisterData;
     isLoggedIn: boolean;
 };
@@ -107,7 +107,7 @@ export const changeUserProfileTC = createAsyncThunk(
 const slice = createSlice({
     name: "auth",
     initialState: {
-        userData: {
+        myData: {
             id: null,
             name: null,
             email: null,
@@ -123,8 +123,8 @@ const slice = createSlice({
         setIsLoggedIn(state, action: PayloadAction<boolean>) {
             state.isLoggedIn = action.payload;
         },
-        setUserData(state, action: PayloadAction<TUserData>) {
-            state.userData = action.payload;
+        setUserData(state, action: PayloadAction<TMyData>) {
+            state.myData = action.payload;
         },
         setRegisterUserData(state, action: PayloadAction<TRegisterData>) {
             state.registerData = action.payload;
@@ -132,8 +132,8 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(changeUserProfileTC.fulfilled, (state, action) => {
-            if (action.payload?.avatar) state.userData.avatar = action.payload.avatar;
-            if (action.payload?.name) state.userData.name = action.payload.name;
+            if (action.payload?.avatar) state.myData.avatar = action.payload.avatar;
+            if (action.payload?.name) state.myData.name = action.payload.name;
         });
     },
 });

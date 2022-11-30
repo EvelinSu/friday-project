@@ -26,7 +26,7 @@ export const SCheckbox = styled.input`
 
         &:after {
             content: "";
-            background-color: ${({ theme }) => theme.colors.primary};
+            background-color: ${({ theme }) => theme.colors.button.success};
             position: absolute;
             top: 6px;
             bottom: 6px;

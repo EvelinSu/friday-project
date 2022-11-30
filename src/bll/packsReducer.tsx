@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { cardsAPI } from "../dal/cardsAPI";
 import { TPack, TPacksParams } from "../dal/ResponseTypes";
 import { setAppMessage, setIsFetching } from "./appReducer";
-import { getUser } from "./userReducer";
+import { getUser } from "./usersReducer";
 import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksPage/PacksModals/AddAndUpdatePackModal";
 import { handlerErrors } from "../common/utils/handlerErrors";
 
@@ -47,9 +47,6 @@ export const loadPacks = createAsyncThunk(
             }
         } catch (e) {
             // Incorrect error. Must be 429, but is 401.
-            // const err = e.response
-            //     ? e.response.data.error
-            //     : e.message + ", more details in the console";
             dispatch(
                 setAppMessage({
                     text: "Too many requests. The server may have logged you out (sorry)",

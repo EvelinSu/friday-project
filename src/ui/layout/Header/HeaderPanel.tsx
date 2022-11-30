@@ -6,7 +6,6 @@ import { SText } from "../../components/Text/SText";
 import Avatar from "../../components/Avatar/Avatar";
 import { useNavigate } from "react-router-dom";
 import { PATH } from "../../pages/Pages";
-import { UsersIcon } from "../../assets/icons/UsersIcon";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { setThemeFromLS } from "../../../bll/appReducer";
 import { SunIcon } from "../../assets/icons/SunIcon";
@@ -24,7 +23,7 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
     const dispatch = useAppDispatch();
 
     const theme = useAppSelector((state) => state.app.currentTheme);
-    const myId = useAppSelector((state) => state.auth.userData.id);
+    const myId = useAppSelector((state) => state.auth.myData.id);
 
     const onChangeThemeHandler = () => {
         dispatch(setThemeFromLS(theme === "light" ? "dark" : "light"));
@@ -42,14 +41,15 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
             />
             {props.isLoggedIn && (
                 <>
-                    <IconButton
-                        title={"Users"}
-                        onClick={() => alert("In progress")}
-                        icon={<UsersIcon />}
-                    />
+                    {/* api is broken */}
+                    {/*<IconButton*/}
+                    {/*    title={"Users"}*/}
+                    {/*    onClick={() => navigate(PATH.usersList + initialStringParams)}*/}
+                    {/*    icon={<UsersIcon />}*/}
+                    {/*/>*/}
                     <IconButton
                         title={"My packs"}
-                        onClick={() => navigate(myPacksFilter)}
+                        onClick={() => navigate(PATH.packsList + myPacksFilter)}
                         icon={<FolderFileFillIcon />}
                     />
                     <Box

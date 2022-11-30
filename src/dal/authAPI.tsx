@@ -1,21 +1,21 @@
-import {instance} from "./instance";
+import { instance } from "./instance";
 import {
     TLoginData,
     TProfileData,
     TRegisterData,
+    TResponseAuthData,
     TResponseChangeUserProfile,
     TResponseSendEmail,
-    TResponseUserData,
     TSendPassData,
 } from "./ResponseTypes";
-import {AxiosResponse} from "axios";
+import { AxiosResponse } from "axios";
 
 export const authAPI = {
     login(data: TLoginData) {
-        return instance.post<TLoginData, AxiosResponse<TResponseUserData>>("auth/login", data);
+        return instance.post<TLoginData, AxiosResponse<TResponseAuthData>>("auth/login", data);
     },
     authMe() {
-        return instance.post<{}, AxiosResponse<TResponseUserData>>("auth/me");
+        return instance.post<{}, AxiosResponse<TResponseAuthData>>("auth/me");
     },
     logOut() {
         return instance.delete<{ info: string }>("auth/me");
@@ -24,7 +24,7 @@ export const authAPI = {
         return instance.put<TProfileData, AxiosResponse<TResponseChangeUserProfile>>("auth/me", data);
     },
     register(data: TRegisterData) {
-        return instance.post<TRegisterData, AxiosResponse<{ addedUser: TResponseUserData }>>(
+        return instance.post<TRegisterData, AxiosResponse<{ addedUser: TResponseAuthData }>>(
             "auth/register",
             data
         );

@@ -28,7 +28,7 @@ type TPackProps = {
 };
 const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetching }) => {
     const dispatch = useAppDispatch();
-    const myId = useAppSelector((state) => state.auth.userData.id);
+    const myId = useAppSelector((state) => state.auth.myData.id);
     const navigate = useNavigate();
 
     const correctDate = transformDate(pack.updated);

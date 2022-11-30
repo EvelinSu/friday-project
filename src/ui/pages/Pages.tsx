@@ -12,11 +12,13 @@ import { useAppSelector } from "../../hooks/hooks";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import { LearningPage } from "./LearningPage/LearningPage";
 import { initialStringParams } from "../../common/utils/getUrlParams";
+import { UsersPage } from "./UsersPage/UsersPage";
 
 export const PATH = {
     profile: "/profile",
-    packsList: "/packsList",
-    cardsList: "/cardsList",
+    packsList: "/packs",
+    cardsList: "/cards",
+    usersList: "/users",
     learning: "/learning",
     signIn: "/login/signIn",
     signUp: "/login/signUp",
@@ -46,6 +48,7 @@ const Pages = () => {
                 <Route path={PATH.profile} element={<ProfilePage />} />
                 <Route path={PATH.packsList} element={<PacksPage />} />
                 <Route path={PATH.cardsList} element={<CardsPage />} />
+                <Route path={PATH.usersList} element={<UsersPage />} />
                 <Route path={PATH.learning} element={<LearningPage />} />
             </Route>
             <Route element={<LoginRoute />}>

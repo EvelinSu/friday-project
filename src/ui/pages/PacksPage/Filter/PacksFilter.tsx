@@ -29,7 +29,7 @@ export const PacksFilter = () => {
 
     const [activeTab, setActiveTab] = useState(tabs[0]);
 
-    const userId = useAppSelector((state) => state.auth.userData.id);
+    const userId = useAppSelector((state) => state.auth.myData.id);
     const minCardsCount = useAppSelector((state) => state.packs.cardPacksData.minCardsCount);
     const maxCardsCount = useAppSelector((state) => state.packs.cardPacksData.maxCardsCount);
 

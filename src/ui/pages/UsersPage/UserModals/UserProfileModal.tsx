@@ -2,7 +2,7 @@ import React from "react";
 import { SMegaShadow } from "../../../components/MegaShadow/styled";
 import { UiBox } from "../../../components/UiBox/UiBox";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { setIsUserProfileOpen } from "../../../../bll/userReducer";
+import { setIsUserProfileOpen } from "../../../../bll/usersReducer";
 import { Box } from "../../../components/Box/Box";
 import Avatar from "../../../components/Avatar/Avatar";
 import defaultAvatar from "../../../assets/img/default-photo.png";
@@ -16,11 +16,11 @@ import { initialObjectParams } from "../../../../common/utils/getUrlParams";
 export const UserProfileModal = () => {
     const dispatch = useAppDispatch();
 
-    const userName = useAppSelector((state) => state.user.userData.name);
+    const userName = useAppSelector((state) => state.users.userData.name);
 
     const [, setSearchParams] = useSearchParams();
-    const userData = useAppSelector((state) => state.user.userData);
-    const isUserFetching = useAppSelector((state) => state.user.isUserFetching);
+    const userData = useAppSelector((state) => state.users.userData);
+    const isUserFetching = useAppSelector((state) => state.users.isUserFetching);
 
     const registerDate = transformDate(userData.created);
     const lastActivityDate = transformDate(userData.updated, true);
