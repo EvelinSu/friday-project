@@ -11,7 +11,11 @@ type TAnswerProps = {
 };
 export const Answer: FC<TAnswerProps> = (props) => {
 
-    const checkAnswer = props.checkAnswer ? props.checkAnswer : props.answerImg && props.answerImg !== "null"
+    const checkAnswer = props.checkAnswer
+        ? props.checkAnswer
+        : props.answerImg
+        && props.answerImg !== "null"
+        && <LearningImage src={props.answerImg} alt={"answer"} />
 
     return (
         <SLearningContainer>
@@ -25,7 +29,7 @@ export const Answer: FC<TAnswerProps> = (props) => {
                             withShadow
                         />
                         : checkAnswer
-                            ? <LearningImage src={props.answerImg} alt={"answer"} />
+                            ? checkAnswer
                             : "no answer"
                     }
                 </Box>

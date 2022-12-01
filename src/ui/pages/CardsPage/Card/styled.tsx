@@ -8,7 +8,7 @@ export const SCardWrapper = styled.div<{ isFetching: boolean }>`
     justify-content: space-between;
     align-items: center;
     background: ${({ theme }) =>
-        `linear-gradient(112deg, ${theme.colors.cards.default[0]}0%, ${theme.colors.cards.default[1]} 100%)`};
+        `linear-gradient(112deg, ${theme.colors.cards.default[0]} 0%, ${theme.colors.cards.default[1]} 100%)`};
     padding: 15px;
     min-height: 145px;
     border-radius: 15px;
