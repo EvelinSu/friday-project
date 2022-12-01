@@ -54,11 +54,7 @@ const PacksList = () => {
         <GridBox
             columns={"repeat(auto-fill, minmax(250px, 1fr))"}
             style={{ flexGrow: windowWidth > smallScreen ? 1 : "" }}
-            rows={
-                windowWidth > smallScreen
-                    ? `repeat(${rowsCount}, minmax(145px, 200px))`
-                    : `repeat(auto-fill, 160px)`
-            }
+            rows={windowWidth > smallScreen ? `repeat(${rowsCount}, minmax(145px, 200px))` : ``}
         >
             {cardPacks.map((pack) => (
                 <PackCard

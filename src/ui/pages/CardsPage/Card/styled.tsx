@@ -22,7 +22,7 @@ export const SCardWrapper = styled.div<{ isFetching: boolean }>`
         css`
             opacity: 0.6;
             pointer-events: none;
-        `}
+        `};
 `;
 export const SCardShadow = styled.div`
     display: flex;

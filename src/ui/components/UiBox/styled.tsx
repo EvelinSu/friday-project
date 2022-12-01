@@ -23,7 +23,6 @@ export const SUiBoxContainer = styled.div<TSUiBoxContainerProps>`
     width: ${(props) => props.width || "100%"};
     max-width: ${(props) => props.maxWidth || "380px"};
     position: relative;
-    max-height: 100%;
     overflow: ${(props) => props.overflow};
     color: ${(props) => props.theme.colors.textOnSecondary};
 `;

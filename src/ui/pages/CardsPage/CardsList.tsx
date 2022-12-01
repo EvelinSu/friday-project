@@ -63,11 +63,7 @@ const CardsList = () => {
         <GridBox
             columns={"repeat(auto-fill, minmax(250px, 1fr))"}
             style={{ flexGrow: windowWidth > smallScreen ? 1 : "" }}
-            rows={
-                windowWidth > smallScreen
-                    ? `repeat(${rowsCount}, minmax(145px, 200px))`
-                    : `repeat(auto-fit, 160px)`
-            }
+            rows={windowWidth > smallScreen ? `repeat(${rowsCount}, minmax(145px, 200px))` : ``}
         >
             {cards.map((card) => (
                 <Card
