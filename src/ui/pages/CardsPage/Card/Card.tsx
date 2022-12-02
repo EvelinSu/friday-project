@@ -25,7 +25,7 @@ export const Card: FC<TCardProps> = (props) => {
     const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
 
     const cardId = props.card._id;
-    const { updated, answerImg, questionImg, answer, question, grade } = props.card;
+    const {updated, answerImg, questionImg, answer, question, grade} = props.card;
     const correctDate = transformDate(updated);
 
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement>, modalType: TCardModals) => {
@@ -64,11 +64,10 @@ export const Card: FC<TCardProps> = (props) => {
                 <SText opacity={0.4}>Last updated</SText>
                 <SText>{correctDate}</SText>
             </Box>
-            {questionImg && questionImg !== "null" ? (
-                <SCardImage src={questionImg} />
-            ) : (
-                <SCardText title={question}>{question}</SCardText>
-            )}
+            {questionImg && questionImg !== "null"
+                ? <SCardImage src={questionImg} />
+                : <SCardText title={question}>{question}</SCardText>
+            }
             <Stars isEditable={false} current={grade} maxCount={5} />
         </SCardWrapper>
     );

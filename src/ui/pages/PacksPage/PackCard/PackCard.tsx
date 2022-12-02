@@ -16,6 +16,7 @@ import { PATH } from "../../Pages";
 import { initialCardsData, loadCards, setCards, setIsLearning } from "../../../../bll/cardsReducer";
 import { PackCardUser } from "./PackCardUser";
 import { initialStringParams } from "../../../../common/utils/getUrlParams";
+import { setCardsParamsPackId } from "../../../../bll/paramsReducer";
 
 type TPackProps = {
     pack: TPack;
@@ -41,6 +42,7 @@ const PackCard: FC<TPackProps> = React.memo(({ pack, onIconClickHandler, isFetch
     const learnPackHandler = async () => {
         await dispatch(loadCards({ cardsPack_id: pack._id }));
         navigate(PATH.learning + `?cardsPack_id=${pack._id}`);
+        dispatch(setCardsParamsPackId(pack._id));
         dispatch(setIsLearning(true));
     };
 

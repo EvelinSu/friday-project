@@ -78,7 +78,7 @@ export const LearningPage = () => {
     return (
         <SPageWrapper>
             <BackPageButton
-                to={PATH.cardsList + `cardsPack_id=${URLParams.cardsPack_id}`}
+                to={PATH.cardsList}
                 params={cardsParams}
                 label={"Finish and back to cards"}
                 onClick={finishLearnHandler}

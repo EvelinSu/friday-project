@@ -41,8 +41,11 @@ const slice = createSlice({
         setUserCardParams(state, action: PayloadAction<TPacksParams>) {
             state.packsParams.user_id = action.payload.user_id;
         },
+        setCardsParamsPackId(state, action: PayloadAction<string>) {
+            state.cardsParams.cardsPack_id = action.payload;
+        },
     },
 });
 
 export const paramsReducer = slice.reducer;
-export const { setPacksParams, setUserCardParams, setCardsParams } = slice.actions;
+export const { setPacksParams, setUserCardParams, setCardsParams, setCardsParamsPackId } = slice.actions;
