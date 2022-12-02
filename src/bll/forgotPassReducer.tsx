@@ -32,7 +32,7 @@ export const sendNewPassTC = createAsyncThunk(
         const { password, resetPasswordToken } = param;
         try {
             await authAPI.sendNewPass({ password, resetPasswordToken });
-            dispatch(setTokenAC({ token: "" }));
+            dispatch(setTokenAC(""));
         } catch (e) {
             handlerErrors(dispatch, e);
             return rejectWithValue({});
@@ -49,8 +49,8 @@ const slice = createSlice({
         token: "waitToken",
     } as TForgotPass,
     reducers: {
-        setTokenAC(state, action: PayloadAction<{ token: string }>) {
-            state.token = action.payload.token;
+        setTokenAC(state, action: PayloadAction<string>) {
+            state.token = action.payload;
         },
     },
     extraReducers: (builder) => {
