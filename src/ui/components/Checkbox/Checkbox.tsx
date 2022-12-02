@@ -7,8 +7,8 @@ type TCheckboxProps = TDefaultInputProps & {
     label: string;
     onChangeChecked?: (checked: boolean) => void;
 };
-
 const Checkbox: React.FC<TCheckboxProps> = (props) => {
+
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         props.onChangeChecked && props.onChangeChecked(e.currentTarget.checked);
         props.onChange && props.onChange(e);

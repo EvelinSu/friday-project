@@ -1,15 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type TRequestStatus = "idle" | "loading" | "succeeded" | "failed";
-export type TThemes = "light" | "dark";
+export const setThemeFromLS = createAsyncThunk("app/setTheme", (param: TThemes, { dispatch }) => {
+    localStorage.setItem("app-theme", param);
+    dispatch(setCurrentTheme(param));
+});
 
-type TAppMessage = {
-    id: string;
-    severity: "error" | "success";
-    text: string;
-};
-
-export type TApp = {
+export type TAppState = {
     isInitialized: boolean;
     status: TRequestStatus;
     messages: TAppMessage[];
@@ -24,7 +20,7 @@ const slice = createSlice({
         messages: [],
         isFetching: false,
         currentTheme: "light",
-    } as TApp,
+    } as TAppState,
     reducers: {
         setIsInitialized(state, action: PayloadAction<boolean>) {
             state.isInitialized = action.payload;
@@ -55,10 +51,13 @@ const slice = createSlice({
     },
 });
 
-export const setThemeFromLS = createAsyncThunk("app/setTheme", (param: TThemes, { dispatch }) => {
-    localStorage.setItem("app-theme", param);
-    dispatch(setCurrentTheme(param));
-});
+export type TRequestStatus = "idle" | "loading" | "succeeded" | "failed";
+export type TThemes = "light" | "dark";
+type TAppMessage = {
+    id: string;
+    severity: "error" | "success";
+    text: string;
+};
 
 export const appReducer = slice.reducer;
 export const {

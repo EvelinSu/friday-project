@@ -4,14 +4,7 @@ import { setIsFetching } from "./appReducer";
 import { TResponseUserData, TResponseUsersData, TUsersParams } from "../dal/ResponseTypes";
 import { handlerErrors } from "../common/utils/handlerErrors";
 
-type TInitialState = {
-    isUserProfileOpen: boolean;
-    isUserFetching: boolean;
-    userData: TResponseUserData;
-    usersData: TResponseUsersData;
-};
-
-const initialState: TInitialState = {
+const initialState: TUsersState = {
     isUserProfileOpen: false,
     isUserFetching: false,
     userData: {
@@ -35,6 +28,12 @@ const initialState: TInitialState = {
     },
 };
 
+type TUsersState = {
+    isUserProfileOpen: boolean;
+    isUserFetching: boolean;
+    userData: TResponseUserData;
+    usersData: TResponseUsersData;
+};
 const slice = createSlice({
     name: "users",
     initialState,

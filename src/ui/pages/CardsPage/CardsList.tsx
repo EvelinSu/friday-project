@@ -2,31 +2,24 @@ import React, { useCallback, useMemo, useState } from "react";
 import { GridBox, SGridDefaultBlock } from "../../components/GridBox/GridBox";
 import { useSearchParams } from "react-router-dom";
 import { getUrlParams } from "../../../common/utils/getUrlParams";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { useAppSelector } from "../../../hooks/hooks";
 import { Card } from "./Card/Card";
-import AddAndUpdateCardModal, {
-    TAddAndUpdateCardModalValues,
-} from "./CardsModals/AddAndUpdateCardModal";
-import { deleteCard, updateCard } from "../../../bll/cardsReducer";
-import DeleteModal from "../../components/Modals/DeleteModal";
 import { getCountArray } from "../../../common/utils/getCountArray";
 import { baseTheme } from "../../styles/themes/baseTheme";
-import { CardViewModal } from "./CardsModals/CardViewModal";
+import { CardModals } from "./CardsModals/CardsModals";
 
-export type TCardModals = "delete" | "update" | "view" | false;
+const windowWidth = window.innerWidth;
+const smallScreen = baseTheme.media.small;
 
 const CardsList = () => {
-    const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
-    const cards = useAppSelector((state) => state.cards.cardsData.cards);
-    const isFetching = useAppSelector((state) => state.app.isFetching);
-
-    const windowWidth = window.innerWidth;
-    const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 4 : 4;
 
     const [isCardModalOpen, setIsCardModalOpen] = useState<TCardModals>(false);
     const [currentId, setCurrentId] = useState<string>("");
+
+    const cards = useAppSelector((state) => state.cards.cardsData.cards);
+    const isFetching = useAppSelector((state) => state.app.isFetching);
 
     const onIconClickHandler = useCallback(
         (e: React.MouseEvent<HTMLDivElement>, id: string, modalType: TCardModals) => {
@@ -37,32 +30,16 @@ const CardsList = () => {
         []
     );
 
-    const updateCardHandler = (values: TAddAndUpdateCardModalValues) => {
-        dispatch(updateCard({ _id: currentId, values, paramURL: URLParams })).then(() => {
-            setIsCardModalOpen(false);
-        });
-    };
-
-    const deleteHandler = () => {
-        dispatch(deleteCard({ id: currentId, URLParams })).then(() => {
-            setIsCardModalOpen(false);
-        });
-    };
-
-    // const viewCardHandler = () => {
-    //     setIsCardModalOpen(false);
-    // };
+    const rowsCount = URLParams.pageCount && +URLParams.pageCount > 8 ? +URLParams.pageCount / 4 : 4;
 
     const cardsSkeleton = getCountArray(Number(URLParams.pageCount) - cards.length || 0).map((el) => (
         <SGridDefaultBlock minHeight={"145px"} key={el}></SGridDefaultBlock>
     ));
 
-    const smallScreen = baseTheme.media.small;
-
     return (
         <GridBox
             columns={"repeat(auto-fill, minmax(250px, 1fr))"}
-            style={{ flexGrow: windowWidth > smallScreen ? 1 : "" }}
+            style={{flexGrow: windowWidth > smallScreen ? 1 : ""}}
             rows={windowWidth > smallScreen ? `repeat(${rowsCount}, minmax(145px, 200px))` : ``}
         >
             {cards.map((card) => (
@@ -74,31 +51,16 @@ const CardsList = () => {
                 />
             ))}
             {windowWidth > smallScreen && cardsSkeleton}
-            {isCardModalOpen === "delete" && (
-                <DeleteModal
-                    onClose={() => setIsCardModalOpen(false)}
-                    deleteHandler={deleteHandler}
-                    text={"Do you really want to remove this card?"}
-                    title={"Delete card"}
-                />
-            )}
-            {isCardModalOpen === "update" && (
-                <AddAndUpdateCardModal
-                    title={"Update card"}
-                    onSubmitHandler={updateCardHandler}
-                    onClose={() => setIsCardModalOpen(false)}
-                    currentCard={cards.find((el) => el._id === currentId)}
-                />
-            )}
-            {isCardModalOpen === "view" && (
-                <CardViewModal
-                    title={"Update card"}
-                    onClose={() => setIsCardModalOpen(false)}
-                    currentCard={cards.find((el) => el._id === currentId)}
-                />
-            )}
+            <CardModals
+                modalType={isCardModalOpen}
+                currentCard={cards.find((el) => el._id === currentId)}
+                currentId={currentId}
+                setIsCardModalOpen={setIsCardModalOpen}
+            />
         </GridBox>
     );
 };
+
+export type TCardModals = "delete" | "update" | "view" | false;
 
 export default CardsList;

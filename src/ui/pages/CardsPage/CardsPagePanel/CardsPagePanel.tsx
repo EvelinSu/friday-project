@@ -16,6 +16,8 @@ import BookCheckIcon from "../../../assets/icons/BookCheckIcon";
 import BackPageButton from "../../../components/BackPageButton/BackPageButton";
 import { CardsFilter } from "../Filter/CardsFilter";
 
+const windowWidth = window.innerWidth;
+
 const PacksPagePanel = () => {
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
@@ -29,7 +31,6 @@ const PacksPagePanel = () => {
     const isFetching = useAppSelector((state) => state.app.isFetching);
     const cardsTotalCount = useAppSelector((state) => state.cards.cardsData.cardsTotalCount);
     const myId = useAppSelector((state) => state.auth.myData.id);
-    const windowWidth = window.innerWidth;
 
     const addNewCardHandler = (values: TAddAndUpdateCardModalValues) => {
         dispatch(
@@ -37,7 +38,7 @@ const PacksPagePanel = () => {
                 newCard: { ...values, cardsPack_id: URLParams.cardsPack_id },
                 cardsParams: URLParams,
             })
-        ).then(() => setIsAddCardModalOpen(false));
+        ).then((res) => res.payload && setIsAddCardModalOpen(false));
     };
 
     const learnPackHandler = () => {

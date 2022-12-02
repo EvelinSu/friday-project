@@ -5,19 +5,6 @@ import { TLoginData, TProfileData, TRegisterData } from "../dal/ResponseTypes";
 import { clearStatePacks } from "./packsReducer";
 import { handlerErrors } from "../common/utils/handlerErrors";
 
-type TMyData = {
-    id: string | null;
-    name: string | null;
-    email: string | null;
-    avatar?: string | null;
-};
-
-export type TAuth = {
-    myData: TMyData;
-    registerData: TRegisterData;
-    isLoggedIn: boolean;
-};
-
 export const registerTC = createAsyncThunk(
     "auth/register",
     async (param: TRegisterData, { dispatch }) => {
@@ -104,6 +91,11 @@ export const changeUserProfileTC = createAsyncThunk(
     }
 );
 
+export type TAuthState = {
+    myData: TMyData;
+    registerData: TRegisterData;
+    isLoggedIn: boolean;
+};
 const slice = createSlice({
     name: "auth",
     initialState: {
@@ -118,7 +110,7 @@ const slice = createSlice({
             password: "",
         },
         isLoggedIn: false,
-    } as TAuth,
+    } as TAuthState,
     reducers: {
         setIsLoggedIn(state, action: PayloadAction<boolean>) {
             state.isLoggedIn = action.payload;
@@ -137,6 +129,13 @@ const slice = createSlice({
         });
     },
 });
+
+type TMyData = {
+    id: string | null;
+    name: string | null;
+    email: string | null;
+    avatar?: string | null;
+};
 
 export const { setIsLoggedIn, setUserData, setRegisterUserData } = slice.actions;
 export const authReducer = slice.reducer;

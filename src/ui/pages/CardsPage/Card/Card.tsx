@@ -21,11 +21,12 @@ type TCardProps = {
     ) => void;
 };
 export const Card: FC<TCardProps> = (props) => {
+    const myId = useAppSelector((state) => state.auth.myData.id);
+    const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
+
     const cardId = props.card._id;
     const { updated, answerImg, questionImg, answer, question, grade } = props.card;
     const correctDate = transformDate(updated);
-    const myId = useAppSelector((state) => state.auth.myData.id);
-    const userId = useAppSelector((state) => state.cards.cardsData.packUserId);
 
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement>, modalType: TCardModals) => {
         props.onIconClickHandler(e, cardId, modalType);

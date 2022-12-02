@@ -2,10 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { TCardsParams, TPacksParams } from "../dal/ResponseTypes";
 
-type TParams = {
-    packsParams: TPacksParams;
-    cardsParams: TCardsParams;
-};
 const initialState: TParams = {
     packsParams: {
         packName: "",
@@ -28,6 +24,10 @@ const initialState: TParams = {
     },
 };
 
+type TParams = {
+    packsParams: TPacksParams;
+    cardsParams: TCardsParams;
+};
 const slice = createSlice({
     name: "cardPacksParams",
     initialState: initialState,

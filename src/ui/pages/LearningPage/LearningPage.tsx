@@ -50,7 +50,7 @@ export const LearningPage = () => {
 
     const onNextHandler = async () => {
         const newCard = await getCard(cards);
-        await dispatch(uploadGrade({ grade, card_id: card._id }));
+        await dispatch(uploadGrade({grade, card_id: card._id}));
         dispatch(setCurrentCard(newCard));
         dispatch(incQuestionCount());
         setCard(newCard);
@@ -92,7 +92,10 @@ export const LearningPage = () => {
                 {isFetching && <LoaderIcon shadow absolute />}
                 <Box flexDirection={"column"}>
                     <GridBox columns={"repeat(auto-fill, minmax(220px, 1fr))"}>
-                        <Question checkQuestion={checkQuestion} questionImg={card?.questionImg} />
+                        <Question
+                            checkQuestion={checkQuestion}
+                            questionImg={card?.questionImg}
+                        />
                         <Answer
                             checkAnswer={checkAnswer}
                             setIsAnswerOpen={setIsAnswerOpen}

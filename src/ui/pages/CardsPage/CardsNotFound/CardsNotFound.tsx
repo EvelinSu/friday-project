@@ -1,9 +1,8 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
-import {SText} from "../../../components/Text/SText";
+import { SText } from "../../../components/Text/SText";
 
 export const CardsNotFound: FC<{ isCardsFetching: boolean }> = (props) => {
-
     return props.isCardsFetching ? (
         <></>
     ) : (
@@ -15,16 +14,16 @@ export const CardsNotFound: FC<{ isCardsFetching: boolean }> = (props) => {
     );
 };
 
-const SCardsNotFound = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-`;
+const SCardsNotFound = styled.div((props) => ({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    pointerEvents: "none",
+}));

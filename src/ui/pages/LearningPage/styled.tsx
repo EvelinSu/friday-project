@@ -15,6 +15,7 @@ export const SLearningContainer = styled.div((props) => ({
     gap: 20,
     rowGap: 20,
 }));
+
 export const SLearningContent = styled.div(({ theme }) => ({
     display: "flex",
     flexDirection: "column",

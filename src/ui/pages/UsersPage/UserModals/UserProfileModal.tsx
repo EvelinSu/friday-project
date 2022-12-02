@@ -15,10 +15,9 @@ import { initialObjectParams } from "../../../../common/utils/getUrlParams";
 
 export const UserProfileModal = () => {
     const dispatch = useAppDispatch();
+    const [, setSearchParams] = useSearchParams();
 
     const userName = useAppSelector((state) => state.users.userData.name);
-
-    const [, setSearchParams] = useSearchParams();
     const userData = useAppSelector((state) => state.users.userData);
     const isUserFetching = useAppSelector((state) => state.users.isUserFetching);
 
@@ -26,7 +25,7 @@ export const UserProfileModal = () => {
     const lastActivityDate = transformDate(userData.updated, true);
 
     const onClickHandler = () => {
-        setSearchParams({ ...initialObjectParams, user_id: userData._id });
+        setSearchParams({...initialObjectParams, user_id: userData._id});
         dispatch(setIsUserProfileOpen(false));
     };
 

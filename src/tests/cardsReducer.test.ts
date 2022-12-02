@@ -3,11 +3,11 @@ import {
     incQuestionCount,
     initialCardsData,
     setIsLearning,
-    TCards,
+    TCardsState,
 } from "../bll/cardsReducer";
 import { TCard } from "../dal/ResponseTypes";
 
-let startState = {} as TCards;
+let startState = {} as TCardsState;
 
 beforeEach(() => {
     startState = {

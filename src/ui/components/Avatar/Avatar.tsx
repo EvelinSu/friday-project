@@ -12,8 +12,10 @@ type TAvatarProps = {
     isFetching?: boolean;
 };
 
-const Avatar: FC<TAvatarProps> = ({ size, img, isEditable, isFetching, ...props }) => {
+const Avatar: FC<TAvatarProps> = ({size, img, isEditable, isFetching, ...props}) => {
+
     const inputFile = useRef<HTMLInputElement | null>(null);
+
     const onClickHandler = () => {
         inputFile.current?.click();
     };
@@ -36,7 +38,7 @@ const Avatar: FC<TAvatarProps> = ({ size, img, isEditable, isFetching, ...props 
                         type="file"
                         ref={inputFile}
                         onChange={encodeImageFileAsURL}
-                        style={{ display: "none" }}
+                        style={{display: "none"}}
                     />
                     <PhotoIcon />
                     {img && img !== "https://i.imgur.com/lqN6w1t.png" && (

@@ -4,10 +4,10 @@ import {
     setCurrentTheme,
     setIsFetching,
     setIsInitialized,
-    TApp,
+    TAppState,
 } from "../bll/appReducer";
 
-let startState = {} as TApp;
+let startState = {} as TAppState;
 
 beforeEach(() => {
     startState = {

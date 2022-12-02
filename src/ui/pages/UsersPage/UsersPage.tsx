@@ -13,20 +13,22 @@ import { UsersNotFound } from "./UsersNotFound/UsersNotFound";
 import { UsersList } from "./UsersList";
 import { loadUsers } from "../../../bll/usersReducer";
 
+const pageCounts = [12, 16, 20, 24, 28, 32, 36, 40, 44, 48];
+
 export const UsersPage = () => {
     const dispatch = useAppDispatch();
 
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
-    const isFetching = useAppSelector((state) => state.app.isFetching);
-    const [pageCount, setPageCount] = useState(+(URLParams.pageCount || 0));
 
     const usersTotalCount = useAppSelector((state) => state.users.usersData.usersTotalCount);
     const users = useAppSelector((state) => state.users.usersData.users);
-    const pageCounts = [12, 16, 20, 24, 28, 32, 36, 40, 44, 48];
+    const isFetching = useAppSelector((state) => state.app.isFetching);
+
+    const [pageCount, setPageCount] = useState(+(URLParams.pageCount || 0));
 
     const onChangePageCountHandler = (count: number) => {
-        setSearchParams({ ...URLParams, pageCount: `${count}` });
+        setSearchParams({...URLParams, pageCount: `${count}`});
     };
 
     useEffect(() => {

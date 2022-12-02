@@ -44,12 +44,12 @@ export type TNewCardsPack = {
 export type TResponsePack = {
     cardPacks: TPack[];
     page: number;
+    user_id: string;
     pageCount: number;
     cardPacksTotalCount: number;
     minCardsCount: number;
     maxCardsCount: number;
     token: string;
-    tokenDeathTime: number;
 };
 
 // card types

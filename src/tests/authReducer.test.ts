@@ -4,10 +4,10 @@ import {
     setIsLoggedIn,
     setRegisterUserData,
     setUserData,
-    TAuth,
+    TAuthState,
 } from "../bll/authReducer";
 
-let startState = {} as TAuth;
+let startState = {} as TAuthState;
 
 beforeEach(() => {
     startState = {

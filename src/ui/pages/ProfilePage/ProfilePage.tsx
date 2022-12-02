@@ -19,10 +19,12 @@ export type TEventInput = ChangeEvent<HTMLInputElement> & KeyboardEvent<HTMLInpu
 
 const ProfilePage = () => {
     const dispatch = useAppDispatch();
+
     const name = useAppSelector((state) => state.auth.myData.name);
     const email = useAppSelector((state) => state.auth.myData.email);
     const avatar = useAppSelector((state) => state.auth.myData.avatar);
     const isFetching = useAppSelector((state) => state.app.isFetching);
+
     const [value, setValue] = useState(name);
 
     const onLogoutHandler = () => {
@@ -33,11 +35,11 @@ const ProfilePage = () => {
         const newName = value?.trim();
         if (newName === name) return;
         if (!newName || newName.length < 1) {
-            dispatch(setAppMessage({ text: "Invalid nickname", severity: "error" }));
+            dispatch(setAppMessage({text: "Invalid nickname", severity: "error"}));
             setValue(name);
             return;
         } else {
-            dispatch(changeUserProfileTC({ name: newName }));
+            dispatch(changeUserProfileTC({name: newName}));
         }
     };
 
@@ -46,12 +48,12 @@ const ProfilePage = () => {
     };
 
     const changeAvatarHandler = (newImage: string) => {
-        dispatch(changeUserProfileTC({ avatar: newImage }));
+        dispatch(changeUserProfileTC({avatar: newImage}));
     };
 
     const deleteImageHandler = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
-        dispatch(changeUserProfileTC({ avatar: "https://i.imgur.com/lqN6w1t.png" }));
+        dispatch(changeUserProfileTC({avatar: "https://i.imgur.com/lqN6w1t.png"}));
     };
 
     return (
@@ -59,9 +61,17 @@ const ProfilePage = () => {
             <SPagePanel>
                 <BackPageButton to={-1} label={"Go back"} />
             </SPagePanel>
-            <UiBox title={"Personal Information"} maxWidth={"430px"} margin={"5vh auto 0 auto"}>
+            <UiBox
+                title={"Personal Information"}
+                maxWidth={"430px"}
+                margin={"5vh auto 0 auto"}
+            >
                 {isFetching && <LoaderIcon shadow absolute />}
-                <Box padding={"0 20px"} gap={"30px"} flexDirection={"column"}>
+                <Box
+                    padding={"0 20px"}
+                    gap={"30px"}
+                    flexDirection={"column"}
+                >
                     <SProfileContent>
                         <Avatar
                             size={"large"}
@@ -71,7 +81,11 @@ const ProfilePage = () => {
                             isFetching={isFetching}
                             isEditable
                         />
-                        <Box width={"100%"} flexDirection={"column"} overflow={"hidden"}>
+                        <Box
+                            width={"100%"}
+                            flexDirection={"column"}
+                            overflow={"hidden"}
+                        >
                             <EditableSpan
                                 value={value || ""}
                                 fontSize={"20px"}

@@ -27,8 +27,8 @@ const PacksPagePanel = () => {
     const isFetching = useAppSelector((state) => state.app.isFetching);
 
     const addNewPackHandler = (values: TAddAndUpdatePackModalValues) => {
-        dispatch(addNewPack({ newCardsPack: values, paramURL: URLParams })).then(() =>
-            setIsAddPackModalOpen(false)
+        dispatch(addNewPack({ newCardsPack: values, paramURL: URLParams })).then(
+            (res) => res.payload && setIsAddPackModalOpen(false)
         );
     };
 

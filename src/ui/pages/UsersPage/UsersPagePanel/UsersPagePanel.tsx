@@ -13,7 +13,6 @@ const UsersPagePanel = () => {
             </Box>
             <Box alignItems={"center"}>
                 <Search addParamToUrl={"userName"} />
-                {/*<PacksFilter />*/}
             </Box>
         </SPagePanel>
     );

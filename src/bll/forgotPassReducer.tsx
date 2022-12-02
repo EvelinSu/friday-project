@@ -3,11 +3,6 @@ import { authAPI } from "../dal/authAPI";
 import { setAppMessage, setIsFetching } from "./appReducer";
 import { handlerErrors } from "../common/utils/handlerErrors";
 
-export type TForgotPass = {
-    isSendLetter: boolean;
-    token: string;
-};
-
 export const sendEmailTC = createAsyncThunk(
     "password/sendEmail",
     async (email: string, { dispatch, rejectWithValue }) => {
@@ -42,6 +37,10 @@ export const sendNewPassTC = createAsyncThunk(
     }
 );
 
+export type TForgotPass = {
+    isSendLetter: boolean;
+    token: string;
+};
 const slice = createSlice({
     name: "password",
     initialState: {
@@ -61,4 +60,4 @@ const slice = createSlice({
 });
 
 export const forgotPassReducer = slice.reducer;
-export const { setTokenAC } = slice.actions;
+export const {setTokenAC} = slice.actions;

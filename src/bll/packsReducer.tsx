@@ -1,25 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { cardsAPI } from "../dal/cardsAPI";
-import { TPack, TPacksParams } from "../dal/ResponseTypes";
+import { TPacksParams, TResponsePack } from "../dal/ResponseTypes";
 import { setAppMessage, setIsFetching } from "./appReducer";
 import { getUser } from "./usersReducer";
 import { TAddAndUpdatePackModalValues } from "../ui/pages/PacksPage/PacksModals/AddAndUpdatePackModal";
 import { handlerErrors } from "../common/utils/handlerErrors";
 
-export type TPacksData = {
-    cardPacks: TPack[];
-    page: number;
-    pageCount: number;
-    cardPacksTotalCount: number;
-    minCardsCount: number;
-    maxCardsCount: number;
-    user_id: string;
-    token: string;
-};
-
 export type TPacks = {
     isButtonsDisabled: boolean;
-    cardPacksData: TPacksData;
+    cardPacksData: TResponsePack;
 };
 const initialState: TPacks = {
     isButtonsDisabled: false,
@@ -64,7 +53,7 @@ export const addNewPack = createAsyncThunk(
     "packs/addNewPack",
     async (
         param: { newCardsPack: TAddAndUpdatePackModalValues; paramURL: TPacksParams },
-        { dispatch, rejectWithValue }
+        { dispatch }
     ) => {
         dispatch(setIsButtonsDisabled(true));
         const { name, deckCover, isPrivate } = param.newCardsPack;
@@ -72,9 +61,10 @@ export const addNewPack = createAsyncThunk(
             await cardsAPI.addPack({ name, deckCover, private: isPrivate });
             dispatch(loadPacks(param.paramURL));
             dispatch(setAppMessage({ text: "New pack created", severity: "success" }));
+            return true;
         } catch (e) {
             handlerErrors(dispatch, e);
-            return rejectWithValue({});
+            return false;
         } finally {
             dispatch(setIsButtonsDisabled(false));
         }
@@ -122,7 +112,7 @@ const slice = createSlice({
     name: "packs",
     initialState: initialState,
     reducers: {
-        setPacks(state, action: PayloadAction<TPacksData>) {
+        setPacks(state, action: PayloadAction<TResponsePack>) {
             state.cardPacksData = action.payload;
         },
         clearStatePacks(state) {

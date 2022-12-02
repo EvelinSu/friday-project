@@ -12,14 +12,7 @@ import { UiBox } from "../../../components/UiBox/UiBox";
 import Select from "../../../components/Select/Select";
 import { FileUploadArea } from "../../../components/FileUploadArea/FileUploadArea";
 
-export type TAddAndUpdateCardModalValues = {
-    question: string;
-    answer: string;
-    answerImg?: string;
-    questionImg?: string;
-};
-
-export type TQuestionTypes = "Text" | "Image" | "";
+const questionTypes: TQuestionTypes[] = ["Text", "Image"];
 
 type TAddCardModalProps = {
     title: string;
@@ -29,9 +22,9 @@ type TAddCardModalProps = {
 };
 const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
     const { isButtonsDisabled } = useAppSelector((state) => state.packs);
-    const questionTypes: TQuestionTypes[] = ["Text", "Image"];
     const [questionImage, setQuestionImage] = useState(props.currentCard?.questionImg || "");
     const [answerImage, setAnswerImage] = useState(props.currentCard?.answerImg || "");
+
     const [questionType, setQuestionType] = useState<TQuestionTypes>(
         (questionImage && questionImage !== "null") || (answerImage && answerImage !== "null")
             ? questionTypes[1]
@@ -156,5 +149,14 @@ const AddAndUpdateCardModal: FC<TAddCardModalProps> = (props) => {
         </SMegaShadow>
     );
 };
+
+export type TAddAndUpdateCardModalValues = {
+    question: string;
+    answer: string;
+    answerImg?: string;
+    questionImg?: string;
+};
+
+export type TQuestionTypes = "Text" | "Image" | "";
 
 export default AddAndUpdateCardModal;

@@ -25,16 +25,17 @@ export const loadCards = createAsyncThunk(
 
 export const addNewCard = createAsyncThunk(
     "cards/addNewCard",
-    async (param: { cardsParams: TCardsParams; newCard: TNewCard }, { dispatch, rejectWithValue }) => {
+    async (param: { cardsParams: TCardsParams; newCard: TNewCard }, { dispatch }) => {
         dispatch(setIsFetching(true));
         dispatch(setIsButtonsDisabled(true));
         try {
             await cardsAPI.addCard(param.newCard);
             dispatch(loadCards(param.cardsParams));
             dispatch(setAppMessage({ text: "Card successfully added!", severity: "success" }));
+            return true;
         } catch (e) {
             handlerErrors(dispatch, e);
-            return rejectWithValue({});
+            return false;
         } finally {
             dispatch(setIsFetching(false));
             dispatch(setIsButtonsDisabled(false));
@@ -95,14 +96,6 @@ export const uploadGrade = createAsyncThunk(
     }
 );
 
-export type TCards = {
-    isButtonsDisabled: boolean;
-    cardsData: TResponseCard;
-    currentCard: TCard;
-    questionCount: number;
-    isLearning: boolean;
-};
-
 export const initialCardsData: TResponseCard = {
     cards: [],
     cardsTotalCount: 12,
@@ -118,6 +111,13 @@ export const initialCardsData: TResponseCard = {
     pageCount: 12,
 };
 
+export type TCardsState = {
+    isButtonsDisabled: boolean;
+    cardsData: TResponseCard;
+    currentCard: TCard;
+    questionCount: number;
+    isLearning: boolean;
+};
 const slice = createSlice({
     name: "cards",
     initialState: {
@@ -126,7 +126,7 @@ const slice = createSlice({
         currentCard: {},
         questionCount: 0,
         isLearning: false,
-    } as TCards,
+    } as TCardsState,
     reducers: {
         setCards(state, action: PayloadAction<TResponseCard>) {
             state.cardsData = action.payload;
@@ -151,11 +151,7 @@ const slice = createSlice({
             (state, action: PayloadAction<{ card_id: string; grade: number; shots: number }>) => {
                 state.cardsData.cards = state.cardsData.cards.map((card: TCard) =>
                     card._id === action.payload.card_id
-                        ? {
-                              ...card,
-                              grade: action.payload.grade,
-                              shots: action.payload.shots,
-                          }
+                        ? { ...card, grade: action.payload.grade, shots: action.payload.shots }
                         : card
                 );
             }

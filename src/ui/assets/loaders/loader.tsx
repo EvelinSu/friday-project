@@ -1,35 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-const SLoader = styled.div<TLoaderIcon>((props) => ({
-    flexGrow: 1,
-    height: "100%",
-    width: "100%",
-    maxWidth: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    pointerEvents: "none",
-    borderRadius: "inherit",
-    zIndex: 1,
-    ...(props.absolute && {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        borderRadius: props.borderRadius || "inherit",
-        right: 0,
-        backgroundColor: props.shadow ? props.theme.colors.loader.alphaBg : "",
-        "@media all and (max-width: 540px)": {
-            position: "fixed",
-        },
-    }),
-    svg: {
-        width: 80,
-        height: 80,
-    },
-}));
-
 type TLoaderIcon = {
     absolute?: boolean;
     borderRadius?: string;
@@ -110,5 +81,34 @@ const LoaderIcon: FC<TLoaderIcon> = (props) => {
         </SLoader>
     );
 };
+
+const SLoader = styled.div<TLoaderIcon>((props) => ({
+    flexGrow: 1,
+    height: "100%",
+    width: "100%",
+    maxWidth: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    pointerEvents: "none",
+    borderRadius: "inherit",
+    zIndex: 1,
+    ...(props.absolute && {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        borderRadius: props.borderRadius || "inherit",
+        right: 0,
+        backgroundColor: props.shadow ? props.theme.colors.loader.alphaBg : "",
+        "@media all and (max-width: 540px)": {
+            position: "fixed",
+        },
+    }),
+    svg: {
+        width: 80,
+        height: 80,
+    },
+}));
 
 export default LoaderIcon;

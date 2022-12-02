@@ -9,26 +9,16 @@ import {
 } from "../../../../common/utils/getUrlParams";
 import { useAppSelector } from "../../../../hooks/hooks";
 
-export type TCardsFilterOptions =
-    | "Updated recently"
-    | "Updated long ago"
-    | "High rating"
-    | "Low rating"
-    | "";
-export type TCardsFilterTabs = "Images" | "Text";
-// const tabs: TCardsFilterTabs[] = ["Images", "Text"];
+const options: TCardsFilterOptions[] = [
+    "Updated recently",
+    "Updated long ago",
+    "High rating",
+    "Low rating",
+];
 
 export const CardsFilter = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
-
-    const options: TCardsFilterOptions[] = [
-        "Updated recently",
-        "Updated long ago",
-        "High rating",
-        "Low rating",
-    ];
-    const currentOption = transformURLOption(searchParams.get("sortCards"));
 
     const minGrade = useAppSelector((state) => state.cards.cardsData.minGrade);
     const maxGrade = useAppSelector((state) => state.cards.cardsData.maxGrade);
@@ -40,6 +30,8 @@ export const CardsFilter = () => {
     const addSortToURL = (option: TCardsFilterOptions) => {
         setSearchParams({ ...URLParams, sortCards: transformToURLOption(option) });
     };
+
+    const currentOption = transformURLOption(searchParams.get("sortCards"));
     const initialCardParams = { ...initialObjectParams, cardsPack_id: URLParams.cardsPack_id };
 
     return (
@@ -55,3 +47,12 @@ export const CardsFilter = () => {
         />
     );
 };
+
+export type TCardsFilterOptions =
+    | "Updated recently"
+    | "Updated long ago"
+    | "High rating"
+    | "Low rating"
+    | "";
+
+export type TCardsFilterTabs = "Images" | "Text";

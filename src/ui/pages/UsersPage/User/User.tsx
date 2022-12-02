@@ -12,7 +12,7 @@ type TUserProps = {
     user: TResponseUserData;
 };
 export const User: FC<TUserProps> = (props) => {
-    const {avatar, name, email, created, updated, publicCardPacksCount} = props.user;
+    const {avatar, name, email, created, publicCardPacksCount} = props.user;
 
     const createdTime = transformDate(created, true);
 
@@ -20,7 +20,11 @@ export const User: FC<TUserProps> = (props) => {
         <SUserWrapper>
             <Box width={"100%"} alignItems={"center"}>
                 <Avatar img={avatar || defaultPhoto} />
-                <Box gap={"5px"} flexDirection={"column"} overflow={"hidden"}>
+                <Box
+                    gap={"5px"}
+                    flexDirection={"column"}
+                    overflow={"hidden"}
+                >
                     <SText isEllipsis>{name}</SText>
                     {name !== email && (
                         <SText isEllipsis opacity={0.4}>
