@@ -22,8 +22,6 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
     const URLMin = URLParams.min ? Number(URLParams.min) : undefined;
     const URLMax = URLParams.max ? Number(URLParams.max) : undefined;
 
-    const [isInactive, setIsInactive] = useState(true);
-
     const [value1, setValue1] = useState(URLMin || minCardsCount);
     const [value2, setValue2] = useState(URLMax || maxCardsCount);
 
@@ -37,25 +35,31 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
     const onChangeHandler = (valueName: "min" | "max", value: number) => {
         if (valueName === "min") setValue1(value);
         if (valueName === "max") setValue2(value);
-        setIsInactive(false);
     };
 
     useEffect(() => {
-        if (!isInactive && (+value1 !== URLMin || +value2 !== URLMax)) {
+        if (+value1 !== URLMin || +value2 !== URLMax) {
             setSearchParams({
                 ...URLParams,
                 min: `${value1}`,
                 max: `${value2}`,
             });
         }
-
-        setIsInactive(true);
-        if (URLMax === maxCardsCount && URLMin === minCardsCount) {
+        if (debounceValues1 === minCardsCount && debounceValues2 === maxCardsCount) {
             delete URLParams.min;
             delete URLParams.max;
+
             setSearchParams(URLParams);
         }
     }, [debounceValues1, debounceValues2]);
+
+    // when filter is reset
+    useEffect(() => {
+        if (!URLMin && !URLMax) {
+            setValue1(minCardsCount);
+            setValue2(maxCardsCount);
+        }
+    }, [URLParams, maxCardsCount]);
 
     return (
         <Box flexDirection={"column"} width={"100%"} gap={10}>
