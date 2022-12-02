@@ -34,7 +34,7 @@ const ChangePassword = () => {
 
     useEffect(() => {
         if (!token || !isTokenFromState) navigate(PATH.profile);
-        if (token) dispatch(setTokenAC({ token }));
+        if (token) dispatch(setTokenAC(token));
     }, [isTokenFromState]);
 
     return (

@@ -1,17 +1,7 @@
 import {
-    authReducer,
-    changeUserProfileTC,
-    setIsLoggedIn,
-    setRegisterUserData,
-    setUserData,
-    TAuth,
-} from "../bll/authReducer";
-import {
     cardsReducer,
     incQuestionCount,
     initialCardsData,
-    setCards,
-    setCurrentCard,
     setIsLearning,
     TCards,
 } from "../bll/cardsReducer";
@@ -42,10 +32,3 @@ test("questionCount should be ", () => {
     const endState = cardsReducer(startState, action);
     expect(endState.questionCount).toBe(1);
 });
-
-// test("questionCount should be ", () => {
-//     const action = incQuestionCount();
-//
-//     const endState = cardsReducer(startState, action);
-//     expect(endState.questionCount).toBe(1);
-// });
