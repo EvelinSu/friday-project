@@ -2,7 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import Filter from "../../../components/Filter/Filter";
 import { useSearchParams } from "react-router-dom";
 import { setUserCardParams } from "../../../../bll/paramsReducer";
-import { getUrlParams, initialObjectParams } from "../../../../common/utils/getUrlParams";
+import {
+    getUrlParams,
+    initialObjectParams,
+    initialStringParams,
+} from "../../../../common/utils/getUrlParams";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { transformToURLOption, transformURLOption } from "../../../../common/utils/transformURLOption";
 
@@ -76,6 +80,7 @@ export const PacksFilter = () => {
             minmax={[minCardsCount, maxCardsCount]}
             rangeText={"Number of cards"}
             addSortToURL={addSortToURL}
+            defaultURL={initialStringParams}
         />
     );
 };

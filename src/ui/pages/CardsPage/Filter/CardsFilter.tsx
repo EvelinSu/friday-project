@@ -2,7 +2,11 @@ import React, { useMemo } from "react";
 import Filter from "../../../components/Filter/Filter";
 import { transformToURLOption, transformURLOption } from "../../../../common/utils/transformURLOption";
 import { useSearchParams } from "react-router-dom";
-import { getUrlParams, initialObjectParams } from "../../../../common/utils/getUrlParams";
+import {
+    getUrlParams,
+    initialObjectParams,
+    initialStringParams,
+} from "../../../../common/utils/getUrlParams";
 import { useAppSelector } from "../../../../hooks/hooks";
 
 export type TCardsFilterOptions =
@@ -47,6 +51,7 @@ export const CardsFilter = () => {
             minmax={[minGrade, maxGrade - 1]}
             rangeText={"Rating"}
             addSortToURL={addSortToURL}
+            defaultURL={initialStringParams + `cardsPack_id=${URLParams.cardsPack_id}`}
         />
     );
 };
