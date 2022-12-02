@@ -38,11 +38,11 @@ export const registerTC = createAsyncThunk(
 
 export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch, rejectWithValue }) => {
     try {
-        dispatch(setIsInitialized(false));
-        dispatch(setAppStatus("loading"));
         const me = await authAPI.authMe();
         const { name, email, avatar } = me.data;
         const id = me.data._id;
+        dispatch(setIsInitialized(false));
+        dispatch(setAppStatus("loading"));
         await dispatch(setUserData({ id, name, email, avatar }));
         dispatch(setIsLoggedIn(true));
     } catch (e) {
@@ -139,5 +139,4 @@ const slice = createSlice({
 });
 
 export const { setIsLoggedIn, setUserData, setRegisterUserData } = slice.actions;
-
 export const authReducer = slice.reducer;

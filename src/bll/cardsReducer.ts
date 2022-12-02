@@ -6,29 +6,6 @@ import { setIsButtonsDisabled } from "./packsReducer";
 import { TAddAndUpdateCardModalValues } from "../ui/pages/CardsPage/CardsModals/AddAndUpdateCardModal";
 import { handlerErrors } from "../common/utils/handlerErrors";
 
-export type TCards = {
-    isButtonsDisabled: boolean;
-    cardsData: TResponseCard;
-    currentCard: TCard;
-    questionCount: number;
-    isLearning: boolean;
-};
-
-export const initialCardsData: TResponseCard = {
-    cards: [],
-    cardsTotalCount: 12,
-    maxGrade: 5,
-    minGrade: 0,
-    packCreated: "",
-    packDeckCover: "",
-    packName: "",
-    packPrivate: false,
-    packUpdated: "",
-    packUserId: "",
-    page: 1,
-    pageCount: 12,
-};
-
 export const loadCards = createAsyncThunk(
     "cards/loadCards",
     async (param: TCardsParams, { dispatch, rejectWithValue }) => {
@@ -38,9 +15,6 @@ export const loadCards = createAsyncThunk(
             dispatch(setCards(res.data));
         } catch (e) {
             // Incorrect error. Must be 429, but is 401.
-            // const err = e.response
-            //     ? e.response.data.error
-            //     : e.message + ", more details in the console";
             dispatch(setAppMessage({ text: "Something went wrong", severity: "error" }));
             return rejectWithValue({});
         } finally {
@@ -121,6 +95,29 @@ export const uploadGrade = createAsyncThunk(
     }
 );
 
+export type TCards = {
+    isButtonsDisabled: boolean;
+    cardsData: TResponseCard;
+    currentCard: TCard;
+    questionCount: number;
+    isLearning: boolean;
+};
+
+export const initialCardsData: TResponseCard = {
+    cards: [],
+    cardsTotalCount: 12,
+    maxGrade: 5,
+    minGrade: 0,
+    packCreated: "",
+    packDeckCover: "",
+    packName: "",
+    packPrivate: false,
+    packUpdated: "",
+    packUserId: "",
+    page: 1,
+    pageCount: 12,
+};
+
 const slice = createSlice({
     name: "cards",
     initialState: {
@@ -149,17 +146,20 @@ const slice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(uploadGrade.fulfilled, (state, action) => {
-            state.cardsData.cards.map((card) =>
-                card._id === action.payload.card_id
-                    ? {
-                          ...card,
-                          grade: action.payload.grade,
-                          shorts: action.payload.shots,
-                      }
-                    : card
-            );
-        });
+        builder.addCase(
+            uploadGrade.fulfilled,
+            (state, action: PayloadAction<{ card_id: string; grade: number; shots: number }>) => {
+                state.cardsData.cards = state.cardsData.cards.map((card: TCard) =>
+                    card._id === action.payload.card_id
+                        ? {
+                              ...card,
+                              grade: action.payload.grade,
+                              shots: action.payload.shots,
+                          }
+                        : card
+                );
+            }
+        );
     },
 });
 

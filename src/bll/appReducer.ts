@@ -61,7 +61,6 @@ export const setThemeFromLS = createAsyncThunk("app/setTheme", (param: TThemes, 
 });
 
 export const appReducer = slice.reducer;
-
 export const {
     setIsFetching,
     setIsInitialized,
