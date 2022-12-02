@@ -1,6 +1,6 @@
 import { TCardsParams, TPacksParams, TUsersParams } from "../../dal/ResponseTypes";
 
-type TCommonURLParams = TPacksParams & TCardsParams & TUsersParams;
+export type TCommonURLParams = TPacksParams & TCardsParams & TUsersParams;
 
 const windowHeight = window.innerHeight;
 const pageCount = windowHeight > 1102 ? 20 : windowHeight > 942 ? 16 : 12;

@@ -4,13 +4,14 @@ import IconButton from "../../components/IconButton/IconButton";
 import MoonIcon from "../../assets/icons/MoonIcon";
 import { SText } from "../../components/Text/SText";
 import Avatar from "../../components/Avatar/Avatar";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { PATH } from "../../pages/Pages";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { setThemeFromLS } from "../../../bll/appReducer";
 import { SunIcon } from "../../assets/icons/SunIcon";
 import { initialStringParams } from "../../../common/utils/getUrlParams";
 import { FolderFileFillIcon } from "../../assets/icons/FolderFileFillIcon";
+import { UsersIcon } from "../../assets/icons/UsersIcon";
 
 type THeaderPanelProps = {
     avatar: string | null | undefined;
@@ -19,11 +20,14 @@ type THeaderPanelProps = {
 };
 
 const HeaderPanel: FC<THeaderPanelProps> = (props) => {
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useAppDispatch();
 
     const theme = useAppSelector((state) => state.app.currentTheme);
     const myId = useAppSelector((state) => state.auth.myData.id);
+    const urlUserId = searchParams.get("user_id");
 
     const onChangeThemeHandler = () => {
         dispatch(setThemeFromLS(theme === "light" ? "dark" : "light"));
@@ -41,14 +45,15 @@ const HeaderPanel: FC<THeaderPanelProps> = (props) => {
             />
             {props.isLoggedIn && (
                 <>
-                    {/* api is broken */}
-                    {/*<IconButton*/}
-                    {/*    title={"Users"}*/}
-                    {/*    onClick={() => navigate(PATH.usersList + initialStringParams)}*/}
-                    {/*    icon={<UsersIcon />}*/}
-                    {/*/>*/}
+                    <IconButton
+                        title={"Users"}
+                        isDisabled={location.pathname.includes(PATH.usersList)}
+                        onClick={() => navigate(PATH.usersList + initialStringParams)}
+                        icon={<UsersIcon />}
+                    />
                     <IconButton
                         title={"My packs"}
+                        isDisabled={location.pathname.includes(PATH.packsList) && urlUserId === myId}
                         onClick={() => navigate(PATH.packsList + myPacksFilter)}
                         icon={<FolderFileFillIcon />}
                     />

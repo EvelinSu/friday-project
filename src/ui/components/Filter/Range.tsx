@@ -16,6 +16,7 @@ type TNumberOfCardsProps = {
 };
 const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
     const [minCardsCount, maxCardsCount] = props.minmax;
+    const checkMaxCardsCount = maxCardsCount > 5 ? maxCardsCount : 5;
 
     const [searchParams, setSearchParams] = useSearchParams();
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
@@ -23,7 +24,7 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
     const URLMax = URLParams.max ? Number(URLParams.max) : undefined;
 
     const [value1, setValue1] = useState(URLMin || minCardsCount);
-    const [value2, setValue2] = useState(URLMax || maxCardsCount);
+    const [value2, setValue2] = useState(URLMax || checkMaxCardsCount);
 
     const debounceValues1 = useDebounce(value1, 500);
     const debounceValues2 = useDebounce(value2, 500);
@@ -45,10 +46,9 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
                 max: `${value2}`,
             });
         }
-        if (debounceValues1 === minCardsCount && debounceValues2 === maxCardsCount) {
+        if (debounceValues1 === minCardsCount && debounceValues2 === checkMaxCardsCount) {
             delete URLParams.min;
             delete URLParams.max;
-
             setSearchParams(URLParams);
         }
     }, [debounceValues1, debounceValues2]);
@@ -57,9 +57,9 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
     useEffect(() => {
         if (!URLMin && !URLMax) {
             setValue1(minCardsCount);
-            setValue2(maxCardsCount > 5 ? maxCardsCount : 5);
+            setValue2(checkMaxCardsCount);
         }
-    }, [URLParams, maxCardsCount]);
+    }, [maxCardsCount]);
 
     return (
         <Box flexDirection={"column"} width={"100%"} gap={10}>
