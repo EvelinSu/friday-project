@@ -57,7 +57,7 @@ const Range: FC<TNumberOfCardsProps> = ({ ...props }) => {
     useEffect(() => {
         if (!URLMin && !URLMax) {
             setValue1(minCardsCount);
-            setValue2(maxCardsCount);
+            setValue2(maxCardsCount > 5 ? maxCardsCount : 5);
         }
     }, [URLParams, maxCardsCount]);
 
