@@ -1,21 +1,21 @@
 import React from "react";
-import { SHeader, SHeaderButton, SHeaderLogo } from "./styled";
-import { useLocation, useNavigate } from "react-router-dom";
+import {SHeader, SHeaderButton, SHeaderLogo} from "./styled";
+import {useLocation, useNavigate} from "react-router-dom";
 import Logo from "../../assets/icons/Logo";
 import IconButton from "../../components/IconButton/IconButton";
 import SignInIcon from "../../assets/icons/SignInIcon";
-import { SText } from "../../components/Text/SText";
+import {SText} from "../../components/Text/SText";
 import HeaderPanel from "./HeaderPanel";
-import { PATH } from "../../pages/Pages";
-import { useAppSelector } from "../../../hooks/hooks";
+import {PATH} from "../../pages/Pages";
+import {useAppSelector} from "../../../hooks/hooks";
 import defaultPhoto from "../../assets/img/default-photo.png";
-import { initialStringParams } from "../../../common/utils/getUrlParams";
+import {initialStringParams} from "../../../common/utils/getUrlParams";
 
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { isLoggedIn, myData } = useAppSelector((state) => state.auth);
+    const {isLoggedIn, myData} = useAppSelector((state) => state.auth);
 
     return (
         <SHeader>

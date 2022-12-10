@@ -6,7 +6,7 @@ type TIconButtonProps = {
     isDark?: boolean;
     isLightest?: boolean;
     color?: string;
-    size?: "sm";
+    size?: "sm" | "md";
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     title?: string;
     isDisabled?: boolean;

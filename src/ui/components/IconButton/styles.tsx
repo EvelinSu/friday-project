@@ -4,7 +4,7 @@ type TSIconButtonProps = {
     isDark?: boolean;
     isLightest?: boolean;
     color?: string;
-    size?: "sm";
+    size?: "sm" | "md";
     isDisabled?: boolean;
 };
 
@@ -20,8 +20,8 @@ export const SIconButton = styled.div<TSIconButtonProps>((props) => ({
     backgroundColor: props.isDark
         ? "rgba(79, 101, 158, 0.35)"
         : props.isLightest
-        ? props.theme.colors.secondaryLight
-        : "rgba(255, 255, 255, 0.15)",
+            ? props.theme.colors.secondaryLight
+            : "rgba(255, 255, 255, 0.15)",
     cursor: "pointer",
     transition: "0.2s",
     "&:hover": {
