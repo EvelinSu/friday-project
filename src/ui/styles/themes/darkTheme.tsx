@@ -1,4 +1,4 @@
-import { baseTheme } from "./baseTheme";
+import {baseTheme} from "./baseTheme";
 
 export const darkTheme = {
     ...baseTheme,
@@ -6,15 +6,15 @@ export const darkTheme = {
         ...baseTheme.colors,
         primaryLightest: "#3e4975",
         primaryLight: "#8facd3",
-        primary: "#2c3852",
-        primaryDark: "#334060",
-        secondaryLight: "#323c54",
-        secondary: "#232d44",
+        primary: "#314272",
+        primaryDark: "#283a67",
+        secondaryLight: "#252e54",
+        secondary: "#1d2848",
         secondaryLightAlpha07: "rgba(50,60,84,0.7)",
         textOnSecondary: "#d0d0d0",
         textOnPrimary: "#d0d0d0",
         cards: {
-            default: ["#313d5b", "rgba(69,84,122,0.37)"],
+            default: ["#263757", "rgba(69,84,122,0.37)"],
             text: "#d0d0d0",
             skeleton: "rgba(115,152,206,0.02)",
             shadow: "rgba(44,54,91,0.8)",
