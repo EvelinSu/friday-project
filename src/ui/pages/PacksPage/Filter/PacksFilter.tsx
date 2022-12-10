@@ -1,26 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Filter from "../../../components/Filter/Filter";
-import { useSearchParams } from "react-router-dom";
-import { setUserCardParams } from "../../../../bll/paramsReducer";
+import {useSearchParams} from "react-router-dom";
+import {setUserCardParams} from "../../../../bll/paramsReducer";
+import {getUrlParams, initialObjectParams, initialStringParams,} from "../../../../common/utils/getUrlParams";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
 import {
-    getUrlParams,
-    initialObjectParams,
-    initialStringParams,
-} from "../../../../common/utils/getUrlParams";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { transformToURLOption, transformURLOption } from "../../../../common/utils/transformURLOption";
+    transformToURLOption,
+    transformURLOption,
+    TSortOptions,
+    TURLSortOptions
+} from "../../../../common/utils/transformURLOption";
 
-export type TPacksFilterOptions =
-    | "Updated recently"
-    | "Updated long ago"
-    | "Few cards"
-    | "Lots of cards"
-    | "";
-const options: TPacksFilterOptions[] = [
+const options: Array<keyof TSortOptions> = [
     "Updated recently",
     "Updated long ago",
     "Few cards",
-    "Lots of cards",
+    "Lot of cards",
 ];
 
 export type TPacksFilterTabs = "All" | "My" | "Other";
@@ -37,7 +32,7 @@ export const PacksFilter = () => {
     const minCardsCount = useAppSelector((state) => state.packs.cardPacksData.minCardsCount);
     const maxCardsCount = useAppSelector((state) => state.packs.cardPacksData.maxCardsCount);
 
-    const currentOption = transformURLOption(searchParams.get("sortPacks"));
+    const currentOption = transformURLOption(searchParams.get("sortPacks") as keyof TURLSortOptions);
 
     const onTabClickHandler = (tab: string) => {
         const userPackParams: any = {
@@ -47,7 +42,7 @@ export const PacksFilter = () => {
         };
         if (userId) {
             dispatch(setUserCardParams(userPackParams.user_id));
-            setSearchParams(tab === "My" ? userPackParams : { page: 1, pageCount: URLParams.pageCount });
+            setSearchParams(tab === "My" ? userPackParams : {page: 1, pageCount: URLParams.pageCount});
         }
         if (tabs.includes("Other")) setTabs(["All", "My"]);
     };
@@ -57,16 +52,16 @@ export const PacksFilter = () => {
         setTabs(["All", "My", "Other"]);
     };
 
-    const addSortToURL = (option: TPacksFilterOptions) => {
-        setSearchParams({ ...URLParams, sortPacks: transformToURLOption(option) });
+    const addSortToURL = (option: keyof TSortOptions) => {
+        setSearchParams({...URLParams, sortPacks: transformToURLOption(option)});
     };
 
     useEffect(() => {
         URLParams.user_id === userId
             ? setActiveTab("My")
             : URLParams.user_id && URLParams.user_id !== userId
-            ? isOtherUserId()
-            : setActiveTab("All");
+                ? isOtherUserId()
+                : setActiveTab("All");
     }, [URLParams, userId]);
 
     return (

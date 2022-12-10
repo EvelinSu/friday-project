@@ -1,19 +1,20 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, {FC, useEffect, useMemo, useState} from "react";
 import Select from "../Select/Select";
-import { SFilterContainer, SFilterReset, SFilterWrapper } from "./styled";
-import { SText } from "../Text/SText";
+import {SFilterContainer, SFilterReset, SFilterWrapper} from "./styled";
+import {SText} from "../Text/SText";
 import Tabs from "../Tabs/Tabs";
 import Range from "./Range";
 import CloseButton from "../CloseButton/CloseButton";
-import { useSearchParams } from "react-router-dom";
-import { WithFormTitle } from "../Form/styled";
-import { Box } from "../Box/Box";
+import {useSearchParams} from "react-router-dom";
+import {WithFormTitle} from "../Form/styled";
+import {Box} from "../Box/Box";
 import FilterIcon from "../../assets/icons/FilterIcon";
 import IconButton from "../IconButton/IconButton";
-import { TCardsFilterOptions, TCardsFilterTabs } from "../../pages/CardsPage/Filter/CardsFilter";
-import { TPacksFilterOptions, TPacksFilterTabs } from "../../pages/PacksPage/Filter/PacksFilter";
-import { useAppSelector } from "../../../hooks/hooks";
-import { getUrlParams } from "../../../common/utils/getUrlParams";
+import {TCardsFilterTabs} from "../../pages/CardsPage/Filter/CardsFilter";
+import {TPacksFilterTabs} from "../../pages/PacksPage/Filter/PacksFilter";
+import {useAppSelector} from "../../../hooks/hooks";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
+import {TSortOptions} from "../../../common/utils/transformURLOption";
 
 export type TInitialFilters = {
     activeTab: string;
@@ -22,15 +23,14 @@ export type TInitialFilters = {
 };
 
 export type TCommonFilterTabs = TPacksFilterTabs | TCardsFilterTabs | "";
-export type TCommonFilterOptions = TPacksFilterOptions | TCardsFilterOptions | "";
 
 type TFilterProps = {
     onBlur?: (e: React.FocusEvent<HTMLDivElement>) => void;
-    options: TCommonFilterOptions[];
-    currentOption: TCommonFilterOptions;
+    options: Array<keyof TSortOptions>;
+    currentOption: keyof TSortOptions | "";
     tabs?: TCommonFilterTabs[];
     activeTab?: TCommonFilterTabs;
-    onTabClickHandler: (tab: TCommonFilterTabs) => void;
+    onTabClickHandler?: (tab: TCommonFilterTabs) => void;
     initialParams: { [key: string]: string };
     minmax: [number, number];
     rangeText: string;
@@ -42,7 +42,7 @@ const Filter: FC<TFilterProps> = (props) => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const URLParams = useMemo(() => getUrlParams(searchParams), [searchParams]);
 
-    const [option, setOption] = useState<TCommonFilterOptions>(props.currentOption || "");
+    const [option, setOption] = useState<keyof TSortOptions | "">(props.currentOption || "");
     const isFetching = useAppSelector((state) => state.app.isFetching);
 
     const onResetHandler = () => {

@@ -1,7 +1,8 @@
 import React from "react";
-import { Box } from "../../../components/Box/Box";
-import { SMainTitle, SPagePanel } from "../../styled";
-import { Search } from "../../../components/Search/Search";
+import {Box} from "../../../components/Box/Box";
+import {SMainTitle, SPagePanel} from "../../styled";
+import {Search} from "../../../components/Search/Search";
+import {UsersFilter} from "../Filter/UsersFilter";
 
 const UsersPagePanel = () => {
     return (
@@ -13,6 +14,7 @@ const UsersPagePanel = () => {
             </Box>
             <Box alignItems={"center"}>
                 <Search addParamToUrl={"userName"} />
+                <UsersFilter />
             </Box>
         </SPagePanel>
     );

@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
-import { useAppSelector } from "../../../hooks/hooks";
-import { GridBox, SGridDefaultBlock } from "../../components/GridBox/GridBox";
-import { getCountArray } from "../../../common/utils/getCountArray";
-import { baseTheme } from "../../styles/themes/baseTheme";
-import { useSearchParams } from "react-router-dom";
-import { getUrlParams } from "../../../common/utils/getUrlParams";
-import { User } from "./User/User";
+import React, {useMemo} from "react";
+import {useAppSelector} from "../../../hooks/hooks";
+import {GridBox, SGridDefaultBlock} from "../../components/GridBox/GridBox";
+import {getCountArray} from "../../../common/utils/getCountArray";
+import {baseTheme} from "../../styles/themes/baseTheme";
+import {useSearchParams} from "react-router-dom";
+import {getUrlParams} from "../../../common/utils/getUrlParams";
+import {User} from "./User/User";
 
 const smallScreen = baseTheme.media.small;
 const windowWidth = window.innerWidth;
@@ -28,8 +28,8 @@ export const UsersList = () => {
             style={{flexGrow: windowWidth > smallScreen ? 1 : ""}}
             rows={
                 windowWidth > smallScreen
-                    ? `repeat(${rowsCount}, minmax(145px, 200px))`
-                    : `repeat(auto-fit, 160px)`
+                    ? `repeat(${rowsCount}, minmax(165px, 200px))`
+                    : `repeat(auto-fit, 165px)`
             }
         >
             {users.map((user) => (
