@@ -1,17 +1,17 @@
 import React from "react";
-import { SMegaShadow } from "../../../components/MegaShadow/styled";
-import { UiBox } from "../../../components/UiBox/UiBox";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { setIsUserProfileOpen } from "../../../../bll/usersReducer";
-import { Box } from "../../../components/Box/Box";
+import {SMegaShadow} from "../../../components/MegaShadow/styled";
+import {UiBox} from "../../../components/UiBox/UiBox";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks";
+import {setIsUserProfileOpen} from "../../../../bll/usersReducer";
+import {Box} from "../../../components/Box/Box";
 import Avatar from "../../../components/Avatar/Avatar";
 import defaultAvatar from "../../../assets/img/default-photo.png";
 import LoaderIcon from "../../../assets/loaders/loader";
-import { transformDate } from "../../../../common/utils/tarnsformDate";
-import { SText } from "../../../components/Text/SText";
+import {transformDate} from "../../../../common/utils/tarnsformDate";
+import {SText} from "../../../components/Text/SText";
 import Button from "../../../components/Button/Button";
-import { useSearchParams } from "react-router-dom";
-import { initialObjectParams } from "../../../../common/utils/getUrlParams";
+import {useSearchParams} from "react-router-dom";
+import {initialObjectParams} from "../../../../common/utils/getUrlParams";
 
 export const UserProfileModal = () => {
     const dispatch = useAppDispatch();

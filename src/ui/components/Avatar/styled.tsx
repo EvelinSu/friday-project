@@ -8,7 +8,13 @@ type TSAvatarProps = {
 };
 
 const imgSizes = (size: TSizes) => {
-    const sizePx = size === "small" ? 40 : size === "large" ? 125 : size === "smallest" ? 30 : 60;
+    const sizePx = size === "small"
+        ? 40
+        : size === "large"
+            ? 125
+            : size === "smallest"
+                ? 30
+                : 60;
     return {
         minWidth: sizePx,
         maxWidth: sizePx,
@@ -39,7 +45,7 @@ export const SAvatar = styled.div<TSAvatarProps>((props) => ({
     ...imgSizes(props.size || "middle"),
 }));
 
-export const SAvatarShadow = styled.div((props) => ({
+export const SAvatarShadow = styled.div({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -59,21 +65,19 @@ export const SAvatarShadow = styled.div((props) => ({
     "&:hover": {
         opacity: 1,
     },
-}));
+});
 
-export const SAvatarDeleteIcon = styled.div`
-    width: 26px;
-    height: 26px;
-    margin-bottom: -30px;
-    padding: 5px;
-    border-radius: 50%;
-
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
+export const SAvatarDeleteIcon = styled.div(({theme}) => ({
+    width: 26,
+    height: 26,
+    marginBottom: -30,
+    padding: 5,
+    borderRadius: "50%",
+    "&:hover": {
+        backgroundColor: "rgba(255, 255, 255, 0.2)"
+    },
+    "svg path": {
+        fill: theme.colors.severity.error,
+        stroke: theme.colors.severity.error,
     }
-
-    svg path {
-        fill: ${({ theme }) => theme.colors.severity.error};
-        stroke: ${({ theme }) => theme.colors.severity.error};
-    }
-`;
+}))

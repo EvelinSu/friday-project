@@ -12,7 +12,6 @@ let startState = {} as TAppState;
 beforeEach(() => {
     startState = {
         isInitialized: false,
-        status: "idle",
         messages: [],
         isFetching: false,
         currentTheme: "light",
@@ -20,7 +19,7 @@ beforeEach(() => {
 });
 
 test("message should be added with status success", () => {
-    const action = setAppMessage({ text: "this operation is done", severity: "success" });
+    const action = setAppMessage({text: "this operation is done", severity: "success"});
 
     const endState = appReducer(startState, action);
 

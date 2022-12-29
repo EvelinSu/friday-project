@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import IconButton from "../IconButton/IconButton";
 import LongArrowIcon from "../../assets/icons/LongArrowIcon";
-import { SText } from "../Text/SText";
+import {SText} from "../Text/SText";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { TCardsParams, TPacksParams } from "../../../dal/ResponseTypes";
+import {useNavigate} from "react-router-dom";
+import {TCardsParams, TPacksParams} from "../../../dal/ResponseTypes";
 
 type TBackPageButtonProps = {
     to?: string | -1;
@@ -53,10 +53,10 @@ const SBackPageButton = styled.div<{ isDisabled?: boolean }>((props) => ({
         transform: "translateX(-5px)",
         opacity: 0.7,
     },
-    ...(props.isDisabled && {
+    ...props.isDisabled && {
         pointerEvents: "none",
         opacity: 0.7,
-    }),
+    },
 }));
 
 export default BackPageButton;

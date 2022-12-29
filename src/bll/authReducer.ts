@@ -1,18 +1,18 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authAPI } from "../dal/authAPI";
-import { setAppMessage, setAppStatus, setIsFetching, setIsInitialized } from "./appReducer";
-import { TLoginData, TProfileData, TRegisterData } from "../dal/ResponseTypes";
-import { clearStatePacks } from "./packsReducer";
-import { handlerErrors } from "../common/utils/handlerErrors";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {authAPI} from "../dal/authAPI";
+import {setAppMessage, setIsFetching, setIsInitialized} from "./appReducer";
+import {TLoginData, TProfileData, TRegisterData} from "../dal/ResponseTypes";
+import {clearStatePacks} from "./packsReducer";
+import {handlerErrors} from "../common/utils/handlerErrors";
 
 export const registerTC = createAsyncThunk(
     "auth/register",
-    async (param: TRegisterData, { dispatch }) => {
+    async (param: TRegisterData, {dispatch}) => {
         dispatch(setIsFetching(true));
         try {
             await authAPI.register(param);
             dispatch(setRegisterUserData(param));
-            dispatch(setAppMessage({ text: "Registration was successful!", severity: "success" }));
+            dispatch(setAppMessage({text: "Registration was successful!", severity: "success"}));
             return true;
         } catch (e) {
             handlerErrors(dispatch, e);
@@ -23,14 +23,13 @@ export const registerTC = createAsyncThunk(
     }
 );
 
-export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch, rejectWithValue }) => {
+export const authMeTC = createAsyncThunk("auth/authMe", async (param, {dispatch, rejectWithValue}) => {
     try {
         const me = await authAPI.authMe();
-        const { name, email, avatar } = me.data;
+        const {name, email, avatar} = me.data;
         const id = me.data._id;
         dispatch(setIsInitialized(false));
-        dispatch(setAppStatus("loading"));
-        await dispatch(setUserData({ id, name, email, avatar }));
+        await dispatch(setUserData({id, name, email, avatar}));
         dispatch(setIsLoggedIn(true));
     } catch (e) {
         dispatch(setIsLoggedIn(false));
@@ -42,15 +41,15 @@ export const authMeTC = createAsyncThunk("auth/authMe", async (param, { dispatch
 
 export const loginTC = createAsyncThunk(
     "auth/loginTC",
-    async (data: TLoginData, { dispatch, rejectWithValue }) => {
+    async (data: TLoginData, {dispatch, rejectWithValue}) => {
         dispatch(setIsFetching(true));
         try {
             const res = await authAPI.login(data);
-            const { name, email, avatar } = res.data;
+            const {name, email, avatar} = res.data;
             const id = res.data._id;
-            dispatch(setUserData({ id, name, email, avatar }));
+            dispatch(setUserData({id, name, email, avatar}));
             dispatch(setIsLoggedIn(true));
-            dispatch(setRegisterUserData({ email: "", password: "" }));
+            dispatch(setRegisterUserData({email: "", password: ""}));
         } catch (e) {
             handlerErrors(dispatch, e);
             return rejectWithValue({});
@@ -60,7 +59,7 @@ export const loginTC = createAsyncThunk(
     }
 );
 
-export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch, rejectWithValue }) => {
+export const logOutTC = createAsyncThunk("auth,logOut", async (param, {dispatch, rejectWithValue}) => {
     dispatch(setIsFetching(true));
     try {
         await authAPI.logOut();
@@ -76,11 +75,11 @@ export const logOutTC = createAsyncThunk("auth,logOut", async (param, { dispatch
 
 export const changeUserProfileTC = createAsyncThunk(
     "auth/changeUserProfile",
-    async (data: TProfileData, { dispatch, rejectWithValue }) => {
+    async (data: TProfileData, {dispatch, rejectWithValue}) => {
         dispatch(setIsFetching(true));
         try {
             await authAPI.changeUserProfile(data);
-            dispatch(setAppMessage({ text: "Successfully!", severity: "success" }));
+            dispatch(setAppMessage({text: "Successfully!", severity: "success"}));
             return data;
         } catch (e) {
             handlerErrors(dispatch, e);
@@ -137,5 +136,5 @@ type TMyData = {
     avatar?: string | null;
 };
 
-export const { setIsLoggedIn, setUserData, setRegisterUserData } = slice.actions;
+export const {setIsLoggedIn, setUserData, setRegisterUserData} = slice.actions;
 export const authReducer = slice.reducer;

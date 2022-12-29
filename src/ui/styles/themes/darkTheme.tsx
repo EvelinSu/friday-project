@@ -8,11 +8,14 @@ export const darkTheme = {
         primaryLight: "#8facd3",
         primary: "#314272",
         primaryDark: "#283a67",
+
         secondaryLight: "#252e54",
         secondary: "#1d2848",
         secondaryLightAlpha07: "rgba(50,60,84,0.7)",
+
         textOnSecondary: "#d0d0d0",
         textOnPrimary: "#d0d0d0",
+
         cards: {
             default: ["#263757", "rgba(69,84,122,0.37)"],
             text: "#d0d0d0",

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 
 type TLoaderIcon = {
@@ -93,7 +93,7 @@ const SLoader = styled.div<TLoaderIcon>((props) => ({
     pointerEvents: "none",
     borderRadius: "inherit",
     zIndex: 1,
-    ...(props.absolute && {
+    ...props.absolute && {
         position: "absolute",
         top: 0,
         left: 0,
@@ -104,7 +104,7 @@ const SLoader = styled.div<TLoaderIcon>((props) => ({
         "@media all and (max-width: 540px)": {
             position: "fixed",
         },
-    }),
+    },
     svg: {
         width: 80,
         height: 80,
