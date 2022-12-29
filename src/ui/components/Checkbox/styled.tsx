@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const SLabel = styled.label(() => ({
+export const SLabel = styled.label({
     display: "flex",
     alignItems: "center",
     justifyContent: "inherit",
-}));
+});
 
 export const SCheckbox = styled.input((props) => ({
     appearance: "none",

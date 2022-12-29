@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SCardWrapper = styled.div<{ isFetching: boolean }>(({ theme, isFetching }) => ({
+export const SCardWrapper = styled.div<{ isFetching: boolean }>(({theme, isFetching}) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -22,7 +22,7 @@ export const SCardWrapper = styled.div<{ isFetching: boolean }>(({ theme, isFetc
     }),
 }));
 
-export const SCardShadow = styled.div((props) => ({
+export const SCardShadow = styled.div({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -43,16 +43,16 @@ export const SCardShadow = styled.div((props) => ({
     "&:hover": {
         opacity: 1,
     },
-}));
+});
 
-export const SCardIcons = styled.div((props) => ({
+export const SCardIcons = styled.div({
     display: "flex",
     gap: 10,
     columnGap: 10,
     position: "absolute",
     bottom: 10,
     right: 10,
-}));
+});
 
 export const SCardText = styled.div<{ lineClamp?: number }>`
     display: -webkit-box;
@@ -62,10 +62,10 @@ export const SCardText = styled.div<{ lineClamp?: number }>`
     word-break: break-word;
 `;
 
-export const SCardImage = styled.img((props) => ({
+export const SCardImage = styled.img({
     objectFit: "cover",
     objectPosition: "center",
     maxWidth: "100%",
     maxHeight: "calc(100% - 60px)",
     borderRadius: "inherit",
-}));
+});

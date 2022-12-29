@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { SStar } from "../../components/Stars/styled";
+import {SStar} from "../../components/Stars/styled";
 
 export const LearningImage = styled.img(() => ({
     maxWidth: "100%",
 }));
 
-export const SLearningContainer = styled.div((props) => ({
+export const SLearningContainer = styled.div({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -14,9 +14,9 @@ export const SLearningContainer = styled.div((props) => ({
     minHeight: 200,
     gap: 20,
     rowGap: 20,
-}));
+});
 
-export const SLearningContent = styled.div(({ theme }) => ({
+export const SLearningContent = styled.div(({theme}) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -30,13 +30,13 @@ export const SLearningContent = styled.div(({ theme }) => ({
     maxHeight: 200,
 }));
 
-export const SLearningBoxTitle = styled.div((props) => ({
+export const SLearningBoxTitle = styled.div({
     textAlign: "center",
     fontWeight: 600,
     fontSize: 16,
-}));
+});
 
-export const SLearningStar = styled(SStar)(({ theme, title }) => ({
+export const SLearningStar = styled(SStar)(({theme, title}) => ({
     ...(title && {
         display: "flex",
         justifyContent: "center",

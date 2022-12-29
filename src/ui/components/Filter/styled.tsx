@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box } from "../Box/Box";
+import {Box} from "../Box/Box";
 
 type TSFilterWrapperProps = {
     isActive?: boolean;
@@ -60,8 +60,8 @@ export const SFilterContainer = styled.div((props) => ({
     },
 }));
 
-export const SFilterReset = styled.div((props) => ({
+export const SFilterReset = styled.div({
     marginLeft: "auto",
     marginBottom: -10,
     marginTop: -20,
-}));
+});

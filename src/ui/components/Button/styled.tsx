@@ -29,7 +29,7 @@ export const SButton = styled.button<TSButton>`
     white-space: nowrap;
     padding: 8px 15px;
     border-radius: 20px;
-    background-color: ${(props) => props.backgroundColor || "#ffffff"};
+    background-color: ${(props) => props.backgroundColor || props.theme.colors.primary};
     color: #fff;
     cursor: pointer;
     transition: 0.2s;

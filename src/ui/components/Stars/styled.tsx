@@ -16,7 +16,7 @@ export const SStarsWrapper = styled.div<TSStarsWrapper>((props) => ({
     }),
 }));
 
-export const SStar = styled.div(() => ({
+export const SStar = styled.div({
     cursor: "pointer",
     transition: "0.2s",
     ".isFill": {
@@ -28,4 +28,4 @@ export const SStar = styled.div(() => ({
     "&:hover": {
         transform: "scale(1.1)",
     },
-}));
+});
